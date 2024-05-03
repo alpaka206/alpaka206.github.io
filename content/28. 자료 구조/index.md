@@ -1,0 +1,104 @@
+---
+emoji: 👨🏻‍🏫
+title: 28. 자료 구조
+date: '2024-01-10 00:00:00'
+author: Alpaka206
+tags: 정보처리기사
+categories: 정보처리기사
+---
+
+## 자료 구조의 정의
+
+> - 효율적인 프로그램을 작성할 때 가장 우선적인 고려사항은 저장 공간의 효율성과 실행시간의 신속성이다. 자료 구조는 프로그램에서 사용하기 위한 자료를 기억장치의 공간 내에 저장하는 방법과 저장된 그룹 내에 존재하는 자료 간의 관계, 처리 방법 등을 연구 분석하는 것을 말한다.
+
+- 자료 구조의 분류![](https://velog.velcdn.com/images/alpaka206/post/5ca3ac03-b604-4a9e-b24b-f4be2b2779a4/image.png)
+
+## 배열(Array)
+
+> - 배열은 동일한 자료형의 데이터들이 같은 크기로 나열되어 순서를 갖고 있는 집합
+
+- 배열은 정적인 자료 구조로 기억장소의 추가가 어렵고, 데이터 삭제 시 데이터가 저장되어 있던 기억장소는 빈 공간으로 남아있어 메모리의 낭비가 발생한다.
+- 배열은 첨자를 이용하여 데이터에 접근한다.
+- 배열은 반복적인 데이터 처리 작업에 적합한 구조이다.
+- 배열은 데이터마다 동일한 이름의 변수를 사용하여 처리가 간편하다.
+- 배열은 사용한 첨자의 개수에 따라 차원 배열이라고 부른다.
+
+## 선형 리스트(Linear List)
+
+> - 선형 리스트는 일정한 순서에 의해 나열된 자료 구조이다.
+
+- 선형 리스트는 배열을 이용하는 연속 리스트(Contiguous List)와 포인터를 이용하는 연결 리스트(Linked List)로 구분된다.
+- 연속 리스트(Contiguous List)
+  - 연속 리스트는 배열과 같이 연속되는 기억장소에 저장되는 자료 구조이다.
+  - 연속 리스트는 기억장소를 연속적으로 배정받기 때문에 기억장소 이용 효율은 밀도가 1로서 가장 좋다.
+  - 연속 리스트는 중간에 데이터를 삽입하기 위해서는 연속된 빈 공간이 있어야 하며, 삽입, 삭제 시 자료의 이동이 필요하다.![](https://velog.velcdn.com/images/alpaka206/post/d2baff72-0bd7-4f96-9000-bce2eada89d5/image.png)
+- 연결 리스트(Linked List)
+  - 연결 리스트는 자료들을 반드시 연속적으로 배열시키지는 않고 임의의 기억공간에 기억시키되, 자료 항목의 순서에 따라 노드의 포인터 부분을 이용하여 서로 연결시킨 자료 구조이다.
+  - 연결 리스트는 노드의 삽입 · 삭제 작업이 용이하다.
+  - 기억 공간이 연속적으로 놓여 있지 않아도 저장할 수 있다.
+  - 연결 리스트는 연결을 위한 링크(포인터) 부분이 필요하기 때문에 순차 리스트에 비해 기억 공간의 이용 효율이 좋지 않다.
+  - 연결 리스트는 연결을 위한 포인터를 찾는 시간이 필요하기 때문에 접근 속도가 느리다.
+  - 연결 리스트는 중간 노드 연결이 끊어지면 그 다음 노드를 찾기 힘들다.![](https://velog.velcdn.com/images/alpaka206/post/50b6dec4-024d-4371-9b2f-458fc5f5959c/image.png)
+
+## 스택(Stack)
+
+> - 스택은 리스트의 한쪽 끝으로만 자료의 삽입, 삭제 작업이 이루어지는 자료 구조이다.
+
+- 스택은 가장 나중에 삽입된 자료가 가장 먼저 삭제되는 후입선출(LIFO: Last In First Out) 방식으로 자료를 처리한다.
+- Stack의 응용 분야: 함수 호출의 순서 제어, 인터럽트의 처리, 수식 계산 및 수식 표기법, 컴파일러를 이용한 언어 번역, 부 프로그램 호출 시 복귀 주소 저장, 서브 루틴 호출 및 복귀 주소 저장
+- 스택의 모든 기억 공간이 꽉 채워져 있는 상태에서 데이터가 삽입되면 오버플로(Overflow)가 발생하며, 더 이상 삭제할 데이터가 없는 상태에서 데이터를 삭제하면 언더플로(Underflow)가 발생한다.![](https://velog.velcdn.com/images/alpaka206/post/643bc17d-c777-48b7-9c6a-19b074e11c5c/image.png)
+- TOP: 스택으로 할당된 기억 공간에 가장 마지막으로 삽입된 자료가 기억된 위치를 가리키는 요소이다.
+- Bottom : 스택의 가장 밑바닥이다.
+- 자료의 삽입(Push)![](https://velog.velcdn.com/images/alpaka206/post/b5ea9212-e315-407e-9d59-4e96bc157f65/image.png)
+  - M: 스택의 크기
+  - Top: 스택 포인터
+  - X: 스택의 이름
+  - Overflow: 스택으로 할당받은 메모리 부분의 마지막 주소가 M번지라고 할 때, Top Pointer의 값이 M보다 커지면 스택의 모든 기억장소가 꽉 채워져 있는 상태이므로 더 이상 자료를 삽입할 수 없어 Overflow를 발생시킨다.![](https://velog.velcdn.com/images/alpaka206/post/478d6314-3feb-46dd-a857-4c54c9f5b52a/image.png)
+- 자료의 삭제(Pop Up)![](https://velog.velcdn.com/images/alpaka206/post/bd1da1ef-8ced-45eb-b825-bbaaed610089/image.png)※ Stack에 기억되어 있는 자료를 삭제시킬 때는 제일 먼저 삭제할 자료가 있는지 없는지부터 확인해야 한다.
+  - Underflow: Top Pointer가 주소 0을 가지고 있다면 스택에는 삭제할 자료가 없으므로 Underflow를 발생시킨다.
+
+## 큐(Queue)
+
+> - 큐는 리스트의 한쪽에서는 삽입 작업이 이루어지고 다른 한쪽에서는 삭제 작업이 이루어지도록 구성한 자료 구조이다.
+
+- 큐는 가장 먼저 삽입된 자료가 가장 먼저 삭제되는 선입선출(FIFO; First In First Out) 방식으로 처리한다.
+- 큐는 시작과 끝을 표시하는 두 개의 포인터가 있다.![](https://velog.velcdn.com/images/alpaka206/post/3aef509c-1535-494c-9b2e-eb3865ba41e7/image.png)
+- 프런트(F, Front) 포인터: 가장 먼저 삽입된 자료의 기억 공간을 가리키는 포인터로, 된 자료의 기억 공간을 삭제 작업을 할 때 사용한다.
+- 리어(R, Rear) 포인터: 가장 마지막에 삽입된 자료가 위치한 기억 공간을 가리키는 포인터로 삽입 작업을 할 때 사용한다.
+- 큐는 운영체제의 작업 스케줄링에 사용한다.
+
+## 데크(Deque)
+
+> - 삽입과 삭제가 리스트의 양쪽 끝에서 모두 발생할 수 있는 자료 구조이다.
+
+- Double Ended Queue의 약자이다.
+- Stack과 Queue의 장점만 따서 구성한 것이다.![](https://velog.velcdn.com/images/alpaka206/post/e6ec18ce-6dc3-4fdb-93e4-8abacad6db93/image.png)
+- 입력이 한쪽에서만 발생하고 출력은 양쪽에서 일어날 수 있는 입력 제한과, 입력은 양쪽에서 일어나고 출력은 한 곳에서만 이루어지는 출력 제한이 있다.
+- 입력 제한 데크: Scroll
+- 출력 제한 데크: Shelf![](https://velog.velcdn.com/images/alpaka206/post/75620c4a-dd5e-445a-978f-db458ddc134f/image.png)
+
+## 그래프(Graph)
+
+> - 그래프 G는 정점 V(Vertex)와 간선 E(Edge)의 두 집합으로 이루어진다.
+
+- 간선의 방향성 유무에 따라 방향 그래프와 무방향 그래프로 구분된다.
+- 통신망(Network), 교통망, 이항관계, 연립방정식, 유기화학 구조식, 무향선분 해법 등에 응용된다.
+- 트리(Tree)는 사이클이 없는 그래프(Graph)이다.![](https://velog.velcdn.com/images/alpaka206/post/d6ad0a6d-719d-4acc-8a3f-fdd78c3f0040/image.png)
+- 방향/무방향 그래프의 최대 간선 수
+  - n개의 정점으로 구성된 무방향 그래프에서 최대 간선 수는 n(n-1)/2이고, 방향 그래프에서 최대 간선 수는 n(n-1)입니다.
+  - 정점이 4개인 경우 무방향 그래프와 방향 그래프의 최대 간선 수는 다음과 같습니다.![](https://velog.velcdn.com/images/alpaka206/post/af5faacf-5fa4-4262-b405-8b51badb1725/image.png)
+
+출처: 2024 시나공 정보처리기사 필기 기본서
+
+```toc
+
+```
+
+<script src="https://utteranc.es/client.js"
+        repo="alpaka206/alpaka206.github.io"
+        issue-term="pathname"
+        label="utterances"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
