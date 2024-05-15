@@ -7,6 +7,14 @@ module.exports = {
 
   plugins: [
     {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        trackingId: `G-Z0JD8BBEME`,
+        head: true,
+        anonymize: true,
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `assets`,
@@ -41,14 +49,7 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-gtag`,
-      options: {
-        trackingId: metaConfig.ga,
-        head: false,
-        anonymize: true,
-      },
-    },
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

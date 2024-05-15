@@ -3,7 +3,7 @@ module.exports = {
   description: `김규원의 개발일기`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
   siteUrl: `https://alpaka206.github.io/`,
-  ogImage: `/og-image.png`, // Path to your in the 'static' folder
+  ogImage: `/preview-image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
       repo: `alpaka206/alpaka206.github.io`, // `zoomkoding/zoomkoding-gatsby-blog`,

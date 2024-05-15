@@ -31,7 +31,7 @@ categories: 정보처리기사
 - 요구사항 개발 프로세스가 진행되기 전에 개발 프로세스가 비지니스 목적에 부합되는지, 예산은 적정한지 등에 대한 정보를 수집, 평가한 보고서를 토대로 타당성 조사(Feasibility Study)가 선행되어야 한다.
 - 요구사항 개발은 요구공학(Requirement Engineering)의 한 요소이다.
 
-##### <span style="border:2px solid; padding: 5px 5px; ">도출(Elicitation)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">분석(Analysis)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">개발(Specification)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">평가(Validation)</span>
+- <span style="border:2px solid; padding: 5px 5px; ">도출(Elicitation)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">분석(Analysis)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">개발(Specification)</span> &rarr; <span style="border:2px solid; padding: 5px 5px">평가(Validation)</span>
 
 ### 요구공학(Requirements Engineering)
 

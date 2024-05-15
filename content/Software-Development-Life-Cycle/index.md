@@ -42,7 +42,7 @@ categories: 정보처리기사
 - 각 단계가 끝난후에는 다음 단계를 수행하기 위한 결과물이 명확하게 산출되어야 한다.
 - <span style="color:indianred">**두 개 이상의 과정이 병행하여 수행되지 않는다.**</span>
 
-###### <span style="border:2px solid; padding: 5px 10px; ">타당성 검토</span> &rarr; <span style="border:2px solid; padding: 5px 10px">계획</span> &rarr; <span style="border:2px solid; padding: 5px 10px">요구 분석</span> &rarr; <span style="border:2px solid; padding: 5px 10px">설계</span> &rarr; <span style="border:2px solid; padding: 5px 10px">구현</span> &rarr; <span style="border:2px solid; padding: 5px 10px">시험</span> &rarr; <span style="border:2px solid; padding: 5px 10px">유지보수</span>
+- <span style="border:2px solid; padding: 5px 10px; ">타당성 검토</span> &rarr; <span style="border:2px solid; padding: 5px 10px">계획</span> &rarr; <span style="border:2px solid; padding: 5px 10px">요구 분석</span> &rarr; <span style="border:2px solid; padding: 5px 10px">설계</span> &rarr; <span style="border:2px solid; padding: 5px 10px">구현</span> &rarr; <span style="border:2px solid; padding: 5px 10px">시험</span> &rarr; <span style="border:2px solid; padding: 5px 10px">유지보수</span>
 
 ## 프로토타입 모형(Prototype Model, 원형 모형)
 
@@ -62,7 +62,7 @@ categories: 정보처리기사
 - 핵심 기술에 문제가 있거나 사용자의 요구사항이 이해하기 어려운 경우에 적합한 모델
 - 점진적으로 개발 과정이 반복되므로 누락되거나 추가된 요구사항을 첨가할 수 있고, 정밀하며, 유지보수 과정이 필요 없다.
 
-### <span style="border:2px solid; padding: 5px 35px; ">계획</span> &rarr; <span style="border:2px solid; padding: 5px 35px">분석</span> &rarr; <span style="border:2px solid; padding: 5px 35px">개발</span> &rarr; <span style="border:2px solid; padding: 5px 35px">평가</span>
+- <span style="border:2px solid; padding: 5px 35px; ">계획</span> &rarr; <span style="border:2px solid; padding: 5px 35px">분석</span> &rarr; <span style="border:2px solid; padding: 5px 35px">개발</span> &rarr; <span style="border:2px solid; padding: 5px 35px">평가</span>
 
 ![](https://velog.velcdn.com/images/alpaka206/post/edb98417-b00a-4528-9563-23e4c2bc7a64/image.png)
 
