@@ -21,15 +21,22 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
     "paths": {
-      "~assets/*": [
-        "./src/assets/*"
-      ],
       "~/*": [
         "src/*"
       ],
       "~pages/*": [
         "src/pages/*"
+      ],
+      "~css/*": [
+        "src/css/*"
+      ],
+      "~components/*": [
+        "src/components/*"
+      ],
+      "~Rotation/*": [
+        "src/components/Rotation/*"
       ]
     }
   },
