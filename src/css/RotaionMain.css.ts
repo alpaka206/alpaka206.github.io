@@ -15,18 +15,12 @@ export const satellites = style({
   display: "flex",
   justifyContent: "center",
   position: "relative",
-  marginTop: "300px",
-  "@media": {
-    "(max-width: 768px)": {
-      marginTop: "150px",
-    },
-  },
 });
 
 export const satellite = style({
   position: "absolute",
   width: "100px",
-  transform: "rotateY(calc(var(--i) * 1deg)) translateZ(550px)",
+  transform: "rotateY(calc(var(--i) * 1deg)) translateZ(40vw)",
   "@media": {
     "(max-width: 768px)": {
       // Adjust for smaller screens
