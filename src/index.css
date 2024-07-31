@@ -1,7 +1,0 @@
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* Add this line */
-  width: 100vw; /* Ensure the body spans the full viewport width */
-  height: 100vh; /* Ensure the body spans the full viewport height */
-}
