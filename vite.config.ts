@@ -6,10 +6,12 @@ export default defineConfig({
   plugins: [react(), vanillaExtractPlugin()],
   build: {
     sourcemap: false,
+    manifest: true,
     rollupOptions: {
       output: {
         manualChunks: undefined,
       },
+      input: "/path/to/main.js",
     },
   },
 });
