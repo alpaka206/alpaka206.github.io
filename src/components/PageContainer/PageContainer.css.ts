@@ -21,7 +21,7 @@ export const modalContent = style({
   padding: "20px",
   border: "1px solid #888",
   width: "80%",
-  maxWidth: "600px",
+  height: "80%",
   borderRadius: "10px",
   boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
 });
@@ -46,6 +46,6 @@ export const closeButton = style({
 
 export const modalBody = style({
   marginTop: "10px",
-  height: "calc(40%)",
-  overflow: "auto",
+  height: "100%",
+  //   overflow: "auto",
 });

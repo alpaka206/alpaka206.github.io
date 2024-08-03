@@ -32,7 +32,8 @@ const Mainpage: React.FC = () => {
       case "깃허브":
         return (
           <iframe
-            src="https://github.com/alpaka206"
+            src="https://alpaka206.vercel.app/"
+            // src="http://localhost:5173/Github"
             style={{ width: "100%", height: "100%", border: "none" }}
             title="GitHub"
           ></iframe>
