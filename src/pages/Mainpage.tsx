@@ -1,46 +1,16 @@
-// Mainpage.tsx
 import React, { useState } from "react";
 import * as styles from "../css/Mainpage.css";
-// import { useNavigate } from "react-router-dom";
-
 import FolderContainer from "../components/FolderContainer/FolderContainer";
 import PageContainer from "../components/PageContainer/PageContainer";
+import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
+import { useRecoilState } from "recoil";
+import { tabsState } from "../Atoms";
 
 const Mainpage: React.FC = () => {
-  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
+  const [tabs, setTabs] = useRecoilState(tabsState);
 
-  const handleFolderClick = (title: string) => {
-    setSelectedFolder(title);
-  };
-
-  const handleClose = () => {
-    setSelectedFolder(null);
-  };
-
-  const renderContent = () => {
-    switch (selectedFolder) {
-      case "프로필":
-        return <div>프로필 내용</div>;
-      case "프로젝트":
-        return <div>프로젝트 내용</div>;
-      case "블로그":
-        return <div>블로그 내용</div>;
-      case "인스타":
-        return <div>인스타 내용</div>;
-      case "수상내역":
-        return <div>수상내역 내용</div>;
-      case "깃허브":
-        return (
-          <iframe
-            src="https://alpaka206.vercel.app/"
-            // src="http://localhost:5173/Github"
-            style={{ width: "100%", height: "100%", border: "none" }}
-            title="GitHub"
-          ></iframe>
-        );
-      default:
-        return null;
-    }
+  const handlePageOpen = (title: string, content: React.ReactNode) => {
+    setTabs((prevTabs) => [...prevTabs, { title, content }]);
   };
 
   return (
@@ -49,42 +19,104 @@ const Mainpage: React.FC = () => {
         <FolderContainer
           imageUrl="./assets/AboutMe.png"
           title="프로필"
-          onClick={() => handleFolderClick("프로필")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              { title: "프로필", content: <div>프로필 내용</div> },
+            ])
+          }
         />
         <FolderContainer
           imageUrl="./assets/Folder.png"
           title="프로젝트"
-          onClick={() => handleFolderClick("프로젝트")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              {
+                title: "프로젝트",
+                content: <FolderPageContainer folders={projectFolders} />,
+              },
+            ])
+          }
         />
         <FolderContainer
           imageUrl="./assets/Blog.png"
           title="블로그"
-          onClick={() => handleFolderClick("블로그")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              {
+                title: "블로그",
+                content: (
+                  <iframe
+                    src="https://alpaka206.vercel.app/"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Blog"
+                  ></iframe>
+                ),
+              },
+            ])
+          }
         />
       </div>
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/Insta.png"
           title="인스타"
-          onClick={() => handleFolderClick("인스타")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              {
+                title: "인스타",
+                content: (
+                  <iframe
+                    src="https://www.instagram.com/alpaka_dev/embed"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Instagram"
+                  ></iframe>
+                ),
+              },
+            ])
+          }
         />
         <FolderContainer
           imageUrl="./assets/prize.png"
           title="수상내역"
-          onClick={() => handleFolderClick("수상내역")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              { title: "수상내역", content: <div>수상내역 내용</div> },
+            ])
+          }
         />
         <FolderContainer
           imageUrl="./assets/Github.png"
           title="깃허브"
-          onClick={() => handleFolderClick("깃허브")}
+          onClick={() =>
+            setTabs((prevTabs) => [
+              ...prevTabs,
+              {
+                title: "깃허브",
+                content: (
+                  <iframe
+                    src="http://localhost:5173/Github"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="GitHub"
+                  ></iframe>
+                ),
+              },
+            ])
+          }
         />
       </div>
-      {selectedFolder && (
-        <PageContainer
-          title={selectedFolder}
-          content={renderContent()}
-          onClose={handleClose}
-        />
+      {tabs.length > 0 && (
+        <PageContainer tabs={tabs} onClose={() => setTabs([])} />
       )}
     </div>
   );
