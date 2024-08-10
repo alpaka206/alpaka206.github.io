@@ -4,11 +4,18 @@ import { Tab } from "../../Atoms";
 
 export interface PageContainerProps {
   tabs: Tab[];
+  activeTab: number;
+  setActiveTab: (index: number) => void;
   onClose: () => void;
 }
 
-const PageContainer: React.FC<PageContainerProps> = ({ tabs, onClose }) => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+const PageContainer: React.FC<PageContainerProps> = ({
+  tabs,
+  activeTab,
+  setActiveTab,
+  onClose,
+}) => {
+  // const [activeTab, setActiveTab] = useState<number>(0);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
@@ -55,15 +62,48 @@ const PageContainer: React.FC<PageContainerProps> = ({ tabs, onClose }) => {
       >
         <div className={styles.tabs}>
           {tabs.map((tab, index) => (
-            <button
-              key={index}
-              className={`${styles.tabButton} ${
-                activeTab === index ? styles.activeTab : ""
-              }`}
-              onClick={() => setActiveTab(index)}
-            >
-              {tab.title}
-            </button>
+            <>
+              {activeTab === index ? (
+                <div className={styles.TabSide}>
+                  <div className={styles.leftTabSideElement} />
+                </div>
+              ) : (
+                ""
+              )}
+
+              {/* <div className={` ${activeTab === index ? styles.TabSide : ""}`}>
+                <div className={styles.leftTabSideElement} />
+              </div> */}
+              <button
+                key={index}
+                className={`${styles.tabButton} ${
+                  activeTab === index ? styles.activeTab : styles.unactiveTab
+                }`}
+                onClick={() => setActiveTab(index)}
+              >
+                <img
+                  src={tab.imageUrl}
+                  alt={tab.title}
+                  className={styles.tabButtonImage}
+                />
+                {tab.title}
+                <img
+                  src="./assets/close.svg"
+                  alt={tab.title}
+                  className={styles.closeTabButton}
+                />
+              </button>
+              {activeTab === index ? (
+                <div className={styles.TabSide}>
+                  <div className={styles.rightTabSideElement} />
+                </div>
+              ) : (
+                ""
+              )}
+              {/* <div className={` ${activeTab === index ? styles.TabSide : ""}`}>
+                <div className={styles.rightTabSideElement} />
+              </div> */}
+            </>
           ))}
         </div>
         <span className={styles.closeButton} onClick={onClose}>

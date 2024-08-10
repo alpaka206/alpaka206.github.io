@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import PageContainer, { PageContainerProps } from "./PageContainer";
-import "../components/PageContainer.css"; // 필요시 CSS 파일도 가져오기
+import * as styles from "./PageContainer.css";
 
 export default {
   title: "Components/PageContainer",
@@ -13,19 +13,50 @@ const Template: StoryFn<PageContainerProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Default Title",
-  content: <p>This is the default content</p>,
-  onClose: () => alert("Closed"),
+  tabs: [
+    {
+      title: "Tab 1",
+      imageUrl: "https://via.placeholder.com/20", // 탭의 아이콘을 위한 이미지 URL
+      content: (
+        <div className={styles.tabContent}>This is the content for Tab 1</div>
+      ),
+    },
+    {
+      title: "Tab 2",
+      imageUrl: "https://via.placeholder.com/20", // 탭의 아이콘을 위한 이미지 URL
+      content: (
+        <div className={styles.tabContent}>This is the content for Tab 2</div>
+      ),
+    },
+    {
+      title: "Tab 3",
+      imageUrl: "https://via.placeholder.com/20", // 탭의 아이콘을 위한 이미지 URL
+      content: (
+        <div className={styles.tabContent}>This is the content for Tab 3</div>
+      ),
+    },
+  ],
+  onClose: () => alert("PageContainer closed"),
 };
 
-export const WithCustomContent = Template.bind({});
-WithCustomContent.args = {
-  title: "Custom Title",
-  content: (
-    <div>
-      <p>This is custom content</p>
-      <button onClick={() => alert("Button clicked")}>Click Me</button>
-    </div>
-  ),
-  onClose: () => alert("Closed"),
+export const WithCustomPosition = Template.bind({});
+WithCustomPosition.args = {
+  ...Default.args,
+  initialPosition: { x: 100, y: 100 },
+};
+
+export const SingleTab = Template.bind({});
+SingleTab.args = {
+  tabs: [
+    {
+      title: "Single Tab",
+      imageUrl: "https://via.placeholder.com/20",
+      content: (
+        <div className={styles.tabContent}>
+          This is the content for the single tab
+        </div>
+      ),
+    },
+  ],
+  onClose: () => alert("PageContainer closed"),
 };
