@@ -4,11 +4,15 @@ import FolderContainer from "../components/FolderContainer/FolderContainer";
 import PageContainer from "../components/PageContainer/PageContainer";
 import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
 import { useRecoilState } from "recoil";
-import { tabsState } from "../Atoms";
+import { tabsState, ZIndexState } from "../Atoms.tsx";
 
 const Mainpage: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsState);
+  const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeFolderPage, setActiveFolderPage] = useState<boolean>(false);
+  // const [pageZIndex, setPageZIndex] = useState<number>(1000);
+  // const [folderZIndex, setFolderZIndex] = useState<number>(999);
 
   const handlePageOpen = (
     title: string,
@@ -20,8 +24,27 @@ const Mainpage: React.FC = () => {
       setActiveTab(newTabs.length - 1); // 새로 생성된 탭의 인덱스를 activeTab으로 설정
       return newTabs;
     });
+    bringPageToFront();
   };
 
+  const handleFolderPageOpen = () => {
+    setActiveFolderPage(true);
+    bringFolderToFront();
+  };
+
+  const bringPageToFront = () => {
+    setZIndexState({
+      pageZIndex: 1000,
+      folderZIndex: 999,
+    });
+  };
+
+  const bringFolderToFront = () => {
+    setZIndexState({
+      pageZIndex: 999,
+      folderZIndex: 1000,
+    });
+  };
   return (
     <div className={styles.container}>
       <div className={styles.folderContainer}>
@@ -32,20 +55,20 @@ const Mainpage: React.FC = () => {
             handlePageOpen(
               "프로필",
               "./assets/AboutMe.png",
-              <div>프로필 내용</div>
+              <iframe
+                src="http://localhost:5173/Profile"
+                width="100%"
+                height="90%"
+                frameBorder="0"
+                title="Profile"
+              ></iframe>
             )
           }
         />
         <FolderContainer
           imageUrl="./assets/Folder.png"
           title="프로젝트"
-          onClick={() =>
-            handlePageOpen(
-              "프로젝트",
-              "./assets/Folder.png",
-              <FolderPageContainer folders={projectFolders} />
-            )
-          }
+          onClick={() => handleFolderPageOpen()}
         />
         <FolderContainer
           imageUrl="./assets/Blog.png"
@@ -90,7 +113,13 @@ const Mainpage: React.FC = () => {
             handlePageOpen(
               "수상내역",
               "./assets/prize.png",
-              <div>수상내역 내용</div>
+              <iframe
+                src="http://localhost:5173/Prize"
+                width="100%"
+                height="90%"
+                frameBorder="0"
+                title="Prize"
+              ></iframe>
             )
           }
         />
@@ -118,6 +147,16 @@ const Mainpage: React.FC = () => {
           activeTab={activeTab}
           onClose={() => setTabs([])}
           setActiveTab={setActiveTab}
+          style={{ zIndex: zIndexState.pageZIndex }}
+          bringPageToFront={bringPageToFront}
+        />
+      )}
+      {activeFolderPage && (
+        <FolderPageContainer
+          onClose={() => setActiveFolderPage(false)}
+          setActiveTab={setActiveTab}
+          style={{ zIndex: zIndexState.folderZIndex }}
+          bringFolderToFront={bringFolderToFront}
         />
       )}
     </div>

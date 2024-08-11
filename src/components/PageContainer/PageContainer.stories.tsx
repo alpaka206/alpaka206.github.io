@@ -38,25 +38,3 @@ Default.args = {
   ],
   onClose: () => alert("PageContainer closed"),
 };
-
-export const WithCustomPosition = Template.bind({});
-WithCustomPosition.args = {
-  ...Default.args,
-  initialPosition: { x: 100, y: 100 },
-};
-
-export const SingleTab = Template.bind({});
-SingleTab.args = {
-  tabs: [
-    {
-      title: "Single Tab",
-      imageUrl: "https://via.placeholder.com/20",
-      content: (
-        <div className={styles.tabContent}>
-          This is the content for the single tab
-        </div>
-      ),
-    },
-  ],
-  onClose: () => alert("PageContainer closed"),
-};

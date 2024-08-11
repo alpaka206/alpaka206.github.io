@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const window = style({
+export const folderPage = style({
   position: "absolute",
   width: "500px",
   height: "400px",
@@ -18,7 +18,6 @@ export const windowHeader = style({
   justifyContent: "space-between",
   padding: "10px",
   backgroundColor: "#ddd",
-  cursor: "move",
 });
 
 export const folderTitle = style({
@@ -58,4 +57,8 @@ export const windowBody = style({
   padding: "20px",
   height: "calc(100% - 60px)", // Adjust height to account for header
   overflowY: "auto",
+});
+
+export const folderContainer = style({
+  display: "flex",
 });

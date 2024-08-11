@@ -1,22 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as styles from "./PageContainer.css";
-import { Tab } from "../../Atoms";
+import { tabsState } from "../../Atoms";
+import { useRecoilValue } from "recoil";
 
 export interface PageContainerProps {
-  tabs: Tab[];
+  // tabs: Tab[];
   activeTab: number;
   setActiveTab: (index: number) => void;
   onClose: () => void;
+  style?: React.CSSProperties;
+  bringPageToFront: () => void;
 }
 
 const PageContainer: React.FC<PageContainerProps> = ({
-  tabs,
+  // tabs,
   activeTab,
   setActiveTab,
   onClose,
+  style,
+  bringPageToFront,
 }) => {
   // const [activeTab, setActiveTab] = useState<number>(0);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const tabs = useRecoilValue(tabsState);
+
+  const [position, setPosition] = useState({ x: 200, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
@@ -53,7 +60,8 @@ const PageContainer: React.FC<PageContainerProps> = ({
   return (
     <div
       className={styles.window}
-      style={{ left: position.x, top: position.y }}
+      style={{ ...style, left: position.x, top: position.y }}
+      onClick={() => bringPageToFront()}
     >
       <div
         className={styles.windowHeader}
@@ -70,10 +78,6 @@ const PageContainer: React.FC<PageContainerProps> = ({
               ) : (
                 ""
               )}
-
-              {/* <div className={` ${activeTab === index ? styles.TabSide : ""}`}>
-                <div className={styles.leftTabSideElement} />
-              </div> */}
               <button
                 key={index}
                 className={`${styles.tabButton} ${
@@ -100,15 +104,15 @@ const PageContainer: React.FC<PageContainerProps> = ({
               ) : (
                 ""
               )}
-              {/* <div className={` ${activeTab === index ? styles.TabSide : ""}`}>
-                <div className={styles.rightTabSideElement} />
-              </div> */}
             </>
           ))}
         </div>
-        <span className={styles.closeButton} onClick={onClose}>
-          &times;
-        </span>
+        <img
+          src="./assets/close.svg"
+          alt="closeButton"
+          onClick={onClose}
+          className={styles.closeButton}
+        />
       </div>
       <div className={styles.windowBody}>{tabs[activeTab]?.content}</div>
     </div>

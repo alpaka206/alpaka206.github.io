@@ -27,5 +27,6 @@ export const titleStyle = style({
   fontSize: "13px",
   fontWeight: "600",
   color: "#ffffff",
-  WebkitTextStroke: "0.5px black",
+  textShadow: "1px 1px 2px black, 0 0 2px black",
+  // WebkitTextStroke: "0.5px black",
 });

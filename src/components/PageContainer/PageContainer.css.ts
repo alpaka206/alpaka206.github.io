@@ -9,7 +9,6 @@ export const window = style({
   border: "1px solid #888",
   borderRadius: "10px",
   boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-  zIndex: 1000,
   overflow: "hidden",
 });
 
@@ -17,8 +16,6 @@ export const windowHeader = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  // padding: "10px",
-
   backgroundColor: "#DFDFDF",
 });
 
@@ -42,6 +39,7 @@ export const tabButton = style({
   margin: "6px 0 0 0",
   fontSize: "12px",
   fontWeight: "400",
+  userSelect: "none",
 });
 
 export const tabButtonImage = style({
@@ -71,17 +69,21 @@ export const closeTabButton = style({
   padding: "0",
   display: "flex",
   marginLeft: "auto",
-  // marginRight: "auto",
+  userSelect: "none",
 });
 
 export const closeButton = style({
   fontSize: "30px",
-  cursor: "pointer",
+  width: "12px",
+  height: "12px",
+  marginRight: "10px",
+  userSelect: "none",
 });
 
 export const windowBody = style({
-  padding: "20px",
-  height: "calc(100% - 60px)", // Adjust height to account for header
+  // padding: "20px",
+  // height: "calc(100% - 60px)",
+  height: "120%",
   overflowY: "auto",
 });
 
