@@ -1,23 +1,60 @@
 import { style } from "@vanilla-extract/css";
 
 export const PrizePage = style({
-  padding: "0 30px",
+  padding: "20px 30px",
 });
 
 export const PrizeContainer = style({
-  display: "flex",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+  gap: "20px",
 });
 
 export const PrizeElement = style({
-  width: "150px",
-  height: "200px",
+  width: "300px",
+  margin: "10px 0",
+  boxSizing: "border-box",
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
+  flexDirection: "row",
   alignItems: "center",
 });
 
 export const PrizeImage = style({
-  width: "130px",
-  height: "180px",
+  width: "120px",
+  objectFit: "cover",
+  border: "1px solid #000",
+});
+
+export const PrizeExplain = style({
+  marginLeft: "8px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  width: "232px",
+  wordBreak: "keep-all",
+});
+
+export const ModalOverlay = style({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: "rgba(0, 0, 0, 0.7)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: 1000,
+});
+
+export const ModalContent = style({
+  width: "100%",
+  height: "auto",
+  maxWidth: "450px",
+  marginTop: "-80px",
+});
+
+export const ModalImage = style({
+  width: "100%",
+  objectFit: "contain",
 });

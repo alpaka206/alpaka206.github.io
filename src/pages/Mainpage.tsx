@@ -56,7 +56,7 @@ const Mainpage: React.FC = () => {
               "프로필",
               "./assets/AboutMe.png",
               <iframe
-                src="http://localhost:5173/Profile"
+                src="https://alpaka206.github.io/Profile"
                 width="100%"
                 height="90%"
                 frameBorder="0"
@@ -114,7 +114,7 @@ const Mainpage: React.FC = () => {
               "수상내역",
               "./assets/prize.png",
               <iframe
-                src="http://localhost:5173/Prize"
+                src="https://alpaka206.github.io/Prize"
                 width="100%"
                 height="90%"
                 frameBorder="0"
@@ -131,7 +131,7 @@ const Mainpage: React.FC = () => {
               "깃허브",
               "./assets/Github.png",
               <iframe
-                src="http://localhost:5173/Github"
+                src="https://alpaka206.github.io/Github"
                 width="100%"
                 height="90%"
                 frameBorder="0"
