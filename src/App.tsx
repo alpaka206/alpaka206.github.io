@@ -1,6 +1,6 @@
 // import React from "react";
 import { RecoilRoot } from "recoil";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage.tsx";
 import Profile from "./pages/Profile.tsx";
 import Prize from "./pages/Prize.tsx";
@@ -16,7 +16,7 @@ export default function App() {
     <RecoilRoot>
       <div className={bodyStyle}>
         <OpenExternalBrowser />
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Mainpage />} />
             <Route path="/Profile" element={<Profile />} />
@@ -26,7 +26,7 @@ export default function App() {
             <Route path="/ShareIt" element={<ShareIt />} />
             <Route path="/ALNC" element={<ALNC />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </RecoilRoot>
   );

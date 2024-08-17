@@ -19,11 +19,17 @@ const Mainpage: React.FC = () => {
     imageUrl: string,
     content: React.ReactNode
   ) => {
-    setTabs((prevTabs) => {
-      const newTabs = [...prevTabs, { title, imageUrl, content }];
-      setActiveTab(newTabs.length - 1); // 새로 생성된 탭의 인덱스를 activeTab으로 설정
-      return newTabs;
-    });
+    const existingTabIndex = tabs.findIndex((tab) => tab.title === title);
+    if (existingTabIndex !== -1) {
+      // 같은 탭이 존재하면 해당 탭을 활성화
+      setActiveTab(existingTabIndex);
+    } else {
+      setTabs((prevTabs) => {
+        const newTabs = [...prevTabs, { title, imageUrl, content }];
+        setActiveTab(newTabs.length - 1); // 새로 생성된 탭의 인덱스를 activeTab으로 설정
+        return newTabs;
+      });
+    }
     bringPageToFront();
   };
 
@@ -56,7 +62,8 @@ const Mainpage: React.FC = () => {
               "프로필",
               "./assets/AboutMe.png",
               <iframe
-                src="https://alpaka206.github.io/Profile"
+                // src="https://alpaka206.github.io/#/Profile"
+                src="http://localhost:5173/#/Profile"
                 width="100%"
                 height="90%"
                 frameBorder="0"
@@ -114,7 +121,8 @@ const Mainpage: React.FC = () => {
               "수상내역",
               "./assets/prize.png",
               <iframe
-                src="https://alpaka206.github.io/Prize"
+                // src="https://alpaka206.github.io/#/Prize"
+                src="http://localhost:5173/#/Prize"
                 width="100%"
                 height="90%"
                 frameBorder="0"
@@ -131,7 +139,8 @@ const Mainpage: React.FC = () => {
               "깃허브",
               "./assets/Github.png",
               <iframe
-                src="https://alpaka206.github.io/Github"
+                // src="https://alpaka206.github.io/#/github"
+                src="http://localhost:5173/#/github"
                 width="100%"
                 height="90%"
                 frameBorder="0"

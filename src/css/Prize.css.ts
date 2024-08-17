@@ -23,6 +23,13 @@ export const PrizeImage = style({
   width: "120px",
   objectFit: "cover",
   border: "1px solid #000",
+  cursor: "pointer",
+  transition: "box-shadow 0.3s ease, transform 0.3s ease",
+  ":hover": {
+    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)", // 그림자 효과
+    // transform: "scale(1.05)", // 살짝 확대 효과로 시각적 강조
+    border: "none",
+  },
 });
 
 export const PrizeExplain = style({
