@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 export const container = style({
   padding: "34px 64px",
   width: "calc(100vw - 128px)",
-  height: "calc(100vh - 64px)",
+  height: "calc(100vh - 68px)",
   backgroundImage: "url(../../public/assets/BG_pc.png)",
   backgroundSize: "cover",
   backgroundPosition: "center",
