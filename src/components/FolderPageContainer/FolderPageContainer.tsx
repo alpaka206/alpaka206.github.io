@@ -1,29 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as styles from "./FolderPageContainer.css";
 import { useRecoilState } from "recoil";
-import { tabsState } from "../../Atoms";
+import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import FolderContainer from "../FolderContainer/FolderContainer";
 
 interface FolderPageContainerProps {
   onClose: () => void;
-  style?: React.CSSProperties;
-  setPageZIndex: (index: number) => void;
-  setFolderZIndex: (index: number) => void;
   bringFolderToFront: () => void;
-  setActiveTab: (index: number) => void;
 }
 
 const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   onClose,
-  style,
-  setPageZIndex,
-  setFolderZIndex,
   bringFolderToFront,
-  setActiveTab,
 }) => {
   const [tabs, setTabs] = useRecoilState(tabsState);
-  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
+  const [zIndexFolderState, setZIndexFolderState] = useRecoilState(ZIndexState);
 
+  const [position, setPosition] = useState({ x: 50, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
@@ -53,14 +47,36 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
     imageUrl: string,
     content: React.ReactNode
   ) => {
-    setTabs((prevTabs) => {
-      const newTabs = [...prevTabs, { title, imageUrl, content }];
-      setActiveTab(newTabs.length - 1); // 새로 생성된 탭의 인덱스를 activeTab으로 설정
-      return newTabs;
-    });
+    const existingTabIndex = tabs.tabs.findIndex((tab) => tab.title === title);
+    if (existingTabIndex !== -1) {
+      // 이미 같은 탭이 존재하면 해당 탭을 활성화
+      setTabs((prevTabs) => ({
+        ...prevTabs,
+        activeTabIndex: existingTabIndex,
+      }));
+      setTaskbar((prevTaskbar) => ({
+        ...prevTaskbar,
+        activeTaskbar: title,
+      }));
+    } else {
+      setTabs((prevTabs) => {
+        const newTabs = [...prevTabs.tabs, { title, imageUrl, content }];
+        return {
+          tabs: newTabs,
+          activeTabIndex: newTabs.length - 1, // 새로 생성된 탭의 인덱스를 activeTab으로 설정
+        };
+      });
 
-    setPageZIndex(1000);
-    setFolderZIndex(999);
+      setTaskbar((prevTaskbar) => ({
+        taskbars: [...prevTaskbar.taskbars, { id: title, imageUrl }],
+        activeTaskbar: title,
+      }));
+
+      setZIndexFolderState({
+        pageZIndex: 1000,
+        folderZIndex: 999,
+      });
+    }
   };
 
   useEffect(() => {
@@ -75,13 +91,19 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   return (
     <div
       className={styles.folderPage}
-      style={{ ...style, left: position.x, top: position.y }}
-      onClick={() => bringFolderToFront()}
+      style={{
+        zIndex: zIndexFolderState.folderZIndex,
+        left: position.x,
+        top: position.y,
+      }}
     >
       <div
         className={styles.windowHeader}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        onClick={() => {
+          bringFolderToFront();
+        }}
       >
         프로젝트
         <img
@@ -95,53 +117,53 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
         <FolderContainer
           imageUrl="./assets/Comatching.svg"
           title="COMATCHING"
-          onClick={() =>
+          onClick={() => {
             handlePageOpen(
               "코매칭",
               "./assets/Comatching.svg",
               <iframe
-                src="http://localhost:5173/Comatching"
+                src="http://localhost:5173/#/Comatching"
                 width="100%"
                 height="90%"
                 frameBorder="0"
                 title="Comatching"
               ></iframe>
-            )
-          }
+            );
+          }}
         />
         <FolderContainer
           imageUrl="./assets/Shareit.svg"
           title="Shareit"
-          onClick={() =>
+          onClick={() => {
             handlePageOpen(
               "Shareit",
               "./assets/Shareit.svg",
               <iframe
-                src="http://localhost:5173/ShareIt"
+                src="http://localhost:5173/#/ShareIt"
                 width="100%"
                 height="90%"
                 frameBorder="0"
                 title="Shareit"
               ></iframe>
-            )
-          }
+            );
+          }}
         />
         <FolderContainer
           imageUrl="./assets/ALNC.svg"
           title="새차처럼"
-          onClick={() =>
+          onClick={() => {
             handlePageOpen(
               "새차처럼",
               "./assets/ALNC.svg",
               <iframe
-                src="http://localhost:5173/ALNC"
+                src="http://localhost:5173/#/ALNC"
                 width="100%"
                 height="90%"
                 frameBorder="0"
                 title="ALNC"
               ></iframe>
-            )
-          }
+            );
+          }}
         />
       </div>
     </div>

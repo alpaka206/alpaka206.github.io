@@ -1,27 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as styles from "./PageContainer.css";
-import { tabsState } from "../../Atoms";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
+import { tabsState, taskbarState } from "../../Atoms";
 
 export interface PageContainerProps {
-  // tabs: Tab[];
-  activeTab: number;
-  setActiveTab: (index: number) => void;
   onClose: () => void;
   style?: React.CSSProperties;
   bringPageToFront: () => void;
 }
 
 const PageContainer: React.FC<PageContainerProps> = ({
-  // tabs,
-  activeTab,
-  setActiveTab,
   onClose,
   style,
   bringPageToFront,
 }) => {
   // const [activeTab, setActiveTab] = useState<number>(0);
-  const tabs = useRecoilValue(tabsState);
+  const [tabs, setTabs] = useRecoilState(tabsState);
+  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
 
   const [position, setPosition] = useState({ x: 200, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
@@ -57,6 +52,47 @@ const PageContainer: React.FC<PageContainerProps> = ({
     };
   }, [isDragging]);
 
+  const handleTabClick = (index: number) => {
+    setTabs((prevTabs) => ({
+      ...prevTabs,
+      activeTabIndex: index,
+    }));
+    setTaskbar((prevTaskbar) => ({
+      ...prevTaskbar,
+      activeTaskbar: tabs.tabs[index].title,
+    }));
+  };
+
+  const handleTabClose = (index: number) => {
+    const updatedTabs = tabs.tabs.filter((_, i) => i !== index);
+    const newActiveTabIndex =
+      tabs.activeTabIndex === index && updatedTabs.length > 0
+        ? 0
+        : tabs.activeTabIndex === index
+          ? null
+          : tabs.activeTabIndex && tabs.activeTabIndex > index
+            ? tabs.activeTabIndex - 1
+            : tabs.activeTabIndex;
+
+    setTabs({
+      tabs: updatedTabs,
+      activeTabIndex: newActiveTabIndex,
+    });
+
+    const updatedTaskbars = taskbar.taskbars.filter(
+      (taskbarItem) => taskbarItem.id !== tabs.tabs[index].title
+    );
+    setTaskbar({
+      taskbars: updatedTaskbars,
+      activeTaskbar: updatedTaskbars.length > 0 ? updatedTaskbars[0].id : null,
+    });
+
+    // 모든 탭이 닫힌 경우 onClose 호출
+    if (updatedTabs.length === 0) {
+      onClose();
+    }
+  };
+
   return (
     <div
       className={styles.window}
@@ -69,9 +105,9 @@ const PageContainer: React.FC<PageContainerProps> = ({
         onMouseUp={handleMouseUp}
       >
         <div className={styles.tabs}>
-          {tabs.map((tab, index) => (
-            <>
-              {activeTab === index ? (
+          {tabs.tabs.map((tab, index) => (
+            <React.Fragment key={index}>
+              {tabs.activeTabIndex === index ? (
                 <div className={styles.TabSide}>
                   <div className={styles.leftTabSideElement} />
                 </div>
@@ -81,9 +117,11 @@ const PageContainer: React.FC<PageContainerProps> = ({
               <button
                 key={index}
                 className={`${styles.tabButton} ${
-                  activeTab === index ? styles.activeTab : styles.unactiveTab
+                  tabs.activeTabIndex === index
+                    ? styles.activeTab
+                    : styles.unactiveTab
                 }`}
-                onClick={() => setActiveTab(index)}
+                onClick={() => handleTabClick(index)}
               >
                 <img
                   src={tab.imageUrl}
@@ -95,16 +133,17 @@ const PageContainer: React.FC<PageContainerProps> = ({
                   src="./assets/close.svg"
                   alt={tab.title}
                   className={styles.closeTabButton}
+                  onClick={() => handleTabClose(index)}
                 />
               </button>
-              {activeTab === index ? (
+              {tabs.activeTabIndex === index ? (
                 <div className={styles.TabSide}>
                   <div className={styles.rightTabSideElement} />
                 </div>
               ) : (
                 ""
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
         <img
@@ -114,7 +153,9 @@ const PageContainer: React.FC<PageContainerProps> = ({
           className={styles.closeButton}
         />
       </div>
-      <div className={styles.windowBody}>{tabs[activeTab]?.content}</div>
+      <div className={styles.windowBody}>
+        {tabs.tabs[tabs.activeTabIndex || 0]?.content}
+      </div>
     </div>
   );
 };

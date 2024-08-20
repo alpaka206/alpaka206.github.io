@@ -3,39 +3,74 @@ import * as styles from "../css/Mainpage.css";
 import FolderContainer from "../components/FolderContainer/FolderContainer";
 import PageContainer from "../components/PageContainer/PageContainer";
 import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
+import Taskbar from "../components/Taskbar/Taskbar";
 import { useRecoilState } from "recoil";
-import { tabsState, ZIndexState } from "../Atoms.tsx";
+import { tabsState, ZIndexState, taskbarState } from "../Atoms.tsx";
 
 const Mainpage: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
   const [activeFolderPage, setActiveFolderPage] = useState<boolean>(false);
-  // const [pageZIndex, setPageZIndex] = useState<number>(1000);
-  // const [folderZIndex, setFolderZIndex] = useState<number>(999);
 
   const handlePageOpen = (
     title: string,
     imageUrl: string,
     content: React.ReactNode
   ) => {
-    const existingTabIndex = tabs.findIndex((tab) => tab.title === title);
+    const existingTabIndex = tabs.tabs.findIndex((tab) => tab.title === title);
     if (existingTabIndex !== -1) {
-      // 같은 탭이 존재하면 해당 탭을 활성화
-      setActiveTab(existingTabIndex);
+      setTabs((prevTabs) => ({
+        ...prevTabs,
+        activeTabIndex: existingTabIndex, // 같은 탭이 존재하면 해당 탭을 활성화
+      }));
+      setTaskbar((prevTaskbar) => ({
+        ...prevTaskbar,
+        activeTaskbar: title, // 활성화된 Taskbar 업데이트
+      }));
     } else {
       setTabs((prevTabs) => {
-        const newTabs = [...prevTabs, { title, imageUrl, content }];
-        setActiveTab(newTabs.length - 1); // 새로 생성된 탭의 인덱스를 activeTab으로 설정
-        return newTabs;
+        const newTabs = [...prevTabs.tabs, { title, imageUrl, content }];
+        return {
+          tabs: [...prevTabs.tabs, { title, imageUrl, content }],
+          activeTabIndex: newTabs.length - 1, // 새로 생성된 탭의 인덱스를 activeTab으로 설정
+        };
       });
+      setTaskbar((prevTaskbar) => ({
+        taskbars: [...prevTaskbar.taskbars, { id: title, imageUrl }],
+        activeTaskbar: title, // 활성화된 Taskbar 업데이트
+      }));
     }
+    // setTaskbarItems((prevItems) => {
+    //   if (!prevItems.some((item) => item.id === title)) {
+    //     return [...prevItems, { id: title, imageUrl }];
+    //   }
+    //   return prevItems;
+    // });
+
     bringPageToFront();
   };
 
   const handleFolderPageOpen = () => {
     setActiveFolderPage(true);
     bringFolderToFront();
+    setTaskbar((prevTaskbar) => {
+      if (!prevTaskbar.taskbars.some((item) => item.id === "folder")) {
+        return {
+          taskbars: [
+            ...prevTaskbar.taskbars,
+            { id: "folder", imageUrl: "./assets/Folder.png" },
+          ],
+          activeTaskbar: "folder", // 폴더를 활성화된 Taskbar로 설정
+        };
+      } else {
+        // taskbars 배열에 "folder"가 이미 있는 경우, activeTaskbar만 업데이트
+        return {
+          ...prevTaskbar,
+          activeTaskbar: "folder",
+        };
+      }
+    });
   };
 
   const bringPageToFront = () => {
@@ -51,13 +86,41 @@ const Mainpage: React.FC = () => {
       folderZIndex: 1000,
     });
   };
+
+  const handleTaskbarItemClick = (id: string) => {
+    if (id === "folder") {
+      setTabs((prevTabs) => ({
+        ...prevTabs,
+        activeTabIndex: null, // 폴더가 열리면 탭이 비활성화
+      }));
+      setTaskbar((prevTaskbar) => ({
+        ...prevTaskbar,
+        activeTaskbar: "folder",
+      }));
+      bringFolderToFront();
+    } else {
+      const tabIndex = tabs.tabs.findIndex((tab) => tab.title === id);
+      if (tabIndex !== -1) {
+        setTabs((prevTabs) => ({
+          ...prevTabs,
+          activeTabIndex: tabIndex, // 해당 탭을 활성화
+        }));
+        setTaskbar((prevTaskbar) => ({
+          ...prevTaskbar,
+          activeTaskbar: id,
+        }));
+        bringPageToFront();
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/AboutMe.png"
           title="프로필"
-          onClick={() =>
+          onClick={() => {
             handlePageOpen(
               "프로필",
               "./assets/AboutMe.png",
@@ -69,8 +132,8 @@ const Mainpage: React.FC = () => {
                 frameBorder="0"
                 title="Profile"
               ></iframe>
-            )
-          }
+            );
+          }}
         />
         <FolderContainer
           imageUrl="./assets/Folder.png"
@@ -150,12 +213,12 @@ const Mainpage: React.FC = () => {
           }
         />
       </div>
-      {tabs.length > 0 && (
+      {tabs.tabs.length > 0 && (
         <PageContainer
-          tabs={tabs}
-          activeTab={activeTab}
-          onClose={() => setTabs([])}
-          setActiveTab={setActiveTab}
+          tabs={tabs.tabs}
+          activeTab={tabs.activeTabIndex}
+          onClose={() => setTabs({ ...tabs, tabs: [], activeTabIndex: null })}
+          setActiveTab={(index) => setTabs({ ...tabs, activeTabIndex: index })}
           style={{ zIndex: zIndexState.pageZIndex }}
           bringPageToFront={bringPageToFront}
         />
@@ -163,11 +226,13 @@ const Mainpage: React.FC = () => {
       {activeFolderPage && (
         <FolderPageContainer
           onClose={() => setActiveFolderPage(false)}
-          setActiveTab={setActiveTab}
-          style={{ zIndex: zIndexState.folderZIndex }}
           bringFolderToFront={bringFolderToFront}
         />
       )}
+      <Taskbar
+        activeItemId={taskbar.activeTaskbar}
+        setActiveItem={handleTaskbarItemClick}
+      />
     </div>
   );
 };
