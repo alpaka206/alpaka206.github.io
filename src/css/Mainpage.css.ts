@@ -20,9 +20,9 @@ export const folderContainer = style({
   display: "flex",
 });
 
-export const projectFolderContainer = style({
-  display: "flex",
-  justifyContent: "space-around",
-  width: "60%",
-  marginTop: "20px",
-});
+// export const projectFolderContainer = style({
+//   display: "flex",
+//   justifyContent: "space-around",
+//   width: "60%",
+//   marginTop: "20px",
+// });

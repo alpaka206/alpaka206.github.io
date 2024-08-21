@@ -4,11 +4,10 @@ import { taskbarState } from "../../Atoms";
 import * as styles from "./Taskbar.css";
 
 interface TaskbarProps {
-  activeItemId: string;
   setActiveItem: (id: string) => void;
 }
 
-const Taskbar: React.FC<TaskbarProps> = ({ activeItemId, setActiveItem }) => {
+const Taskbar: React.FC<TaskbarProps> = ({ setActiveItem }) => {
   const [taskbarItems] = useRecoilState(taskbarState);
 
   return (
@@ -17,7 +16,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ activeItemId, setActiveItem }) => {
         <div
           key={item.id}
           className={`${styles.taskbarItem} ${
-            activeItemId === item.id ? styles.active : ""
+            taskbarItems.activeTaskbar === item.id ? styles.active : ""
           }`}
           onClick={() => setActiveItem(item.id)}
         >

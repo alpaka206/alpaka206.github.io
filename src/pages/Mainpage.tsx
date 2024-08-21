@@ -41,12 +41,6 @@ const Mainpage: React.FC = () => {
         activeTaskbar: title, // 활성화된 Taskbar 업데이트
       }));
     }
-    // setTaskbarItems((prevItems) => {
-    //   if (!prevItems.some((item) => item.id === title)) {
-    //     return [...prevItems, { id: title, imageUrl }];
-    //   }
-    //   return prevItems;
-    // });
 
     bringPageToFront();
   };
@@ -78,6 +72,7 @@ const Mainpage: React.FC = () => {
       pageZIndex: 1000,
       folderZIndex: 999,
     });
+    console.log(taskbar);
   };
 
   const bringFolderToFront = () => {
@@ -85,14 +80,27 @@ const Mainpage: React.FC = () => {
       pageZIndex: 999,
       folderZIndex: 1000,
     });
+    setTaskbar((prevTaskbar) => {
+      // taskbars 배열에 "folder"가 있는지 확인
+      const folderExists = prevTaskbar.taskbars.some(
+        (taskbarItem) => taskbarItem.id === "folder"
+      );
+
+      // "folder"가 존재하면 activeTaskbar를 "folder"로 설정
+      if (folderExists) {
+        return {
+          ...prevTaskbar,
+          activeTaskbar: "folder",
+        };
+      }
+
+      // "folder"가 없으면 상태를 변경하지 않음
+      return prevTaskbar;
+    });
   };
 
   const handleTaskbarItemClick = (id: string) => {
     if (id === "folder") {
-      setTabs((prevTabs) => ({
-        ...prevTabs,
-        activeTabIndex: null, // 폴더가 열리면 탭이 비활성화
-      }));
       setTaskbar((prevTaskbar) => ({
         ...prevTaskbar,
         activeTaskbar: "folder",
@@ -114,6 +122,49 @@ const Mainpage: React.FC = () => {
     }
   };
 
+  const handleCloseAllTabs = () => {
+    const closedTabs = tabs.tabs; // 모든 탭 저장
+    // 탭 초기화
+    setTabs({
+      tabs: [],
+      activeTabIndex: null,
+    });
+
+    // taskbar에서 해당 탭 제거
+    setTaskbar((prevTaskbar) => {
+      const updatedTaskbars = prevTaskbar.taskbars.filter(
+        (taskbarItem) => !closedTabs.some((tab) => tab.title === taskbarItem.id)
+      );
+
+      return {
+        ...prevTaskbar,
+        taskbars: updatedTaskbars,
+        activeTaskbar:
+          updatedTaskbars.length > 0
+            ? updatedTaskbars[updatedTaskbars.length - 1].id
+            : null,
+      };
+    });
+  };
+
+  const handleCloseFolderPage = () => {
+    console.log(taskbar);
+    console.log(tabs.activeTabIndex);
+    setActiveFolderPage(false);
+    const updatedTaskbars = taskbar.taskbars.filter(
+      (taskbarItem) => taskbarItem.id !== "folder"
+    );
+    const newActiveTaskbar =
+      updatedTaskbars.length > 0
+        ? updatedTaskbars[tabs.activeTabIndex].id
+        : null;
+    console.log(newActiveTaskbar);
+    setTaskbar({
+      taskbars: updatedTaskbars,
+      activeTaskbar: newActiveTaskbar,
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.folderContainer}>
@@ -128,7 +179,7 @@ const Mainpage: React.FC = () => {
                 // src="https://alpaka206.github.io/#/Profile"
                 src="http://localhost:5173/#/Profile"
                 width="100%"
-                height="90%"
+                height="80%"
                 frameBorder="0"
                 title="Profile"
               ></iframe>
@@ -150,7 +201,7 @@ const Mainpage: React.FC = () => {
               <iframe
                 src="https://alpaka206.vercel.app/"
                 width="100%"
-                height="90%"
+                height="80%"
                 frameBorder="0"
                 title="Blog"
               ></iframe>
@@ -217,7 +268,7 @@ const Mainpage: React.FC = () => {
         <PageContainer
           tabs={tabs.tabs}
           activeTab={tabs.activeTabIndex}
-          onClose={() => setTabs({ ...tabs, tabs: [], activeTabIndex: null })}
+          onClose={() => handleCloseAllTabs()}
           setActiveTab={(index) => setTabs({ ...tabs, activeTabIndex: index })}
           style={{ zIndex: zIndexState.pageZIndex }}
           bringPageToFront={bringPageToFront}
@@ -225,14 +276,11 @@ const Mainpage: React.FC = () => {
       )}
       {activeFolderPage && (
         <FolderPageContainer
-          onClose={() => setActiveFolderPage(false)}
+          onClose={() => handleCloseFolderPage()}
           bringFolderToFront={bringFolderToFront}
         />
       )}
-      <Taskbar
-        activeItemId={taskbar.activeTaskbar}
-        setActiveItem={handleTaskbarItemClick}
-      />
+      <Taskbar setActiveItem={handleTaskbarItemClick} />
     </div>
   );
 };

@@ -18,7 +18,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
 
-  const [position, setPosition] = useState({ x: 200, y: 50 });
+  const [position, setPosition] = useState({ x: 200, y: 10 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
@@ -65,31 +65,26 @@ const PageContainer: React.FC<PageContainerProps> = ({
 
   const handleTabClose = (index: number) => {
     const updatedTabs = tabs.tabs.filter((_, i) => i !== index);
-    const newActiveTabIndex =
-      tabs.activeTabIndex === index && updatedTabs.length > 0
-        ? 0
-        : tabs.activeTabIndex === index
-          ? null
-          : tabs.activeTabIndex && tabs.activeTabIndex > index
-            ? tabs.activeTabIndex - 1
-            : tabs.activeTabIndex;
+    const newActiveTabIndex = updatedTabs.length > 0 ? index : null;
 
     setTabs({
       tabs: updatedTabs,
       activeTabIndex: newActiveTabIndex,
     });
-
-    const updatedTaskbars = taskbar.taskbars.filter(
-      (taskbarItem) => taskbarItem.id !== tabs.tabs[index].title
-    );
-    setTaskbar({
-      taskbars: updatedTaskbars,
-      activeTaskbar: updatedTaskbars.length > 0 ? updatedTaskbars[0].id : null,
-    });
-
     // 모든 탭이 닫힌 경우 onClose 호출
-    if (updatedTabs.length === 0) {
+    if (newActiveTabIndex === null) {
       onClose();
+    } else {
+      const updatedTaskbars = taskbar.taskbars.filter(
+        (taskbarItem) => taskbarItem.id !== tabs.tabs[index].title
+      );
+
+      console.log(updatedTaskbars);
+      console.log(newActiveTabIndex);
+      setTaskbar({
+        taskbars: updatedTaskbars,
+        activeTaskbar: updatedTaskbars[newActiveTabIndex].id,
+      });
     }
   };
 
