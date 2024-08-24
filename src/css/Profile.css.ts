@@ -95,6 +95,13 @@ export const Profile_detail_link = style({
     textDecoration: "underline",
   },
 });
+export const Profile_Languages = style({
+  margin: "20px 0",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "10px",
+});
+export const Profile_Tools = style([Profile_Languages]);
 
 export const Divider = style({
   width: "100%",

@@ -78,8 +78,8 @@ const Profile = () => {
         <div className={styles.Divider} />
         <Element name="contact" className={styles.Profile_Conatiner}>
           <div className={styles.Profile_MainTitle}>📪 Contact</div>
-          <div className={styles.Profile_detail}>010-2412-0339</div>
-          <div className={styles.Profile_detail}>gyuwon05@gmail.com</div>
+          <div className={styles.Profile_detail}>📞 010-2412-0339</div>
+          <div className={styles.Profile_detail}>✉️ gyuwon05@gmail.com</div>
           <div className={styles.Profile_detail}>@alpaka_dev</div>
           <div className={styles.Profile_detail}>
             LinkedIn:{" "}
@@ -95,32 +95,118 @@ const Profile = () => {
         <div className={styles.Divider} />
         <Element name="skills" className={styles.Profile_Conatiner}>
           <div className={styles.Profile_MainTitle}>Skills & Abilities</div>
-          <div className={styles.Profile_SubTitle}>Programming Languages</div>
-
-          <div className={styles.Profile_detail}>Java</div>
-          <div className={styles.Profile_detail}>
-            JavaScript (ES6+), TypeScript
+          <div className={styles.Profile_SubTitle}>
+            Languages & Frameworks & Libraries
           </div>
-          <div className={styles.Profile_detail}>HTML/CSS</div>
+          <div className={styles.Profile_Languages}>
+            <img
+              src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"
+              alt="React"
+            />
+            <img
+              src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"
+              alt="TypeScript"
+            />
+            <img
+              src="https://img.shields.io/badge/javascript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=20232a"
+              alt="javascript"
+            />
+            <img
+              src="https://img.shields.io/badge/html5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"
+              alt="html5"
+            />
+            <img
+              src="https://img.shields.io/badge/css3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white"
+              alt="css3"
+            />
 
-          <h3>Frameworks & Libraries</h3>
-          <ul className={styles.Profile_list}>
-            <li className={styles.Profile_list_item}>
-              React (including Next.js, Redux, Recoil)
-            </li>
-            <li className={styles.Profile_list_item}>Jest (Testing)</li>
-            <li className={styles.Profile_list_item}>
-              Styled-components, Vanilla-extract
-            </li>
-          </ul>
+            <img
+              src="https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=Storybook&logoColor=white"
+              alt="Storybook"
+            />
+            <img
+              src="https://img.shields.io/badge/Recoil-764ABC?style=for-the-badge&logo=Recoil&logoColor=white"
+              alt="Recoil"
+            />
+            <img
+              src="https://img.shields.io/badge/🧁  vanilla--extract-99F6E4?style=for-the-badge"
+              alt="vanilla--extract"
+            />
+
+            <img
+              src="https://img.shields.io/badge/React Native-61DAFB?style=for-the-badge&logo=React&logoColor=black"
+              alt="React Native"
+            />
+            <img
+              src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white"
+              alt="Next"
+            />
+            <img
+              src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=Jest&logoColor=white"
+              alt="Jest"
+            />
+            <img
+              src="https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white"
+              alt="threejs"
+            />
+            <img
+              src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white"
+              alt="vite"
+            />
+
+            <img
+              src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"
+              alt="Node"
+            />
+            <img
+              src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"
+              alt="MongoDB"
+            />
+            <img
+              src="https://img.shields.io/badge/Java-004027?style=for-the-badge&logo=Jameson&logoColor=white"
+              alt="Java"
+            />
+            <img
+              src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"
+              alt="styled--components"
+            />
+          </div>
           <h3>Tools & Platforms</h3>
-          <ul className={styles.Profile_list}>
-            <li className={styles.Profile_list_item}>Git, GitHub, Vite</li>
-            <li className={styles.Profile_list_item}>Storybook, Webpack</li>
-            <li className={styles.Profile_list_item}>
-              OAuth 2.0 (Social Login)
-            </li>
-          </ul>
+          <div className={styles.Profile_Tools}>
+            <img
+              src="https://img.shields.io/badge/git-F05033.svg?style=for-the-badge&logo=git&logoColor=white"
+              alt="git"
+            />
+            <img
+              src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white"
+              alt="github"
+            />
+            <img
+              src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"
+              alt="Notion"
+            />
+            <img
+              src="https://img.shields.io/badge/figma-F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"
+              alt="figma"
+            />
+
+            <img
+              src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white"
+              alt="Firebase"
+            />
+            <img
+              src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white"
+              alt="Vercel"
+            />
+            <img
+              src="https://img.shields.io/badge/Visual Studio-5C2D91?style=for-the-badge&logo=Visual Studio&logoColor=white"
+              alt="Visual Studio"
+            />
+            <img
+              src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"
+              alt="Visual Studio Code"
+            />
+          </div>
         </Element>
         <div className={styles.Divider} />
         <Element name="education" className={styles.Profile_Conatiner}>

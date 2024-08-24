@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as styles from "./FolderPageContainer.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import FolderContainer from "../FolderContainer/FolderContainer";
 
@@ -14,7 +14,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   bringFolderToFront,
 }) => {
   const [tabs, setTabs] = useRecoilState(tabsState);
-  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
+  const setTaskbar = useSetRecoilState(taskbarState);
   const [zIndexFolderState, setZIndexFolderState] = useRecoilState(ZIndexState);
 
   const [position, setPosition] = useState({ x: 50, y: 50 });
@@ -122,6 +122,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "코매칭",
               "./assets/Comatching.svg",
               <iframe
+                // src="https://alpaka206.github.io/#/Comatching"
                 src="http://localhost:5173/#/Comatching"
                 width="100%"
                 height="90%"
@@ -139,6 +140,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "Shareit",
               "./assets/Shareit.svg",
               <iframe
+                // src="https://alpaka206.github.io/#/ShareIt"
                 src="http://localhost:5173/#/ShareIt"
                 width="100%"
                 height="90%"
@@ -156,6 +158,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "새차처럼",
               "./assets/ALNC.svg",
               <iframe
+                // src="https://alpaka206.github.io/#/ALNC"
                 src="http://localhost:5173/#/ALNC"
                 width="100%"
                 height="90%"

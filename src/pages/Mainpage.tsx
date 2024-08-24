@@ -165,15 +165,38 @@ const Mainpage: React.FC = () => {
     });
   };
 
+  const openGitHubPage = () => {
+    const popupWidth = 1200;
+    const popupHeight = 600;
+    const popupX = Math.round(
+      window.screenX + window.outerWidth / 2 - popupWidth / 2
+    );
+    const popupY = Math.round(
+      window.screenY + window.outerHeight / 2 - popupHeight / 2
+    );
+
+    const featureWindow =
+      "width=" +
+      popupWidth +
+      ", height=" +
+      popupHeight +
+      ", left=" +
+      popupX +
+      ", top=" +
+      popupY;
+
+    return window.open("https://github.com/alpaka206", "_blank", featureWindow);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/AboutMe.png"
-          title="프로필"
+          title="Profile"
           onClick={() => {
             handlePageOpen(
-              "프로필",
+              "Profile",
               "./assets/AboutMe.png",
               <iframe
                 // src="https://alpaka206.github.io/#/Profile"
@@ -193,10 +216,10 @@ const Mainpage: React.FC = () => {
         />
         <FolderContainer
           imageUrl="./assets/Blog.png"
-          title="블로그"
+          title="Blog"
           onClick={() =>
             handlePageOpen(
-              "블로그",
+              "Blog",
               "./assets/Blog.png",
               <iframe
                 src="https://alpaka206.vercel.app/"
@@ -212,10 +235,10 @@ const Mainpage: React.FC = () => {
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/Insta.png"
-          title="인스타"
+          title="Insta"
           onClick={() =>
             handlePageOpen(
-              "인스타",
+              "Insta",
               "./assets/Insta.png",
               <iframe
                 src="https://www.instagram.com/alpaka_dev/embed"
@@ -247,20 +270,21 @@ const Mainpage: React.FC = () => {
         />
         <FolderContainer
           imageUrl="./assets/Github.png"
-          title="깃허브"
-          onClick={() =>
-            handlePageOpen(
-              "깃허브",
-              "./assets/Github.png",
-              <iframe
-                // src="https://alpaka206.github.io/#/github"
-                src="http://localhost:5173/#/github"
-                width="100%"
-                height="90%"
-                frameBorder="0"
-                title="GitHub"
-              ></iframe>
-            )
+          title="GitHub"
+          onClick={
+            () => openGitHubPage()
+            // handlePageOpen(
+            //   "GitHub",
+            //   "./assets/Github.png",
+            //   <iframe
+            //     // src="https://github.com/alpaka206"
+            //     src="http://localhost:5173/#/github"
+            //     width="100%"
+            //     height="90%"
+            //     frameBorder="0"
+            //     title="GitHub"
+            //   ></iframe>
+            // )
           }
         />
       </div>

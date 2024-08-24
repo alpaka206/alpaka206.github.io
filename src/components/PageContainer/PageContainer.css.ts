@@ -48,6 +48,11 @@ export const tabButtonImage = style({
   marginLeft: "8px",
   marginRight: "8px",
 });
+export const tabTitle = style({
+  width: "100%",
+  height: "100%",
+  textAlign: "left",
+});
 
 export const unactiveTab = style({
   ":hover": {

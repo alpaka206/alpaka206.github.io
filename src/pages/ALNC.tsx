@@ -1,5 +1,5 @@
 const ALNC = () => {
-  return <div>ALNC</div>;
+  return <div>ALNC </div>;
 };
 
 export default ALNC;

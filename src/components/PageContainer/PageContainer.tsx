@@ -65,7 +65,12 @@ const PageContainer: React.FC<PageContainerProps> = ({
 
   const handleTabClose = (index: number) => {
     const updatedTabs = tabs.tabs.filter((_, i) => i !== index);
-    const newActiveTabIndex = updatedTabs.length > 0 ? index : null;
+    const newActiveTabIndex =
+      updatedTabs.length > 0
+        ? index >= updatedTabs.length - 1
+          ? index - 1
+          : index
+        : null;
 
     setTabs({
       tabs: updatedTabs,
@@ -83,7 +88,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
       console.log(newActiveTabIndex);
       setTaskbar({
         taskbars: updatedTaskbars,
-        activeTaskbar: updatedTaskbars[newActiveTabIndex].id,
+        activeTaskbar: updatedTabs[newActiveTabIndex].title,
       });
     }
   };
@@ -103,7 +108,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
           {tabs.tabs.map((tab, index) => (
             <React.Fragment key={index}>
               {tabs.activeTabIndex === index ? (
-                <div className={styles.TabSide}>
+                <div
+                  className={styles.TabSide}
+                  onClick={() => handleTabClick(index)}
+                >
                   <div className={styles.leftTabSideElement} />
                 </div>
               ) : (
@@ -116,14 +124,19 @@ const PageContainer: React.FC<PageContainerProps> = ({
                     ? styles.activeTab
                     : styles.unactiveTab
                 }`}
-                onClick={() => handleTabClick(index)}
               >
                 <img
                   src={tab.imageUrl}
                   alt={tab.title}
                   className={styles.tabButtonImage}
+                  onClick={() => handleTabClick(index)}
                 />
-                {tab.title}
+                <div
+                  className={styles.tabTitle}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {tab.title}
+                </div>
                 <img
                   src="./assets/close.svg"
                   alt={tab.title}
@@ -132,7 +145,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
                 />
               </button>
               {tabs.activeTabIndex === index ? (
-                <div className={styles.TabSide}>
+                <div
+                  className={styles.TabSide}
+                  onClick={() => handleTabClick(index)}
+                >
                   <div className={styles.rightTabSideElement} />
                 </div>
               ) : (
