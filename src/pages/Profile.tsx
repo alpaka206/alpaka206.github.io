@@ -78,26 +78,46 @@ const Profile = () => {
         <div className={styles.Divider} />
         <Element name="contact" className={styles.Profile_Conatiner}>
           <div className={styles.Profile_MainTitle}>📪 Contact</div>
-          <div className={styles.Profile_detail}>📞 010-2412-0339</div>
-          <div className={styles.Profile_detail}>✉️ gyuwon05@gmail.com</div>
-          <div className={styles.Profile_detail}>@alpaka_dev</div>
           <div className={styles.Profile_detail}>
-            LinkedIn:{" "}
-            <a href="https://www.linkedin.com/in/gyuwon">
-              linkedin.com/in/gyuwon
-            </a>
+            {/* <img
+              src="./assets/phone_icon.png"
+              alt="Phone"
+              className={styles.Profile_Contact_Icon}
+            /> */}
+            📞 010-2412-0339
           </div>
           <div className={styles.Profile_detail}>
-            GitHub:{" "}
+            {/* <img
+              src="./assets/email_icon.png"
+              alt="Email"
+              className={styles.Profile_Contact_Icon}
+            /> */}
+            ✉️ gyuwon05@gmail.com
+          </div>
+          {/* <div className={styles.Profile_detail}>
+            <img
+              src="./assets/Insta.png"
+              alt="Instagram"
+              className={styles.Profile_Contact_Icon}
+            />
+            @alpaka_dev
+          </div>
+          <div className={styles.Profile_detail}>
+            <img
+              src="./assets/Github.png"
+              alt="GitHub"
+              className={styles.Profile_Contact_Icon}
+            />
             <a href="https://github.com/alpaka206">github.com/alpaka206</a>
-          </div>
+          </div> */}
         </Element>
         <div className={styles.Divider} />
         <Element name="skills" className={styles.Profile_Conatiner}>
-          <div className={styles.Profile_MainTitle}>Skills & Abilities</div>
+          <div className={styles.Profile_MainTitle}>🔭 Skills & Abilities</div>
           <div className={styles.Profile_SubTitle}>
-            Languages & Frameworks & Libraries
+            ✏️ Languages & Frameworks & Libraries
           </div>
+          <div className={styles.Profile_SkillLevel}>능숙하게 쓸 수 있어요</div>
           <div className={styles.Profile_Languages}>
             <img
               src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"
@@ -132,7 +152,9 @@ const Profile = () => {
               src="https://img.shields.io/badge/🧁  vanilla--extract-99F6E4?style=for-the-badge"
               alt="vanilla--extract"
             />
-
+          </div>
+          <div className={styles.Profile_SkillLevel}>사용할 수 있어요</div>
+          <div className={styles.Profile_Languages}>
             <img
               src="https://img.shields.io/badge/React Native-61DAFB?style=for-the-badge&logo=React&logoColor=black"
               alt="React Native"
@@ -171,7 +193,7 @@ const Profile = () => {
               alt="styled--components"
             />
           </div>
-          <h3>Tools & Platforms</h3>
+          <h3>🛠️ Tools & Platforms</h3>
           <div className={styles.Profile_Tools}>
             <img
               src="https://img.shields.io/badge/git-F05033.svg?style=for-the-badge&logo=git&logoColor=white"
@@ -210,32 +232,28 @@ const Profile = () => {
         </Element>
         <div className={styles.Divider} />
         <Element name="education" className={styles.Profile_Conatiner}>
-          <div className={styles.Profile_MainTitle}>Education</div>
+          <div className={styles.Profile_MainTitle}>🏫 Education</div>
           <div className={styles.Profile_detail}>
-            가톨릭대학교(Catholic University of Korea)
+            🎓 가톨릭대학교(Catholic University of Korea)
           </div>
           <div className={styles.Profile_detail}>
-            주전공: 정보통신전자공학부
+            💻️ 주전공: 정보통신전자공학부
           </div>
           <div className={styles.Profile_detail}>
-            복수전공: 컴퓨터정보공학과
+            💻 복수전공: 컴퓨터정보공학과
           </div>
           <div className={styles.Profile_detail}>
-            2019.03 ~ 2025.02(졸업예정)
+            👨‍🎓 2019.03 ~ 2025.02(졸업예정)
           </div>
-          <div className={styles.Profile_detail}>3.63 / 4.5</div>
+          <div className={styles.Profile_detail}>📚 3.63 / 4.5</div>
         </Element>
         <div className={styles.Divider} />
         <Element name="experience" className={styles.Profile_Conatiner}>
-          <div className={styles.Profile_MainTitle}>Experience</div>
-          <div className={styles.Profile_detail}>JAVA</div>
+          <div className={styles.Profile_MainTitle}>📚 Experience</div>
+
+          <div className={styles.Profile_SubTitle}>React</div>
           <div className={styles.Profile_detail}>
-            java를 사용하여 TCP/UDP 통신으로 주차장 관리 프로그램을 개발해본적
-            있습니다.
-          </div>
-          <div className={styles.Profile_detail}>React</div>
-          <div className={styles.Profile_detail}>
-            redux같은 상태관리 사용 경험이 있으며 recoil을 주로 씁니다.
+            recoil로 상태관리 사용 경험이 있습니다.
           </div>
           <div className={styles.Profile_detail}>
             소켓 통신을 이용하여 채팅을 구현해보았습니다.
@@ -250,7 +268,7 @@ const Profile = () => {
           <div className={styles.Profile_detail}>
             Next.js를 활용하여 SSR 개발을 할 수 있습니다.
           </div>
-          <div className={styles.Profile_detail}>JAVASCRIPT</div>
+          <div className={styles.Profile_SubTitle}>JAVASCRIPT</div>
           <div className={styles.Profile_detail}>ES6+ 문법에 익숙합니다.</div>
           <div className={styles.Profile_detail}>
             Vite로 번들러를 사용해 보았습니다.
@@ -267,7 +285,7 @@ const Profile = () => {
           <div className={styles.Profile_detail}>
             Storybook 작성, 빌드 및 배포 경험이 있습니다.
           </div>
-          <div className={styles.Profile_detail}>HTML/CSS</div>
+          <div className={styles.Profile_SubTitle}>HTML/CSS</div>
           <div className={styles.Profile_detail}>
             웹 표준을 지키려 노력합니다.
           </div>
@@ -283,13 +301,17 @@ const Profile = () => {
           <div className={styles.Profile_detail}>
             Keyframe을 활용한 애니메이션 기법을 활용할 수 있습니다.
           </div>
+          <div className={styles.Profile_SubTitle}>JAVA</div>
+          <div className={styles.Profile_detail}>
+            java를 사용하여 TCP/UDP 통신으로 주차장 관리 프로그램을 개발해본적
+            있습니다.
+          </div>
         </Element>
         <div className={styles.Divider} />
         <Element name="career" className={styles.Profile_Conatiner}>
-          <div className={styles.Profile_MainTitle}>Career</div>
-          <div className={styles.Profile_detail}>
-            에이치투비즈(h2biz) - 2024.06 ~ 2024.08
-          </div>
+          <div className={styles.Profile_MainTitle}>🎞️ Career</div>
+          <div className={styles.Profile_SubTitle}>에이치투비즈(h2biz)</div>
+          <div className={styles.Profile_detail}>2024.06 ~ 2024.08</div>
           <div className={styles.Profile_detail}>개발팀 학생 인턴</div>
         </Element>
         <div className={styles.Divider} />

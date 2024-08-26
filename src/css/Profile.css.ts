@@ -119,3 +119,17 @@ export const Profile_list_item = style({
   fontSize: "14px",
   marginBottom: "5px",
 });
+
+export const Profile_Contact_Icon = style({
+  width: "18px",
+  marginRight: "8px",
+  verticalAlign: "middle",
+});
+
+export const Profile_SkillLevel = style({
+  fontSize: "16px",
+  fontWeight: "bold",
+  marginTop: "15px",
+  marginBottom: "8px",
+  color: "#555",
+});
