@@ -314,11 +314,11 @@ const Profile = () => {
           <div className={styles.Profile_detail}>2024.06 ~ 2024.08</div>
           <div className={styles.Profile_detail}>개발팀 학생 인턴</div>
         </Element>
-        <div className={styles.Divider} />
+        {/* <div className={styles.Divider} />
         <div className={styles.Profile_Conatiner}>
           <div className={styles.Profile_MainTitle}>프로젝트 보러가기</div>
           <div className={styles.Profile_MainTitle}>수상내역 보러가기</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

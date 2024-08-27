@@ -116,7 +116,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/Comatching.svg"
-          title="COMATCHING"
+          title="코매칭 ver1"
           onClick={() => {
             handlePageOpen(
               "코매칭",
@@ -125,7 +125,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
                 // src="https://alpaka206.github.io/#/Comatching"
                 src="http://localhost:5173/#/Comatching"
                 width="100%"
-                height="90%"
+                height="80%"
                 frameBorder="0"
                 title="Comatching"
               ></iframe>
@@ -143,7 +143,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
                 // src="https://alpaka206.github.io/#/ShareIt"
                 src="http://localhost:5173/#/ShareIt"
                 width="100%"
-                height="90%"
+                height="80%"
                 frameBorder="0"
                 title="Shareit"
               ></iframe>
@@ -161,7 +161,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
                 // src="https://alpaka206.github.io/#/ALNC"
                 src="http://localhost:5173/#/ALNC"
                 width="100%"
-                height="90%"
+                height="80%"
                 frameBorder="0"
                 title="ALNC"
               ></iframe>
