@@ -97,8 +97,14 @@ globalStyle(".FunctionTitle", {
   fontWeight: "700",
 });
 
+globalStyle(".projectTitleImage", {
+  width: "80%",
+});
+
 globalStyle(".projectImage", {
   width: "40%",
+  padding: "10px 5%",
+  boxShadow: "none",
 });
 
 export const title = style({
