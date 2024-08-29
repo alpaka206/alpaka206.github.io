@@ -1,4 +1,4 @@
-import * as styles from "../css/COMATCHING.css.ts";
+import "../css/COMATCHING.css.ts";
 
 const COMATCHING = () => {
   return (
@@ -82,7 +82,7 @@ const COMATCHING = () => {
           <div className="item" style={{ backgroundColor: "#f1c40f" }}>
             기획
           </div>
-          <div className="item" style={{ backgroundColor: "#f1c40f" }}>
+          <div className="item" style={{ backgroundColor: "#fe340f" }}>
             운영 및 홍보
           </div>
         </div>
@@ -93,7 +93,7 @@ const COMATCHING = () => {
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">카테고리</div>
-        <div className="item" style={{ backgroundColor: "#f1c40f" }}>
+        <div className="item" style={{ backgroundColor: "#f1780f" }}>
           WEB
         </div>
       </div>
@@ -112,134 +112,92 @@ const COMATCHING = () => {
 
       <div className="projectDivider" />
 
-      <div className={styles.subTitle}>기능</div>
-      <div className={styles.content}>
-        <div>회원가입</div>
-        <div>Oauth 2.0을 도입하여 kakao 소셜 로그인을 도입</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/loginpage.png"
-            alt="loginpage"
-          />
-        </div>
-        <div>채팅 형식으로 정보 받음</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/loginpage.png"
-            alt="loginpage"
-          />
-        </div>
-        <div>취향 입력 받음</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/loginpage.png"
-            alt="loginpage"
-          />
-        </div>
-        <div>순서대로 추가 정보를 입력 받음</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/loginpage.png"
-            alt="loginpage"
-          />
-        </div>
+      <div className="subTitle">기능</div>
+      <div className="FunctionTitle">회원가입</div>
+      <div className="itemWithDot">
+        Oauth 2.0을 도입하여 kakao 소셜 로그인을 도입
       </div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/loginpage.png"
+        alt="loginpage"
+      />
+      <div className="itemWithDot">채팅 형식으로 정보 받음</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/registerchat.png"
+        alt="loginpage"
+      />
+      <div className="itemWithDot">취향 입력 받음</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/registerhobby.png"
+        alt="loginpage"
+      />
+      <div className="itemWithDot">순서대로 추가 정보를 입력 받음</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/registerfinal.png"
+        alt="loginpage"
+      />
 
-      <div className={styles.subTitle}>메인페이지</div>
-      <div className={styles.content}>
-        <div>간단한 개인 정보 및 추가 정보 확인 가능</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-        <div>충전 요청 보낼 수 있음</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-      </div>
+      <div className="subTitle">메인페이지</div>
+      <div className="itemWithDot">간단한 개인 정보 및 추가 정보 확인 가능</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/mainpage.png"
+        alt="mainpage"
+      />
+      <div className="itemWithDot">충전 요청 보낼 수 있음</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/mainpagecharge.png"
+        alt="mainpage"
+      />
 
-      <div className={styles.subTitle}>뽑기</div>
-      <div className={styles.content}>
-        <div>QR코드 제공(인식으로 간편하게 진행)</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-        <div>기본 조건으로 MBTI를 고를 수 있음</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-        <div>유료 조건 사용 가능</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
+      <div className="subTitle">매칭</div>
+      <div className="itemWithDot">QR코드 제공(인식으로 간편하게 진행)</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/QRpage.png"
+        alt="mainpage"
+      />
+      <div className="itemWithDot">
+        기본 조건으로 MBTI를 고를 수 있고 유료 조건도 사용 가능
       </div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/matching.png"
+        alt="mainpage"
+      />
 
-      <div className={styles.subTitle}>결과</div>
-      <div className={styles.content}>
-        <div>AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
+      <div className="subTitle">결과</div>
+      <div className="itemWithDot">
+        AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공
       </div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/matchingresult.png"
+        alt="mainpage"
+      />
 
-      <div className={styles.subTitle}>결과 모아보기</div>
-      <div className={styles.content}>
-        <div>본인이 뽑은 내역 확인 가능</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-        <div>평가를 통해 AI 학습</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
-      </div>
+      <div className="subTitle">결과 모아보기</div>
+      <div className="itemWithDot">본인이 뽑은 내역 확인 가능 및 사후평가</div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/review.png"
+        alt="mainpage"
+      />
 
-      <div className={styles.subTitle}>관리자 충전 내역 관리</div>
-      <div className={styles.content}>
-        <div>관리자가 포인트 충전 및 뽑힐 횟수 증가 가능</div>
-        <div className={styles.imageContainer}>
-          <img
-            className={styles.image}
-            src="./assets/Comatching/mainpage.png"
-            alt="mainpage"
-          />
-        </div>
+      <div className="subTitle">관리자 충전 내역 관리</div>
+      <div className="itemWithDot">
+        관리자가 포인트 충전 및 뽑힐 횟수 증가 가능
       </div>
+      <img
+        className="projectImage"
+        src="./assets/Comatching/admin.png"
+        alt="mainpage"
+      />
     </div>
   );
 };

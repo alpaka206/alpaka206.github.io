@@ -2,7 +2,7 @@ import { style, globalStyle } from "@vanilla-extract/css";
 
 globalStyle(".projectContainer", {
   padding: "20px",
-  maxWidth: "800px",
+  width: "90%",
   margin: "0 auto",
   fontFamily: "Arial, sans-serif",
   lineHeight: "1.6",
@@ -60,6 +60,45 @@ globalStyle(".item", {
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
   fontSize: "14px",
   fontWeight: "700",
+  display: "flex",
+  alignItems: "center",
+});
+
+globalStyle(".subTitle", {
+  fontSize: "24px",
+  fontWeight: "800",
+  marginBottom: "8px",
+  color: "#000",
+});
+
+globalStyle(".itemWithDot", {
+  position: "relative",
+  paddingLeft: "20px",
+  marginBottom: "10px",
+  fontSize: "16px",
+  fontWeight: "700",
+  color: "#333",
+});
+
+globalStyle(".itemWithDot::before", {
+  content: '""',
+  position: "absolute",
+  left: "0",
+  top: "50%",
+  transform: "translateY(-50%)",
+  width: "6px",
+  height: "6px",
+  borderRadius: "50%",
+  backgroundColor: "#333", // 점의 색상
+});
+
+globalStyle(".FunctionTitle", {
+  fontSize: "18px",
+  fontWeight: "700",
+});
+
+globalStyle(".projectImage", {
+  width: "40%",
 });
 
 export const title = style({
@@ -68,13 +107,6 @@ export const title = style({
   marginBottom: "10px",
   borderBottom: "2px solid #ddd",
   paddingBottom: "5px",
-});
-
-export const subTitle = style({
-  fontSize: "18px",
-  fontWeight: "600",
-  marginBottom: "8px",
-  color: "#555",
 });
 
 // export const content = style({
