@@ -116,7 +116,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/Comatching.svg"
-          title="코매칭 ver1"
+          title="코매칭"
           onClick={() => {
             handlePageOpen(
               "코매칭",
