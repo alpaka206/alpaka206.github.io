@@ -1,4 +1,4 @@
-import "../css/COMATCHING.css.ts";
+import "../css/Project.css.ts";
 
 const COMATCHING = () => {
   const openGitHubPage = () => {

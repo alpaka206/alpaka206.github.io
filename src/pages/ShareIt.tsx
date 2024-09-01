@@ -1,4 +1,4 @@
-import "../css/ShareIt.css.ts";
+import "../css/Project.css.ts";
 
 const ShareIt = () => {
   const openGitHubPage = () => {
@@ -193,23 +193,49 @@ const ShareIt = () => {
         alt="mainpage"
       />
 
-      <div className="subTitle">관리자 충전 내역 관리</div>
-      <div className="itemWithDot">
-        관리자가 포인트 충전 및 뽑힐 횟수 증가 가능
-      </div>
+      <div className="subTitle">상세페이지</div>
+      <div className="itemWithDot">평점 및 좋아요 개수 확인가능</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/admin.png"
+        src="./assets/ShareIt/borrowDetail.png"
+        alt="mainpage"
+      />
+      <img
+        className="projectImage"
+        src="./assets/ShareIt/needDetail.png"
+        alt="mainpage"
+      />
+
+      <div className="subTitle">채팅페이지</div>
+      <div className="itemWithDot">약속 잡기 가능</div>
+      <div className="itemWithDot">거래 완료 가능</div>
+      <img
+        className="projectImage"
+        src="./assets/ShareIt/chat.png"
+        alt="mainpage"
+      />
+      <img
+        className="projectImage"
+        src="./assets/ShareIt/chatwidget.png"
+        alt="mainpage"
+      />
+
+      <div className="subTitle">리뷰페이지</div>
+      <div className="itemWithDot">거래내역 확인 가능</div>
+      <div className="itemWithDot">별점 부여 가능</div>
+      <img
+        className="projectImage"
+        src="./assets/ShareIt/review.png"
         alt="mainpage"
       />
       <div className="projectDivider" />
-      <div className="subTitle">앞으로 구현하고자 하는 것</div>
-      <div className="itemWithDot">매칭 뽑힌 사람끼리 쪽지 가능</div>
-      <div className="itemWithDot">이메일 인증 재구현</div>
-      <div className="itemWithDot">소개팅 희망자들을 위해 채팅방 개설</div>
-      <div className="itemWithDot">토근 관리 RTR 방식 적용</div>
+      <div className="subTitle">개발한 내역</div>
+      <div className="itemWithDot">무한 스크롤로 리스트 구현</div>
+      <div className="itemWithDot">웹 소켓통신으로 채팅 구현</div>
+      <div className="itemWithDot">Oauth 2.0을 도입하여 카카오 로그인 적용</div>
+      <div className="itemWithDot">이메일 인증 도입</div>
       <div className="itemWithDot">
-        매칭 및 뽑힐기회 충전 사용자가 직접 가능하도록
+        업로드 파일 형식 제안하여 해킹 위협 방지
       </div>
     </div>
   );
