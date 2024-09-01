@@ -162,28 +162,34 @@ const ShareIt = () => {
 
       <div className="subTitle">등록</div>
       <div className="itemWithDot">
-        기본 조건으로 MBTI를 고를 수 있고 유료 조건도 사용 가능
+        필요해요/빌려주기를 통해 필요한 물건/빌려줄 물건을 등록 가능
       </div>
       <div className="itemWithDot">
-        AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공
+        사진, 가격, 해시태그, 부가 설명 기입 가능
+      </div>
+      <div className="itemWithDot">
+        필요로 한 물건은 사진이 없을수 있기에 빌려주기만 사진 필수 등록
       </div>
       <img
         className="projectImage"
-        src="./assets/Comatching/matching.png"
+        src="./assets/ShareIt/registration.png"
         alt="mainpage"
       />
 
+      <div className="subTitle">리스트</div>
+      <div className="itemWithDot">
+        검색없이 접속시 최근 등록된 순으로 확인 가능
+      </div>
+      <div className="itemWithDot">무한 스크롤로 추가 확인 가능</div>
+      <div className="itemWithDot">인기 해시태그 제공</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/matchingresult.png"
+        src="./assets/ShareIt/borrowpage.png"
         alt="mainpage"
       />
-
-      <div className="subTitle">결과 모아보기</div>
-      <div className="itemWithDot">본인이 뽑은 내역 확인 가능 및 사후평가</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/review.png"
+        src="./assets/ShareIt/needpage.png"
         alt="mainpage"
       />
 
