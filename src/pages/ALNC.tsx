@@ -1,36 +1,10 @@
 import "../css/Project.css.ts";
 
 const ALNC = () => {
-  const openGitHubPage = () => {
-    const popupWidth = 1200;
-    const popupHeight = 600;
-    const popupX = Math.round(
-      window.screenX + window.outerWidth / 2 - popupWidth / 2
-    );
-    const popupY = Math.round(
-      window.screenY + window.outerHeight / 2 - popupHeight / 2
-    );
-
-    const featureWindow =
-      "width=" +
-      popupWidth +
-      ", height=" +
-      popupHeight +
-      ", left=" +
-      popupX +
-      ", top=" +
-      popupY;
-
-    return window.open(
-      "https://github.com/COMAtching/COMAtching_FE",
-      "_blank",
-      featureWindow
-    );
-  };
   return (
     <div className="projectContainer">
       <div className="projectTop">프로젝트 개요</div>
-      <div className="projectTitle">COMATCHING</div>
+      <div className="projectTitle">새차처럼</div>
 
       {/* <div className={styles.imageContainer}> */}
       <img
@@ -45,10 +19,6 @@ const ALNC = () => {
           {[
             { skill: "React", color: "#61DBFB" },
             { skill: "JavaScript", color: "#F0DB4F" },
-            { skill: "Typescript", color: "#007acc" },
-            { skill: "Recoil", color: "#007AF4" },
-            { skill: "vanilla-extract", color: "#99F6E4" },
-            { skill: "vite", color: "#9575CD" },
             { skill: "axios", color: "#0A99E0" },
           ].map(({ skill, color }) => (
             <div className="item" style={{ backgroundColor: color }}>
@@ -66,7 +36,7 @@ const ALNC = () => {
             { tool: "Figma", color: "#F24E1E" },
             // { tool: "Jira", color: "#2684FF" },
             { tool: "Firebase", color: "#FFCA28" },
-            { tool: "Vercel", color: "#777777" },
+            // { tool: "Vercel", color: "#777777" },
           ].map(({ tool, color }) => (
             <div className="item" style={{ backgroundColor: color }}>
               {tool}
@@ -76,11 +46,11 @@ const ALNC = () => {
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">진행기간</div>
-        <div>2023.09.07 ~ 진행중</div>
+        <div>2022.11.10 ~ 2023.08.25</div>
       </div>
       <div className="projectExpCatainer">
-        <div className="projectExpTitle">개발 인원</div>
-        <div>초기 4명으로 구성된 팀에서 현재 13명으로 확장됨</div>
+        <div className="projectExpTitle">참가 인원</div>
+        <div>4명</div>
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">역할</div>
@@ -103,7 +73,9 @@ const ALNC = () => {
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">성과</div>
-        <div>총 사용자 1320명</div>
+        <div>학생창업유망팅 선정 및 k-300 출정</div>
+        <div>하나 소셜벤처 유니버시티 우수팀 선정</div>
+        <div>가톨릭대학교 창업경진대회 장려상 수상</div>
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">카테고리</div>
@@ -111,106 +83,77 @@ const ALNC = () => {
           WEB
         </div>
       </div>
-      <div className="projectExpCatainer">
+      {/* <div className="projectExpCatainer">
         <div className="projectExpTitle">github</div>
         <div onClick={() => openGitHubPage()}>
           https://github.com/COMAtching/COMAtching_FE
         </div>
-      </div>
+      </div> */}
 
       <div className="projectDivider" />
 
       <div className="subTitle">기능</div>
-      <div className="FunctionTitle">회원가입</div>
-      <div className="itemWithDot">
-        Oauth 2.0을 도입하여 kakao 소셜 로그인을 도입
-      </div>
-      <div className="itemWithDot">채팅 형식으로 정보 받음</div>
-      <div className="itemWithDot">취향 입력 받음</div>
-      <div className="itemWithDot">순서대로 추가 정보를 입력 받음</div>
+      <div className="FunctionTitle">로그인</div>
+      <div className="itemWithDot">사용자 구분을 위한 로그인 기능</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/loginpage.png"
+        src="./assets/ALNC/login.png"
         alt="loginpage"
       />
 
-      <img
-        className="projectImage"
-        src="./assets/Comatching/registerchat.png"
-        alt="registerchat"
-      />
-
-      <img
-        className="projectImage"
-        src="./assets/Comatching/registerhobby.png"
-        alt="registerhobby"
-      />
-
-      <img
-        className="projectImage"
-        src="./assets/Comatching/registerfinal.png"
-        alt="registerfinal"
-      />
-
       <div className="subTitle">메인페이지</div>
-      <div className="itemWithDot">간단한 개인 정보 및 추가 정보 확인 가능</div>
-      <div className="itemWithDot">충전 요청 보낼 수 있음</div>
-      <div className="itemWithDot">QR코드로 빠르게 진행 가능</div>
+      <div className="itemWithDot">날씨정보 확인 가능</div>
+      <div className="itemWithDot">간단한 게시글 열람 가능</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/mainpage.png"
+        src="./assets/ALNC/mainpage.png"
+        alt="mainpage"
+      />
+
+      <div className="subTitle">견적 신청</div>
+
+      <div className="itemWithDot">고압수, 스팀 세차 선택 가능</div>
+      <div className="itemWithDot">어떤 점을 우선시 할지 선택 가능</div>
+      <div className="itemWithDot">사진 및 정보 작성 가능</div>
+      <img
+        className="projectImage"
+        src="./assets/ALNC/pick_first.png"
         alt="mainpage"
       />
 
       <img
         className="projectImage"
-        src="./assets/Comatching/mainpagecharge.png"
+        src="./assets/ALNC/pick_second.png"
         alt="mainpage"
       />
       <img
         className="projectImage"
-        src="./assets/Comatching/QRpage.png"
+        src="./assets/ALNC/pick_final.png"
         alt="mainpage"
       />
 
-      <div className="subTitle">매칭</div>
-
-      <div className="itemWithDot">
-        기본 조건으로 MBTI를 고를 수 있고 유료 조건도 사용 가능
-      </div>
-      <div className="itemWithDot">
-        AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공
-      </div>
+      <div className="subTitle">견적서 보기</div>
+      <div className="itemWithDot">견적서를 보낸 업체 리스트 열람 가능</div>
+      <div className="itemWithDot">업체의 상세정보 열람 가능</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/matching.png"
+        src="./assets/ALNC/list.png"
+        alt="mainpage"
+      />
+      <img
+        className="projectImage"
+        src="./assets/ALNC/list_detail.png"
         alt="mainpage"
       />
 
+      <div className="subTitle">견적함</div>
+      <div className="itemWithDot">예약 내역 열람 가능</div>
       <img
         className="projectImage"
-        src="./assets/Comatching/matchingresult.png"
+        src="./assets/ALNC/pick_list.png"
         alt="mainpage"
       />
-
-      <div className="subTitle">결과 모아보기</div>
-      <div className="itemWithDot">본인이 뽑은 내역 확인 가능 및 사후평가</div>
-      <img
-        className="projectImage"
-        src="./assets/Comatching/review.png"
-        alt="mainpage"
-      />
-
-      <div className="subTitle">관리자 충전 내역 관리</div>
-      <div className="itemWithDot">
-        관리자가 포인트 충전 및 뽑힐 횟수 증가 가능
-      </div>
-      <img
-        className="projectImage"
-        src="./assets/Comatching/admin.png"
-        alt="mainpage"
-      />
-      <div className="projectDivider" />
+      {/* <div className="projectDivider" />
       <div className="subTitle">앞으로 구현하고자 하는 것</div>
       <div className="itemWithDot">매칭 뽑힌 사람끼리 쪽지 가능</div>
       <div className="itemWithDot">이메일 인증 재구현</div>
@@ -218,7 +161,7 @@ const ALNC = () => {
       <div className="itemWithDot">토근 관리 RTR 방식 적용</div>
       <div className="itemWithDot">
         매칭 및 뽑힐기회 충전 사용자가 직접 가능하도록
-      </div>
+      </div> */}
     </div>
   );
 };
