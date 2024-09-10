@@ -9,7 +9,7 @@ const ALNC = () => {
       {/* <div className={styles.imageContainer}> */}
       <img
         className="projectTitleImage"
-        src="./assets/Comatching/mainpage.png"
+        src="./assets/ALNC/mainpage.png"
         alt="mainpage"
       />
       {/* </div> */}

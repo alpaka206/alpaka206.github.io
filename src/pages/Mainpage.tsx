@@ -231,8 +231,8 @@ const Mainpage: React.FC = () => {
             )
           }
         />
-      </div>
-      <div className={styles.folderContainer}>
+        {/* </div>
+      <div className={styles.folderContainer}> */}
         <FolderContainer
           imageUrl="./assets/Insta.png"
           title="Insta"
@@ -271,21 +271,7 @@ const Mainpage: React.FC = () => {
         <FolderContainer
           imageUrl="./assets/Github.png"
           title="GitHub"
-          onClick={
-            () => openGitHubPage()
-            // handlePageOpen(
-            //   "GitHub",
-            //   "./assets/Github.png",
-            //   <iframe
-            //     // src="https://github.com/alpaka206"
-            //     src="http://localhost:5173/#/github"
-            //     width="100%"
-            //     height="90%"
-            //     frameBorder="0"
-            //     title="GitHub"
-            //   ></iframe>
-            // )
-          }
+          onClick={() => openGitHubPage()}
         />
       </div>
       {tabs.tabs.length > 0 && (
