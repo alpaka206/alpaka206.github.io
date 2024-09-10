@@ -61,4 +61,6 @@ export const windowBody = style({
 
 export const folderContainer = style({
   display: "flex",
+  marginLeft: "10px",
+  gap: "20px",
 });

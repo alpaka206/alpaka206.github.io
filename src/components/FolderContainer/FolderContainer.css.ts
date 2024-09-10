@@ -25,6 +25,12 @@ export const imageContainerStyle = style({
 export const imageStyle = style({
   width: "100%",
   height: "auto",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      borderRadius: "20px",
+    },
+  },
 });
 
 export const titleStyle = style({
@@ -33,5 +39,10 @@ export const titleStyle = style({
   fontWeight: "600",
   color: "#ffffff",
   textShadow: "1px 1px 2px black, 0 0 2px black",
-  // WebkitTextStroke: "0.5px black",
+
+  "@media": {
+    "screen and (max-width: 768px)": {
+      fontSize: "0.7em",
+    },
+  },
 });

@@ -5,13 +5,19 @@ import PageContainer from "../components/PageContainer/PageContainer";
 import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
 import Taskbar from "../components/Taskbar/Taskbar";
 import { useRecoilState } from "recoil";
-import { tabsState, ZIndexState, taskbarState } from "../Atoms.tsx";
+import {
+  tabsState,
+  ZIndexState,
+  taskbarState,
+  isMobileState,
+} from "../Atoms.tsx";
 
 const Mainpage: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
   const [activeFolderPage, setActiveFolderPage] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useRecoilState(isMobileState);
 
   const handlePageOpen = (
     title: string,
@@ -210,7 +216,9 @@ const Mainpage: React.FC = () => {
           }}
         />
         <FolderContainer
-          imageUrl="./assets/Folder.png"
+          imageUrl={
+            isMobile ? "./assets/phone/folder.png" : "./assets/Folder.png"
+          }
           title="프로젝트"
           onClick={() => handleFolderPageOpen()}
         />
@@ -269,7 +277,9 @@ const Mainpage: React.FC = () => {
           }
         />
         <FolderContainer
-          imageUrl="./assets/Github.png"
+          imageUrl={
+            isMobile ? "./assets/phone/github.png" : "./assets/Github.png"
+          }
           title="GitHub"
           onClick={() => openGitHubPage()}
         />

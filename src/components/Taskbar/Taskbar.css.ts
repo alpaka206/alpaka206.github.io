@@ -3,14 +3,14 @@ import { style } from "@vanilla-extract/css";
 export const taskbar = style({
   position: "fixed",
   bottom: 0,
-  marginLeft: "-64px",
-  width: "calc(100vw + 128px)",
+  marginLeft: "-36px",
+  width: "100vw",
   height: "50px",
   backgroundColor: "#333",
   display: "flex",
   alignItems: "center",
   justifyContent: "start",
-  padding: "0 10px",
+  padding: "0 4px",
   boxShadow: "0 -2px 5px rgba(0, 0, 0, 0.2)",
   zIndex: 1001, // 작업 표시줄이 항상 위에 보이도록 z-index 설정
 });
