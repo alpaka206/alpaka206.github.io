@@ -7,17 +7,45 @@ export const Profile = style({
   fontFamily: `'Arial', sans-serif`,
   color: "#333",
   backgroundColor: "#f9f9f9",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      display: "block",
+      paddingTop: "5%",
+    },
+  },
 });
+
+export const Back_button = style({
+  display: "none",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      display: "block",
+      marginLeft: "5%",
+      backgroundColor: "#ffffff",
+      width: "20px",
+      height: "20px",
+      padding: "10px",
+      borderRadius: "100px",
+    },
+  },
+});
+
 export const Profile_Nav = style({
   position: "fixed", // 네비게이션을 고정
   height: "50vh", // 화면 전체 높이
   width: "110px", // 네비게이션 너비
+
   color: "#333",
   padding: "40px 0 50vh 40px",
   borderRight: "2px solid black",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-around",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      display: "none",
+    },
+  },
 });
 
 export const Profile_Nav_Item = style({
@@ -26,12 +54,19 @@ export const Profile_Nav_Item = style({
   ":hover": {
     textDecoration: "underline",
   },
+  fontSize: "16px",
   marginBottom: "10px",
 });
 
 export const Profile_Content = style({
   marginLeft: "150px",
   width: "calc(100% - 150px)",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      marginLeft: "0px",
+      width: "100%",
+    },
+  },
 });
 
 export const Profile_Info = style({

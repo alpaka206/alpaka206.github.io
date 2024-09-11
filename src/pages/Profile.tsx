@@ -4,6 +4,13 @@ import { Link, Element } from "react-scroll";
 const Profile = () => {
   return (
     <div className={styles.Profile}>
+      <img
+        src="./assets/back.svg"
+        alt="Phone"
+        className={styles.Back_button}
+        onClick={() => window.history.back()}
+      ></img>
+
       <div className={styles.Profile_Nav}>
         <Link
           to="home"
@@ -56,7 +63,6 @@ const Profile = () => {
       </div>
       <div className={styles.Profile_Content}>
         <Element name="home" className={styles.Profile_Info}>
-          {/* <div className={styles.Profile_Info}> */}
           <img
             src="./assets/ProfileImage.jpg"
             alt="prize"
@@ -73,43 +79,12 @@ const Profile = () => {
               싶습니다.
             </div>
           </div>
-          {/* </div> */}
         </Element>
         <div className={styles.Divider} />
         <Element name="contact" className={styles.Profile_Conatiner}>
           <div className={styles.Profile_MainTitle}>📪 Contact</div>
-          <div className={styles.Profile_detail}>
-            {/* <img
-              src="./assets/phone_icon.png"
-              alt="Phone"
-              className={styles.Profile_Contact_Icon}
-            /> */}
-            📞 010-2412-0339
-          </div>
-          <div className={styles.Profile_detail}>
-            {/* <img
-              src="./assets/email_icon.png"
-              alt="Email"
-              className={styles.Profile_Contact_Icon}
-            /> */}
-            ✉️ gyuwon05@gmail.com
-          </div>
-          {/* <div className={styles.Profile_detail}>
-            <img
-              src="./assets/Insta.png"
-              alt="Instagram"
-              className={styles.Profile_Contact_Icon}
-            />
-            @alpaka_dev
-          </div>
-          <div className={styles.Profile_detail}>
-            <img
-              src="./assets/Github.png"
-              alt="GitHub"
-              className={styles.Profile_Contact_Icon}
-            />
-            <a href="https://github.com/alpaka206">github.com/alpaka206</a>
-          </div> */}
+          <div className={styles.Profile_detail}>📞 010-2412-0339</div>
+          <div className={styles.Profile_detail}>✉️ gyuwon05@gmail.com</div>
         </Element>
         <div className={styles.Divider} />
         <Element name="skills" className={styles.Profile_Conatiner}>
@@ -314,11 +289,6 @@ const Profile = () => {
           <div className={styles.Profile_detail}>2024.06 ~ 2024.08</div>
           <div className={styles.Profile_detail}>개발팀 학생 인턴</div>
         </Element>
-        {/* <div className={styles.Divider} />
-        <div className={styles.Profile_Conatiner}>
-          <div className={styles.Profile_MainTitle}>프로젝트 보러가기</div>
-          <div className={styles.Profile_MainTitle}>수상내역 보러가기</div>
-        </div> */}
       </div>
     </div>
   );

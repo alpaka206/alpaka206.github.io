@@ -7,7 +7,7 @@ export const containerStyle = style({
   textAlign: "center",
   userSelect: "none",
   "@media": {
-    "screen and (max-width: 768px)": {
+    "screen and (max-width: 980px)": {
       width: "60%",
     },
   },
@@ -27,7 +27,7 @@ export const imageStyle = style({
   height: "auto",
 
   "@media": {
-    "screen and (max-width: 768px)": {
+    "screen and (max-width: 980px)": {
       borderRadius: "20px",
     },
   },
@@ -41,7 +41,7 @@ export const titleStyle = style({
   textShadow: "1px 1px 2px black, 0 0 2px black",
 
   "@media": {
-    "screen and (max-width: 768px)": {
+    "screen and (max-width: 980px)": {
       fontSize: "0.7em",
     },
   },

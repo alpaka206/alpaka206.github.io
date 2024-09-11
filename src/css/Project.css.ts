@@ -104,7 +104,7 @@ globalStyle(".projectTitleImage", {
 globalStyle(".projectImage", {
   width: "40%",
   margin: "10px 5%",
-  boxShadow: "none",
+  // boxShadow: "none",
   // border: "1px solid",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
 });

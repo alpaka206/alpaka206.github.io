@@ -3,6 +3,7 @@ import * as styles from "../css/Mainpage.css";
 import FolderContainer from "../components/FolderContainer/FolderContainer";
 import PageContainer from "../components/PageContainer/PageContainer";
 import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
+import PhoneFolderPage from "../components/PhoneFolderPage/PhoneFolderPage";
 import Taskbar from "../components/Taskbar/Taskbar";
 import { useRecoilState } from "recoil";
 import {
@@ -11,8 +12,10 @@ import {
   taskbarState,
   isMobileState,
 } from "../Atoms.tsx";
+import { useNavigate } from "react-router-dom";
 
 const Mainpage: React.FC = () => {
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
@@ -50,7 +53,10 @@ const Mainpage: React.FC = () => {
 
     bringPageToFront();
   };
-
+  const handlePhonePageOpen = () => {
+    setActiveFolderPage(true);
+    window.history.pushState(null, "", window.location.href);
+  };
   const handleFolderPageOpen = () => {
     setActiveFolderPage(true);
     bringFolderToFront();
@@ -201,18 +207,21 @@ const Mainpage: React.FC = () => {
           imageUrl="./assets/AboutMe.png"
           title="Profile"
           onClick={() => {
-            handlePageOpen(
-              "Profile",
-              "./assets/AboutMe.png",
-              <iframe
-                // src="https://alpaka206.github.io/#/Profile"
-                src="http://localhost:5173/#/Profile"
-                width="100%"
-                height="80%"
-                frameBorder="0"
-                title="Profile"
-              ></iframe>
-            );
+            isMobile
+              ? // ? (window.location.href = "https://alpaka206.github.io/#/Profile")
+                (window.location.href = "http://localhost:5173/#/Profile")
+              : handlePageOpen(
+                  "Profile",
+                  "./assets/AboutMe.png",
+                  <iframe
+                    // src="https://alpaka206.github.io/#/Profile"
+                    src="http://localhost:5173/#/Profile"
+                    width="100%"
+                    height="80%"
+                    frameBorder="0"
+                    title="Profile"
+                  ></iframe>
+                );
           }}
         />
         <FolderContainer
@@ -220,60 +229,67 @@ const Mainpage: React.FC = () => {
             isMobile ? "./assets/phone/folder.png" : "./assets/Folder.png"
           }
           title="프로젝트"
-          onClick={() => handleFolderPageOpen()}
+          onClick={() =>
+            isMobile ? handlePhonePageOpen() : handleFolderPageOpen()
+          }
         />
         <FolderContainer
           imageUrl="./assets/Blog.png"
           title="Blog"
           onClick={() =>
-            handlePageOpen(
-              "Blog",
-              "./assets/Blog.png",
-              <iframe
-                src="https://alpaka206.vercel.app/"
-                width="100%"
-                height="80%"
-                frameBorder="0"
-                title="Blog"
-              ></iframe>
-            )
+            isMobile
+              ? (window.location.href = "https://alpaka206.vercel.app/")
+              : handlePageOpen(
+                  "Blog",
+                  "./assets/Blog.png",
+                  <iframe
+                    src="https://alpaka206.vercel.app/"
+                    width="100%"
+                    height="80%"
+                    frameBorder="0"
+                    title="Blog"
+                  ></iframe>
+                )
           }
         />
-        {/* </div>
-      <div className={styles.folderContainer}> */}
         <FolderContainer
           imageUrl="./assets/Insta.png"
           title="Insta"
           onClick={() =>
-            handlePageOpen(
-              "Insta",
-              "./assets/Insta.png",
-              <iframe
-                src="https://www.instagram.com/alpaka_dev/embed"
-                width="100%"
-                height="90%"
-                frameBorder="0"
-                title="Instagram"
-              ></iframe>
-            )
+            isMobile
+              ? (window.location.href = "https://www.instagram.com/alpaka_dev/")
+              : handlePageOpen(
+                  "Insta",
+                  "./assets/Insta.png",
+                  <iframe
+                    src="https://www.instagram.com/alpaka_dev/embed"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Instagram"
+                  ></iframe>
+                )
           }
         />
         <FolderContainer
           imageUrl="./assets/prize.png"
           title="수상내역"
           onClick={() =>
-            handlePageOpen(
-              "수상내역",
-              "./assets/prize.png",
-              <iframe
-                // src="https://alpaka206.github.io/#/Prize"
-                src="http://localhost:5173/#/Prize"
-                width="100%"
-                height="90%"
-                frameBorder="0"
-                title="Prize"
-              ></iframe>
-            )
+            isMobile
+              ? // ? (window.location.href = "https://alpaka206.github.io/#/Prize")
+                (window.location.href = "http://localhost:5173/#/Prize")
+              : handlePageOpen(
+                  "수상내역",
+                  "./assets/prize.png",
+                  <iframe
+                    // src="https://alpaka206.github.io/#/Prize"
+                    src="http://localhost:5173/#/Prize"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Prize"
+                  ></iframe>
+                )
           }
         />
         <FolderContainer
@@ -281,10 +297,14 @@ const Mainpage: React.FC = () => {
             isMobile ? "./assets/phone/github.png" : "./assets/Github.png"
           }
           title="GitHub"
-          onClick={() => openGitHubPage()}
+          onClick={() =>
+            isMobile
+              ? (window.location.href = "https://github.com/alpaka206")
+              : openGitHubPage()
+          }
         />
       </div>
-      {tabs.tabs.length > 0 && (
+      {!isMobile && tabs.tabs.length > 0 && (
         <PageContainer
           tabs={tabs.tabs}
           activeTab={tabs.activeTabIndex}
@@ -294,13 +314,17 @@ const Mainpage: React.FC = () => {
           bringPageToFront={bringPageToFront}
         />
       )}
-      {activeFolderPage && (
-        <FolderPageContainer
-          onClose={() => handleCloseFolderPage()}
-          bringFolderToFront={bringFolderToFront}
-        />
-      )}
-      <Taskbar setActiveItem={handleTaskbarItemClick} />
+      {activeFolderPage &&
+        (isMobile ? (
+          <PhoneFolderPage onClose={() => handleCloseFolderPage()} />
+        ) : (
+          <FolderPageContainer
+            onClose={() => handleCloseFolderPage()}
+            bringFolderToFront={bringFolderToFront}
+          />
+        ))}
+
+      {!isMobile && <Taskbar setActiveItem={handleTaskbarItemClick} />}
     </div>
   );
 };
