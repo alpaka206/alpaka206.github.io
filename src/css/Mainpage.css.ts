@@ -1,9 +1,9 @@
 import { style } from "@vanilla-extract/css";
 
 export const container = style({
-  padding: "34px 64px",
-  width: "calc(100vw - 128px)",
-  height: "calc(100vh - 68px)",
+  padding: "36px",
+  width: "calc(100vw - 72px)",
+  height: "calc(100vh - 72px)",
   backgroundImage: "url(../../public/assets/BG_pc.png)",
   backgroundSize: "cover",
   backgroundPosition: "center",
@@ -22,7 +22,7 @@ export const container = style({
 export const folderContainer = style({
   display: "grid",
   width: "250px",
-  alignItems: "center",
+  justifyItems: "center",
   gridTemplateColumns: "repeat(3, 1fr)", // 기본적으로 3개의 폴더씩 나열
   // gap: "20px", // 기존 간격 유지
   "@media": {
@@ -30,6 +30,7 @@ export const folderContainer = style({
       // 핸드폰에서는 4개의 폴더씩 나열
       width: " 100%",
       gridTemplateColumns: "repeat(4, 1fr)",
+
       // gap: "34px", // 간격 유지
     },
   },

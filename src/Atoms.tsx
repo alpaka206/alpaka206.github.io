@@ -48,3 +48,8 @@ export const taskbarState = atom<Taskbar>({
     activeTaskbar: null,
   },
 });
+
+export const isMobileState = atom<boolean>({
+  key: "isMobileState", // 고유 키 값
+  default: false, // 초기 값은 boolean 타입의 false
+});
