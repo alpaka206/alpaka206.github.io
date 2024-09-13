@@ -2,11 +2,12 @@ import { style, globalStyle } from "@vanilla-extract/css";
 
 globalStyle(".projectContainer", {
   padding: "20px",
-  width: "90%",
+  width: "calc(100% - 40px)",
   margin: "0 auto",
   fontFamily: "Arial, sans-serif",
   lineHeight: "1.6",
   color: "#333",
+  backgroundColor: "#f9f9f9",
 });
 
 globalStyle(".projectTop", {
@@ -107,6 +108,21 @@ globalStyle(".projectImage", {
   // boxShadow: "none",
   // border: "1px solid",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+});
+
+globalStyle(".project_Back_button", {
+  display: "none",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      display: "block",
+      marginBottom: "20px",
+      backgroundColor: "#ffffff",
+      width: "20px",
+      height: "20px",
+      padding: "10px",
+      borderRadius: "100px",
+    },
+  },
 });
 
 export const title = style({

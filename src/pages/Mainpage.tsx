@@ -15,7 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Mainpage: React.FC = () => {
-  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
+  const navigate = useNavigate();
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
@@ -208,14 +208,13 @@ const Mainpage: React.FC = () => {
           title="Profile"
           onClick={() => {
             isMobile
-              ? // ? (window.location.href = "https://alpaka206.github.io/#/Profile")
-                (window.location.href = "http://localhost:5173/#/Profile")
+              ? navigate("/Profile")
               : handlePageOpen(
                   "Profile",
                   "./assets/AboutMe.png",
                   <iframe
-                    // src="https://alpaka206.github.io/#/Profile"
-                    src="http://localhost:5173/#/Profile"
+                    src="https://alpaka206.github.io/#/Profile"
+                    // src="http://localhost:5173/#/Profile"
                     width="100%"
                     height="80%"
                     frameBorder="0"
@@ -276,14 +275,13 @@ const Mainpage: React.FC = () => {
           title="수상내역"
           onClick={() =>
             isMobile
-              ? // ? (window.location.href = "https://alpaka206.github.io/#/Prize")
-                (window.location.href = "http://localhost:5173/#/Prize")
+              ? navigate("/Prize")
               : handlePageOpen(
                   "수상내역",
                   "./assets/prize.png",
                   <iframe
-                    // src="https://alpaka206.github.io/#/Prize"
-                    src="http://localhost:5173/#/Prize"
+                    src="https://alpaka206.github.io/#/Prize"
+                    // src="http://localhost:5173/#/Prize"
                     width="100%"
                     height="90%"
                     frameBorder="0"
