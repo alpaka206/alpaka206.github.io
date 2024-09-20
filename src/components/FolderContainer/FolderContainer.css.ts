@@ -8,7 +8,7 @@ export const containerStyle = style({
   userSelect: "none",
   "@media": {
     "screen and (max-width: 980px)": {
-      width: "60%",
+      width: "80%",
     },
   },
 });
@@ -16,7 +16,6 @@ export const containerStyle = style({
 export const imageContainerStyle = style({
   width: "100%",
   aspectRatio: "1/1",
-  // minHeight: "55px", // 최소 높이를 설정하여 이미지 크기를 유지하면서 공간 확보
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -28,7 +27,7 @@ export const imageStyle = style({
 
   "@media": {
     "screen and (max-width: 980px)": {
-      borderRadius: "20px",
+      borderRadius: "40%",
     },
   },
 });
@@ -42,7 +41,7 @@ export const titleStyle = style({
 
   "@media": {
     "screen and (max-width: 980px)": {
-      fontSize: "0.7em",
+      fontSize: "calc(8px + 2vw)",
     },
   },
 });

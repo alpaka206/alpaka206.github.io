@@ -45,6 +45,11 @@ globalStyle(".projectExpTitle", {
   fontWeight: "600",
   width: "15%",
   color: "#555",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      minWidth: "25%",
+    },
+  },
 });
 
 globalStyle(".content", {
@@ -132,22 +137,6 @@ export const title = style({
   borderBottom: "2px solid #ddd",
   paddingBottom: "5px",
 });
-
-// export const content = style({
-//   display: "flex",
-//   flexWrap: "wrap",
-//   gap: "10px",
-//   marginBottom: "15px",
-// });
-
-// export const item = style({
-//   backgroundColor: "#f9f9f9",
-//   borderRadius: "8px",
-//   padding: "10px 15px",
-//   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-//   fontSize: "14px",
-//   fontWeight: "500",
-// });
 
 export const imageContainer = style({
   textAlign: "center",

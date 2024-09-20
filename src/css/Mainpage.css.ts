@@ -30,7 +30,7 @@ export const folderContainer = style({
       // 핸드폰에서는 4개의 폴더씩 나열
       width: " 100%",
       gridTemplateColumns: "repeat(4, 1fr)",
-
+      rowGap: "34px",
       // gap: "34px", // 간격 유지
     },
   },

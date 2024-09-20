@@ -18,19 +18,26 @@ export const phoneFolderText = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  margin: "112px 0",
+  margin: "25% 0",
   fontSize: "36px",
   color: "#fff",
   fontWeight: "bold",
+  "@media": {
+    "screen and (min-width: 970px)": {
+      fontSize: "7em",
+    },
+  },
 });
 
 export const phoneFolderContainer = style({
-  width: "calc(90% - 20px)",
+  width: "84%",
+  // width: "calc(90% - 20px)",
   display: "grid",
   backgroundColor: "#585858",
   gridTemplateColumns: "repeat(4, 1fr)",
-  padding: "10px ",
-  borderRadius: "25px",
-  height: "50%",
+  padding: "3%",
+  borderRadius: "8%",
+  // height: "calc(50% - 20px)",
+  height: "44%",
   justifyItems: "center",
 });
