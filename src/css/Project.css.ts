@@ -110,9 +110,18 @@ globalStyle(".projectTitleImage", {
 globalStyle(".projectImage", {
   width: "40%",
   margin: "10px 5%",
-  // boxShadow: "none",
-  // border: "1px solid",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+});
+
+globalStyle(".projectImageFullWidth", {
+  width: "40%",
+  margin: "10px 5%",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      width: "90%",
+    },
+  },
 });
 
 globalStyle(".project_Back_button", {

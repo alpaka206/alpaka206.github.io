@@ -109,7 +109,7 @@ const COMATCHING = () => {
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">성과</div>
-        <div>총 사용자 1320명</div>
+        <div>총 사용자 2095명</div>
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">카테고리</div>

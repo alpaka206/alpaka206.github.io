@@ -2,6 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 export const PrizePage = style({
   padding: "20px 30px",
+  backgroundColor: "#f9f9f9",
 });
 
 export const PrizeContainer = style({
@@ -64,4 +65,18 @@ export const ModalContent = style({
 export const ModalImage = style({
   width: "100%",
   objectFit: "contain",
+});
+export const Back_button = style({
+  display: "none",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      display: "block",
+      // marginLeft: "5%",
+      backgroundColor: "#ffffff",
+      width: "20px",
+      height: "20px",
+      padding: "10px",
+      borderRadius: "100px",
+    },
+  },
 });

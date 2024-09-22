@@ -30,6 +30,12 @@ const ShareIt = () => {
 
   return (
     <div className="projectContainer">
+      <img
+        src="./assets/back.svg"
+        alt="Phone"
+        className="project_Back_button"
+        onClick={() => window.history.back()}
+      ></img>
       <div className="projectTop">프로젝트 개요</div>
       <div className="projectTitle">ShareIt</div>
 
@@ -130,13 +136,13 @@ const ShareIt = () => {
       <div className="itemWithDot">이메일 인증을 통해 검증</div>
       <div className="itemWithDot">정보를 입력하면 다음 내용으로 슬라이딩</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/KaKaologin.png"
         alt="loginpage"
       />
 
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/Email.png"
         alt="registerchat"
       />
@@ -149,13 +155,13 @@ const ShareIt = () => {
       <div className="itemWithDot">사이드바 작동</div>
       <div className="itemWithDot">최근 검색어 및 검색어 자동완성 구현</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/Search.png"
         alt="mainpage"
       />
 
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/sidebar.png"
         alt="mainpage"
       />
@@ -171,7 +177,7 @@ const ShareIt = () => {
         필요로 한 물건은 사진이 없을수 있기에 빌려주기만 사진 필수 등록
       </div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/registration.png"
         alt="mainpage"
       />
@@ -183,12 +189,12 @@ const ShareIt = () => {
       <div className="itemWithDot">무한 스크롤로 추가 확인 가능</div>
       <div className="itemWithDot">인기 해시태그 제공</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/borrowpage.png"
         alt="mainpage"
       />
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/needpage.png"
         alt="mainpage"
       />
@@ -196,12 +202,12 @@ const ShareIt = () => {
       <div className="subTitle">상세페이지</div>
       <div className="itemWithDot">평점 및 좋아요 개수 확인가능</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/borrowDetail.png"
         alt="mainpage"
       />
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/needDetail.png"
         alt="mainpage"
       />
@@ -210,12 +216,12 @@ const ShareIt = () => {
       <div className="itemWithDot">약속 잡기 가능</div>
       <div className="itemWithDot">거래 완료 가능</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/chat.png"
         alt="mainpage"
       />
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/chatwidget.png"
         alt="mainpage"
       />
@@ -224,7 +230,7 @@ const ShareIt = () => {
       <div className="itemWithDot">거래내역 확인 가능</div>
       <div className="itemWithDot">별점 부여 가능</div>
       <img
-        className="projectImage"
+        className="projectImageFullWidth"
         src="./assets/ShareIt/review.png"
         alt="mainpage"
       />

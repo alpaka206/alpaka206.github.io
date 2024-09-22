@@ -3,6 +3,12 @@ import "../css/Project.css.ts";
 const ALNC = () => {
   return (
     <div className="projectContainer">
+      <img
+        src="./assets/back.svg"
+        alt="Phone"
+        className="project_Back_button"
+        onClick={() => window.history.back()}
+      ></img>
       <div className="projectTop">프로젝트 개요</div>
       <div className="projectTitle">새차처럼</div>
 

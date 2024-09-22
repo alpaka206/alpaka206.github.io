@@ -65,6 +65,12 @@ const Prize = () => {
 
   return (
     <div className={styles.PrizePage}>
+      <img
+        src="./assets/back.svg"
+        alt="Phone"
+        className={styles.Back_button}
+        onClick={() => window.history.back()}
+      ></img>
       <div className={styles.PrizeContainer}>
         {prizes.map((prize, index) => (
           <div
