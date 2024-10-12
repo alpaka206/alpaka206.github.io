@@ -75,7 +75,7 @@ const Profile = () => {
               포기하지 않는 성실함과 꾸준한 성장을 가장 중요하게 생각합니다.
             </div>
             <div className={styles.Profile_Info_Comment}>
-              언제나 배울을 즐기고, 항상 도전하여 사용자에게 더 좋은 경험을 주고
+              언제나 배움을 즐기고, 항상 도전하여 사용자에게 더 좋은 경험을 주고
               싶습니다.
             </div>
           </div>
@@ -168,6 +168,7 @@ const Profile = () => {
               alt="styled--components"
             />
           </div>
+          <div className={styles.Divider} />
           <h3>🛠️ Tools & Platforms</h3>
           <div className={styles.Profile_Tools}>
             <img

@@ -82,7 +82,7 @@ const COMATCHING = () => {
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">진행기간</div>
-        <div>2023.09.07 ~ 진행중</div>
+        <div>2023.09.07 ~ </div>
       </div>
       <div className="projectExpCatainer">
         <div className="projectExpTitle">개발 인원</div>
