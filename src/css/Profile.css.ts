@@ -34,7 +34,6 @@ export const Profile_Nav = style({
   position: "fixed", // 네비게이션을 고정
   height: "50vh", // 화면 전체 높이
   width: "110px", // 네비게이션 너비
-
   color: "#333",
   padding: "40px 0 50vh 40px",
   borderRight: "2px solid black",
@@ -74,34 +73,56 @@ export const Profile_Info = style({
   padding: "20px 30px",
   // margin: "40px 40px",
 });
+
 export const ProfileImage = style({
   width: "160px",
   borderRadius: "50px",
   marginRight: "20px",
-  objectFit: "cover",
+  // objectFit: "cover",
+  // objectFit: "contain",
+  height: "213px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      width: "100px",
+      height: "133px",
+    },
+  },
 });
 export const Profile_Info_Explain = style({
   display: "flex",
   flexDirection: "column",
-  // alignItems: "center",
-  // justifyContent: "center",
 });
 
 export const Profile_Info_Name = style({
   fontSize: "24px",
   fontWeight: "bold",
   marginBottom: "8px",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      fontSize: "18px",
+    },
+  },
 });
 
 export const Profile_Info_Date = style({
   fontSize: "16px",
   color: "#777",
   marginBottom: "8px",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      fontSize: "14px",
+    },
+  },
 });
 export const Profile_Info_Comment = style({
   fontSize: "14px",
   lineHeight: "1.6",
+  "@media": {
+    "screen and (max-width: 980px)": {
+      fontSize: "12px",
+    },
+  },
 });
 
 export const Profile_Conatiner = style({
