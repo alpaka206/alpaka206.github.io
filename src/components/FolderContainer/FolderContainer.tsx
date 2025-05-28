@@ -1,4 +1,3 @@
-// src/components/FolderContainer.tsx
 import React from "react";
 import * as styles from "./FolderContainer.css";
 

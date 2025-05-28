@@ -1,11 +1,14 @@
-// src/components/FolderContainer.css.ts
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  padding: "10px 0",
-  width: "55px",
-  textAlign: "center",
-  userSelect: "none",
+  padding: "5px",
+  width: "86px",
+  height: "70px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "4px",
   "@media": {
     "screen and (max-width: 980px)": {
       width: "80%",
@@ -14,7 +17,8 @@ export const containerStyle = style({
 });
 
 export const imageContainerStyle = style({
-  width: "100%",
+  width: "40px",
+
   aspectRatio: "1/1",
   display: "flex",
   alignItems: "center",
@@ -24,7 +28,6 @@ export const imageContainerStyle = style({
 export const imageStyle = style({
   width: "100%",
   height: "auto",
-
   "@media": {
     "screen and (max-width: 980px)": {
       borderRadius: "40%",
@@ -33,11 +36,11 @@ export const imageStyle = style({
 });
 
 export const titleStyle = style({
-  marginTop: "10px",
-  fontSize: "13px",
-  fontWeight: "600",
+  fontSize: "12px",
+  fontFamily: "Segoe UI Variable",
+  fontWeight: "400",
   color: "#ffffff",
-  textShadow: "1px 1px 2px black, 0 0 2px black",
+  // textShadow: "1px 1px 2px black, 0 0 2px black",
 
   "@media": {
     "screen and (max-width: 980px)": {
