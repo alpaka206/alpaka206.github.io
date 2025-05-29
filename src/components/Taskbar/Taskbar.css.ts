@@ -3,9 +3,8 @@ import { style } from "@vanilla-extract/css";
 export const taskbar = style({
   position: "fixed",
   bottom: 0,
-  marginLeft: "-36px",
   width: "100vw",
-  height: "50px",
+  height: "40px",
   backgroundColor: "#333",
   display: "flex",
   alignItems: "center",

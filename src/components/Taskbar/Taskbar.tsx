@@ -15,9 +15,8 @@ const Taskbar: React.FC<TaskbarProps> = ({ setActiveItem }) => {
       {taskbarItems.taskbars.map((item) => (
         <div
           key={item.id}
-          className={`${styles.taskbarItem} ${
-            taskbarItems.activeTaskbar === item.id ? styles.active : ""
-          }`}
+          className={`${styles.taskbarItem} ${taskbarItems.activeTaskbar === item.id ? styles.active : ""
+            }`}
           onClick={() => setActiveItem(item.id)}
         >
           <img src={item.imageUrl} alt={item.id} className={styles.icon} />

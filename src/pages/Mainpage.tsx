@@ -205,89 +205,89 @@ const Mainpage: React.FC = () => {
       <div className={styles.folderContainer}>
         <FolderContainer
           imageUrl="./assets/AboutMe.png"
-          title="Profile"
+          title="About Me"
           onClick={() => {
             isMobile
               ? navigate("/Profile")
               : handlePageOpen(
-                  "Profile",
-                  "./assets/AboutMe.png",
-                  <iframe
-                    src="https://alpaka206.github.io/#/Profile"
-                    // src="http://localhost:5173/#/Profile"
-                    width="100%"
-                    height="80%"
-                    frameBorder="0"
-                    title="Profile"
-                  ></iframe>
-                );
+                "About Me",
+                "./assets/AboutMe.png",
+                <iframe
+                  src="https://alpaka206.github.io/#/Profile"
+                  // src="http://localhost:5173/#/Profile"
+                  width="100%"
+                  height="80%"
+                  frameBorder="0"
+                  title="About Me"
+                ></iframe>
+              );
           }}
         />
         <FolderContainer
           imageUrl={
             isMobile ? "./assets/phone/folder.png" : "./assets/Folder.png"
           }
-          title="프로젝트"
+          title="Projects"
           onClick={() =>
             isMobile ? handlePhonePageOpen() : handleFolderPageOpen()
           }
         />
         <FolderContainer
           imageUrl="./assets/Blog.png"
-          title="Blog"
+          title="Tech Blog"
           onClick={() =>
             isMobile
               ? (window.location.href = "https://alpaka206.vercel.app/")
               : handlePageOpen(
-                  "Blog",
-                  "./assets/Blog.png",
-                  <iframe
-                    src="https://alpaka206.vercel.app/"
-                    width="100%"
-                    height="80%"
-                    frameBorder="0"
-                    title="Blog"
-                  ></iframe>
-                )
+                "Tech Blog",
+                "./assets/Blog.png",
+                <iframe
+                  src="https://alpaka206.vercel.app/"
+                  width="100%"
+                  height="80%"
+                  frameBorder="0"
+                  title="Tech Blog"
+                ></iframe>
+              )
           }
         />
         <FolderContainer
           imageUrl="./assets/Insta.png"
-          title="Insta"
+          title="Instagram"
           onClick={() =>
             isMobile
               ? (window.location.href = "https://www.instagram.com/alpaka_dev/")
               : handlePageOpen(
-                  "Insta",
-                  "./assets/Insta.png",
-                  <iframe
-                    src="https://www.instagram.com/alpaka_dev/embed"
-                    width="100%"
-                    height="90%"
-                    frameBorder="0"
-                    title="Instagram"
-                  ></iframe>
-                )
+                "Instagram",
+                "./assets/Insta.png",
+                <iframe
+                  src="https://www.instagram.com/alpaka_dev/embed"
+                  width="100%"
+                  height="90%"
+                  frameBorder="0"
+                  title="Instagram"
+                ></iframe>
+              )
           }
         />
         <FolderContainer
           imageUrl="./assets/prize.png"
-          title="수상내역"
+          title="Awards"
           onClick={() =>
             isMobile
               ? navigate("/Prize")
               : handlePageOpen(
-                  "수상내역",
-                  "./assets/prize.png",
-                  <iframe
-                    src="https://alpaka206.github.io/#/Prize"
-                    // src="http://localhost:5173/#/Prize"
-                    width="100%"
-                    height="90%"
-                    frameBorder="0"
-                    title="Prize"
-                  ></iframe>
-                )
+                "Awards",
+                "./assets/prize.png",
+                <iframe
+                  src="https://alpaka206.github.io/#/Prize"
+                  // src="http://localhost:5173/#/Prize"
+                  width="100%"
+                  height="90%"
+                  frameBorder="0"
+                  title="Awards"
+                ></iframe>
+              )
           }
         />
         <FolderContainer
