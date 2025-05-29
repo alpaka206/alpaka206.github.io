@@ -1,114 +1,101 @@
-import { style } from "@vanilla-extract/css";
-// import { exp } from "three/webgpu";
+import styled from "styled-components";
 
-export const window = style({
-  position: "absolute",
-  width: "80%",
-  height: "90%",
-  backgroundColor: "#fefefe",
-  border: "1px solid #888",
-  borderRadius: "10px",
-  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-  overflow: "hidden",
-});
+export const Window = styled.div`
+  position: absolute;
+  width: 80%;
+  height: 90%;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+`;
 
-export const windowHeader = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: "#DFDFDF",
-});
+export const WindowHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #dfdfdf;
+`;
 
-export const tabs = style({
-  display: "flex",
-  flexDirection: "row",
-  height: "40px",
-});
+export const Tabs = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+`;
 
-export const tabButton = style({
-  padding: "6px 8px 14px 0",
-  border: "none",
-  backgroundColor: "#DFDFDF",
-  cursor: "pointer",
-  // height: "14px",
-  width: "155px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderRadius: "8px 8px 0px 0px",
-  margin: "6px 0 0 0",
-  fontSize: "12px",
-  fontWeight: "400",
-  userSelect: "none",
-});
+export const TabSide = styled.div`
+  width: 6px;
+  height: 100%;
+  background-color: #ffffff;
+`;
 
-export const tabButtonImage = style({
-  width: "16px",
-  height: "16px",
-  marginLeft: "8px",
-  marginRight: "8px",
-});
-export const tabTitle = style({
-  width: "100%",
-  height: "100%",
-  textAlign: "left",
-});
+export const LeftTabSideElement = styled.div`
+  width: 6px;
+  background-color: #dfdfdf;
+  height: 100%;
+  border-radius: 0 0 8px 0;
+`;
 
-export const unactiveTab = style({
-  ":hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    borderRadius: "8px",
-    padding: "6px 8px 6px 0",
-    margin: "6px 0 8px 0",
-    // height: "35px",
-  },
-});
+export const TabButton = styled.button<{ isActive?: boolean }>`
+  padding: ${({ isActive }) => (isActive ? "6px 8px 14px 0" : "6px 8px 6px 0")};
+  border: none;
+  background-color: ${({ isActive }) =>
+    isActive ? "#ffffff" : "#dfdfdf"};
+  cursor: pointer;
+  width: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+  margin: ${({ isActive }) => (isActive ? "6px 0 0 0" : "6px 0 8px 0")};
+  font-size: 12px;
+  font-weight: 400;
+  user-select: none;
+    &:hover {
+    background-color: ${({ isActive }) =>
+    isActive ? "#ffffff" : "rgba(255, 255, 255, 0.5)"};
+  }
+`;
 
-export const activeTab = style({
-  backgroundColor: "#ffffff",
-});
+export const TabButtonImage = styled.img`
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+`;
 
-export const closeTabButton = style({
-  width: "7.5px",
-  height: "7.5px",
-  padding: "0",
-  display: "flex",
-  marginLeft: "auto",
-  userSelect: "none",
-});
+export const TabTitle = styled.div`
+  width: 100%;
+  height: 100%;
+  text-align: left;
+`;
 
-export const closeButton = style({
-  fontSize: "30px",
-  width: "12px",
-  height: "12px",
-  marginRight: "10px",
-  userSelect: "none",
-});
+export const CloseTabButton = styled.img`
+  width: 7.5px;
+  height: 7.5px;
+  padding: 0;
+  display: flex;
+  margin-left: auto;
+  user-select: none;
+`;
 
-export const windowBody = style({
-  // padding: "20px",
-  // height: "calc(100% - 60px)",
-  height: "120%",
-  overflowY: "auto",
-});
+export const RightTabSideElement = styled.div`
+  width: 6px;
+  background-color: #dfdfdf;
+  height: 100%;
+  border-radius: 0 0 0 8px;
+`;
 
-export const TabSide = style({
-  width: "6px",
-  height: "100%",
+export const CloseButton = styled.img`
+  font-size: 30px;
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
+  user-select: none;
+`;
 
-  backgroundColor: "#ffffff",
-});
-
-export const leftTabSideElement = style({
-  width: "6px",
-  backgroundColor: "#DFDFDF",
-  height: "100%",
-  borderRadius: " 0 0 8px 0",
-});
-
-export const rightTabSideElement = style({
-  width: "6px",
-  backgroundColor: "#DFDFDF",
-  height: "100%",
-  borderRadius: " 0 0 0 8px",
-});
+export const WindowBody = styled.div`
+  height: 120%;
+  overflow-y: auto;
+`;

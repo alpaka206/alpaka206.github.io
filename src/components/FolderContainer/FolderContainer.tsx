@@ -12,12 +12,12 @@ const FolderContainer: React.FC<FolderContainerProps> = ({
   title,
   onClick,
 }) => (
-  <div className={styles.containerStyle} onClick={onClick}>
-    <div className={styles.imageContainerStyle}>
-      <img src={imageUrl} alt={title} className={styles.imageStyle} />
-    </div>
-    <h3 className={styles.titleStyle}>{title}</h3>
-  </div>
+  <styles.Container onClick={onClick}>
+    <styles.ImageContainer>
+      <styles.Image src={imageUrl} alt={title} />
+    </styles.ImageContainer>
+    <styles.Title>{title}</styles.Title>
+  </styles.Container>
 );
 
 export default FolderContainer;

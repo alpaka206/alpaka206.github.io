@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+// import React, { useEffect, useRef, useState } from "react";
+// import { useRecoilState, useSetRecoilState } from "recoil";
+// import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import * as styles from "./PhoneFolderPage.css";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import FolderContainer from "../FolderContainer/FolderContainer";
 import { useNavigate } from "react-router-dom";
 
@@ -13,16 +13,16 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
-  const handleBackgroundClick = (e) => {
+  const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // e.target이 모달의 배경일 때만 닫히도록 설정
-    if (e.target.classList.contains(styles.folderPage)) {
+    if ((e.target as HTMLElement).classList.contains(styles.FolderPage)) {
       onClose();
     }
   };
   return (
-    <div className={styles.folderPage} onClick={handleBackgroundClick}>
-      <div className={styles.phoneFolderText}>프로젝트</div>
-      <div className={styles.phoneFolderContainer}>
+    <styles.FolderPage onClick={handleBackgroundClick}>
+      <styles.PhoneFolderText>프로젝트</styles.PhoneFolderText>
+      <styles.PhoneFolderContainer>
         <FolderContainer
           imageUrl="./assets/Comatching.svg"
           title="코매칭"
@@ -38,8 +38,8 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
           title="새차처럼"
           onClick={() => navigate("/ALNC")}
         />
-      </div>
-    </div>
+      </styles.PhoneFolderContainer>
+    </styles.FolderPage>
   );
 };
 

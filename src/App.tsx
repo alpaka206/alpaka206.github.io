@@ -9,7 +9,7 @@ import COMATCHING from "./pages/COMATCHING.tsx";
 import ShareIt from "./pages/ShareIt.tsx";
 import ALNC from "./pages/ALNC.tsx";
 import OpenExternalBrowser from "./OpenExternalBrowser.tsx";
-import { bodyStyle } from "./App.css";
+import { GlobalStyle } from "./App.css";
 import { isMobileState } from "./Atoms";
 
 const MobileDetector: React.FC = () => {
@@ -35,20 +35,19 @@ export default function App() {
   return (
     <RecoilRoot>
       <MobileDetector />
-      <div className={bodyStyle}>
-        <OpenExternalBrowser />
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<Mainpage />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/Prize" element={<Prize />} />
-            <Route path="/github" element={<GithubPage />} />
-            <Route path="/COMATCHING" element={<COMATCHING />} />
-            <Route path="/ShareIt" element={<ShareIt />} />
-            <Route path="/ALNC" element={<ALNC />} />
-          </Routes>
-        </HashRouter>
-      </div>
+      <GlobalStyle />
+      <OpenExternalBrowser />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Mainpage />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Prize" element={<Prize />} />
+          <Route path="/github" element={<GithubPage />} />
+          <Route path="/COMATCHING" element={<COMATCHING />} />
+          <Route path="/ShareIt" element={<ShareIt />} />
+          <Route path="/ALNC" element={<ALNC />} />
+        </Routes>
+      </HashRouter>
     </RecoilRoot>
   );
 }

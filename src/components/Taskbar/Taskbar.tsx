@@ -11,18 +11,17 @@ const Taskbar: React.FC<TaskbarProps> = ({ setActiveItem }) => {
   const [taskbarItems] = useRecoilState(taskbarState);
 
   return (
-    <div className={styles.taskbar}>
+    <styles.TaskbarContainer>
       {taskbarItems.taskbars.map((item) => (
-        <div
+        <styles.TaskbarItem
           key={item.id}
-          className={`${styles.taskbarItem} ${taskbarItems.activeTaskbar === item.id ? styles.active : ""
-            }`}
+          isActive={taskbarItems.activeTaskbar === item.id}
           onClick={() => setActiveItem(item.id)}
         >
-          <img src={item.imageUrl} alt={item.id} className={styles.icon} />
-        </div>
+          <styles.Icon src={item.imageUrl} alt={item.id} />
+        </styles.TaskbarItem>
       ))}
-    </div>
+    </styles.TaskbarContainer>
   );
 };
 
