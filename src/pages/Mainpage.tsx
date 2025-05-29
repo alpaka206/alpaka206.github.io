@@ -65,7 +65,7 @@ const Mainpage: React.FC = () => {
         return {
           taskbars: [
             ...prevTaskbar.taskbars,
-            { id: "folder", imageUrl: "./assets/Folder.png" },
+            { id: "folder", imageUrl: "./assets/folder.webp" },
           ],
           activeTaskbar: "folder", // 폴더를 활성화된 Taskbar로 설정
         };
@@ -204,17 +204,17 @@ const Mainpage: React.FC = () => {
     <styles.Container>
       <styles.FolderGrid>
         <FolderContainer
-          imageUrl="./assets/AboutMe.png"
+          imageUrl="./assets/Profile.webp"
           title="About Me"
           onClick={() => {
             isMobile
               ? navigate("/Profile")
               : handlePageOpen(
                 "About Me",
-                "./assets/AboutMe.png",
+                "./assets/Profile.webp",
                 <iframe
-                  src="https://alpaka206.github.io/#/Profile"
-                  // src="http://localhost:5173/#/Profile"
+                  // src="https://alpaka206.github.io/#/Profile"
+                  src="http://localhost:5173/#/Profile"
                   width="100%"
                   height="80%"
                   frameBorder="0"
@@ -225,7 +225,7 @@ const Mainpage: React.FC = () => {
         />
         <FolderContainer
           imageUrl={
-            isMobile ? "./assets/phone/folder.png" : "./assets/Folder.png"
+            isMobile ? "./assets/phone/folder.png" : "./assets/folder.webp"
           }
           title="Projects"
           onClick={() =>
@@ -252,14 +252,14 @@ const Mainpage: React.FC = () => {
           }
         />
         <FolderContainer
-          imageUrl="./assets/Insta.png"
+          imageUrl="./assets/Insta.webp"
           title="Instagram"
           onClick={() =>
             isMobile
               ? (window.location.href = "https://www.instagram.com/alpaka_dev/")
               : handlePageOpen(
                 "Instagram",
-                "./assets/Insta.png",
+                "./assets/Insta.webp",
                 <iframe
                   src="https://www.instagram.com/alpaka_dev/embed"
                   width="100%"
@@ -280,8 +280,8 @@ const Mainpage: React.FC = () => {
                 "Awards",
                 "./assets/prize.png",
                 <iframe
-                  src="https://alpaka206.github.io/#/Prize"
-                  // src="http://localhost:5173/#/Prize"
+                  // src="https://alpaka206.github.io/#/Prize"
+                  src="http://localhost:5173/#/Prize"
                   width="100%"
                   height="90%"
                   frameBorder="0"
