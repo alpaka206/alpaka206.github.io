@@ -29,10 +29,7 @@ const Profile = () => {
       <styles.ProfileContent>
         <Element name="home">
           <styles.ProfileInfo>
-            <styles.ProfileImage
-              src="./assets/ProfileImage.jpg"
-              alt="prize"
-            />
+            <styles.ProfileImage src="./assets/ProfileImage.webp" alt="prize" />
             <styles.ProfileInfoExplain>
               <styles.ProfileInfoName>김규원</styles.ProfileInfoName>
               <styles.ProfileInfoDate>2000.05.17</styles.ProfileInfoDate>
@@ -40,8 +37,8 @@ const Profile = () => {
                 포기하지 않는 성실함과 꾸준한 성장을 가장 중요하게 생각합니다.
               </styles.ProfileInfoComment>
               <styles.ProfileInfoComment>
-                언제나 배움을 즐기고, 항상 도전하여 사용자에게 더 좋은 경험을 주고
-                싶습니다.
+                언제나 배움을 즐기고, 항상 도전하여 사용자에게 더 좋은 경험을
+                주고 싶습니다.
               </styles.ProfileInfoComment>
             </styles.ProfileInfoExplain>
           </styles.ProfileInfo>

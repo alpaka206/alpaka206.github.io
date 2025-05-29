@@ -11,10 +11,7 @@ const ALNC = () => {
       <styles.Top>프로젝트 개요</styles.Top>
       <styles.Title>새차처럼</styles.Title>
 
-      <styles.TitleImage
-        src="./assets/ALNC/mainpage.png"
-        alt="mainpage"
-      />
+      <styles.TitleImage src="./assets/ALNC/mainpage.webp" alt="mainpage" />
       <styles.ExpContainer>
         <styles.ExpTitle>Skills</styles.ExpTitle>
         <styles.Content>
@@ -23,9 +20,7 @@ const ALNC = () => {
             { skill: "JavaScript", color: "#F0DB4F" },
             { skill: "axios", color: "#0A99E0" },
           ].map(({ skill, color }) => (
-            <styles.Item bgColor={color}>
-              {skill}
-            </styles.Item>
+            <styles.Item bgColor={color}>{skill}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -40,9 +35,7 @@ const ALNC = () => {
             { tool: "Firebase", color: "#FFCA28" },
             // { tool: "Vercel", color: "#777777" },
           ].map(({ tool, color }) => (
-            <styles.Item bgColor={color}>
-              {tool}
-            </styles.Item>
+            <styles.Item bgColor={color}>{tool}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -63,9 +56,7 @@ const ALNC = () => {
             { role: "기획", color: "#f1c40f" },
             { role: "운영 및 홍보", color: "#fe340f" },
           ].map(({ role, color }) => (
-            <styles.Item bgColor={color}>
-              {role}
-            </styles.Item>
+            <styles.Item bgColor={color}>{role}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -81,9 +72,7 @@ const ALNC = () => {
       </styles.ExpContainer>
       <styles.ExpContainer>
         <styles.ExpTitle>카테고리</styles.ExpTitle>
-        <styles.Item bgColor="#f1780f" >
-          WEB
-        </styles.Item>
+        <styles.Item bgColor="#f1780f">WEB</styles.Item>
       </styles.ExpContainer>
 
       <styles.Divider />
@@ -91,56 +80,40 @@ const ALNC = () => {
       <styles.Subtitle>기능</styles.Subtitle>
       <styles.FunctionTitle>로그인</styles.FunctionTitle>
       <styles.ItemWithDot>사용자 구분을 위한 로그인 기능</styles.ItemWithDot>
-      <styles.ProjectImage
-        src="./assets/ALNC/login.png"
-        alt="loginpage"
-      />
+      <styles.ProjectImage src="./assets/ALNC/login.webp" alt="loginpage" />
 
       <styles.Subtitle>메인페이지</styles.Subtitle>
       <styles.ItemWithDot>날씨정보 확인 가능</styles.ItemWithDot>
       <styles.ItemWithDot>간단한 게시글 열람 가능</styles.ItemWithDot>
-      <styles.ProjectImage
-        src="./assets/ALNC/mainpage.png"
-        alt="mainpage"
-      />
+      <styles.ProjectImage src="./assets/ALNC/mainpage.webp" alt="mainpage" />
 
       <styles.Subtitle>견적 신청</styles.Subtitle>
 
       <styles.ItemWithDot>고압수, 스팀 세차 선택 가능</styles.ItemWithDot>
       <styles.ItemWithDot>어떤 점을 우선시 할지 선택 가능</styles.ItemWithDot>
       <styles.ItemWithDot>사진 및 정보 작성 가능</styles.ItemWithDot>
-      <styles.ProjectImage
-        src="./assets/ALNC/pick_first.png"
-        alt="mainpage"
-      />
+      <styles.ProjectImage src="./assets/ALNC/pick_first.webp" alt="mainpage" />
 
       <styles.ProjectImage
-        src="./assets/ALNC/pick_second.png"
+        src="./assets/ALNC/pick_second.webp"
         alt="mainpage"
       />
-      <styles.ProjectImage
-        src="./assets/ALNC/pick_final.png"
-        alt="mainpage"
-      />
+      <styles.ProjectImage src="./assets/ALNC/pick_final.webp" alt="mainpage" />
 
       <styles.Subtitle>견적서 보기</styles.Subtitle>
-      <styles.ItemWithDot>견적서를 보낸 업체 리스트 열람 가능</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        견적서를 보낸 업체 리스트 열람 가능
+      </styles.ItemWithDot>
       <styles.ItemWithDot>업체의 상세정보 열람 가능</styles.ItemWithDot>
+      <styles.ProjectImage src="./assets/ALNC/list.webp" alt="mainpage" />
       <styles.ProjectImage
-        src="./assets/ALNC/list.png"
-        alt="mainpage"
-      />
-      <styles.ProjectImage
-        src="./assets/ALNC/list_detail.png"
+        src="./assets/ALNC/list_detail.webp"
         alt="mainpage"
       />
 
       <styles.Subtitle>견적함</styles.Subtitle>
       <styles.ItemWithDot>예약 내역 열람 가능</styles.ItemWithDot>
-      <styles.ProjectImage
-        src="./assets/ALNC/pick_list.png"
-        alt="mainpage"
-      />
+      <styles.ProjectImage src="./assets/ALNC/pick_list.webp" alt="mainpage" />
     </styles.Container>
   );
 };
