@@ -105,19 +105,19 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
       >
         프로젝트
         <styles.CloseButton
-          src="./assets/close.svg"
+          src="./assets/close.webp"
           alt="closeButton"
           onClick={onClose}
         />
       </styles.WindowHeader>
       <styles.FolderContainer>
         <FolderContainer
-          imageUrl="./assets/Comatching.svg"
+          imageUrl="./assets/Comatching.webp"
           title="코매칭"
           onClick={() => {
             handlePageOpen(
               "코매칭",
-              "./assets/Comatching.svg",
+              "./assets/Comatching.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/Comatching"
                 src="http://localhost:5173/#/Comatching"
@@ -130,12 +130,12 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
           }}
         />
         <FolderContainer
-          imageUrl="./assets/Shareit.svg"
+          imageUrl="./assets/Shareit.webp"
           title="Shareit"
           onClick={() => {
             handlePageOpen(
               "Shareit",
-              "./assets/Shareit.svg",
+              "./assets/Shareit.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/ShareIt"
                 src="http://localhost:5173/#/ShareIt"
@@ -148,12 +148,12 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
           }}
         />
         <FolderContainer
-          imageUrl="./assets/ALNC.svg"
+          imageUrl="./assets/ALNC.webp"
           title="새차처럼"
           onClick={() => {
             handlePageOpen(
               "새차처럼",
-              "./assets/ALNC.svg",
+              "./assets/ALNC.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/ALNC"
                 src="http://localhost:5173/#/ALNC"
