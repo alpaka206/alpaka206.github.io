@@ -167,7 +167,7 @@ const Mainpage: React.FC = () => {
       (taskbarItem) => taskbarItem.id !== "folder"
     );
     const newActiveTaskbar =
-      updatedTaskbars.length > 0
+      updatedTaskbars.length > 0 && tabs.activeTabIndex !== null
         ? updatedTaskbars[tabs.activeTabIndex].id
         : null;
     console.log(newActiveTaskbar);
@@ -201,8 +201,8 @@ const Mainpage: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.folderContainer}>
+    <styles.Container>
+      <styles.FolderGrid>
         <FolderContainer
           imageUrl="./assets/AboutMe.png"
           title="About Me"
@@ -301,13 +301,13 @@ const Mainpage: React.FC = () => {
               : openGitHubPage()
           }
         />
-      </div>
+      </styles.FolderGrid>
       {!isMobile && tabs.tabs.length > 0 && (
         <PageContainer
-          tabs={tabs.tabs}
-          activeTab={tabs.activeTabIndex}
+          // tabs={tabs.tabs}
+          // activeTab={tabs.activeTabIndex}
           onClose={() => handleCloseAllTabs()}
-          setActiveTab={(index) => setTabs({ ...tabs, activeTabIndex: index })}
+          // setActiveTab={(index) => setTabs({ ...tabs, activeTabIndex: index })}
           style={{ zIndex: zIndexState.pageZIndex }}
           bringPageToFront={bringPageToFront}
         />
@@ -323,7 +323,7 @@ const Mainpage: React.FC = () => {
         ))}
 
       {!isMobile && <Taskbar setActiveItem={handleTaskbarItemClick} />}
-    </div>
+    </styles.Container>
   );
 };
 

@@ -1,159 +1,132 @@
-import { style, globalStyle } from "@vanilla-extract/css";
+import styled from "styled-components";
 
-globalStyle(".projectContainer", {
-  padding: "20px",
-  width: "calc(100% - 40px)",
-  margin: "0 auto",
-  fontFamily: "Arial, sans-serif",
-  lineHeight: "1.6",
-  color: "#333",
-  backgroundColor: "#f9f9f9",
-});
+export const Container = styled.div`
+  padding: 20px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+`;
 
-globalStyle(".projectTop", {
-  fontSize: "16px",
-  marginBottom: "10px",
-});
+export const BackButton = styled.img`
+  display: none;
 
-globalStyle(".projectTitle", {
-  fontSize: "24px",
-  fontWeight: "bold",
-  marginBottom: "10px",
-});
+  @media screen and (max-width: 980px) {
+    display: block;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 100px;
+  }
+`;
 
-globalStyle(".projectDivider", {
-  width: "100%",
-  border: "0",
-  height: "1px",
-  backgroundColor: "#ddd",
-  marginBottom: "10px",
-});
+export const Top = styled.div`
+  font-size: 16px;
+  margin-bottom: 10px;
+`;
 
-globalStyle(".projectImage", {
-  maxWidth: "100%",
-  borderRadius: "10px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-});
+export const Title = styled.h1`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
 
-globalStyle(".projectExpCatainer", {
-  display: "flex",
-  margin: "15px 0",
-});
+export const TitleImage = styled.img`
+  width: 80%;
+`;
 
-globalStyle(".projectExpTitle", {
-  fontSize: "18px",
-  fontWeight: "600",
-  width: "15%",
-  color: "#555",
-  "@media": {
-    "screen and (max-width: 980px)": {
-      minWidth: "25%",
-    },
-  },
-});
+export const ExpContainer = styled.div`
+  display: flex;
+  margin: 15px 0;
+`;
 
-globalStyle(".content", {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "10px",
-  // marginBottom: "15px",
-});
+export const ExpTitle = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+  width: 15%;
+  color: #555;
 
-globalStyle(".item", {
-  backgroundColor: "#f9f9f9",
-  borderRadius: "8px",
-  padding: "0px 8px",
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  fontSize: "14px",
-  fontWeight: "700",
-  display: "flex",
-  alignItems: "center",
-});
+  @media screen and (max-width: 980px) {
+    min-width: 25%;
+  }
+`;
 
-globalStyle(".subTitle", {
-  fontSize: "24px",
-  fontWeight: "800",
-  marginBottom: "8px",
-  color: "#000",
-});
+export const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
 
-globalStyle(".itemWithDot", {
-  position: "relative",
-  paddingLeft: "20px",
-  marginBottom: "10px",
-  fontSize: "16px",
-  fontWeight: "700",
-  color: "#333",
-});
+export const Item = styled.div<{ bgColor?: string }>`
+  background-color: ${({ bgColor }) => bgColor || "#f9f9f9"};
+  border-radius: 8px;
+  padding: 0 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+`;
 
-globalStyle(".itemWithDot::before", {
-  content: '""',
-  position: "absolute",
-  left: "0",
-  top: "50%",
-  transform: "translateY(-50%)",
-  width: "6px",
-  height: "6px",
-  borderRadius: "50%",
-  backgroundColor: "#333", // 점의 색상
-});
+export const Divider = styled.hr`
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+  margin-bottom: 10px;
+`;
 
-globalStyle(".FunctionTitle", {
-  fontSize: "18px",
-  fontWeight: "700",
-});
+export const Subtitle = styled.h2`
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #000;
+`;
 
-globalStyle(".projectTitleImage", {
-  width: "80%",
-});
+export const FunctionTitle = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;
 
-globalStyle(".projectImage", {
-  width: "40%",
-  margin: "10px 5%",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-});
 
-globalStyle(".projectImageFullWidth", {
-  width: "40%",
-  margin: "10px 5%",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  "@media": {
-    "screen and (max-width: 980px)": {
-      width: "90%",
-    },
-  },
-});
+export const ProjectImage = styled.img`
+  width: 40%;
+  margin: 10px 5%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 
-globalStyle(".project_Back_button", {
-  display: "none",
-  "@media": {
-    "screen and (max-width: 980px)": {
-      display: "block",
-      marginBottom: "20px",
-      backgroundColor: "#ffffff",
-      width: "20px",
-      height: "20px",
-      padding: "10px",
-      borderRadius: "100px",
-    },
-  },
-});
+export const ItemWithDot = styled.div`
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
 
-export const title = style({
-  fontSize: "24px",
-  fontWeight: "bold",
-  marginBottom: "10px",
-  borderBottom: "2px solid #ddd",
-  paddingBottom: "5px",
-});
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #333;
+  }
+`;
 
-export const imageContainer = style({
-  textAlign: "center",
-  marginBottom: "20px",
-});
+export const ProjectImageFullWidth = styled.img`
+  width: 40%;
+  margin: 10px 5%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-export const image = style({
-  maxWidth: "100%",
-  borderRadius: "10px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-});
+  @media screen and (max-width: 980px) {
+    width: 90%;
+  }
+`;

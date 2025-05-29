@@ -94,80 +94,68 @@ const PageContainer: React.FC<PageContainerProps> = ({
   };
 
   return (
-    <div
-      className={styles.window}
+    <styles.Window
       style={{ ...style, left: position.x, top: position.y }}
       onClick={() => bringPageToFront()}
     >
-      <div
-        className={styles.windowHeader}
+      <styles.WindowHeader
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
-        <div className={styles.tabs}>
+        <styles.Tabs>
           {tabs.tabs.map((tab, index) => (
             <React.Fragment key={index}>
               {tabs.activeTabIndex === index ? (
-                <div
-                  className={styles.TabSide}
+                <styles.TabSide
                   onClick={() => handleTabClick(index)}
                 >
-                  <div className={styles.leftTabSideElement} />
-                </div>
+                  <styles.LeftTabSideElement />
+                </styles.TabSide>
               ) : (
                 ""
               )}
-              <button
+              <styles.TabButton
                 key={index}
-                className={`${styles.tabButton} ${
-                  tabs.activeTabIndex === index
-                    ? styles.activeTab
-                    : styles.unactiveTab
-                }`}
+                isActive={tabs.activeTabIndex === index}
               >
-                <img
+                <styles.TabButtonImage
                   src={tab.imageUrl}
                   alt={tab.title}
-                  className={styles.tabButtonImage}
                   onClick={() => handleTabClick(index)}
                 />
-                <div
-                  className={styles.tabTitle}
+                <styles.TabTitle
                   onClick={() => handleTabClick(index)}
                 >
                   {tab.title}
-                </div>
-                <img
+                </styles.TabTitle>
+                <styles.CloseTabButton
                   src="./assets/close.svg"
                   alt={tab.title}
-                  className={styles.closeTabButton}
                   onClick={() => handleTabClose(index)}
                 />
-              </button>
+              </styles.TabButton>
               {tabs.activeTabIndex === index ? (
-                <div
-                  className={styles.TabSide}
+                <styles.TabSide
                   onClick={() => handleTabClick(index)}
                 >
-                  <div className={styles.rightTabSideElement} />
-                </div>
+                  <styles.RightTabSideElement />
+                </styles.TabSide>
               ) : (
                 ""
               )}
             </React.Fragment>
           ))}
-        </div>
-        <img
+        </styles.Tabs>
+        <styles.CloseButton
           src="./assets/close.svg"
           alt="closeButton"
           onClick={onClose}
-          className={styles.closeButton}
         />
-      </div>
-      <div className={styles.windowBody}>
+      </styles.WindowHeader>
+      <styles.WindowBody>
         {tabs.tabs[tabs.activeTabIndex || 0]?.content}
-      </div>
-    </div>
+      </styles.WindowBody>
+    </styles.Window>
   );
 };
 

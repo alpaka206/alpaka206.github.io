@@ -1,43 +1,40 @@
-import { style } from "@vanilla-extract/css";
+import styled from "styled-components";
 
-export const folderPage = style({
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "#828282",
-  zIndex: 1,
-  overflow: "hidden",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-});
+export const FolderPage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #828282;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-export const phoneFolderText = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  margin: "25% 0",
-  fontSize: "36px",
-  color: "#fff",
-  fontWeight: "bold",
-  "@media": {
-    "screen and (min-width: 970px)": {
-      fontSize: "7em",
-    },
-  },
-});
+export const PhoneFolderText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25% 0;
+  font-size: 36px;
+  color: #fff;
+  font-weight: bold;
 
-export const phoneFolderContainer = style({
-  width: "84%",
-  // width: "calc(90% - 20px)",
-  display: "grid",
-  backgroundColor: "#585858",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  padding: "3%",
-  borderRadius: "8%",
-  // height: "calc(50% - 20px)",
-  height: "44%",
-  justifyItems: "center",
-});
+  @media screen and (min-width: 970px) {
+    font-size: 7em;
+  }
+`;
+
+export const PhoneFolderContainer = styled.div`
+  width: 84%;
+  display: grid;
+  background-color: #585858;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 3%;
+  border-radius: 8%;
+  height: 44%;
+  justify-items: center;
+`;

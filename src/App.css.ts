@@ -1,16 +1,17 @@
-// styles.css.ts
-import { style, globalStyle } from "@vanilla-extract/css";
+import { createGlobalStyle } from "styled-components";
 
-globalStyle("*, *::before, *::after", {
-  margin: 0,
-  padding: 0,
-});
+export const GlobalStyle = createGlobalStyle`
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+  }
 
-globalStyle("body::-webkit-scrollbar", {
-  display: "none",
-});
+  body::-webkit-scrollbar {
+    display: none;
+  }
 
-export const bodyStyle = style({
-  width: "100vw",
-  height: "100vh",
-});
+  body {
+    width: 100vw;
+    height: 100vh;
+  }
+`;

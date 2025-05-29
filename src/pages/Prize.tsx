@@ -64,41 +64,38 @@ const Prize = () => {
   ];
 
   return (
-    <div className={styles.PrizePage}>
-      <img
+    <styles.PrizePage>
+      <styles.BackButton
         src="./assets/back.svg"
         alt="Phone"
-        className={styles.Back_button}
         onClick={() => window.history.back()}
-      ></img>
-      <div className={styles.PrizeContainer}>
+      />
+      <styles.PrizeContainer>
         {prizes.map((prize, index) => (
-          <div
+          <styles.PrizeElement
             key={index}
-            className={styles.PrizeElement}
             onClick={() => openModal(prize.src)}
           >
-            <img src={prize.src} alt="prize" className={styles.PrizeImage} />
-            <div className={styles.PrizeExplain}>
+            <styles.PrizeImage src={prize.src} alt="prize" />
+            <styles.PrizeExplain>
               <div>{prize.title}</div>
               <div>{prize.date}</div>
               <div>{prize.description}</div>
-            </div>
-          </div>
+            </styles.PrizeExplain>
+          </styles.PrizeElement>
         ))}
-      </div>
+      </styles.PrizeContainer>
       {selectedImage && (
-        <div className={styles.ModalOverlay} onClick={closeModal}>
-          <div className={styles.ModalContent}>
-            <img
+        <styles.ModalOverlay onClick={closeModal}>
+          <styles.ModalContent>
+            <styles.ModalImage
               src={selectedImage}
               alt="prize"
-              className={styles.ModalImage}
             />
-          </div>
-        </div>
+          </styles.ModalContent>
+        </styles.ModalOverlay>
       )}
-    </div>
+    </styles.PrizePage>
   );
 };
 

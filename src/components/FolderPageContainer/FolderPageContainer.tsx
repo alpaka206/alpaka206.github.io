@@ -89,16 +89,14 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   }, [isDragging]);
 
   return (
-    <div
-      className={styles.folderPage}
+    <styles.FolderPage
       style={{
         zIndex: zIndexFolderState.folderZIndex,
         left: position.x,
         top: position.y,
       }}
     >
-      <div
-        className={styles.windowHeader}
+      <styles.WindowHeader
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onClick={() => {
@@ -106,14 +104,13 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
         }}
       >
         프로젝트
-        <img
+        <styles.CloseButton
           src="./assets/close.svg"
           alt="closeButton"
           onClick={onClose}
-          className={styles.closeButton}
         />
-      </div>
-      <div className={styles.folderContainer}>
+      </styles.WindowHeader>
+      <styles.FolderContainer>
         <FolderContainer
           imageUrl="./assets/Comatching.svg"
           title="코매칭"
@@ -122,8 +119,8 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "코매칭",
               "./assets/Comatching.svg",
               <iframe
-                src="https://alpaka206.github.io/#/Comatching"
-                // src="http://localhost:5173/#/Comatching"
+                // src="https://alpaka206.github.io/#/Comatching"
+                src="http://localhost:5173/#/Comatching"
                 width="100%"
                 height="80%"
                 frameBorder="0"
@@ -140,8 +137,8 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "Shareit",
               "./assets/Shareit.svg",
               <iframe
-                src="https://alpaka206.github.io/#/ShareIt"
-                // src="http://localhost:5173/#/ShareIt"
+                // src="https://alpaka206.github.io/#/ShareIt"
+                src="http://localhost:5173/#/ShareIt"
                 width="100%"
                 height="80%"
                 frameBorder="0"
@@ -158,8 +155,8 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
               "새차처럼",
               "./assets/ALNC.svg",
               <iframe
-                src="https://alpaka206.github.io/#/ALNC"
-                // src="http://localhost:5173/#/ALNC"
+                // src="https://alpaka206.github.io/#/ALNC"
+                src="http://localhost:5173/#/ALNC"
                 width="100%"
                 height="80%"
                 frameBorder="0"
@@ -168,8 +165,8 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
             );
           }}
         />
-      </div>
-    </div>
+      </styles.FolderContainer>
+    </styles.FolderPage>
   );
 };
 

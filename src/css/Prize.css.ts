@@ -1,82 +1,79 @@
-import { style } from "@vanilla-extract/css";
+import styled from "styled-components";
 
-export const PrizePage = style({
-  padding: "20px 30px",
-  backgroundColor: "#f9f9f9",
-});
+export const PrizePage = styled.div`
+  padding: 20px 30px;
+  background-color: #f9f9f9;
+`;
 
-export const PrizeContainer = style({
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-  gap: "20px",
-});
+export const BackButton = styled.img`
+  display: none;
+  @media (max-width: 980px) {
+    display: block;
+    background-color: #ffffff;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 100px;
+  }
+`;
 
-export const PrizeElement = style({
-  width: "300px",
-  margin: "10px 0",
-  boxSizing: "border-box",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-});
+export const PrizeContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+`;
 
-export const PrizeImage = style({
-  width: "120px",
-  objectFit: "cover",
-  border: "1px solid #000",
-  cursor: "pointer",
-  transition: "box-shadow 0.3s ease, transform 0.3s ease",
-  ":hover": {
-    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)", // 그림자 효과
-    // transform: "scale(1.05)", // 살짝 확대 효과로 시각적 강조
-    border: "none",
-  },
-});
+export const PrizeElement = styled.div`
+  width: 300px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+`;
 
-export const PrizeExplain = style({
-  marginLeft: "8px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  width: "232px",
-  wordBreak: "keep-all",
-});
+export const PrizeImage = styled.img`
+  width: 120px;
+  object-fit: cover;
+  border: 1px solid #000;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  &:hover {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+  }
+`;
 
-export const ModalOverlay = style({
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100vw",
-  height: "100vh",
-  backgroundColor: "rgba(0, 0, 0, 0.7)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  zIndex: 1000,
-});
+export const PrizeExplain = styled.div`
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 232px;
+  word-break: keep-all;
+`;
 
-export const ModalContent = style({
-  width: "100%",
-  height: "auto",
-  maxWidth: "450px",
-  marginTop: "-80px",
-});
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
 
-export const ModalImage = style({
-  width: "100%",
-  objectFit: "contain",
-});
-export const Back_button = style({
-  display: "none",
-  "@media": {
-    "screen and (max-width: 980px)": {
-      display: "block",
-      // marginLeft: "5%",
-      backgroundColor: "#ffffff",
-      width: "20px",
-      height: "20px",
-      padding: "10px",
-      borderRadius: "100px",
-    },
-  },
-});
+export const ModalContent = styled.div`
+  width: 100%;
+  height: auto;
+  max-width: 450px;
+  margin-top: -80px;
+`;
+
+export const ModalImage = styled.img`
+  width: 100%;
+  object-fit: contain;
+`;
