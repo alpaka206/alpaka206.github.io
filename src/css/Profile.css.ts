@@ -4,11 +4,11 @@ export const ProfileContainer = styled.div`
   display: flex;
   width: 100%;
   margin: 0 auto;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   color: #333;
   background-color: #f9f9f9;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     display: block;
     padding-top: 5%;
   }
@@ -16,7 +16,7 @@ export const ProfileContainer = styled.div`
 
 export const BackButton = styled.img`
   display: none;
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     display: block;
     margin-left: 5%;
     background-color: #ffffff;
@@ -38,7 +38,7 @@ export const ProfileNav = styled.div`
   flex-direction: column;
   justify-content: space-around;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -58,7 +58,7 @@ export const ProfileContent = styled.div`
   margin-left: 150px;
   width: calc(100% - 150px);
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     margin-left: 0;
     width: 100%;
   }
@@ -76,7 +76,7 @@ export const ProfileImage = styled.img`
   height: 213px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     width: 100px;
     height: 133px;
   }
@@ -92,7 +92,7 @@ export const ProfileInfoName = styled.div`
   font-weight: bold;
   margin-bottom: 8px;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     font-size: 18px;
   }
 `;
@@ -102,7 +102,7 @@ export const ProfileInfoDate = styled.div`
   color: #777;
   margin-bottom: 8px;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     font-size: 14px;
   }
 `;
@@ -111,7 +111,7 @@ export const ProfileInfoComment = styled.div`
   font-size: 14px;
   line-height: 1.6;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     font-size: 12px;
   }
 `;

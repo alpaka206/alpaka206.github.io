@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const BackButton = styled.img`
   display: none;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     display: block;
     margin-bottom: 20px;
     background-color: #ffffff;
@@ -50,7 +50,7 @@ export const ExpTitle = styled.div`
   width: 15%;
   color: #555;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     min-width: 25%;
   }
 `;
@@ -92,7 +92,6 @@ export const FunctionTitle = styled.div`
   font-weight: 700;
 `;
 
-
 export const ProjectImage = styled.img`
   width: 40%;
   margin: 10px 5%;
@@ -126,7 +125,7 @@ export const ProjectImageFullWidth = styled.img`
   margin: 10px 5%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     width: 90%;
   }
 `;

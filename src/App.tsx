@@ -17,7 +17,7 @@ const MobileDetector: React.FC = () => {
 
   useEffect(() => {
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 980);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     checkIfMobile(); // 컴포넌트가 처음 로드될 때 확인

@@ -1,6 +1,3 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import { useRecoilState, useSetRecoilState } from "recoil";
-// import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import * as styles from "./PhoneFolderPage.css";
 import FolderContainer from "../FolderContainer/FolderContainer";
 import { useNavigate } from "react-router-dom";
