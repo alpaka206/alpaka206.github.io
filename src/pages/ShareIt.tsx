@@ -39,7 +39,7 @@ const ShareIt = () => {
       <styles.Title>ShareIt</styles.Title>
 
       <styles.TitleImage
-        src="./assets/ShareIt/mainpage.png"
+        src="./assets/ShareIt/mainpage.webp"
         alt="mainpage"
       />
       <styles.ExpContainer>
@@ -123,12 +123,12 @@ const ShareIt = () => {
       <styles.ItemWithDot>이메일 인증을 통해 검증</styles.ItemWithDot>
       <styles.ItemWithDot>정보를 입력하면 다음 내용으로 슬라이딩</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/KaKaologin.png"
+        src="./assets/ShareIt/KaKaologin.webp"
         alt="loginpage"
       />
 
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/Email.png"
+        src="./assets/ShareIt/Email.webp"
         alt="registerchat"
       />
 
@@ -140,12 +140,12 @@ const ShareIt = () => {
       <styles.ItemWithDot>사이드바 작동</styles.ItemWithDot>
       <styles.ItemWithDot>최근 검색어 및 검색어 자동완성 구현</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/Search.png"
+        src="./assets/ShareIt/Search.webp"
         alt="mainpage"
       />
 
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/sidebar.png"
+        src="./assets/ShareIt/sidebar.webp"
         alt="mainpage"
       />
 
@@ -160,7 +160,7 @@ const ShareIt = () => {
         필요로 한 물건은 사진이 없을수 있기에 빌려주기만 사진 필수 등록
       </styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/registration.png"
+        src="./assets/ShareIt/registration.webp"
         alt="mainpage"
       />
 
@@ -171,22 +171,22 @@ const ShareIt = () => {
       <styles.ItemWithDot>무한 스크롤로 추가 확인 가능</styles.ItemWithDot>
       <styles.ItemWithDot>인기 해시태그 제공</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/borrowpage.png"
+        src="./assets/ShareIt/borrowpage.webp"
         alt="mainpage"
       />
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/needpage.png"
+        src="./assets/ShareIt/needpage.webp"
         alt="mainpage"
       />
 
       <styles.Subtitle>상세페이지</styles.Subtitle>
       <styles.ItemWithDot>평점 및 좋아요 개수 확인가능</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/borrowDetail.png"
+        src="./assets/ShareIt/borrowDetail.webp"
         alt="mainpage"
       />
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/needDetail.png"
+        src="./assets/ShareIt/needDetail.webp"
         alt="mainpage"
       />
 
@@ -194,11 +194,11 @@ const ShareIt = () => {
       <styles.ItemWithDot>약속 잡기 가능</styles.ItemWithDot>
       <styles.ItemWithDot>거래 완료 가능</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/chat.png"
+        src="./assets/ShareIt/chat.webp"
         alt="mainpage"
       />
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/chatwidget.png"
+        src="./assets/ShareIt/chatwidget.webp"
         alt="mainpage"
       />
 
@@ -206,7 +206,7 @@ const ShareIt = () => {
       <styles.ItemWithDot>거래내역 확인 가능</styles.ItemWithDot>
       <styles.ItemWithDot>별점 부여 가능</styles.ItemWithDot>
       <styles.ProjectImageFullWidth
-        src="./assets/ShareIt/review.png"
+        src="./assets/ShareIt/review.webp"
         alt="mainpage"
       />
       <styles.Divider />

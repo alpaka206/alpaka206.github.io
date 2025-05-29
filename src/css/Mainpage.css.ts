@@ -6,7 +6,7 @@ export const Container = styled.div`
   background: linear-gradient(135deg, #1a237e, #3949ab);
 
   @media screen and (min-width: 768px) {
-    background-image: url("/assets/BGimage.jpg");
+    background-image: url("/assets/BGimage.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

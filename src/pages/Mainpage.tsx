@@ -65,7 +65,7 @@ const Mainpage: React.FC = () => {
         return {
           taskbars: [
             ...prevTaskbar.taskbars,
-            { id: "folder", imageUrl: "./assets/Folder.png" },
+            { id: "folder", imageUrl: "./assets/folder.webp" },
           ],
           activeTaskbar: "folder", // 폴더를 활성화된 Taskbar로 설정
         };
@@ -204,28 +204,28 @@ const Mainpage: React.FC = () => {
     <styles.Container>
       <styles.FolderGrid>
         <FolderContainer
-          imageUrl="./assets/AboutMe.png"
+          imageUrl="./assets/Profile.webp"
           title="About Me"
           onClick={() => {
             isMobile
               ? navigate("/Profile")
               : handlePageOpen(
-                "About Me",
-                "./assets/AboutMe.png",
-                <iframe
-                  src="https://alpaka206.github.io/#/Profile"
-                  // src="http://localhost:5173/#/Profile"
-                  width="100%"
-                  height="80%"
-                  frameBorder="0"
-                  title="About Me"
-                ></iframe>
-              );
+                  "About Me",
+                  "./assets/Profile.webp",
+                  <iframe
+                    // src="https://alpaka206.github.io/#/Profile"
+                    src="http://localhost:5173/#/Profile"
+                    width="100%"
+                    height="80%"
+                    frameBorder="0"
+                    title="About Me"
+                  ></iframe>
+                );
           }}
         />
         <FolderContainer
           imageUrl={
-            isMobile ? "./assets/phone/folder.png" : "./assets/Folder.png"
+            isMobile ? "./assets/phone/folder.webp" : "./assets/folder.webp"
           }
           title="Projects"
           onClick={() =>
@@ -233,66 +233,66 @@ const Mainpage: React.FC = () => {
           }
         />
         <FolderContainer
-          imageUrl="./assets/Blog.png"
+          imageUrl="./assets/Blog.webp"
           title="Tech Blog"
           onClick={() =>
             isMobile
               ? (window.location.href = "https://alpaka206.vercel.app/")
               : handlePageOpen(
-                "Tech Blog",
-                "./assets/Blog.png",
-                <iframe
-                  src="https://alpaka206.vercel.app/"
-                  width="100%"
-                  height="80%"
-                  frameBorder="0"
-                  title="Tech Blog"
-                ></iframe>
-              )
+                  "Tech Blog",
+                  "./assets/Blog.webp",
+                  <iframe
+                    src="https://alpaka206.vercel.app/"
+                    width="100%"
+                    height="80%"
+                    frameBorder="0"
+                    title="Tech Blog"
+                  ></iframe>
+                )
           }
         />
         <FolderContainer
-          imageUrl="./assets/Insta.png"
+          imageUrl="./assets/Insta.webp"
           title="Instagram"
           onClick={() =>
             isMobile
               ? (window.location.href = "https://www.instagram.com/alpaka_dev/")
               : handlePageOpen(
-                "Instagram",
-                "./assets/Insta.png",
-                <iframe
-                  src="https://www.instagram.com/alpaka_dev/embed"
-                  width="100%"
-                  height="90%"
-                  frameBorder="0"
-                  title="Instagram"
-                ></iframe>
-              )
+                  "Instagram",
+                  "./assets/Insta.webp",
+                  <iframe
+                    src="https://www.instagram.com/alpaka_dev/embed"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Instagram"
+                  ></iframe>
+                )
           }
         />
         <FolderContainer
-          imageUrl="./assets/prize.png"
+          imageUrl="./assets/prize.webp"
           title="Awards"
           onClick={() =>
             isMobile
               ? navigate("/Prize")
               : handlePageOpen(
-                "Awards",
-                "./assets/prize.png",
-                <iframe
-                  src="https://alpaka206.github.io/#/Prize"
-                  // src="http://localhost:5173/#/Prize"
-                  width="100%"
-                  height="90%"
-                  frameBorder="0"
-                  title="Awards"
-                ></iframe>
-              )
+                  "Awards",
+                  "./assets/prize.webp",
+                  <iframe
+                    // src="https://alpaka206.github.io/#/Prize"
+                    src="http://localhost:5173/#/Prize"
+                    width="100%"
+                    height="90%"
+                    frameBorder="0"
+                    title="Awards"
+                  ></iframe>
+                )
           }
         />
         <FolderContainer
           imageUrl={
-            isMobile ? "./assets/phone/github.png" : "./assets/Github.png"
+            isMobile ? "./assets/phone/github.webp" : "./assets/Github.webp"
           }
           title="GitHub"
           onClick={() =>

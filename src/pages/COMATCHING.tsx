@@ -37,7 +37,7 @@ const COMATCHING = () => {
       <styles.Top>프로젝트 개요</styles.Top>
       <styles.Title>COMATCHING</styles.Title>
       <styles.TitleImage
-        src="./assets/Comatching/mainpage.png"
+        src="./assets/Comatching/mainpage.webp"
         alt="mainpage"
       />
       <styles.ExpContainer>
@@ -130,22 +130,22 @@ const COMATCHING = () => {
       <styles.ItemWithDot>취향 입력 받음</styles.ItemWithDot>
       <styles.ItemWithDot>순서대로 추가 정보를 입력 받음</styles.ItemWithDot>
       <styles.ProjectImage
-        src="./assets/Comatching/loginpage.png"
+        src="./assets/Comatching/loginpage.webp"
         alt="loginpage"
       />
 
       <styles.ProjectImage
-        src="./assets/Comatching/registerchat.png"
+        src="./assets/Comatching/registerchat.webp"
         alt="registerchat"
       />
 
       <styles.ProjectImage
-        src="./assets/Comatching/registerhobby.png"
+        src="./assets/Comatching/registerhobby.webp"
         alt="registerhobby"
       />
 
       <styles.ProjectImage
-        src="./assets/Comatching/registerfinal.png"
+        src="./assets/Comatching/registerfinal.webp"
         alt="registerfinal"
       />
 
@@ -154,16 +154,16 @@ const COMATCHING = () => {
       <styles.ItemWithDot>충전 요청 보낼 수 있음</styles.ItemWithDot>
       <styles.ItemWithDot>QR코드로 빠르게 진행 가능</styles.ItemWithDot>
       <styles.ProjectImage
-        src="./assets/Comatching/mainpage.png"
+        src="./assets/Comatching/mainpage.webp"
         alt="mainpage"
       />
 
       <styles.ProjectImage
-        src="./assets/Comatching/mainpagecharge.png"
+        src="./assets/Comatching/mainpagecharge.webp"
         alt="mainpage"
       />
       <styles.ProjectImage
-        src="./assets/Comatching/QRpage.png"
+        src="./assets/Comatching/QRpage.webp"
         alt="mainpage"
       />
 
@@ -176,19 +176,19 @@ const COMATCHING = () => {
         AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공
       </styles.ItemWithDot>
       <styles.ProjectImage
-        src="./assets/Comatching/matching.png"
+        src="./assets/Comatching/matching.webp"
         alt="mainpage"
       />
 
       <styles.ProjectImage
-        src="./assets/Comatching/matchingresult.png"
+        src="./assets/Comatching/matchingresult.webp"
         alt="mainpage"
       />
 
       <styles.Subtitle>결과 모아보기</styles.Subtitle>
       <styles.ItemWithDot>본인이 뽑은 내역 확인 가능 및 사후평가</styles.ItemWithDot>
       <styles.ProjectImage
-        src="./assets/Comatching/review.png"
+        src="./assets/Comatching/review.webp"
         alt="mainpage"
       />
 
@@ -197,7 +197,7 @@ const COMATCHING = () => {
         관리자가 포인트 충전 및 뽑힐 횟수 증가 가능
       </styles.ItemWithDot>
       <styles.ProjectImage
-        src="./assets/Comatching/admin.png"
+        src="./assets/Comatching/admin.webp"
         alt="mainpage"
       />
       <styles.Divider />

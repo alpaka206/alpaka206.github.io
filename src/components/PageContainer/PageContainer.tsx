@@ -106,9 +106,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
           {tabs.tabs.map((tab, index) => (
             <React.Fragment key={index}>
               {tabs.activeTabIndex === index ? (
-                <styles.TabSide
-                  onClick={() => handleTabClick(index)}
-                >
+                <styles.TabSide onClick={() => handleTabClick(index)}>
                   <styles.LeftTabSideElement />
                 </styles.TabSide>
               ) : (
@@ -123,21 +121,17 @@ const PageContainer: React.FC<PageContainerProps> = ({
                   alt={tab.title}
                   onClick={() => handleTabClick(index)}
                 />
-                <styles.TabTitle
-                  onClick={() => handleTabClick(index)}
-                >
+                <styles.TabTitle onClick={() => handleTabClick(index)}>
                   {tab.title}
                 </styles.TabTitle>
                 <styles.CloseTabButton
-                  src="./assets/close.svg"
+                  src="./assets/close.webp"
                   alt={tab.title}
                   onClick={() => handleTabClose(index)}
                 />
               </styles.TabButton>
               {tabs.activeTabIndex === index ? (
-                <styles.TabSide
-                  onClick={() => handleTabClick(index)}
-                >
+                <styles.TabSide onClick={() => handleTabClick(index)}>
                   <styles.RightTabSideElement />
                 </styles.TabSide>
               ) : (
@@ -147,7 +141,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
           ))}
         </styles.Tabs>
         <styles.CloseButton
-          src="./assets/close.svg"
+          src="./assets/close.webp"
           alt="closeButton"
           onClick={onClose}
         />
