@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #1a237e, #3949ab);
+  background-image: url("/assets/BGimage.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  @media screen and (min-width: 768px) {
-    background-image: url("/assets/BGimage.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  @media (max-width: 768px) {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
   }
 `;
 

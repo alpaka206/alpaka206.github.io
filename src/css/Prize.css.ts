@@ -7,7 +7,7 @@ export const PrizePage = styled.div`
 
 export const BackButton = styled.img`
   display: none;
-  @media (max-width: 980px) {
+  @media (max-width: 768px) {
     display: block;
     background-color: #ffffff;
     width: 20px;

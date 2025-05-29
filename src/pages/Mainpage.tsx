@@ -291,9 +291,7 @@ const Mainpage: React.FC = () => {
           }
         />
         <FolderContainer
-          imageUrl={
-            isMobile ? "./assets/phone/github.webp" : "./assets/Github.webp"
-          }
+          imageUrl="./assets/Github.webp"
           title="GitHub"
           onClick={() =>
             isMobile

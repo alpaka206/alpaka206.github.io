@@ -23,7 +23,7 @@ export const PhoneFolderText = styled.div`
   color: #fff;
   font-weight: bold;
 
-  @media screen and (min-width: 970px) {
+  @media (max-width: 768px) {
     font-size: 7em;
   }
 `;

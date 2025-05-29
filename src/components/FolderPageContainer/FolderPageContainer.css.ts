@@ -27,6 +27,4 @@ export const CloseButton = styled.img`
 
 export const FolderContainer = styled.div`
   display: flex;
-  margin-left: 10px;
-  gap: 20px;
 `;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 5px;
-  width: 86px;
+  width: 75px;
   height: 70px;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   gap: 4px;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     width: 80%;
   }
 `;
@@ -27,7 +27,7 @@ export const Image = styled.img`
   width: 100%;
   height: auto;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     border-radius: 40%;
   }
 `;
@@ -36,9 +36,9 @@ export const Title = styled.h3`
   font-size: 12px;
   font-family: "Segoe UI Variable";
   font-weight: 400;
-  color: #ffffff;
+  color: #000000;
 
-  @media screen and (max-width: 980px) {
+  @media (max-width: 768px) {
     font-size: calc(8px + 2vw);
   }
 `;

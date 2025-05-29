@@ -113,10 +113,10 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
       <styles.FolderContainer>
         <FolderContainer
           imageUrl="./assets/Comatching.webp"
-          title="코매칭"
+          title="COMATCHING"
           onClick={() => {
             handlePageOpen(
-              "코매칭",
+              "COMATCHING",
               "./assets/Comatching.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/Comatching"
@@ -124,17 +124,17 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
                 width="100%"
                 height="80%"
                 frameBorder="0"
-                title="Comatching"
+                title="COMATCHING"
               ></iframe>
             );
           }}
         />
         <FolderContainer
           imageUrl="./assets/Shareit.webp"
-          title="Shareit"
+          title="Share-It"
           onClick={() => {
             handlePageOpen(
-              "Shareit",
+              "Share-It",
               "./assets/Shareit.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/ShareIt"
