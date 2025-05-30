@@ -99,21 +99,19 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
       <styles.WindowHeader
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onClick={() => {
-          bringFolderToFront();
-        }}
+        onClick={bringFolderToFront}
       >
-        프로젝트
-        <styles.CloseButton
-          src="./assets/close.webp"
-          alt="closeButton"
-          onClick={onClose}
-        />
+        <styles.Title>프로젝트</styles.Title>
+        <styles.ButtonGroup>
+          <styles.WindowButton onClick={() => alert("최소화")}>─</styles.WindowButton>
+          <styles.WindowButton onClick={() => alert("크기변경")}>□</styles.WindowButton>
+          <styles.WindowButton onClick={onClose}>×</styles.WindowButton>
+        </styles.ButtonGroup>
       </styles.WindowHeader>
-      <styles.FolderContainer>
+      <styles.Body>
         <FolderContainer
           imageUrl="./assets/Comatching.webp"
-          title="COMATCHING"
+          title="코매칭"
           onClick={() => {
             handlePageOpen(
               "COMATCHING",
@@ -130,12 +128,12 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
           }}
         />
         <FolderContainer
-          imageUrl="./assets/Shareit.webp"
+          imageUrl="./assets/ShareIt.webp"
           title="Share-It"
           onClick={() => {
             handlePageOpen(
               "Share-It",
-              "./assets/Shareit.webp",
+              "./assets/ShareIt.webp",
               <iframe
                 // src="https://alpaka206.github.io/#/ShareIt"
                 src="http://localhost:5173/#/ShareIt"
@@ -165,7 +163,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
             );
           }}
         />
-      </styles.FolderContainer>
+      </styles.Body>
     </styles.FolderPage>
   );
 };
