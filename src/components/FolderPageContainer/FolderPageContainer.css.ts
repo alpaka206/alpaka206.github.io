@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const FolderPage = styled.div`
   position: absolute;
-  width: 500px;
+  width: 550px;
   height: 400px;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -20,7 +20,7 @@ export const WindowHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: #f2f2f2;
-  padding: 0px 14px 4px;
+  padding: 0px 0px 4px 14px;
   border-bottom: 1px solid #d0d0d0;
 `;
 
@@ -31,7 +31,6 @@ export const Title = styled.div`
   color: #1f1f1f;
   font-weight: 500;
   gap: 6px;
-
 `;
 
 export const ButtonGroup = styled.div`
@@ -44,8 +43,6 @@ export const WindowButton = styled.button`
   height: 28px;
   background-color: transparent;
   border: none;
-  font-size: 14px;
-  color: #000;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -56,6 +53,11 @@ export const WindowButton = styled.button`
     background-color: #e0e0e0;
   }
 `;
+
+export const IconButton = styled.img`
+  width: 10px;
+`;
+
 export const Body = styled.div`
   display: flex;
   padding: 6px 9px;

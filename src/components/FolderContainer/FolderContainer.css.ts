@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 5px;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@ export const Container = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 40px;
+  width: 50px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
