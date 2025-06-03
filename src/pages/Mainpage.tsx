@@ -19,7 +19,7 @@ const Mainpage: React.FC = () => {
   const [tabs, setTabs] = useRecoilState(tabsState);
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
-  const [activeFolderPage, setActiveFolderPage] = useState<boolean>(false);
+  const [isFolderVisible, setIsFolderVisible] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useRecoilState(isMobileState);
 
   const handlePageOpen = (
@@ -53,12 +53,17 @@ const Mainpage: React.FC = () => {
 
     bringPageToFront();
   };
+
+  const handleMinimizeFolderPage = () => {
+    setIsFolderVisible(false); // 최소화 == 화면에서 숨김
+  };
+
   const handlePhonePageOpen = () => {
-    setActiveFolderPage(true);
+    setIsFolderVisible(true);
     window.history.pushState(null, "", window.location.href);
   };
   const handleFolderPageOpen = () => {
-    setActiveFolderPage(true);
+    setIsFolderVisible(true);
     bringFolderToFront();
     setTaskbar((prevTaskbar) => {
       if (!prevTaskbar.taskbars.some((item) => item.id === "folder")) {
@@ -117,6 +122,7 @@ const Mainpage: React.FC = () => {
         ...prevTaskbar,
         activeTaskbar: "folder",
       }));
+      setIsFolderVisible(true);
       bringFolderToFront();
     } else {
       const tabIndex = tabs.tabs.findIndex((tab) => tab.title === id);
@@ -162,7 +168,7 @@ const Mainpage: React.FC = () => {
   const handleCloseFolderPage = () => {
     console.log(taskbar);
     console.log(tabs.activeTabIndex);
-    setActiveFolderPage(false);
+    setIsFolderVisible(false);
     const updatedTaskbars = taskbar.taskbars.filter(
       (taskbarItem) => taskbarItem.id !== "folder"
     );
@@ -302,20 +308,18 @@ const Mainpage: React.FC = () => {
       </styles.FolderGrid>
       {!isMobile && tabs.tabs.length > 0 && (
         <PageContainer
-          // tabs={tabs.tabs}
-          // activeTab={tabs.activeTabIndex}
           onClose={() => handleCloseAllTabs()}
-          // setActiveTab={(index) => setTabs({ ...tabs, activeTabIndex: index })}
           style={{ zIndex: zIndexState.pageZIndex }}
           bringPageToFront={bringPageToFront}
         />
       )}
-      {activeFolderPage &&
+      {isFolderVisible &&
         (isMobile ? (
           <PhoneFolderPage onClose={() => handleCloseFolderPage()} />
         ) : (
           <FolderPageContainer
             onClose={() => handleCloseFolderPage()}
+            onMinimize={handleMinimizeFolderPage}
             bringFolderToFront={bringFolderToFront}
           />
         ))}

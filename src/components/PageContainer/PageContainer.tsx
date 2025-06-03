@@ -125,7 +125,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
                   {tab.title}
                 </styles.TabTitle>
                 <styles.CloseTabButton
-                  src="./assets/close.webp"
+                  src="./assets/icons/close.webp"
                   alt={tab.title}
                   onClick={() => handleTabClose(index)}
                 />
@@ -141,7 +141,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
           ))}
         </styles.Tabs>
         <styles.CloseButton
-          src="./assets/close.webp"
+          src="./assets/icons/close.webp"
           alt="closeButton"
           onClick={onClose}
         />

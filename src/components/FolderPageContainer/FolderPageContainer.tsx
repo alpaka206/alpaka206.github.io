@@ -6,20 +6,23 @@ import FolderContainer from "../FolderContainer/FolderContainer";
 
 interface FolderPageContainerProps {
   onClose: () => void;
+  onMinimize: () => void;
   bringFolderToFront: () => void;
 }
 
 const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   onClose,
   bringFolderToFront,
+  onMinimize,
 }) => {
   const [tabs, setTabs] = useRecoilState(tabsState);
   const setTaskbar = useSetRecoilState(taskbarState);
   const [zIndexFolderState, setZIndexFolderState] = useRecoilState(ZIndexState);
 
-  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [position, setPosition] = useState({ x: 150, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
+  const [isFullSize, setIsFullSize] = useState(false);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -92,28 +95,37 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
     <styles.FolderPage
       style={{
         zIndex: zIndexFolderState.folderZIndex,
-        left: position.x,
-        top: position.y,
+        left: isFullSize ? 0 : position.x,
+        top: isFullSize ? 0 : position.y,
+        width: isFullSize ? "100vw" : undefined,
+        height: isFullSize ? "100vh" : undefined,
       }}
     >
       <styles.WindowHeader
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onClick={() => {
-          bringFolderToFront();
-        }}
+        onClick={bringFolderToFront}
       >
-        프로젝트
-        <styles.CloseButton
-          src="./assets/close.webp"
-          alt="closeButton"
-          onClick={onClose}
-        />
+        <styles.Title>프로젝트</styles.Title>
+        <styles.ButtonGroup>
+          <styles.WindowButton onClick={onMinimize}>
+            <styles.IconButton src="/assets/icons/line.webp" alt="최소화" />
+          </styles.WindowButton>
+          <styles.WindowButton onClick={() => setIsFullSize((prev) => !prev)}>
+            <styles.IconButton
+              src="/assets/icons/square.webp"
+              alt="크기 변경"
+            />
+          </styles.WindowButton>
+          <styles.WindowButton onClick={onClose}>
+            <styles.IconButton src="/assets/icons/close.webp" alt="닫기" />
+          </styles.WindowButton>
+        </styles.ButtonGroup>
       </styles.WindowHeader>
-      <styles.FolderContainer>
+      <styles.Body>
         <FolderContainer
           imageUrl="./assets/Comatching.webp"
-          title="COMATCHING"
+          title="코매칭"
           onClick={() => {
             handlePageOpen(
               "COMATCHING",
@@ -165,7 +177,7 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
             );
           }}
         />
-      </styles.FolderContainer>
+      </styles.Body>
     </styles.FolderPage>
   );
 };

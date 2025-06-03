@@ -4,10 +4,10 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: url("/assets/BGimage.webp");
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* ✅ 화면 꽉 채우기 */
+  background-position: center center; /* 또는 top center */
   background-repeat: no-repeat;
-
+  background-attachment: fixed;
   @media (max-width: 768px) {
     background: linear-gradient(135deg, #1a237e, #3949ab);
   }
