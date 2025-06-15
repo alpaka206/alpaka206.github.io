@@ -109,10 +109,6 @@ const Profile = () => {
                 alt="Jest"
               />
               <img
-                src="https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white"
-                alt="threejs"
-              />
-              <img
                 src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white"
                 alt="vite"
               />
@@ -186,10 +182,8 @@ const Profile = () => {
             <styles.SectionDetail>
               💻 복수전공: 컴퓨터정보공학과
             </styles.SectionDetail>
-            <styles.SectionDetail>
-              👨‍🎓 2019.03 ~ 2025.02(졸업예정)
-            </styles.SectionDetail>
-            <styles.SectionDetail>📚 3.63 / 4.5</styles.SectionDetail>
+            <styles.SectionDetail>👨‍🎓 2019.03 ~ 2025.02</styles.SectionDetail>
+            <styles.SectionDetail>📚 3.68 / 4.5</styles.SectionDetail>
           </styles.SectionContainer>
         </Element>
         <styles.Divider />
@@ -259,8 +253,22 @@ const Profile = () => {
           <styles.SectionContainer>
             <styles.SectionTitle>🎞️ Career</styles.SectionTitle>
             <styles.SectionSubTitle>에이치투비즈(h2biz)</styles.SectionSubTitle>
-            <styles.SectionDetail>2024.06 ~ 2024.08</styles.SectionDetail>
-            <styles.SectionDetail>개발팀 학생 인턴</styles.SectionDetail>
+            <styles.SectionDetail>
+              재직 기간 : 2024.06 ~ 2024.08
+            </styles.SectionDetail>
+            <styles.SectionDetail>직급 : 학생인턴</styles.SectionDetail>
+            <styles.SectionDetail>
+              담당 업무 : 프론트엔드 과제 수행
+            </styles.SectionDetail>
+            <styles.SectionSubTitle>
+              펑타이그레이터차이나(PTKOREA)
+            </styles.SectionSubTitle>
+            <styles.SectionDetail>재직 기간 : 2024.12 ~ </styles.SectionDetail>
+            <styles.SectionDetail>직급 : 인턴 / 프로</styles.SectionDetail>
+            <styles.SectionDetail>
+              담당 업무 : 삼성 SMC 사전 QA 자동화 툴 개발, 대기업 글로벌 사이트
+              퍼블리싱 및 QA
+            </styles.SectionDetail>
           </styles.SectionContainer>
         </Element>
       </styles.ProfileContent>
