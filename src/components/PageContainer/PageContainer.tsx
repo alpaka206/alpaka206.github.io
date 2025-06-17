@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import * as styles from "./PageContainer.css";
 import { useRecoilState } from "recoil";
 import { tabsState, taskbarState } from "../../Atoms";
+import WindowHeader from "../common/WindowWrapper/WindowWrapper";
 
 export interface PageContainerProps {
   onClose: () => void;
@@ -98,54 +99,15 @@ const PageContainer: React.FC<PageContainerProps> = ({
       style={{ ...style, left: position.x, top: position.y }}
       onClick={() => bringPageToFront()}
     >
-      <styles.WindowHeader
+      <WindowHeader
+        tabs={tabs.tabs}
+        activeTabIndex={tabs.activeTabIndex}
+        onTabClick={handleTabClick}
+        onTabClose={handleTabClose}
+        onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-      >
-        <styles.Tabs>
-          {tabs.tabs.map((tab, index) => (
-            <React.Fragment key={index}>
-              {tabs.activeTabIndex === index ? (
-                <styles.TabSide onClick={() => handleTabClick(index)}>
-                  <styles.LeftTabSideElement />
-                </styles.TabSide>
-              ) : (
-                ""
-              )}
-              <styles.TabButton
-                key={index}
-                isActive={tabs.activeTabIndex === index}
-              >
-                <styles.TabButtonImage
-                  src={tab.imageUrl}
-                  alt={tab.title}
-                  onClick={() => handleTabClick(index)}
-                />
-                <styles.TabTitle onClick={() => handleTabClick(index)}>
-                  {tab.title}
-                </styles.TabTitle>
-                <styles.CloseTabButton
-                  src="./assets/icons/close.webp"
-                  alt={tab.title}
-                  onClick={() => handleTabClose(index)}
-                />
-              </styles.TabButton>
-              {tabs.activeTabIndex === index ? (
-                <styles.TabSide onClick={() => handleTabClick(index)}>
-                  <styles.RightTabSideElement />
-                </styles.TabSide>
-              ) : (
-                ""
-              )}
-            </React.Fragment>
-          ))}
-        </styles.Tabs>
-        <styles.CloseButton
-          src="./assets/icons/close.webp"
-          alt="closeButton"
-          onClick={onClose}
-        />
-      </styles.WindowHeader>
+      />
       <styles.WindowBody>
         {tabs.tabs[tabs.activeTabIndex || 0]?.content}
       </styles.WindowBody>
