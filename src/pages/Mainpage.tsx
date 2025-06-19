@@ -20,6 +20,7 @@ const Mainpage: React.FC = () => {
   const [zIndexState, setZIndexState] = useRecoilState(ZIndexState);
   const [taskbar, setTaskbar] = useRecoilState(taskbarState);
   const [isFolderVisible, setIsFolderVisible] = useState<boolean>(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
   const [isMobile, setIsMobile] = useRecoilState(isMobileState);
 
   const handlePageOpen = (
@@ -56,6 +57,10 @@ const Mainpage: React.FC = () => {
 
   const handleMinimizeFolderPage = () => {
     setIsFolderVisible(false); // 최소화 == 화면에서 숨김
+  };
+
+  const handleMinimizePageTabs = () => {
+    setIsPageVisible(false);
   };
 
   const handlePhonePageOpen = () => {
@@ -231,7 +236,7 @@ const Mainpage: React.FC = () => {
         />
         <FolderContainer
           imageUrl={
-            isMobile ? "./assets/phone/folder.webp" : "./assets/folder.webp"
+            isMobile ? "./assets/mobile/folder.webp" : "./assets/folder1.webp"
           }
           title="Projects"
           onClick={() =>
@@ -311,6 +316,7 @@ const Mainpage: React.FC = () => {
           onClose={() => handleCloseAllTabs()}
           style={{ zIndex: zIndexState.pageZIndex }}
           bringPageToFront={bringPageToFront}
+          onMinimize={handleMinimizePageTabs}
         />
       )}
       {isFolderVisible &&

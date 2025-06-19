@@ -3,6 +3,7 @@ import * as styles from "./FolderPageContainer.css";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import FolderContainer from "../FolderContainer/FolderContainer";
+import WindowHeader from "../common/WindowWrapper/WindowWrapper";
 
 interface FolderPageContainerProps {
   onClose: () => void;
@@ -101,27 +102,17 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
         height: isFullSize ? "100vh" : undefined,
       }}
     >
-      <styles.WindowHeader
+      <WindowHeader
+        tabs={[{ title: "Projects", imageUrl: "/assets/folder1.webp" }]}
+        activeTabIndex={0}
+        onTabClick={() => {}}
+        onTabClose={onClose}
+        onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onClick={bringFolderToFront}
-      >
-        <styles.Title>프로젝트</styles.Title>
-        <styles.ButtonGroup>
-          <styles.WindowButton onClick={onMinimize}>
-            <styles.IconButton src="/assets/icons/line.webp" alt="최소화" />
-          </styles.WindowButton>
-          <styles.WindowButton onClick={() => setIsFullSize((prev) => !prev)}>
-            <styles.IconButton
-              src="/assets/icons/square.webp"
-              alt="크기 변경"
-            />
-          </styles.WindowButton>
-          <styles.WindowButton onClick={onClose}>
-            <styles.IconButton src="/assets/icons/close.webp" alt="닫기" />
-          </styles.WindowButton>
-        </styles.ButtonGroup>
-      </styles.WindowHeader>
+        bringFolderToFront={bringFolderToFront}
+        onMinimize={onMinimize}
+      />
       <styles.Body>
         <FolderContainer
           imageUrl="./assets/Comatching.webp"
