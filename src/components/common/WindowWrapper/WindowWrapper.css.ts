@@ -82,3 +82,27 @@ export const CloseButton = styled.img`
   margin-right: 10px;
   user-select: none;
 `;
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 4px;
+`;
+
+export const WindowButton = styled.button`
+  width: 36px;
+  height: 28px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+`;
+
+export const IconButton = styled.img`
+  width: 10px;
+`;

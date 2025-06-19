@@ -33,31 +33,6 @@ export const Title = styled.div`
   gap: 6px;
 `;
 
-export const ButtonGroup = styled.div`
-  display: flex;
-  gap: 4px;
-`;
-
-export const WindowButton = styled.button`
-  width: 36px;
-  height: 28px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`;
-
-export const IconButton = styled.img`
-  width: 10px;
-`;
-
 export const Body = styled.div`
   display: flex;
   padding: 6px 9px;

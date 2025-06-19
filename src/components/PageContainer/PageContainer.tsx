@@ -8,12 +8,14 @@ export interface PageContainerProps {
   onClose: () => void;
   style?: React.CSSProperties;
   bringPageToFront: () => void;
+  onMinimize: () => void;
 }
 
 const PageContainer: React.FC<PageContainerProps> = ({
   onClose,
   style,
   bringPageToFront,
+  onMinimize,
 }) => {
   // const [activeTab, setActiveTab] = useState<number>(0);
   const [tabs, setTabs] = useRecoilState(tabsState);
@@ -107,6 +109,8 @@ const PageContainer: React.FC<PageContainerProps> = ({
         onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        bringFolderToFront={bringPageToFront}
+        onMinimize={onMinimize}
       />
       <styles.WindowBody>
         {tabs.tabs[tabs.activeTabIndex || 0]?.content}

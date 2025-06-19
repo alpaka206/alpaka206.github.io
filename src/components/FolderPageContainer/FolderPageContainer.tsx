@@ -102,35 +102,16 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
         height: isFullSize ? "100vh" : undefined,
       }}
     >
-      {/* <styles.WindowHeader
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onClick={bringFolderToFront}
-      >
-        <styles.Title>프로젝트</styles.Title>
-        <styles.ButtonGroup>
-          <styles.WindowButton onClick={onMinimize}>
-            <styles.IconButton src="/assets/icons/line.webp" alt="최소화" />
-          </styles.WindowButton>
-          <styles.WindowButton onClick={() => setIsFullSize((prev) => !prev)}>
-            <styles.IconButton
-              src="/assets/icons/square.webp"
-              alt="크기 변경"
-            />
-          </styles.WindowButton>
-          <styles.WindowButton onClick={onClose}>
-            <styles.IconButton src="/assets/icons/close.webp" alt="닫기" />
-          </styles.WindowButton>
-        </styles.ButtonGroup>
-      </styles.WindowHeader> */}
       <WindowHeader
-        tabs={[{ title: "프로젝트", imageUrl: "/assets/icons/folder.webp" }]}
+        tabs={[{ title: "Projects", imageUrl: "/assets/folder1.webp" }]}
         activeTabIndex={0}
         onTabClick={() => {}}
-        onTabClose={() => {}}
+        onTabClose={onClose}
         onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        bringFolderToFront={bringFolderToFront}
+        onMinimize={onMinimize}
       />
       <styles.Body>
         <FolderContainer

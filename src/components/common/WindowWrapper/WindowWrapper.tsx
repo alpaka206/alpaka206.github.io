@@ -1,5 +1,5 @@
 // components/common/WindowHeader.tsx
-import React from "react";
+import React, { useState } from "react";
 import * as styles from "./WindowWrapper.css"; // 또는 WindowHeader.css
 
 interface WindowHeaderProps {
@@ -10,6 +10,8 @@ interface WindowHeaderProps {
   onClose: () => void;
   onMouseDown: (e: React.MouseEvent) => void;
   onMouseUp: (e: React.MouseEvent) => void;
+  onMinimize: () => void;
+  bringFolderToFront: () => void;
 }
 
 const WindowHeader: React.FC<WindowHeaderProps> = ({
@@ -20,7 +22,10 @@ const WindowHeader: React.FC<WindowHeaderProps> = ({
   onClose,
   onMouseDown,
   onMouseUp,
+  bringFolderToFront,
+  onMinimize,
 }) => {
+  const [isFullSize, setIsFullSize] = useState(false);
   return (
     <styles.WindowHeader onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
       <styles.Tabs>
@@ -54,11 +59,17 @@ const WindowHeader: React.FC<WindowHeaderProps> = ({
           </React.Fragment>
         ))}
       </styles.Tabs>
-      <styles.CloseButton
-        src="./assets/icons/close.webp"
-        alt="closeButton"
-        onClick={onClose}
-      />
+      <styles.ButtonGroup>
+        <styles.WindowButton onClick={onMinimize}>
+          <styles.IconButton src="/assets/icons/line.webp" alt="최소화" />
+        </styles.WindowButton>
+        <styles.WindowButton onClick={() => setIsFullSize((prev) => !prev)}>
+          <styles.IconButton src="/assets/icons/square.webp" alt="크기 변경" />
+        </styles.WindowButton>
+        <styles.WindowButton onClick={onClose}>
+          <styles.IconButton src="/assets/icons/close.webp" alt="닫기" />
+        </styles.WindowButton>
+      </styles.ButtonGroup>
     </styles.WindowHeader>
   );
 };
