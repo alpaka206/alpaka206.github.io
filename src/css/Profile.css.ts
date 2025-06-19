@@ -2,16 +2,21 @@ import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
   display: flex;
-  width: 100%;
-  margin: 0 auto;
+  flex-direction: row;
+  width: 100vw;
+  min-height: 100vh;
   font-family: "Arial", sans-serif;
-  color: #333;
   background-color: #f9f9f9;
+  color: #1a1a1a;
 
   @media (max-width: 768px) {
     display: block;
     padding-top: 5%;
   }
+  // @media (max-width: 768px) {
+  //   flex-direction: column;
+  //   padding-top: 56px;
+  // }
 `;
 
 export const BackButton = styled.img`
@@ -25,23 +30,147 @@ export const BackButton = styled.img`
     padding: 10px;
     border-radius: 100px;
   }
+  // @media (max-width: 768px) {
+  //   display: block;
+  //   position: absolute;
+  //   top: 12px;
+  //   left: 12px;
+  //   background-color: #fff;
+  //   width: 24px;
+  //   height: 24px;
+  //   padding: 8px;
+  //   border-radius: 50%;
+  //   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  //   cursor: pointer;
+  // }
 `;
 
 export const ProfileNav = styled.div`
   position: fixed;
-  height: 50vh;
-  width: 110px;
-  color: #333;
-  padding: 40px 0 50vh 40px;
-  border-right: 2px solid black;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 120px;
+  padding: 60px 0 60px 32px;
+  border-right: 1px solid #e5e5e5;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 16px;
 
   @media (max-width: 768px) {
     display: none;
   }
 `;
+
+export const NavItem = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #007aff;
+  }
+`;
+
+export const ContentArea = styled.main`
+  margin-left: 160px;
+  width: 100%;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: 24px;
+  }
+`;
+
+export const IntroSection = styled.section`
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin: 24px 0;
+`;
+
+export const Avatar = styled.img`
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+`;
+
+export const IntroText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const Name = styled.h1`
+  font-size: 22px;
+  font-weight: 700;
+`;
+
+export const SubText = styled.span`
+  font-size: 15px;
+  color: #777;
+`;
+
+export const Paragraph = styled.p`
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+`;
+
+export const Section = styled.section`
+  margin: 24px 0;
+`;
+
+export const SectionTitle = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+`;
+
+export const SectionSubTitle = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
+export const SectionDetail = styled.div`
+  font-size: 14px;
+  margin-bottom: 8px;
+`;
+
+export const TechTagGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+`;
+
+export const Divider = styled.hr`
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+`;
+
+export const List = styled.ul`
+  padding-left: 20px;
+  margin-bottom: 20px;
+`;
+
+export const ListItem = styled.li`
+  font-size: 14px;
+  margin-bottom: 5px;
+`;
+
+// ==================================================
 
 export const ProfileNavItem = styled.div`
   cursor: pointer;
@@ -120,24 +249,6 @@ export const SectionContainer = styled.div`
   padding: 20px 30px;
 `;
 
-export const SectionTitle = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 15px;
-`;
-
-export const SectionSubTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`;
-
-export const SectionDetail = styled.div`
-  font-size: 14px;
-  margin-bottom: 8px;
-`;
-
 export const SectionLink = styled.a`
   color: #0073e6;
   text-decoration: none;
@@ -152,23 +263,6 @@ export const TagContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-`;
-
-export const Divider = styled.hr`
-  width: 100%;
-  border: 0;
-  height: 1px;
-  background-color: #ddd;
-`;
-
-export const List = styled.ul`
-  padding-left: 20px;
-  margin-bottom: 20px;
-`;
-
-export const ListItem = styled.li`
-  font-size: 14px;
-  margin-bottom: 5px;
 `;
 
 export const ContactIcon = styled.img`
