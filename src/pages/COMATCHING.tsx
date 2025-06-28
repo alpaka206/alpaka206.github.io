@@ -1,4 +1,4 @@
-import * as styles from "../css/Project.css.ts";
+import * as styles from "../styles/Project.css.ts";
 
 const COMATCHING = () => {
   const openGitHubPage = () => {
@@ -108,9 +108,7 @@ const COMATCHING = () => {
       </styles.ExpContainer>
       <styles.ExpContainer>
         <styles.ExpTitle>카테고리</styles.ExpTitle>
-        <styles.Item bgColor="#f1780f">
-          WEB
-        </styles.Item>
+        <styles.Item bgColor="#f1780f">WEB</styles.Item>
       </styles.ExpContainer>
       <styles.ExpContainer>
         <styles.ExpTitle>github</styles.ExpTitle>
@@ -150,7 +148,9 @@ const COMATCHING = () => {
       />
 
       <styles.Subtitle>메인페이지</styles.Subtitle>
-      <styles.ItemWithDot>간단한 개인 정보 및 추가 정보 확인 가능</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        간단한 개인 정보 및 추가 정보 확인 가능
+      </styles.ItemWithDot>
       <styles.ItemWithDot>충전 요청 보낼 수 있음</styles.ItemWithDot>
       <styles.ItemWithDot>QR코드로 빠르게 진행 가능</styles.ItemWithDot>
       <styles.ProjectImage
@@ -186,7 +186,9 @@ const COMATCHING = () => {
       />
 
       <styles.Subtitle>결과 모아보기</styles.Subtitle>
-      <styles.ItemWithDot>본인이 뽑은 내역 확인 가능 및 사후평가</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        본인이 뽑은 내역 확인 가능 및 사후평가
+      </styles.ItemWithDot>
       <styles.ProjectImage
         src="./assets/Comatching/review.webp"
         alt="mainpage"
@@ -204,7 +206,9 @@ const COMATCHING = () => {
       <styles.Subtitle>앞으로 구현하고자 하는 것</styles.Subtitle>
       <styles.ItemWithDot>매칭 뽑힌 사람끼리 쪽지 가능</styles.ItemWithDot>
       <styles.ItemWithDot>이메일 인증 재구현</styles.ItemWithDot>
-      <styles.ItemWithDot>소개팅 희망자들을 위해 채팅방 개설</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        소개팅 희망자들을 위해 채팅방 개설
+      </styles.ItemWithDot>
       <styles.ItemWithDot>토근 관리 RTR 방식 적용</styles.ItemWithDot>
       <styles.ItemWithDot>
         매칭 및 뽑힐기회 충전 사용자가 직접 가능하도록

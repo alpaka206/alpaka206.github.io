@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Mainpage from "../pages/Mainpage";
 import Profile from "../pages/Profile";
-import Prize from "../pages/Prize";
+import Prize from "../pages/PrizePage";
 import GithubPage from "../pages/GithubPage";
 import COMATCHING from "../pages/COMATCHING";
 import ShareIt from "../pages/ShareIt";

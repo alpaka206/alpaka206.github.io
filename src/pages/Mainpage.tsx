@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as styles from "../css/Mainpage.css";
+import * as styles from "../styles/Mainpage.css";
 import FolderContainer from "../components/FolderContainer/FolderContainer";
 import PageContainer from "../components/PageContainer/PageContainer";
 import FolderPageContainer from "../components/FolderPageContainer/FolderPageContainer";
