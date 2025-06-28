@@ -1,4 +1,4 @@
-import * as styles from "../css/Profile.css";
+import * as styles from "../styles/Profile.css";
 import { Link, Element } from "react-scroll";
 
 const navItems = [
