@@ -278,3 +278,49 @@ export const SkillLevel = styled.div`
   margin-bottom: 8px;
   color: #555;
 `;
+
+export const ProjectCard = styled.div`
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  background-color: #fafafa;
+`;
+
+export const ProjectHeader = styled.div`
+  margin-bottom: 12px;
+`;
+
+export const ProjectTitle = styled.h3`
+  font-size: 18px;
+  color: #0070f3;
+  font-weight: bold;
+  text-decoration: none;
+`;
+
+export const ProjectSubTitle = styled.div`
+  margin-top: 5px;
+  font-size: 14px;
+  color: #555;
+`;
+
+export const ProjectDescription = styled.p`
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+  line-height: 1.5;
+`;
+
+export const TechBadgeGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const TechBadge = styled.span`
+  background-color: #eee;
+  color: #333;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+`;

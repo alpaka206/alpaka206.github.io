@@ -1,4 +1,4 @@
-import * as styles from "../css/Project.css.ts";
+import * as styles from "../styles/Project.css.ts";
 
 const ALNC = () => {
   return (

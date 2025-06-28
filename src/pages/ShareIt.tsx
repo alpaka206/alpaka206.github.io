@@ -1,4 +1,4 @@
-import * as styles from "../css/Project.css.ts";
+import * as styles from "../styles/Project.css.ts";
 
 const ShareIt = () => {
   const openGitHubPage = () => {
@@ -38,10 +38,7 @@ const ShareIt = () => {
       <styles.Top>프로젝트 개요</styles.Top>
       <styles.Title>ShareIt</styles.Title>
 
-      <styles.TitleImage
-        src="./assets/ShareIt/mainpage.webp"
-        alt="mainpage"
-      />
+      <styles.TitleImage src="./assets/ShareIt/mainpage.webp" alt="mainpage" />
       <styles.ExpContainer>
         <styles.ExpTitle>Skills</styles.ExpTitle>
         <styles.Content>
@@ -51,9 +48,7 @@ const ShareIt = () => {
             { skill: "Recoil", color: "#007AF4" },
             { skill: "axios", color: "#0A99E0" },
           ].map(({ skill, color }) => (
-            <styles.Item bgColor={color}>
-              {skill}
-            </styles.Item>
+            <styles.Item bgColor={color}>{skill}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -66,9 +61,7 @@ const ShareIt = () => {
             { tool: "Figma", color: "#F24E1E" },
             { tool: "Firebase", color: "#FFCA28" },
           ].map(({ tool, color }) => (
-            <styles.Item bgColor={color}>
-              {tool}
-            </styles.Item>
+            <styles.Item bgColor={color}>{tool}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -89,9 +82,7 @@ const ShareIt = () => {
             { role: "기획", color: "#f1c40f" },
             // { role: "운영 및 홍보", color: "#fe340f" },
           ].map(({ role, color }) => (
-            <styles.Item bgColor={color}>
-              {role}
-            </styles.Item>
+            <styles.Item bgColor={color}>{role}</styles.Item>
           ))}
         </styles.Content>
       </styles.ExpContainer>
@@ -101,9 +92,7 @@ const ShareIt = () => {
       </styles.ExpContainer>
       <styles.ExpContainer>
         <styles.ExpTitle>카테고리</styles.ExpTitle>
-        <styles.Item>
-          WEB
-        </styles.Item>
+        <styles.Item>WEB</styles.Item>
       </styles.ExpContainer>
       <styles.ExpContainer>
         <styles.ExpTitle>github</styles.ExpTitle>
@@ -121,7 +110,9 @@ const ShareIt = () => {
       </styles.ItemWithDot>
       <styles.ItemWithDot>일반 회원가입도 가능</styles.ItemWithDot>
       <styles.ItemWithDot>이메일 인증을 통해 검증</styles.ItemWithDot>
-      <styles.ItemWithDot>정보를 입력하면 다음 내용으로 슬라이딩</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        정보를 입력하면 다음 내용으로 슬라이딩
+      </styles.ItemWithDot>
       <styles.ProjectImageFullWidth
         src="./assets/ShareIt/KaKaologin.webp"
         alt="loginpage"
@@ -138,7 +129,9 @@ const ShareIt = () => {
       </styles.ItemWithDot>
       <styles.ItemWithDot>최근에 등록된 물건 확인 가능</styles.ItemWithDot>
       <styles.ItemWithDot>사이드바 작동</styles.ItemWithDot>
-      <styles.ItemWithDot>최근 검색어 및 검색어 자동완성 구현</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        최근 검색어 및 검색어 자동완성 구현
+      </styles.ItemWithDot>
       <styles.ProjectImageFullWidth
         src="./assets/ShareIt/Search.webp"
         alt="mainpage"
@@ -213,7 +206,9 @@ const ShareIt = () => {
       <styles.Subtitle>개발한 내역</styles.Subtitle>
       <styles.ItemWithDot>무한 스크롤로 리스트 구현</styles.ItemWithDot>
       <styles.ItemWithDot>웹 소켓통신으로 채팅 구현</styles.ItemWithDot>
-      <styles.ItemWithDot>Oauth 2.0을 도입하여 카카오 로그인 적용</styles.ItemWithDot>
+      <styles.ItemWithDot>
+        Oauth 2.0을 도입하여 카카오 로그인 적용
+      </styles.ItemWithDot>
       <styles.ItemWithDot>이메일 인증 도입</styles.ItemWithDot>
       <styles.ItemWithDot>
         업로드 파일 형식 제안하여 해킹 위협 방지
