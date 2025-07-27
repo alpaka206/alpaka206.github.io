@@ -21,6 +21,7 @@ const PrizePage = () => {
             src={prize.src}
             title={prize.title}
             date={prize.date}
+            organization={prize.organization}
             description={prize.description}
             onClick={() => setSelectedImage(prize.src)}
           />
