@@ -20,7 +20,7 @@ export const prizeList = [
   },
   {
     src: "./assets/prize/prize3.webp",
-    title: "K-300",
+    title: "최종 선정",
     date: "2023.08.17",
     description: "창업유망팀 300 경진대회",
   },
