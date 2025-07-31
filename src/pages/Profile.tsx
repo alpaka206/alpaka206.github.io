@@ -38,12 +38,13 @@ const Profile = () => {
               <styles.SubText>Frontend Developer</styles.SubText>
               <styles.SubText>2000.05.17</styles.SubText>
               <styles.Paragraph>
-                실시간 서비스와 사용자 중심 UI/UX 구현에 강점을 가진 프론트엔드
-                개발자입니다.
+                사용자 흐름을 구조적으로 설계하고, 실시간성과 유지보수성을 모두
+                고려하는 프론트엔드 개발자 김규원입니다.
               </styles.Paragraph>
               <styles.Paragraph>
-                Recoil, Zustand 등 상태 관리 최적화와 성능 개선에 집중해 왔으며,
-                React 기반의 다양한 협업 프로젝트 경험을 보유하고 있습니다.
+                Recoil, Zustand, React Query 등 다양한 상태 관리 경험과 퍼포먼스
+                개선 역량을 바탕으로 실서비스에서 성능과 사용자 경험을 동시에
+                개선한 경험이 있습니다.
               </styles.Paragraph>
             </styles.IntroText>
           </styles.IntroSection>
@@ -107,7 +108,7 @@ const Profile = () => {
               <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white" />
               <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black" />
               <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-              <img src="https://img.shields.io/badge/AWS S3-569A31?style=style=for-the-badge&logo=amazonaws&logoColor=white" />
+              <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white" />
             </styles.TechTagGroup>
           </styles.Section>
         </Element>
@@ -130,27 +131,32 @@ const Profile = () => {
                 </styles.ProjectSubTitle>
               </styles.ProjectHeader>
               <styles.ProjectDescription>
-                Role: Front-End Developer
+                Role: Front-End Leader
               </styles.ProjectDescription>
 
               <styles.ProjectDescription>
-                실시간 포인트 관리와 사용자 간 매칭 로직을 구현하고, Lighthouse
-                분석을 통해 성능 저하 이슈를 최적화했습니다.
+                - 실시간 포인트 관리 및 사용자 매칭 로직 구현
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                Recoil 기반으로 복잡한 상태를 구조화하여 프로필 카드 UI, 포인트
-                결제·소모 흐름 등 전체 매칭 사이클을 설계했고, 2,095명의
-                사용자가 참여한 실서비스로 운영되었습니다.
+                - Recoil 기반 상태 구조 설계로 프로필 카드, 포인트 흐름 등 전체
+                UX 설계
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                사용자 피드백을 반영해 UI/UX를 지속적으로 개선하고, 컴포넌트
-                구조를 리팩토링하여 유지보수성을 높였습니다.
+                - 코드 스플리팅 및 불필요 렌더링 제거로 초기 로딩 속도 30% 개선
               </styles.ProjectDescription>
-
+              <styles.ProjectDescription>
+                - 총 2,095명 이상의 사용자가 참여한 실서비스 운영
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 지속적인 사용자 피드백 반영 및 리팩토링으로 UI/UX 개선 및
+                유지보수성 향상
+              </styles.ProjectDescription>
               <styles.TechBadgeGroup>
                 <styles.TechBadge>React</styles.TechBadge>
                 <styles.TechBadge>TypeScript</styles.TechBadge>
                 <styles.TechBadge>Recoil</styles.TechBadge>
+                <styles.TechBadge>vanilla-extract</styles.TechBadge>
+                <styles.TechBadge>Vite</styles.TechBadge>
                 <styles.TechBadge>SockJS</styles.TechBadge>
                 <styles.TechBadge>STOMP</styles.TechBadge>
                 <styles.TechBadge>AWS</styles.TechBadge>
@@ -175,16 +181,20 @@ const Profile = () => {
                 Role: Front-End Developer
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                COMATCHING 프로젝트를 기반으로 외주 형태로 확장 개발한
-                서비스입니다.
+                - COMATCHING 프로젝트를 기반으로 외주 확장 개발된 실시간 팬 매칭
+                서비스
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                팀 응원 성향 기반 매칭 알고리즘의 UI를 구현하고, 관리자가 알림
-                등을 설정할 수 있는 관리자 기능을 개발했습니다.
+                - 팬들의 응원 성향에 따른 실시간 매칭 UI를 구현하고 관리자
+                기능을 추가
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                사용자 중심의 페이지 전환 흐름 및 실시간 매칭 데이터 렌더링
-                구조를 구축했습니다.
+                - STOMP 기반 실시간 데이터 흐름과 사용자 중심 페이지 전환 구조
+                설계
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 외주 클라이언트 피드백을 반영하며 운영성과 유지보수성을 고려한
+                구조로 개선
               </styles.ProjectDescription>
               <styles.TechBadgeGroup>
                 <styles.TechBadge>React</styles.TechBadge>
@@ -205,31 +215,62 @@ const Profile = () => {
                   <styles.ProjectTitle>Share-It</styles.ProjectTitle>
                 </a>
                 <styles.ProjectSubTitle>
-                  중고 물품 공유 및 대여 플랫폼
+                  교내 중고 물품 공유 및 대여 플랫폼
                 </styles.ProjectSubTitle>
               </styles.ProjectHeader>
               <styles.ProjectDescription>
                 Role: Front-End Developer
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                상품 등록, 검색, 대여 UI를 구현하고, 무한 스크롤 기반의 목록
-                조회 기능을 개발했습니다.
+                - 대여 주기를 고려한 상품 등록/검색/예약 UI 흐름을 설계하고 구현
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                사용자 인증, 예약, 반납 등의 흐름을 구조화하여 전체 대여
-                사이클을 설계하고, 사용자 경험에 맞춘 화면 전환 및 상태 관리를
-                구현했습니다.
+                - 무한 스크롤 기반 목록 조회 및 실시간 채팅 기능을 직접 구현
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                실시간 채팅 기능 구현
+                - 사용자 인증부터 반납까지의 상태 흐름을 구조화하여 UX 완성도
+                향상
               </styles.ProjectDescription>
               <styles.ProjectDescription>
-                종합설계프로젝트1 A+
+                - 사용자 경험 기반의 기능 구현으로 종합설계프로젝트1 A+ 달성
               </styles.ProjectDescription>
               <styles.TechBadgeGroup>
                 <styles.TechBadge>React</styles.TechBadge>
                 <styles.TechBadge>Firebase</styles.TechBadge>
+                <styles.TechBadge>Axios</styles.TechBadge>
                 <styles.TechBadge>Recoil</styles.TechBadge>
+              </styles.TechBadgeGroup>
+            </styles.ProjectCard>
+            <styles.ProjectCard>
+              <styles.ProjectHeader>
+                <styles.ProjectTitle>새차처럼</styles.ProjectTitle>
+                <styles.ProjectSubTitle>
+                  손세차 매장 정보 및 예약 플랫폼
+                </styles.ProjectSubTitle>
+              </styles.ProjectHeader>
+              <styles.ProjectDescription>
+                Role: Front-End Developer
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 손세차 매장 정보를 사용자에게 제공하고, 예약 및 리뷰가 가능한
+                웹 플랫폼 개발
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 상인들에게는 온라인 홍보 및 예약 시스템을 제공하고,
+                사용자에게는 합리적인 가격과 정보를 연결
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 매장 상세 정보, 리뷰 작성, 예약 흐름 등의 UI 구현 및 데이터
+                흐름 설계
+              </styles.ProjectDescription>
+              <styles.ProjectDescription>
+                - 교육부 주관 창업유망팀 300 경진대회 최종 선정, 하나금융그룹
+                소셜벤처 유니버시티 우수팀 수상
+              </styles.ProjectDescription>
+              <styles.TechBadgeGroup>
+                <styles.TechBadge>React</styles.TechBadge>
+                <styles.TechBadge>Firebase</styles.TechBadge>
+                <styles.TechBadge>Axios</styles.TechBadge>
               </styles.TechBadgeGroup>
             </styles.ProjectCard>
           </styles.Section>
@@ -243,22 +284,30 @@ const Profile = () => {
               PTKOREA (펑타이그레이터차이나)
             </styles.SectionSubTitle>
             <styles.SectionDetail>
-              2024.12 ~ 재직 중 / 인턴
+              2024.12 ~ 재직 중 / 프로
             </styles.SectionDetail>
             <styles.SectionDetail>
-              - 삼성 SMC QA 자동화 툴 개발
+              - 삼성 91개국 글로벌 사후 QA 자동화 툴 프론트엔드 개발 참여
             </styles.SectionDetail>
             <styles.SectionDetail>
-              - 대기업 글로벌 사이트 퍼블리싱 및 QA
+              - 삼성 샵앱 31개국 글로벌 사전 QA 자동화 툴 프론트엔드 개발 참여
+            </styles.SectionDetail>
+            <styles.SectionDetail>
+              - Puppeteer 기반 UI 캡처 기능 구현
+            </styles.SectionDetail>
+            <styles.SectionDetail>
+              - FastAPI 기반 API 연동 및 백엔드 일부 개발 참여
+            </styles.SectionDetail>
+            <styles.SectionDetail>
+              - OCR 기반 QA 시스템 및 스크린샷 업로드 일부 개발 참여
             </styles.SectionDetail>
 
             <styles.SectionSubTitle>H2Biz</styles.SectionSubTitle>
             <styles.SectionDetail>
               2024.06 ~ 2024.08 / 학생 인턴
             </styles.SectionDetail>
-            <styles.SectionDetail>
-              - 프론트엔드 과제 수행 및 프로젝트 리펙토링
-            </styles.SectionDetail>
+            <styles.SectionDetail>- 프로젝트 리펙토링</styles.SectionDetail>
+            <styles.SectionDetail>- 프론트엔드 과제 수행</styles.SectionDetail>
           </styles.Section>
         </Element>
 
@@ -273,7 +322,7 @@ const Profile = () => {
               💻️ 주전공: 정보통신전자공학부
             </styles.SectionDetail>
             <styles.SectionDetail>
-              💻 복수전공: 컴퓨터정보공학과
+              💻 복수전공: 컴퓨터정보공학부
             </styles.SectionDetail>
             <styles.SectionDetail>👨‍🎓 2019.03 ~ 2025.02</styles.SectionDetail>
           </styles.Section>
@@ -284,84 +333,80 @@ const Profile = () => {
           <styles.Section>
             <styles.SectionTitle>📚 Experience</styles.SectionTitle>
             <styles.SectionSubTitle>
-              Frontend Development
+              🖥️ Frontend Development
             </styles.SectionSubTitle>
             <styles.SectionDetail>
-              React 및 TypeScript 기반의 SPA 개발에 능숙합니다.
+              React와 TypeScript 기반의 SPA 개발에 익숙하며, 서비스의 구조
+              설계부터 사용자 흐름, 상태 관리까지 전체적인 화면 동작을 고려한
+              개발을 지향합니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Recoil과 Zustand를 활용한 복잡한 상태 관리 경험이 있으며, 최근에는
-              Zustand 기반 구조 개선에도 참여하였습니다.
+              Recoil, Zustand 등 다양한 상태 관리 도구를 프로젝트 상황에 맞게
+              선택하고 구조화해본 경험이 있으며, 최근에는 Zustand 기반 구조 개선
+              및 리팩토링 작업에 참여했습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              React Query를 통한 데이터 요청 및 캐싱 처리에 익숙합니다.
+              React Query를 활용한 데이터 요청, 캐싱, 무한스크롤 구성 등 사용자
+              중심의 데이터 흐름 처리에 익숙하며, 실시간성이 요구되는
+              서비스에서는 SockJS + STOMP 기반의 채팅 및 알림 기능을 직접
+              구현했습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              SockJS와 STOMP를 활용한 실시간 채팅 기능을 직접 구현하였습니다.
+              Next.js를 활용한 서버사이드 렌더링 경험과 Vite 기반 번들러 설정 및
+              성능 최적화도 경험하였습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Vite로 번들러를 사용해 보았습니다.
+              Lighthouse 분석을 통한 성능 디버깅과 개선을 반복적으로
+              수행해왔습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              OAuth 2.0 기반 소셜 로그인 (Kakao, Google 등)을 구현한 경험이
-              있습니다.
-            </styles.SectionDetail>
-            <styles.SectionDetail>
-              Next.js 기반의 서버사이드 렌더링 경험이 있습니다.
-            </styles.SectionDetail>
-            <styles.SectionDetail>
-              성능 최적화를 위한 Lighthouse 분석을 수행해 왔습니다.
-            </styles.SectionDetail>
-            <styles.SectionDetail>
-              React Native WebView를 활용한 앱 연동방식을 학습하였습니다.
+              OAuth 2.0 기반의 소셜 로그인(Kakao, Google 등)을 직접 구현하고,
+              React Native WebView와의 앱 연동 방식도 학습하여 실제 적용 사례에
+              대비하고 있습니다.
             </styles.SectionDetail>
             <styles.SectionSubTitle>
               Component & UI Design
             </styles.SectionSubTitle>
             <styles.SectionDetail>
-              Atomic Design 패턴과 디자인 시스템 기반의 컴포넌트 구조 설계
-              경험이 있습니다.
+              Atomic Design 패턴 기반으로 컴포넌트의 재사용성과 유지보수성을
+              고려한 구조 설계를 해왔으며, 디자인 시스템 관점의 일관된 UI 구현
+              경험을 갖고 있습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Storybook을 활용한 컴포넌트 문서화, 배포 경험이 있습니다.
+              Storybook을 활용해 컴포넌트 문서화 및 협업용 UI 테스트 환경을
+              구성해보았고, 스타일링은 styled-components, vanilla-extract 기반의
+              CSS-in-JS 방식에 익숙합니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Styled-components와 Vanilla-extract를 활용한 CSS-in-JS 스타일링에
-              익숙하며, 크로스 브라우징과 접근성을 고려한 UI를 구현합니다.
+              크로스 브라우징, 반응형 UI, 웹 접근성 등을 고려한 실무 UI를 직접
+              구현해왔고, Keyframe을 활용한 인터랙션 중심 애니메이션 구성 경험도
+              보유하고 있습니다.
             </styles.SectionDetail>
-            <styles.SectionDetail>
-              Keyframe을 활용한 인터랙션 중심의 애니메이션 효과 적용 경험이
-              있습니다.
-            </styles.SectionDetail>
-
             <styles.SectionSubTitle>Testing & Tooling</styles.SectionSubTitle>
             <styles.SectionDetail>
-              Jest 기반의 단위 테스트와 사용자 시나리오 중심의 테스트 케이스
-              작성 경험이 있습니다.
+              Jest 기반의 단위 테스트 작성과 사용자 시나리오 중심의 테스트
+              케이스 정의 경험이 있으며, 실제로 주요 로직이나 라이브러리
+              리팩토링 시 테스트 코드 기반 검증을 진행했습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Vite 및 Webpack을 활용한 프로젝트 설정과 번들링 구성 경험이
-              있으며, 성능 측정 및 최적화를 진행해본 경험이 있습니다.
+              Vite 및 Webpack을 활용해 번들링 구조를 설정하고, 코드 스플리팅,
+              Lazy loading 등을 통해 초기 로딩 성능을 개선한 경험도 있습니다.
             </styles.SectionDetail>
-
             <styles.SectionSubTitle>
-              Backend & Network Programming
+              Backend & System Integration
             </styles.SectionSubTitle>
             <styles.SectionDetail>
-              Java 기반의 TCP/UDP 통신 구조를 활용하여 주차장 관리 프로그램을
-              개발한 경험이 있습니다.
+              실제 프로젝트에서 프론트엔드와 백엔드가 맞물려 동작하는 구조를
+              고려하여 API 스펙 정의, 인터페이스 설계, 연동 테스트까지
+              End-to-End 흐름을 관리해본 경험이 있습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              FastAPI 기반의 REST API 서버를 구현에 일부 참여하였습니다.
+              FastAPI와 Node.js, NestJS 기반의 간단한 백엔드 서버 개발도 경험해
+              보았습니다.
             </styles.SectionDetail>
             <styles.SectionDetail>
-              Node.js와 NestJS 프레임워크를 활용해 간단한 CRUD API 및 인증 처리
-              백엔드를 개발해본 경험이 있으며, 프론트엔드와의 협업 구조를 고려한
-              API 스펙 정의 및 연동 테스트 경험도 갖추고 있습니다.
-            </styles.SectionDetail>
-            <styles.SectionDetail>
-              전체 시스템 흐름을 고려하여 프론트와 백을 매끄럽게 연결하는
-              End-to-End 구조에 익숙합니다.
+              Java 기반의 TCP/UDP 통신 구조를 활용한 소형 프로그램 개발 경험을
+              통해 네트워크 구조에 대한 기본 이해를 쌓았습니다.
             </styles.SectionDetail>
           </styles.Section>
         </Element>

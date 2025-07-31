@@ -4,6 +4,7 @@ interface PrizeCardProps {
   src: string;
   title: string;
   date: string;
+  organization: string;
   description: string;
   onClick: () => void;
 }
@@ -13,6 +14,7 @@ const PrizeCard = ({
   title,
   date,
   description,
+  organization,
   onClick,
 }: PrizeCardProps) => (
   <styles.card onClick={onClick}>
@@ -22,6 +24,7 @@ const PrizeCard = ({
     <styles.textBox>
       <styles.title>{title}</styles.title>
       <styles.date>{date}</styles.date>
+      <styles.description>{organization}</styles.description>
       <styles.description>{description}</styles.description>
     </styles.textBox>
   </styles.card>
