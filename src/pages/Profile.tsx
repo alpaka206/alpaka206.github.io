@@ -1,479 +1,149 @@
-import { Link, Element } from 'react-scroll';
+import { Element } from 'react-scroll';
+import { SideNav } from '@/features/profile/components/SideNav';
+import { Section } from '@/features/profile/components/Section';
+import { BadgeRow } from '@/features/profile/components/BadgeRow';
+import { ProjectList } from '@/features/profile/components/ProjectList';
 
-const NAV_ITEMS = [
-  { name: 'About Me', target: 'about' },
-  { name: 'Contact', target: 'contact' },
-  { name: 'Skills', target: 'skills' },
-  { name: 'Projects', target: 'projects' },
-  { name: 'Career', target: 'career' },
-  { name: 'Education', target: 'education' },
-  { name: 'Experience', target: 'experience' },
-];
+import {
+  FRONTEND_BADGES,
+  STYLING_BADGES,
+  TEST_BADGES,
+  BACKEND_BADGES,
+  COLLAB_BADGES,
+} from '@/features/profile/data/skills';
+import { PROJECTS } from '@/features/profile/data/projects';
+import { ABOUT } from '@/features/profile/data/about';
+import { CONTACT } from '@/features/profile/data/contact';
+import { CAREER } from '@/features/profile/data/career';
+import { EDUCATION } from '@/features/profile/data/education';
+import { EXPERIENCE } from '@/features/profile/data/experience';
 
-export default function Profile() {
+export default function ProfilePage() {
   return (
-    <div className='w-screen min-h-screen bg-[#f9f9f9] text-[#1a1a1a]'>
-      <nav className='hidden md:flex fixed top-0 left-0 h-screen w-[120px] border-r border-[#e5e5e5] bg-white py-[60px] pl-6 pr-0 flex-col gap-4'>
-        {NAV_ITEMS.map(({ name, target }) => (
-          <Link key={target} to={target} smooth duration={500} offset={-24}>
-            <div className='text-[15px] font-semibold text-[#444] hover:text-[#007aff] cursor-pointer'>
-              {name}
-            </div>
-          </Link>
-        ))}
-      </nav>
-      <main className='md:ml-30 w-full px-5 md:px-6 pt-6 md:pt-8 pb-10'>
-        <Element name='about'>
-          <section className='flex items-center gap-6 my-6'>
-            <img
-              src='/assets/ProfileImage.webp'
-              alt='profile'
-              className='w-[100px] h-[133px] md:w-[160px] md:h-[213px] rounded-[50px] object-cover shadow'
-            />
-            <div className='flex flex-col gap-2'>
-              <h1 className='text-[22px] font-bold'>김규원</h1>
-              <span className='text-[15px] text-[#777]'>
-                Frontend Developer
-              </span>
-              <span className='text-[15px] text-[#777]'>2000.05.17</span>
-              <p className='text-[14px] leading-relaxed text-[#444]'>
-                사용자 흐름을 구조적으로 설계하고, 실시간성과 유지보수성을 모두
-                고려하는 프론트엔드 개발자 김규원입니다.
-              </p>
-              <p className='text-[14px] leading-relaxed text-[#444]'>
-                Recoil, Zustand, React Query 등 다양한 상태 관리 경험과 퍼포먼스
-                개선 역량을 바탕으로 실서비스에서 성능과 사용자 경험을 동시에
-                개선한 경험이 있습니다.
-              </p>
-            </div>
-          </section>
-        </Element>
+    <div className='min-h-screen w-full overflow-x-hidden bg-[#f9f9f9] text-[#1a1a1a]'>
+      <SideNav />
 
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='contact'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>📪 Contact</div>
-            <div className='text-sm mb-2'>📞 010-2412-0339</div>
-            <div className='text-sm mb-2'>✉️ gyuwon05@gmail.com</div>
-          </section>
-        </Element>
-
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='skills'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>🛠 Skills</div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>🚀 Frontend</div>
-            <div className='flex flex-wrap gap-2 mt-2 mb-5'>
-              <img src='https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black' />
-              <img src='https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white' />
-              <img src='https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black' />
-              <img src='https://img.shields.io/badge/Recoil-764ABC?style=for-the-badge&logo=Recoil&logoColor=white' />
-              <img src='https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=Zustand&logoColor=white' />
-              <img src='https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white' />
-              <img src='https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white' />
-              <img src='https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white' />
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>🎨 Styling</div>
-            <div className='flex flex-wrap gap-2 mt-2 mb-5'>
-              <img src='https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white' />
-              <img src='https://img.shields.io/badge/vanilla--extract-99F6E4?style=for-the-badge' />
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              🧪 Test (Basic Understanding)
-            </div>
-            <div className='flex flex-wrap gap-2 mt-2 mb-5'>
-              <img src='https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=Storybook&logoColor=white' />
-              <img src='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=Jest&logoColor=white' />
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              🧩 Backend / Infra (Basic Understanding)
-            </div>
-            <div className='flex flex-wrap gap-2 mt-2 mb-5'>
-              <img src='https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white' />
-              <img src='https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white' />
-              <img src='https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white' />
-              <img src='https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white' />
-              <img src='https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white' />
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              🧰 Collaboration & Deployment
-            </div>
-            <div className='flex flex-wrap gap-2 mt-2 mb-5'>
-              <img src='https://img.shields.io/badge/Git-F05033?style=for-the-badge&logo=git&logoColor=white' />
-              <img src='https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white' />
-              <img src='https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white' />
-              <img src='https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white' />
-              <img src='https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white' />
-              <img src='https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white' />
-              <img src='https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black' />
-              <img src='https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white' />
-              <img src='https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white' />
-            </div>
-          </section>
-        </Element>
-
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='projects'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>🚀 Projects</div>
-
-            {/* COMATCHING */}
-            <div className='border border-[#e2e2e2] rounded-[12px] p-5 mb-6 bg-[#fafafa]'>
-              <div className='mb-3'>
-                <a
-                  href='https://github.com/COMAtching'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <h3 className='text-[18px] font-bold text-[#0070f3]'>
-                    COMATCHING
-                  </h3>
-                </a>
-                <div className='mt-1 text-sm text-[#555]'>
-                  AI 기반 실시간 커플 매칭 서비스
+      <main className='w-full md:pl-[120px]'>
+        <div className='px-5 md:px-6 pt-6 md:pt-8 pb-10 max-w-[1400px] mx-auto overflow-x-hidden break-words [&_img]:max-w-full [&_img]:h-auto'>
+          {/* About */}
+          <Element name='about'>
+            <Section>
+              <div className='flex items-center gap-6 my-6'>
+                <img
+                  src={ABOUT.avatarSrc}
+                  alt='profile'
+                  className='w-[100px] h-[133px] md:w-[160px] md:h-[213px] rounded-[50px] object-cover shadow'
+                />
+                <div className='flex flex-col gap-2'>
+                  <h1 className='text-[22px] font-bold'>{ABOUT.name}</h1>
+                  <span className='text-[15px] text-[#777]'>{ABOUT.role}</span>
+                  <span className='text-[15px] text-[#777]'>{ABOUT.birth}</span>
+                  {ABOUT.paragraphs.map((t, i) => (
+                    <p
+                      key={i}
+                      className='text-[14px] leading-relaxed text-[#444]'
+                    >
+                      {t}
+                    </p>
+                  ))}
                 </div>
               </div>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                Role: Front-End Leader
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 실시간 포인트 관리 및 사용자 매칭 로직 구현
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - Recoil 기반 상태 구조 설계로 프로필 카드, 포인트 흐름 등 전체
-                UX 설계
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 코드 스플리팅 및 불필요 렌더링 제거로 초기 로딩 속도 30% 개선
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 총 2,095명 이상의 사용자가 참여한 실서비스 운영
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 지속적인 사용자 피드백 반영 및 리팩토링으로 UI/UX 개선 및
-                유지보수성 향상
-              </p>
-              <div className='flex flex-wrap gap-2 mt-2'>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  React
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  TypeScript
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Recoil
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  vanilla-extract
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Vite
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  SockJS
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  STOMP
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  AWS
-                </span>
-              </div>
-            </div>
+            </Section>
+          </Element>
 
-            {/* 부천FC */}
-            <div className='border border-[#e2e2e2] rounded-[12px] p-5 mb-6 bg-[#fafafa]'>
-              <div className='mb-3'>
-                <a
-                  href='https://github.com/COMAtching/COMATCHING_FC_FE'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <h3 className='text-[18px] font-bold text-[#0070f3]'>
-                    부천FC - Friends Community
-                  </h3>
-                </a>
-                <div className='mt-1 text-sm text-[#555]'>
-                  응원 성향 기반 축구 팬 매칭 플랫폼
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Contact */}
+          <Element name='contact'>
+            <Section title='📪 Contact'>
+              <div className='text-sm mb-2'>{CONTACT.phone}</div>
+              <div className='text-sm mb-2'>{CONTACT.email}</div>
+            </Section>
+          </Element>
+
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Skills */}
+          <Element name='skills'>
+            <Section title='🛠 Skills'>
+              <BadgeRow title='🚀 Frontend' items={FRONTEND_BADGES} />
+              <BadgeRow title='🎨 Styling' items={STYLING_BADGES} />
+              <BadgeRow
+                title='🧪 Test (Basic Understanding)'
+                items={TEST_BADGES}
+              />
+              <BadgeRow
+                title='🧩 Backend / Infra (Basic Understanding)'
+                items={BACKEND_BADGES}
+              />
+              <BadgeRow
+                title='🧰 Collaboration & Deployment'
+                items={COLLAB_BADGES}
+              />
+            </Section>
+          </Element>
+
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Projects */}
+          <Element name='projects'>
+            <Section title='🚀 Projects'>
+              <ProjectList projects={PROJECTS} />
+            </Section>
+          </Element>
+
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Career */}
+          <Element name='career'>
+            <Section title='🎞️ Career'>
+              {CAREER.map((c) => (
+                <div key={c.org} className='mb-5'>
+                  <div className='text-[18px] font-bold mt-2 mb-2'>{c.org}</div>
+                  <div className='text-sm mb-2'>{c.period}</div>
+                  {c.bullets.map((b, i) => (
+                    <div key={i} className='text-sm mb-2'>
+                      - {b}
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                Role: Front-End Developer
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - COMATCHING 프로젝트를 기반으로 외주 확장 개발된 실시간 팬 매칭
-                서비스
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 팬들의 응원 성향에 따른 실시간 매칭 UI를 구현하고 관리자
-                기능을 추가
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - STOMP 기반 실시간 데이터 흐름과 사용자 중심 페이지 전환 구조
-                설계
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 외주 클라이언트 피드백을 반영하며 운영성과 유지보수성을 고려한
-                구조로 개선
-              </p>
-              <div className='flex flex-wrap gap-2 mt-2'>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  React
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  TypeScript
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Recoil
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  SockJS
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  STOMP
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  AWS
-                </span>
-              </div>
-            </div>
+              ))}
+            </Section>
+          </Element>
 
-            {/* Share-It */}
-            <div className='border border-[#e2e2e2] rounded-[12px] p-5 mb-6 bg-[#fafafa]'>
-              <div className='mb-3'>
-                <a
-                  href='https://github.com/share-it-cuk/share-it-frontend'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <h3 className='text-[18px] font-bold text-[#0070f3]'>
-                    Share-It
-                  </h3>
-                </a>
-                <div className='mt-1 text-sm text-[#555]'>
-                  교내 중고 물품 공유 및 대여 플랫폼
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Education */}
+          <Element name='education'>
+            <Section title='🎓 Education'>
+              {EDUCATION.lines.map((line, i) => (
+                <div key={i} className='text-sm mb-2'>
+                  {line}
                 </div>
-              </div>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                Role: Front-End Developer
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 대여 주기를 고려한 상품 등록/검색/예약 UI 흐름을 설계하고 구현
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 무한 스크롤 기반 목록 조회 및 실시간 채팅 기능을 직접 구현
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-rel락'>
-                - 사용자 인증부터 반납까지의 상태 흐름을 구조화하여 UX 완성도
-                향상
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 사용자 경험 기반의 기능 구현으로 종합설계프로젝트1 A+ 달성
-              </p>
-              <div className='flex flex-wrap gap-2 mt-2'>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  React
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Firebase
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Axios
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Recoil
-                </span>
-              </div>
-            </div>
+              ))}
+            </Section>
+          </Element>
 
-            {/* 새차처럼 */}
-            <div className='border border-[#e2e2e2] rounded-[12px] p-5 mb-6 bg-[#fafafa]'>
-              <div className='mb-3'>
-                <h3 className='text-[18px] font-bold text-[#0070f3]'>
-                  새차처럼
-                </h3>
-                <div className='mt-1 text-sm text-[#555]'>
-                  손세차 매장 정보 및 예약 플랫폼
+          <hr className='w-full h-px bg-[#ddd] border-0' />
+
+          {/* Experience */}
+          <Element name='experience'>
+            <Section title='📚 Experience'>
+              {EXPERIENCE.map((sec) => (
+                <div key={sec.title} className='mb-4'>
+                  <div className='text-[18px] font-bold mt-5 mb-2'>
+                    {sec.title}
+                  </div>
+                  {sec.lines.map((l, i) => (
+                    <div key={i} className='text-sm mb-2'>
+                      {l}
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                Role: Front-End Developer
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 손세차 매장 정보를 사용자에게 제공하고, 예약 및 리뷰가 가능한
-                웹 플랫폼 개발
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 상인들에게는 온라인 홍보 및 예약 시스템을 제공하고,
-                사용자에게는 합리적인 가격과 정보를 연결
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 매장 상세 정보, 리뷰 작성, 예약 흐름 등의 UI 구현 및 데이터
-                흐름 설계
-              </p>
-              <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-                - 교육부 주관 창업유망팀 300 경진대회 최종 선정, 하나금융그룹
-                소셜벤처 유니버시티 우수팀 수상
-              </p>
-              <div className='flex flex-wrap gap-2 mt-2'>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  React
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Firebase
-                </span>
-                <span className='bg-[#eee] text-[#333] text-xs px-2 py-1 rounded'>
-                  Axios
-                </span>
-              </div>
-            </div>
-          </section>
-        </Element>
-
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='career'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>🎞️ Career</div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              PTKOREA (펑타이그레이터차이나)
-            </div>
-            <div className='text-sm mb-2'>2024.12 ~ 재직 중 / 프로</div>
-            <div className='text-sm mb-2'>
-              - 삼성 91개국 글로벌 사후 QA 자동화 툴 프론트엔드 개발 참여
-            </div>
-            <div className='text-sm mb-2'>
-              - 삼성 샵앱 31개국 글로벌 사전 QA 자동화 툴 프론트엔드 개발 참여
-            </div>
-            <div className='text-sm mb-2'>
-              - Puppeteer 기반 UI 캡처 기능 구현
-            </div>
-            <div className='text-sm mb-2'>
-              - FastAPI 기반 API 연동 및 백엔드 일부 개발 참여
-            </div>
-            <div className='text-sm mb-2'>
-              - OCR 기반 QA 시스템 및 스크린샷 업로드 일부 개발 참여
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>H2Biz</div>
-            <div className='text-sm mb-2'>2024.06 ~ 2024.08 / 학생 인턴</div>
-            <div className='text-sm mb-2'>- 프로젝트 리펙토링</div>
-            <div className='text-sm mb-2'>- 프론트엔드 과제 수행</div>
-          </section>
-        </Element>
-
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='education'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>🎓 Education</div>
-            <div className='text-sm mb-2'>
-              🏫 가톨릭대학교(Catholic University of Korea)
-            </div>
-            <div className='text-sm mb-2'>💻️ 주전공: 정보통신전자공학부</div>
-            <div className='text-sm mb-2'>💻 복수전공: 컴퓨터정보공학부</div>
-            <div className='text-sm mb-2'>👨‍🎓 2019.03 ~ 2025.02</div>
-          </section>
-        </Element>
-
-        <hr className='w-full h-px bg-[#ddd] border-0' />
-
-        <Element name='experience'>
-          <section className='my-6'>
-            <div className='text-[20px] font-bold mb-[15px]'>📚 Experience</div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              🖥️ Frontend Development
-            </div>
-            <div className='text-sm mb-2'>
-              React와 TypeScript 기반의 SPA 개발에 익숙하며, 서비스의 구조
-              설계부터 사용자 흐름, 상태 관리까지 전체적인 화면 동작을 고려한
-              개발을 지향합니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Recoil, Zustand 등 다양한 상태 관리 도구를 프로젝트 상황에 맞게
-              선택하고 구조화해본 경험이 있으며, 최근에는 Zustand 기반 구조 개선
-              및 리팩토링 작업에 참여했습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              React Query를 활용한 데이터 요청, 캐싱, 무한스크롤 구성 등 사용자
-              중심의 데이터 흐름 처리에 익숙하며, 실시간성이 요구되는
-              서비스에서는 SockJS + STOMP 기반의 채팅 및 알림 기능을 직접
-              구현했습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Next.js를 활용한 서버사이드 렌더링 경험과 Vite 기반 번들러 설정 및
-              성능 최적화도 경험하였습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Lighthouse 분석을 통한 성능 디버깅과 개선을 반복적으로
-              수행해왔습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              OAuth 2.0 기반의 소셜 로그인(Kakao, Google 등)을 직접 구현하고,
-              React Native WebView와의 앱 연동 방식도 학습하여 실제 적용 사례에
-              대비하고 있습니다.
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              Component & UI Design
-            </div>
-            <div className='text-sm mb-2'>
-              Atomic Design 패턴 기반으로 컴포넌트의 재사용성과 유지보수성을
-              고려한 구조 설계를 해왔으며, 디자인 시스템 관점의 일관된 UI 구현
-              경험을 갖고 있습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Storybook을 활용해 컴포넌트 문서화 및 협업용 UI 테스트 환경을
-              구성해보았고, 스타일링은 styled-components, vanilla-extract 기반의
-              CSS-in-JS 방식에 익숙합니다.
-            </div>
-            <div className='text-sm mb-2'>
-              크로스 브라우징, 반응형 UI, 웹 접근성 등을 고려한 실무 UI를 직접
-              구현해왔고, Keyframe을 활용한 인터랙션 중심 애니메이션 구성 경험도
-              보유하고 있습니다.
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              Testing & Tooling
-            </div>
-            <div className='text-sm mb-2'>
-              Jest 기반의 단위 테스트 작성과 사용자 시나리오 중심의 테스트
-              케이스 정의 경험이 있으며, 실제로 주요 로직이나 라이브러리
-              리팩토링 시 테스트 코드 기반 검증을 진행했습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Vite 및 Webpack을 활용해 번들링 구조를 설정하고, 코드 스플리팅,
-              Lazy loading 등을 통해 초기 로딩 성능을 개선한 경험도 있습니다.
-            </div>
-
-            <div className='text-[18px] font-bold mt-5 mb-2'>
-              Backend & System Integration
-            </div>
-            <div className='text-sm mb-2'>
-              실제 프로젝트에서 프론트엔드와 백엔드가 맞물려 동작하는 구조를
-              고려하여 API 스펙 정의, 인터페이스 설계, 연동 테스트까지
-              End-to-End 흐름을 관리해본 경험이 있습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              FastAPI와 Node.js, NestJS 기반의 간단한 백엔드 서버 개발도 경험해
-              보았습니다.
-            </div>
-            <div className='text-sm mb-2'>
-              Java 기반의 TCP/UDP 통신 구조를 활용한 소형 프로그램 개발 경험을
-              통해 네트워크 구조에 대한 기본 이해를 쌓았습니다.
-            </div>
-          </section>
-        </Element>
+              ))}
+            </Section>
+          </Element>
+        </div>
       </main>
     </div>
   );
