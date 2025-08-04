@@ -26,8 +26,8 @@ export function WindowShell({ win }: { win: AnyWindow }) {
         left: win.position.x,
         top: win.position.y,
         zIndex: win.zIndex,
-        width: win.size?.w ?? 1060,
-        height: win.size?.h ?? 560,
+        width: win.size?.w ?? '80%',
+        height: win.size?.h ?? '85%',
       };
 
   const onPointerDownHeader = (e: React.PointerEvent) => {

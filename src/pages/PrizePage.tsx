@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import PrizeCard from '@/components/prize/PrizeCard';
-import PrizeModal from '@/components/prize/PrizeModal';
-import { prizeList } from '@/data/prizeData';
+import PrizeCard from '@/features/prize/components/PrizeCard';
+import PrizeModal from '@/features/prize/components/PrizeModal';
+import { prizeList } from '@/features/prize/data/prizeData';
 
 export default function PrizePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
