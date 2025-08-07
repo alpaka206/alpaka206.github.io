@@ -3,7 +3,7 @@ import PrizeCard from '@/components/prize/PrizeCard';
 import PrizeModal from '@/components/prize/PrizeModal';
 import { prizeList } from '@/data/prizeData';
 
-export function PrizePage() {
+export default function PrizePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
     <div className='px-[30px] py-[10px] h-[calc(100vh-20px)] bg-[#f9f9f9]'>

@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { name: 'Experience', target: 'experience' },
 ];
 
-export function Profile() {
+export default function Profile() {
   return (
     <div className='w-screen min-h-screen bg-[#f9f9f9] text-[#1a1a1a]'>
       <nav className='hidden md:flex fixed top-0 left-0 h-screen w-[120px] border-r border-[#e5e5e5] bg-white py-[60px] pl-6 pr-0 flex-col gap-4'>

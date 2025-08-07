@@ -4,7 +4,7 @@ import Desktop from '@/features/desktop/components/Desktop';
 import FolderView from '@/features/folder-window/components/FolderView';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 
-export function MainPage() {
+export default function MainPage() {
   const openPage = useDesktopStore((s) => s.openPage);
   const openFolder = useDesktopStore((s) => s.openFolder);
 
