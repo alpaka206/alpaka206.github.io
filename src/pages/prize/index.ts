@@ -1,0 +1,1 @@
+export { PrizePage } from './PrizePage';
