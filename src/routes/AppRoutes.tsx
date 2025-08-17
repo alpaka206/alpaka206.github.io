@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Mainpage from "../pages/Mainpage";
+import { MainPage } from "@/pages/main";
 import Profile from "../pages/Profile";
 import Prize from "../pages/PrizePage";
 import GithubPage from "../pages/GithubPage";
@@ -9,7 +9,7 @@ import ALNC from "../pages/ALNC";
 
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Mainpage />} />
+    <Route path="/" element={<MainPage />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/prize" element={<Prize />} />
     <Route path="/github" element={<GithubPage />} />

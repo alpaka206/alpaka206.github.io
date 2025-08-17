@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as styles from "./PageContainer.css";
-import { useRecoilState } from "recoil";
-import { tabsState, taskbarState } from "../../Atoms";
 import WindowHeader from "../common/WindowWrapper/WindowWrapper";
+import { useDesktopStore } from "../../store/useDesktopStore";
 
 export interface PageContainerProps {
   onClose: () => void;
@@ -17,9 +16,10 @@ const PageContainer: React.FC<PageContainerProps> = ({
   bringPageToFront,
   onMinimize,
 }) => {
-  // const [activeTab, setActiveTab] = useState<number>(0);
-  const [tabs, setTabs] = useRecoilState(tabsState);
-  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
+  const { windows, activeWindowId, focusWindow, closeWindow, taskbarItems } =
+    useDesktopStore();
+  const tabs = windows.filter((w) => w.type === "project" && w.isOpen);
+  const activeTabIndex = tabs.findIndex((w) => w.id === activeWindowId);
 
   const [position, setPosition] = useState({ x: 200, y: 10 });
   const [isDragging, setIsDragging] = useState(false);
@@ -56,44 +56,14 @@ const PageContainer: React.FC<PageContainerProps> = ({
   }, [isDragging]);
 
   const handleTabClick = (index: number) => {
-    setTabs((prevTabs) => ({
-      ...prevTabs,
-      activeTabIndex: index,
-    }));
-    setTaskbar((prevTaskbar) => ({
-      ...prevTaskbar,
-      activeTaskbar: tabs.tabs[index].title,
-    }));
+    const tabId = tabs[index].id;
+    focusWindow(tabId);
   };
 
   const handleTabClose = (index: number) => {
-    const updatedTabs = tabs.tabs.filter((_, i) => i !== index);
-    const newActiveTabIndex =
-      updatedTabs.length > 0
-        ? index >= updatedTabs.length - 1
-          ? index - 1
-          : index
-        : null;
-
-    setTabs({
-      tabs: updatedTabs,
-      activeTabIndex: newActiveTabIndex,
-    });
-    // 모든 탭이 닫힌 경우 onClose 호출
-    if (newActiveTabIndex === null) {
-      onClose();
-    } else {
-      const updatedTaskbars = taskbar.taskbars.filter(
-        (taskbarItem) => taskbarItem.id !== tabs.tabs[index].title
-      );
-
-      console.log(updatedTaskbars);
-      console.log(newActiveTabIndex);
-      setTaskbar({
-        taskbars: updatedTaskbars,
-        activeTaskbar: updatedTabs[newActiveTabIndex].title,
-      });
-    }
+    const closedTab = tabs[index];
+    closeWindow(closedTab.id);
+    if (tabs.length === 1) onClose();
   };
 
   return (
@@ -102,8 +72,11 @@ const PageContainer: React.FC<PageContainerProps> = ({
       onClick={() => bringPageToFront()}
     >
       <WindowHeader
-        tabs={tabs.tabs}
-        activeTabIndex={tabs.activeTabIndex}
+        tabs={tabs.map(({ title, icon }) => ({
+          title,
+          imageUrl: icon, // icon 필드를 imageUrl로 매핑
+        }))}
+        activeTabIndex={activeTabIndex}
         onTabClick={handleTabClick}
         onTabClose={handleTabClose}
         onClose={onClose}
@@ -112,9 +85,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
         bringFolderToFront={bringPageToFront}
         onMinimize={onMinimize}
       />
-      <styles.WindowBody>
-        {tabs.tabs[tabs.activeTabIndex || 0]?.content}
-      </styles.WindowBody>
+      <styles.WindowBody>{tabs[activeTabIndex]?.content}</styles.WindowBody>
     </styles.Window>
   );
 };

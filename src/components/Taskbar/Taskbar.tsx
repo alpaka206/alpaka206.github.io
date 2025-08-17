@@ -1,26 +1,32 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { taskbarState } from "../../Atoms";
 import * as styles from "./Taskbar.css";
+import { useDesktopStore } from "../../store/useDesktopStore";
 
 interface TaskbarProps {
   setActiveItem: (id: string) => void;
 }
 
 const Taskbar: React.FC<TaskbarProps> = ({ setActiveItem }) => {
-  const [taskbarItems] = useRecoilState(taskbarState);
+  const taskbarItems = useDesktopStore((state) => state.taskbarItems);
+  const activeWindowId = useDesktopStore((state) => state.activeWindowId);
+  const windows = useDesktopStore((state) => state.windows);
 
   return (
     <styles.TaskbarContainer>
-      {taskbarItems.taskbars.map((item) => (
-        <styles.TaskbarItem
-          key={item.id}
-          isActive={taskbarItems.activeTaskbar === item.id}
-          onClick={() => setActiveItem(item.id)}
-        >
-          <styles.Icon src={item.imageUrl} alt={item.id} />
-        </styles.TaskbarItem>
-      ))}
+      {taskbarItems.map((id) => {
+        const win = windows.find((w) => w.id === id);
+        if (!win) return null;
+
+        return (
+          <styles.TaskbarItem
+            key={id}
+            isActive={activeWindowId === id}
+            onClick={() => setActiveItem(id)}
+          >
+            <styles.Icon src={win.icon} alt={win.title} />
+          </styles.TaskbarItem>
+        );
+      })}
     </styles.TaskbarContainer>
   );
 };
