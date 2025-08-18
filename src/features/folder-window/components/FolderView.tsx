@@ -1,6 +1,7 @@
-import { FolderIcon } from "@/components/FolderIcon";
-import { useDesktopStore } from "@/store/useDesktopStore";
-import type { PageTab, PageType } from "@/store/useDesktopStore";
+import { FolderIcon } from '@/components/FolderIcon';
+import { useDesktopStore } from '@/store/useDesktopStore';
+import type { PageTab, PageType } from '@/store/useDesktopStore';
+import { resolveUrl } from '@/utils/resolveUrl';
 
 export default function FolderView() {
   const openPage = useDesktopStore((s) => s.openPage);
@@ -14,31 +15,28 @@ export default function FolderView() {
     iframeSrc: string;
   }> = [
     {
-      id: "comatching",
-      title: "COMATCHING",
-      icon: "/assets/Comatching.webp",
-      // iframeSrc: "https://alpaka206.github.io/#/Comatching",
-      iframeSrc: "http://localhost:5173/#/Comatching",
+      id: 'comatching',
+      title: 'COMATCHING',
+      icon: '/assets/Comatching.webp',
+      iframeSrc: resolveUrl('/Comatching'),
     },
     {
-      id: "share-it",
-      title: "Share-It",
-      icon: "/assets/Shareit.webp",
-      // iframeSrc: "https://alpaka206.github.io/#/ShareIt",
-      iframeSrc: "http://localhost:5173/#/ShareIt",
+      id: 'share-it',
+      title: 'Share-It',
+      icon: '/assets/Shareit.webp',
+      iframeSrc: resolveUrl('/ShareIt'),
     },
     {
-      id: "alnc",
-      title: "새차처럼",
-      icon: "/assets/ALNC.webp",
-      // iframeSrc: "https://alpaka206.github.io/#/ALNC",
-      iframeSrc: "http://localhost:5173/#/ALNC",
+      id: 'alnc',
+      title: '새차처럼',
+      icon: '/assets/ALNC.webp',
+      iframeSrc: resolveUrl('/ALNC'),
     },
   ];
 
   return (
-    <div className="w-full h-full p-4 md:p-5 overflow-auto">
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-6 gap-y-8">
+    <div className='w-full h-full p-4 md:p-5 overflow-auto'>
+      <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-6 gap-y-8'>
         {items.map((it) => (
           <FolderIcon
             key={it.id}
@@ -53,7 +51,7 @@ export default function FolderView() {
                   <iframe
                     src={it.iframeSrc}
                     title={it.title}
-                    className="w-full h-full"
+                    className='w-full h-full'
                   />
                 ),
               })
