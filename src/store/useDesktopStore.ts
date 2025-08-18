@@ -1,15 +1,15 @@
-import { create } from "zustand";
-import React from "react";
+import { create } from 'zustand';
+import React from 'react';
 
 export type PageType =
-  | "about"
-  | "project"
-  | "blog"
-  | "insta"
-  | "awards"
-  | "comatching"
-  | "share-it"
-  | "alnc";
+  | 'about'
+  | 'project'
+  | 'blog'
+  | 'insta'
+  | 'awards'
+  | 'comatching'
+  | 'share-it'
+  | 'alnc';
 
 export interface PageTab {
   id: PageType;
@@ -18,7 +18,7 @@ export interface PageTab {
   content: React.ReactNode;
 }
 
-type WindowType = "pages" | "folder";
+type WindowType = 'pages' | 'folder';
 
 interface BaseWindow {
   id: string;
@@ -34,19 +34,19 @@ interface BaseWindow {
 }
 
 export interface PagesWindow extends BaseWindow {
-  type: "pages";
+  type: 'pages';
   tabs: PageTab[];
   activeTabId: PageType | null;
 }
 
 export interface FolderWindow extends BaseWindow {
-  type: "folder";
+  type: 'folder';
   content: React.ReactNode;
 }
 
 export type AnyWindow = PagesWindow | FolderWindow;
 
-const PAGE_WINDOW_ID = "pages";
+const PAGE_WINDOW_ID = 'pages';
 
 interface DesktopState {
   windows: AnyWindow[];
@@ -99,7 +99,7 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
   // ------------- 유틸 ---------------
   getWindow: (id) => get().windows.find((w) => w.id === id),
   getPagesWindow: () =>
-    get().windows.find((w) => w.id === PAGE_WINDOW_ID && w.type === "pages") as
+    get().windows.find((w) => w.id === PAGE_WINDOW_ID && w.type === 'pages') as
       | PagesWindow
       | undefined,
   getTaskbarItems: () => {
@@ -119,13 +119,14 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
   openPage: (tab) => {
     // 1) pages 창이 없으면 만든다
     let pages = get().getPagesWindow();
+
     if (!pages) {
       const nextZ = get().zIndexCounter + 1;
       const newPages: PagesWindow = {
         id: PAGE_WINDOW_ID,
-        type: "pages",
-        title: "Pages",
-        icon: "/icons/pages.png",
+        type: 'pages',
+        title: 'Pages',
+        icon: '/icons/pages.png',
         position: { x: 80, y: 80 },
         size: null,
         isOpen: true,
@@ -167,7 +168,7 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
     });
   },
 
-  openFolder: ({ id = "folder:root", title, icon, content, initialPos }) => {
+  openFolder: ({ id = 'folder:root', title, icon, content, initialPos }) => {
     const { windows, zIndexCounter } = get();
     const existing = windows.find((w) => w.id === id) as
       | FolderWindow
@@ -194,7 +195,7 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
     const nextZ = zIndexCounter + 1;
     const folder: FolderWindow = {
       id,
-      type: "folder",
+      type: 'folder',
       title,
       icon,
       content,

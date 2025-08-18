@@ -1,25 +1,26 @@
-import { useMemo, useRef } from "react";
-import { useDesktopStore } from "@/store/useDesktopStore";
+// src/features/desktop/components/Desktop.tsx
+import { useMemo, useRef } from 'react';
+import { useDesktopStore } from '@/store/useDesktopStore';
 import type {
   AnyWindow,
   PagesWindow,
   FolderWindow,
   PageType,
-} from "@/store/useDesktopStore";
+} from '@/store/useDesktopStore';
 
 /** 작업표시줄(간단 버전). 필요 시 분리해서 사용 */
 function TaskbarInline() {
-  const windows = useDesktopStore(s => s.windows);
-  const activeWindowId = useDesktopStore(s => s.activeWindowId);
-  const toggleTaskbarItem = useDesktopStore(s => s.toggleTaskbarItem);
+  const windows = useDesktopStore((s) => s.windows);
+  const activeWindowId = useDesktopStore((s) => s.activeWindowId);
+  const toggleTaskbarItem = useDesktopStore((s) => s.toggleTaskbarItem);
 
-  // ❷ 파생값은 컴포넌트에서 메모이즈
+  // 파생값은 컴포넌트에서 메모이즈 (스냅샷 루프 방지)
   const items = useMemo(() => {
     return windows
-      .filter(w => w.isOpen || w.isMinimized)
-      .slice() // sort 전에 복사 (원본 불변성 보장)
+      .filter((w) => w.isOpen || w.isMinimized)
+      .slice()
       .sort((a, b) => a.zIndex - b.zIndex)
-      .map(w => ({
+      .map((w) => ({
         id: w.id,
         title: w.title,
         icon: w.icon,
@@ -28,18 +29,22 @@ function TaskbarInline() {
   }, [windows, activeWindowId]);
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[9999] h-12 backdrop-blur bg-black/30 border-t border-white/10 flex items-center px-2 gap-2">
+    <div className='fixed bottom-0 left-0 right-0 z-[9999] h-12 backdrop-blur bg-black/30 border-t border-white/10 flex items-center px-2 gap-2 pointer-events-auto'>
       {items.map((it) => (
         <button
           key={it.id}
           onClick={() => toggleTaskbarItem(it.id)}
           className={`flex items-center gap-2 px-3 py-1 rounded-md hover:bg-white/10 transition ${
-            it.isActive ? "bg-white/15 outline outline-1 outline-white/25" : ""
+            it.isActive ? 'bg-white/15 outline outline-1 outline-white/25' : ''
           }`}
           title={it.title}
         >
-          <img src={it.icon} alt="" className="w-5 h-5 rounded-sm" />
-          <span className="text-sm text-white/90">{it.title}</span>
+          <img
+            src={it.icon}
+            alt=''
+            className='w-5 h-5 object-contain rounded-sm'
+          />
+          <span className='text-sm text-white/90'>{it.title}</span>
         </button>
       ))}
     </div>
@@ -48,17 +53,14 @@ function TaskbarInline() {
 
 /** 개별 윈도우 프레임 */
 function WindowShell({ win }: { win: AnyWindow }) {
-  const {
-    focusWindow,
-    minimizeWindow,
-    maximizeWindow,
-    closeWindow,
-    setWindowPosition,
-    setActiveTab,
-    closeTab,
-  } = useDesktopStore();
-
-  const activeWindowId = useDesktopStore((s) => s.activeWindowId);
+  // 액션은 개별 selector로 구독해 리렌더 최소화
+  const focusWindow = useDesktopStore((s) => s.focusWindow);
+  const minimizeWindow = useDesktopStore((s) => s.minimizeWindow);
+  const maximizeWindow = useDesktopStore((s) => s.maximizeWindow);
+  const closeWindow = useDesktopStore((s) => s.closeWindow);
+  const setWindowPosition = useDesktopStore((s) => s.setWindowPosition);
+  const setActiveTab = useDesktopStore((s) => s.setActiveTab);
+  const closeTab = useDesktopStore((s) => s.closeTab);
 
   // 드래그 핸들링
   const draggingRef = useRef<{
@@ -69,9 +71,7 @@ function WindowShell({ win }: { win: AnyWindow }) {
   } | null>(null);
 
   const onPointerDownHeader = (e: React.PointerEvent) => {
-    // 포커스
     focusWindow(win.id);
-    // 드래그 시작
     (e.target as Element).setPointerCapture?.(e.pointerId);
     draggingRef.current = {
       startX: e.clientX,
@@ -102,34 +102,67 @@ function WindowShell({ win }: { win: AnyWindow }) {
 
   return (
     <div
-      className={`absolute ${win.isMaximized ? "inset-0" : ""} ${win.isOpen && !win.isMinimized ? "" : "hidden"}`}
-      style={{ ...stylePos, zIndex: z, width: win.size?.w ?? 860, height: win.size?.h ?? 560 }}
+      className={`absolute pointer-events-auto ${
+        win.isMaximized ? 'inset-0' : ''
+      } ${win.isOpen && !win.isMinimized ? '' : 'hidden'}`}
+      style={{
+        ...stylePos,
+        zIndex: z,
+        width: win.size?.w ?? 860,
+        height: win.size?.h ?? 560,
+      }}
     >
       {/* 창 프레임: #fefefe 배경, #888 테두리, radius 10px, 그림자 */}
-      <div className="flex flex-col w-full h-full rounded-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.3)] overflow-hidden border border-[#888] bg-[#fefefe]">
+      <div className='flex flex-col w-full h-full rounded-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.3)] overflow-hidden border border-[#888] bg-[#fefefe]'>
         {/* Title Bar: #dfdfdf 배경, 아래 보더 */}
         <div
-          className={`flex items-center justify-between h-10 select-none cursor-grab active:cursor-grabbing bg-[#dfdfdf] border-b border-[#d0d0d0] px-3`}
+          className='flex items-center justify-between h-10 select-none cursor-grab active:cursor-grabbing bg-[#dfdfdf] border-b border-[#d0d0d0] px-3'
           onPointerDown={onPointerDownHeader}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onDoubleClick={() => maximizeWindow(win.id)}
         >
-          <div className="flex items-center gap-2">
-            <img src={win.icon} alt="" className="w-5 h-5 object-contain rounded-sm" />
-            <span className="text-sm text-[#1f1f1f]">{win.title}</span>
+          <div className='flex items-center gap-2'>
+            <img
+              src={win.icon}
+              alt=''
+              className='w-5 h-5 object-contain rounded-sm'
+            />
+            <span className='text-sm text-[#1f1f1f]'>{win.title}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <button onClick={() => minimizeWindow(win.id)} className="w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md" title="Minimize">—</button>
-            <button onClick={() => maximizeWindow(win.id)} className={`w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md`} title="Maximize">□</button>
-            <button onClick={() => closeWindow(win.id)} className="w-8 h-8 grid place-items-center hover:bg-red-500/20 rounded-md" title="Close">×</button>
+          <div className='flex items-center gap-1'>
+            <button
+              onClick={() => minimizeWindow(win.id)}
+              className='w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md'
+              title='Minimize'
+            >
+              —{/* minus */}
+            </button>
+            <button
+              onClick={() => maximizeWindow(win.id)}
+              className='w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md'
+              title='Maximize'
+            >
+              □{/* square */}
+            </button>
+            <button
+              onClick={() => closeWindow(win.id)}
+              className='w-8 h-8 grid place-items-center hover:bg-red-500/20 rounded-md'
+              title='Close'
+            >
+              ×
+            </button>
           </div>
         </div>
 
         {/* Body */}
-        <div className="flex-1 overflow-hidden bg-white">
-          {win.type === "pages" ? (
-            <PagesBody win={win as PagesWindow} onSetActiveTab={setActiveTab} onCloseTab={closeTab} />
+        <div className='flex-1 min-h-0 overflow-hidden bg-white'>
+          {win.type === 'pages' ? (
+            <PagesBody
+              win={win as PagesWindow}
+              onSetActiveTab={setActiveTab}
+              onCloseTab={closeTab}
+            />
           ) : (
             <FolderBody win={win as FolderWindow} />
           )}
@@ -146,8 +179,8 @@ function PagesBody({
   onCloseTab,
 }: {
   win: PagesWindow;
-  onSetActiveTab: (id: PageType) => void;
-  onCloseTab: (id: PageType) => void;
+  onSetActiveTab: (id: PageType) => void; // PageId로 통일
+  onCloseTab: (id: PageType) => void; // PageId로 통일
 }) {
   const { tabs, activeTabId } = win;
   const active = useMemo(
@@ -155,15 +188,15 @@ function PagesBody({
     [tabs, activeTabId]
   );
 
- return (
-    <div className="flex flex-col w-full h-full">
+  return (
+    <div className='flex flex-col w-full h-full min-h-0'>
       {/* Tab bar: 높이 40px, 배경 #dfdfdf, 하단 보더 */}
-      <div className="h-10 flex items-end bg-[#dfdfdf] border-b border-[#d0d0d0]">
+      <div className='h-10 flex items-end bg-[#dfdfdf] border-b border-[#d0d0d0]'>
         {/* 왼쪽 탭 사이드 흰색 바(6px), 오른쪽 둥근 모서리 */}
-        <div className="w-[6px] h-full bg-white rounded-br-[8px]" />
+        <div className='w-[6px] h-full bg-white rounded-br-[8px]' />
 
         {/* 탭 버튼들 */}
-        <div className="flex h-full">
+        <div className='flex h-full'>
           {tabs.map((t) => {
             const isActive = t.id === active?.id;
             return (
@@ -171,22 +204,29 @@ function PagesBody({
                 key={t.id}
                 onClick={() => onSetActiveTab(t.id)}
                 className={[
-                  "flex items-center justify-between w-[155px] rounded-t-[8px] text-[12px] font-normal select-none",
-                  "pr-2 pl-0",
+                  'flex items-center justify-between w-[155px] rounded-t-[8px] text-[12px] font-normal select-none',
+                  'pr-2 pl-0',
                   isActive
-                    ? "bg-white pt-[6px] pb-[14px] mt-[6px] mb-0"
-                    : "bg-[#dfdfdf] pt-[6px] pb-[6px] mt-[6px] mb-[8px] hover:bg-white/50",
-                ].join(" ")}
+                    ? 'bg-white pt-[6px] pb-[14px] mt-[6px] mb-0'
+                    : 'bg-[#dfdfdf] pt-[6px] pb-[6px] mt-[6px] mb-[8px] hover:bg-white/50',
+                ].join(' ')}
                 title={t.title}
               >
-                <div className="flex items-center w-full">
-                  <img src={t.icon} alt="" className="w-4 h-4 object-contain ml-2 mr-2" />
-                  <span className="truncate text-[#1f1f1f]">{t.title}</span>
+                <div className='flex items-center w-full'>
+                  <img
+                    src={t.icon}
+                    alt=''
+                    className='w-4 h-4 object-contain ml-2 mr-2'
+                  />
+                  <span className='truncate text-[#1f1f1f]'>{t.title}</span>
                 </div>
                 <button
-                  onClick={(e) => { e.stopPropagation(); onCloseTab(t.id); }}
-                  className="ml-auto text-[#1f1f1f]/70 hover:text-[#1f1f1f]"
-                  aria-label="Close tab"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCloseTab(t.id);
+                  }}
+                  className='ml-auto text-[#1f1f1f]/70 hover:text-[#1f1f1f]'
+                  aria-label='Close tab'
                 >
                   ×
                 </button>
@@ -196,14 +236,18 @@ function PagesBody({
         </div>
 
         {/* 오른쪽 탭 사이드 회색 바(6px), 왼쪽 둥근 모서리 */}
-        <div className="w-[6px] h-full bg-[#dfdfdf] rounded-bl-[8px]" />
+        <div className='w-[6px] h-full bg-[#dfdfdf] rounded-bl-[8px]' />
       </div>
 
       {/* Content: 이미지/iframe 크기 보호 */}
-      <div className="flex-1 h-[120%] overflow-y-auto p-0
-                      [&_img]:max-w-full [&_img]:h-auto [&_img]:object-contain
-                      [&_iframe]:w-full [&_iframe]:h-full">
-        {active?.content ?? <div className="p-6 text-black/60 text-sm">No tab selected.</div>}
+      <div
+        className='flex-1 min-h-0 overflow-y-auto p-0
+                   [&_img]:max-w-full [&_img]:h-auto [&_img]:object-contain
+                   [&_iframe]:w-full  [&_iframe]:h-full'
+      >
+        {active?.content ?? (
+          <div className='p-6 text-black/60 text-sm'>No tab selected.</div>
+        )}
       </div>
     </div>
   );
@@ -211,7 +255,9 @@ function PagesBody({
 
 /** 폴더 창 컨텐츠 */
 function FolderBody({ win }: { win: FolderWindow }) {
-  return <div className="w-full h-full overflow-auto">{win.content}</div>;
+  return (
+    <div className='w-full h-full min-h-0 overflow-auto'>{win.content}</div>
+  );
 }
 
 /** 데스크탑: 모든 윈도우 + 작업표시줄 */
@@ -227,10 +273,10 @@ export default function Desktop() {
     [windows]
   );
 
-  // 화면 전체 컨테이너 (포인터 이벤트 받도록)
   return (
     <>
-      <div className="absolute inset-0">
+      {/* 데스크탑 레이어가 그리드 위로 올라오도록 z-50 부여 */}
+      <div className='absolute inset-0 z-50 pointer-events-none'>
         {list.map((w) => (
           <WindowShell key={w.id} win={w} />
         ))}

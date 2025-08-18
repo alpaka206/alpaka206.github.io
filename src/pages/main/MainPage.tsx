@@ -1,8 +1,8 @@
-import { FolderIcon } from "@/components/FolderIcon";
-import { useDesktopStore } from "@/store/useDesktopStore";
-import Desktop from "@/features/desktop/components/Desktop";
-import FolderView from "@/features/folder-window/components/FolderView";
-import { PAGE_TABS } from "@/features/pages-window/registry/page-registry";
+import { FolderIcon } from '@/components/FolderIcon';
+import { useDesktopStore } from '@/store/useDesktopStore';
+import Desktop from '@/features/desktop/components/Desktop';
+import FolderView from '@/features/folder-window/components/FolderView';
+import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 
 export function MainPage() {
   const openPage = useDesktopStore((s) => s.openPage);
@@ -18,63 +18,63 @@ export function MainPage() {
       window.screenY + window.outerHeight / 2 - popupHeight / 2
     );
     const featureWindow = `width=${popupWidth}, height=${popupHeight}, left=${popupX}, top=${popupY}`;
-    return window.open("https://github.com/alpaka206", "_blank", featureWindow);
+    return window.open('https://github.com/alpaka206', '_blank', featureWindow);
   };
 
   return (
     <div
-      className="
+      className='
         relative w-screen h-screen
         bg-cover bg-center bg-no-repeat
         text-white
-      "
+      '
       style={{ backgroundImage: "url('/assets/BGimage.webp')" }}
     >
       <div
-        className="
+        className='
           absolute inset-0
           p-6 md:p-10
           grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
           gap-x-6 gap-y-8
           place-items-start content-start
-        "
+        '
       >
         <FolderIcon
-          imageUrl="/assets/Profile.webp"
-          title="About Me"
+          imageUrl='/assets/Profile.webp'
+          title='About Me'
           onClick={() => openPage(PAGE_TABS.about)}
         />
         <FolderIcon
-          imageUrl="/assets/folder1.webp"
-          title="Projects"
+          imageUrl='/assets/folder1.webp'
+          title='Projects'
           onClick={() =>
             openFolder({
-              id: "folder:projects",
-              title: "Projects",
-              icon: "/assets/folder.webp",
+              id: 'folder:projects',
+              title: 'Projects',
+              icon: '/assets/folder.webp',
               content: <FolderView />,
               initialPos: { x: 160, y: 120 },
             })
           }
         />
         <FolderIcon
-          imageUrl="/assets/Blog.webp"
-          title="Tech Blog"
+          imageUrl='/assets/Blog.webp'
+          title='Tech Blog'
           onClick={() => openPage(PAGE_TABS.blog)}
         />
         <FolderIcon
-          imageUrl="/assets/Insta.webp"
-          title="Instagram"
+          imageUrl='/assets/Insta.webp'
+          title='Instagram'
           onClick={() => openPage(PAGE_TABS.insta)}
         />
         <FolderIcon
-          imageUrl="/assets/prize.webp"
-          title="Awards"
+          imageUrl='/assets/prize.webp'
+          title='Awards'
           onClick={() => openPage(PAGE_TABS.awards)}
         />
         <FolderIcon
-          imageUrl="/assets/Github.webp"
-          title="GitHub"
+          imageUrl='/assets/Github.webp'
+          title='GitHub'
           onClick={openGitHubPage}
         />
       </div>
