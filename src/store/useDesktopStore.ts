@@ -313,9 +313,25 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
 
   maximizeWindow: (id) => {
     set((s) => ({
-      windows: s.windows.map((w) =>
-        w.id === id ? { ...w, isMaximized: !w.isMaximized } : w
-      ),
+      windows: s.windows.map((w) => {
+        if (w.id !== id) return w;
+        if (!w.isMaximized) {
+          return {
+            ...w,
+            isMaximized: true,
+            __prevBounds: { position: w.position, size: w.size },
+          } as any;
+        } else {
+          const prev = (w as any).__prevBounds;
+          return {
+            ...w,
+            isMaximized: false,
+            position: prev?.position ?? w.position,
+            size: prev?.size ?? w.size,
+            __prevBounds: undefined,
+          } as any;
+        }
+      }),
     }));
   },
 
