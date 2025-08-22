@@ -64,7 +64,7 @@ const WindowHeader: React.FC<WindowHeaderProps> = ({
           <styles.IconButton src="/assets/icons/line.webp" alt="최소화" />
         </styles.WindowButton>
         <styles.WindowButton onClick={() => setIsFullSize((prev) => !prev)}>
-          <styles.IconButton src="/assets/icons/square.webp" alt="크기 변경" />
+          <styles.IconButton src="/assets/icons/square.webp" alt="확대" />
         </styles.WindowButton>
         <styles.WindowButton onClick={onClose}>
           <styles.IconButton src="/assets/icons/close.webp" alt="닫기" />
