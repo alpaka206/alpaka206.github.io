@@ -30,15 +30,7 @@ export function MainPage() {
       '
       style={{ backgroundImage: "url('/assets/BGimage.webp')" }}
     >
-      <div
-        className='
-          absolute inset-0
-          p-6 md:p-10
-          grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6
-          gap-x-6 gap-y-8
-          place-items-start content-start
-        '
-      >
+      <div className='absolute inset-0 p-6 flex flex-col gap-6 md:gap-8 items-start'>
         <FolderIcon
           imageUrl='/assets/Profile.webp'
           title='About Me'
