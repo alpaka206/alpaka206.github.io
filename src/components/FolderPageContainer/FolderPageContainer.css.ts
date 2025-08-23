@@ -1,66 +1,39 @@
-import { style } from "@vanilla-extract/css";
+import styled from "styled-components";
 
-export const folderPage = style({
-  position: "absolute",
-  width: "500px",
-  height: "400px",
-  backgroundColor: "#fefefe",
-  border: "1px solid #888",
-  borderRadius: "10px",
-  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-  zIndex: 1000,
-  overflow: "hidden",
-});
+export const FolderPage = styled.div`
+  position: absolute;
+  width: 550px;
+  height: 400px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+`;
 
-export const windowHeader = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "10px",
-  backgroundColor: "#ddd",
-});
+export const WindowHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+  padding: 0px 0px 4px 14px;
+  border-bottom: 1px solid #d0d0d0;
+`;
 
-export const folderTitle = style({
-  fontWeight: "bold",
-  fontSize: "18px",
-});
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #1f1f1f;
+  font-weight: 500;
+  gap: 6px;
+`;
 
-export const tabs = style({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-around",
-  padding: "10px",
-  backgroundColor: "#f0f0f0",
-  borderBottom: "1px solid #ddd",
-});
-
-export const tabButton = style({
-  padding: "10px",
-  border: "none",
-  backgroundColor: "#eee",
-  cursor: "pointer",
-  ":hover": {
-    backgroundColor: "#ddd",
-  },
-});
-
-export const activeTab = style({
-  borderBottom: "2px solid #000",
-});
-
-export const closeButton = style({
-  fontSize: "20px",
-  cursor: "pointer",
-});
-
-export const windowBody = style({
-  padding: "20px",
-  height: "calc(100% - 60px)", // Adjust height to account for header
-  overflowY: "auto",
-});
-
-export const folderContainer = style({
-  display: "flex",
-  marginLeft: "10px",
-  gap: "20px",
-});
+export const Body = styled.div`
+  display: flex;
+  padding: 6px 9px;
+`;

@@ -1,25 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as styles from "./FolderPageContainer.css";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { tabsState, taskbarState, ZIndexState } from "../../Atoms";
 import FolderContainer from "../FolderContainer/FolderContainer";
+import WindowHeader from "../common/WindowWrapper/WindowWrapper";
+import { useDesktopStore } from "../../store/useDesktopStore";
 
 interface FolderPageContainerProps {
   onClose: () => void;
+  onMinimize: () => void;
   bringFolderToFront: () => void;
 }
 
 const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
   onClose,
   bringFolderToFront,
+  onMinimize,
 }) => {
-  const [tabs, setTabs] = useRecoilState(tabsState);
-  const setTaskbar = useSetRecoilState(taskbarState);
-  const [zIndexFolderState, setZIndexFolderState] = useRecoilState(ZIndexState);
+  const { openWindow, windows } = useDesktopStore();
 
-  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [position, setPosition] = useState({ x: 150, y: 50 });
   const [isDragging, setIsDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
+  const [isFullSize, setIsFullSize] = useState(false);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -42,43 +43,6 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
     setIsDragging(false);
   };
 
-  const handlePageOpen = (
-    title: string,
-    imageUrl: string,
-    content: React.ReactNode
-  ) => {
-    const existingTabIndex = tabs.tabs.findIndex((tab) => tab.title === title);
-    if (existingTabIndex !== -1) {
-      // 이미 같은 탭이 존재하면 해당 탭을 활성화
-      setTabs((prevTabs) => ({
-        ...prevTabs,
-        activeTabIndex: existingTabIndex,
-      }));
-      setTaskbar((prevTaskbar) => ({
-        ...prevTaskbar,
-        activeTaskbar: title,
-      }));
-    } else {
-      setTabs((prevTabs) => {
-        const newTabs = [...prevTabs.tabs, { title, imageUrl, content }];
-        return {
-          tabs: newTabs,
-          activeTabIndex: newTabs.length - 1, // 새로 생성된 탭의 인덱스를 activeTab으로 설정
-        };
-      });
-
-      setTaskbar((prevTaskbar) => ({
-        taskbars: [...prevTaskbar.taskbars, { id: title, imageUrl }],
-        activeTaskbar: title,
-      }));
-
-      setZIndexFolderState({
-        pageZIndex: 1000,
-        folderZIndex: 999,
-      });
-    }
-  };
-
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -88,88 +52,93 @@ const FolderPageContainer: React.FC<FolderPageContainerProps> = ({
     };
   }, [isDragging]);
 
+  const handlePageOpen = (
+    id: string,
+    title: string,
+    icon: string,
+    content: React.ReactNode
+  ) => {
+    openWindow({ id, type: "project", title, icon, content });
+  };
+
   return (
-    <div
-      className={styles.folderPage}
+    <styles.FolderPage
       style={{
-        zIndex: zIndexFolderState.folderZIndex,
-        left: position.x,
-        top: position.y,
+        zIndex: Math.max(...windows.map((w) => w.zIndex)),
+        left: isFullSize ? 0 : position.x,
+        top: isFullSize ? 0 : position.y,
+        width: isFullSize ? "100vw" : undefined,
+        height: isFullSize ? "100vh" : undefined,
       }}
     >
-      <div
-        className={styles.windowHeader}
+      <WindowHeader
+        tabs={[{ title: "Projects", imageUrl: "/assets/folder1.webp" }]}
+        activeTabIndex={0}
+        onTabClick={() => {}}
+        onTabClose={onClose}
+        onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-        onClick={() => {
-          bringFolderToFront();
-        }}
-      >
-        프로젝트
-        <img
-          src="./assets/close.svg"
-          alt="closeButton"
-          onClick={onClose}
-          className={styles.closeButton}
-        />
-      </div>
-      <div className={styles.folderContainer}>
+        bringFolderToFront={bringFolderToFront}
+        onMinimize={onMinimize}
+      />
+      <styles.Body>
         <FolderContainer
-          imageUrl="./assets/Comatching.svg"
+          imageUrl="./assets/Comatching.webp"
           title="코매칭"
           onClick={() => {
             handlePageOpen(
-              "코매칭",
-              "./assets/Comatching.svg",
+              "comatching",
+              "COMATCHING",
+              "./assets/Comatching.webp",
               <iframe
-                src="https://alpaka206.github.io/#/Comatching"
-                // src="http://localhost:5173/#/Comatching"
+                // src="https://alpaka206.github.io/#/Comatching"
+                src="http://localhost:5173/#/Comatching"
                 width="100%"
                 height="80%"
-                frameBorder="0"
-                title="Comatching"
+                title="COMATCHING"
               ></iframe>
             );
           }}
         />
         <FolderContainer
-          imageUrl="./assets/Shareit.svg"
-          title="Shareit"
+          imageUrl="./assets/Shareit.webp"
+          title="Share-It"
           onClick={() => {
             handlePageOpen(
-              "Shareit",
-              "./assets/Shareit.svg",
+              "share-it",
+              "Share-It",
+              "./assets/Shareit.webp",
               <iframe
-                src="https://alpaka206.github.io/#/ShareIt"
-                // src="http://localhost:5173/#/ShareIt"
+                // src="https://alpaka206.github.io/#/ShareIt"
+                src="http://localhost:5173/#/ShareIt"
                 width="100%"
                 height="80%"
-                frameBorder="0"
                 title="Shareit"
               ></iframe>
             );
           }}
         />
         <FolderContainer
-          imageUrl="./assets/ALNC.svg"
+          imageUrl="./assets/ALNC.webp"
           title="새차처럼"
           onClick={() => {
             handlePageOpen(
+              "alnc",
               "새차처럼",
-              "./assets/ALNC.svg",
+              "./assets/ALNC.webp",
               <iframe
-                src="https://alpaka206.github.io/#/ALNC"
-                // src="http://localhost:5173/#/ALNC"
+                // src="https://alpaka206.github.io/#/ALNC"
+                src="http://localhost:5173/#/ALNC"
                 width="100%"
                 height="80%"
-                frameBorder="0"
                 title="ALNC"
               ></iframe>
             );
           }}
         />
-      </div>
-    </div>
+      </styles.Body>
+    </styles.FolderPage>
   );
 };
 

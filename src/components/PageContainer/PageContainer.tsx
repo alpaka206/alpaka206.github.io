@@ -1,22 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as styles from "./PageContainer.css";
-import { useRecoilState } from "recoil";
-import { tabsState, taskbarState } from "../../Atoms";
+import WindowHeader from "../common/WindowWrapper/WindowWrapper";
+import { useDesktopStore } from "../../store/useDesktopStore";
 
 export interface PageContainerProps {
   onClose: () => void;
   style?: React.CSSProperties;
   bringPageToFront: () => void;
+  onMinimize: () => void;
 }
 
 const PageContainer: React.FC<PageContainerProps> = ({
   onClose,
   style,
   bringPageToFront,
+  onMinimize,
 }) => {
-  // const [activeTab, setActiveTab] = useState<number>(0);
-  const [tabs, setTabs] = useRecoilState(tabsState);
-  const [taskbar, setTaskbar] = useRecoilState(taskbarState);
+  const { windows, activeWindowId, focusWindow, closeWindow, taskbarItems } =
+    useDesktopStore();
+  const tabs = windows.filter((w) => w.type === "project" && w.isOpen);
+  const activeTabIndex = tabs.findIndex((w) => w.id === activeWindowId);
 
   const [position, setPosition] = useState({ x: 200, y: 10 });
   const [isDragging, setIsDragging] = useState(false);
@@ -53,121 +56,37 @@ const PageContainer: React.FC<PageContainerProps> = ({
   }, [isDragging]);
 
   const handleTabClick = (index: number) => {
-    setTabs((prevTabs) => ({
-      ...prevTabs,
-      activeTabIndex: index,
-    }));
-    setTaskbar((prevTaskbar) => ({
-      ...prevTaskbar,
-      activeTaskbar: tabs.tabs[index].title,
-    }));
+    const tabId = tabs[index].id;
+    focusWindow(tabId);
   };
 
   const handleTabClose = (index: number) => {
-    const updatedTabs = tabs.tabs.filter((_, i) => i !== index);
-    const newActiveTabIndex =
-      updatedTabs.length > 0
-        ? index >= updatedTabs.length - 1
-          ? index - 1
-          : index
-        : null;
-
-    setTabs({
-      tabs: updatedTabs,
-      activeTabIndex: newActiveTabIndex,
-    });
-    // 모든 탭이 닫힌 경우 onClose 호출
-    if (newActiveTabIndex === null) {
-      onClose();
-    } else {
-      const updatedTaskbars = taskbar.taskbars.filter(
-        (taskbarItem) => taskbarItem.id !== tabs.tabs[index].title
-      );
-
-      console.log(updatedTaskbars);
-      console.log(newActiveTabIndex);
-      setTaskbar({
-        taskbars: updatedTaskbars,
-        activeTaskbar: updatedTabs[newActiveTabIndex].title,
-      });
-    }
+    const closedTab = tabs[index];
+    closeWindow(closedTab.id);
+    if (tabs.length === 1) onClose();
   };
 
   return (
-    <div
-      className={styles.window}
+    <styles.Window
       style={{ ...style, left: position.x, top: position.y }}
       onClick={() => bringPageToFront()}
     >
-      <div
-        className={styles.windowHeader}
+      <WindowHeader
+        tabs={tabs.map(({ title, icon }) => ({
+          title,
+          imageUrl: icon, // icon 필드를 imageUrl로 매핑
+        }))}
+        activeTabIndex={activeTabIndex}
+        onTabClick={handleTabClick}
+        onTabClose={handleTabClose}
+        onClose={onClose}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
-      >
-        <div className={styles.tabs}>
-          {tabs.tabs.map((tab, index) => (
-            <React.Fragment key={index}>
-              {tabs.activeTabIndex === index ? (
-                <div
-                  className={styles.TabSide}
-                  onClick={() => handleTabClick(index)}
-                >
-                  <div className={styles.leftTabSideElement} />
-                </div>
-              ) : (
-                ""
-              )}
-              <button
-                key={index}
-                className={`${styles.tabButton} ${
-                  tabs.activeTabIndex === index
-                    ? styles.activeTab
-                    : styles.unactiveTab
-                }`}
-              >
-                <img
-                  src={tab.imageUrl}
-                  alt={tab.title}
-                  className={styles.tabButtonImage}
-                  onClick={() => handleTabClick(index)}
-                />
-                <div
-                  className={styles.tabTitle}
-                  onClick={() => handleTabClick(index)}
-                >
-                  {tab.title}
-                </div>
-                <img
-                  src="./assets/close.svg"
-                  alt={tab.title}
-                  className={styles.closeTabButton}
-                  onClick={() => handleTabClose(index)}
-                />
-              </button>
-              {tabs.activeTabIndex === index ? (
-                <div
-                  className={styles.TabSide}
-                  onClick={() => handleTabClick(index)}
-                >
-                  <div className={styles.rightTabSideElement} />
-                </div>
-              ) : (
-                ""
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-        <img
-          src="./assets/close.svg"
-          alt="closeButton"
-          onClick={onClose}
-          className={styles.closeButton}
-        />
-      </div>
-      <div className={styles.windowBody}>
-        {tabs.tabs[tabs.activeTabIndex || 0]?.content}
-      </div>
-    </div>
+        bringFolderToFront={bringPageToFront}
+        onMinimize={onMinimize}
+      />
+      <styles.WindowBody>{tabs[activeTabIndex]?.content}</styles.WindowBody>
+    </styles.Window>
   );
 };
 

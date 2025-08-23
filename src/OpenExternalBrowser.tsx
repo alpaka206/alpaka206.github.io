@@ -1,62 +1,127 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 const OpenExternalBrowser = () => {
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase();
-    const currentUrl = window.location.href;
+    const href = window.location.href;
+    const url = new URL(href);
 
-    const inappdeny_exec_vanillajs = (callback: () => void) => {
-      if (document.readyState !== "loading") {
-        callback();
-      } else {
-        document.addEventListener("DOMContentLoaded", callback);
+    if (url.searchParams.get('openExternalBrowser') === '1') {
+      return;
+    }
+
+    const isIOS = /iphone|ipad|ipod/.test(userAgent);
+    const isAndroid = /android/.test(userAgent);
+
+    const isKakao = userAgent.includes('kakaotalk');
+    const isLine = userAgent.includes('line');
+
+    const isInstagram = userAgent.includes('instagram');
+    const isFacebook =
+      userAgent.includes('fb_iab') ||
+      userAgent.includes('fban') ||
+      userAgent.includes('fbios') ||
+      userAgent.includes('fbss') ||
+      userAgent.includes('fb4a');
+
+    const isTwitter = userAgent.includes('twitter');
+    const isNaverApp = userAgent.includes('naver');
+    const isKakaoStory = userAgent.includes('kakaostory');
+    const isBand = userAgent.includes('band');
+    const isEverytime = userAgent.includes('everytimeapp');
+    const isSnapchat = userAgent.includes('snapchat');
+
+    const isRegularBrowser =
+      userAgent.includes('samsungbrowser') ||
+      (userAgent.includes('wv') === false &&
+        (userAgent.includes('chrome') ||
+          userAgent.includes('firefox') ||
+          userAgent.includes('fxios') ||
+          userAgent.includes('safari') ||
+          userAgent.includes('crios') ||
+          userAgent.includes('edgios') ||
+          userAgent.includes('edga') ||
+          userAgent.includes('whale')));
+
+    const isGenericInApp =
+      (isInstagram ||
+        isFacebook ||
+        isTwitter ||
+        isKakaoStory ||
+        isBand ||
+        isEverytime ||
+        isSnapchat ||
+        isNaverApp) &&
+      !isRegularBrowser;
+
+    const copyToClipboard = async (text: string) => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {}
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy'); // deprecated fallback
+        document.body.removeChild(textarea);
+        return true;
+      } catch {
+        return false;
       }
     };
+    const redirect = async () => {
+      // 1) KakaoTalk 인앱
+      if (isKakao) {
+        const target =
+          'kakaotalk://web/openExternal?url=' + encodeURIComponent(href);
+        window.location.replace(target);
+        return;
+      }
 
-    const redirect = () => {
-      if (userAgent.includes("kakaotalk")) {
-        // 카카오톡 인앱 브라우저 감지 및 외부 브라우저로 리디렉션
-        window.location.href =
-          "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
-      } else if (userAgent.includes("line")) {
-        // 라인 인앱 브라우저 감지 및 외부 브라우저로 리디렉션
-        window.location.href =
-          currentUrl.indexOf("?") !== -1
-            ? currentUrl + "&openExternalBrowser=1"
-            : currentUrl + "?openExternalBrowser=1";
-      } else if (
-        userAgent.match(
-          /inapp|naver|snapchat|wirtschaftswoche|thunderbird|instagram|everytimeapp|whatsApp|electron|wadiz|aliapp|zumapp|iphone(.*)whale|android(.*)whale|kakaostory|band|twitter|DaumApps|DaumDevice\/mobile|FB_IAB|FB4A|FBAN|FBIOS|FBSS|SamsungBrowser\/[^1]/i
-        )
-      ) {
-        // 기타 인앱 브라우저 감지 및 외부 브라우저로 리디렉션
-        if (/iphone|ipad|ipod/.test(userAgent)) {
-          // iOS: Safari에서 열기
+      // 2) LINE 인앱
+      if (isLine) {
+        const lineUrl = new URL(href);
+        lineUrl.searchParams.set('openExternalBrowser', '1');
+        window.location.replace(lineUrl.toString());
+        return;
+      }
+
+      // 3) 기타 인앱 (Instagram/FB/Twitter/네이버앱 등)
+      if (isGenericInApp) {
+        if (isIOS) {
+          // iOS는 완전 자동 열기가 제한될 수 있음 → 클립보드 + 안내 후 Safari 호출 시도
+          await copyToClipboard(href);
           alert(
-            'URL주소가 복사되었습니다.\n\nSafari가 열리면 주소창을 길게 터치한 뒤, "붙여놓기 및 이동"를 누르면 정상적으로 이용하실 수 있습니다.'
+            'URL이 클립보드에 복사되었어요.\n\n아래에서 Safari가 열리면 주소창을 길게 눌러 "붙여넣기 및 이동"을 선택해 주세요.'
           );
-          copyToClipboard(currentUrl);
-          window.location.href = "x-web-search://?";
-        } else {
-          // 안드로이드: Chrome에서 열기
-          window.location.href =
-            "intent://" +
-            currentUrl.replace(/https?:\/\//i, "") +
-            "#Intent;scheme=https;package=com.android.chrome;end";
+          // iOS에서 외부 브라우저 열기 트릭은 OS/앱 버전에 따라 제한됨
+          // 가능 시도 (실패해도 무해)
+          window.location.replace('x-web-search://?');
+          return;
+        } else if (isAndroid) {
+          // Chrome intent with fallback
+          const hostAndPath = href.replace(/^https?:\/\//i, '');
+          const fallback = encodeURIComponent(href);
+          const intent =
+            `intent://${hostAndPath}` +
+            `#Intent;scheme=${href.startsWith('https') ? 'https' : 'http'}` +
+            `;package=com.android.chrome;S.browser_fallback_url=${fallback};end`;
+          window.location.replace(intent);
+          return;
         }
       }
+
+      // 그 외: 아무 것도 하지 않음 (정상 브라우저)
     };
 
-    const copyToClipboard = (val: string) => {
-      const textarea = document.createElement("textarea");
-      document.body.appendChild(textarea);
-      textarea.value = val;
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-    };
-
-    inappdeny_exec_vanillajs(redirect);
+    if (document.readyState !== 'loading') redirect();
+    else document.addEventListener('DOMContentLoaded', redirect);
   }, []);
 
   return null;
