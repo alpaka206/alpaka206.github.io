@@ -8,7 +8,6 @@ export function resolveUrl(path: string) {
   const hostname =
     typeof window !== 'undefined' ? window.location.hostname : '';
 
-  // 로컬 기준: 개발 모드이거나 localhost 류 호스트
   const isLocal =
     (typeof import.meta !== 'undefined' && import.meta.env?.DEV) ||
     isLocalHost(hostname);

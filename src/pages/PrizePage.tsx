@@ -1,20 +1,13 @@
-import { useState } from "react";
-import PrizeCard from "../components/prize/PrizeCard";
-import PrizeModal from "../components/prize/PrizeModal";
-import { prizeList } from "../data/prizeData";
-import * as styles from "../styles/PrizePage.css";
+import { useState } from 'react';
+import PrizeCard from '@/features/prize/components/PrizeCard';
+import PrizeModal from '@/features/prize/components/PrizeModal';
+import { prizeList } from '@/features/prize/data/prizeData';
 
-const PrizePage = () => {
+export default function PrizePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   return (
-    <styles.Wrapper>
-      <styles.BackButton
-        src="./assets/back.svg"
-        alt="뒤로가기"
-        onClick={() => window.history.back()}
-      />
-      <styles.Grid>
+    <div className='px-[30px] py-[10px] h-[calc(100vh-20px)] bg-[#f9f9f9]'>
+      <div className='grid [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))] gap-5'>
         {prizeList.map((prize, idx) => (
           <PrizeCard
             key={idx}
@@ -26,15 +19,13 @@ const PrizePage = () => {
             onClick={() => setSelectedImage(prize.src)}
           />
         ))}
-      </styles.Grid>
+      </div>
       {selectedImage && (
         <PrizeModal
           imageSrc={selectedImage}
           onClose={() => setSelectedImage(null)}
         />
       )}
-    </styles.Wrapper>
+    </div>
   );
-};
-
-export default PrizePage;
+}

@@ -26,8 +26,8 @@ export function WindowShell({ win }: { win: AnyWindow }) {
         left: win.position.x,
         top: win.position.y,
         zIndex: win.zIndex,
-        width: win.size?.w ?? 860,
-        height: win.size?.h ?? 560,
+        width: win.size?.w ?? '80%',
+        height: win.size?.h ?? '85%',
       };
 
   const onPointerDownHeader = (e: React.PointerEvent) => {
@@ -93,21 +93,33 @@ export function WindowShell({ win }: { win: AnyWindow }) {
               className='w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md'
               title='Minimize'
             >
-              —
+              <img
+                src='/assets/icons/line.webp'
+                alt=''
+                className='w-[12px] select-none pointer-events-none'
+              />
             </button>
             <button
               onClick={() => maximizeWindow(win.id)}
               className='w-8 h-8 grid place-items-center hover:bg-black/5 rounded-md'
               title='Maximize'
             >
-              □
+              <img
+                src='/assets/icons/enlargement.webp'
+                alt=''
+                className='w-[12px] h-[12px] select-none pointer-events-none'
+              />
             </button>
             <button
               onClick={() => closeWindow(win.id)}
               className='w-8 h-8 grid place-items-center hover:bg-red-500/20 rounded-md'
               title='Close'
             >
-              ×
+              <img
+                src='/assets/icons/close.webp'
+                alt=''
+                className='w-[12px] h-[12px] select-none pointer-events-none'
+              />
             </button>
           </div>
         </div>
@@ -173,7 +185,11 @@ function PageTabsInline({
                 aria-label='Close tab'
                 className='ml-2 px-1 leading-none text-[#1f1f1f]/70 hover:text-[#1f1f1f]'
               >
-                ×
+                <img
+                  src='/assets/icons/close.webp'
+                  alt=''
+                  className='w-[12px] h-[12px] select-none pointer-events-none'
+                />
               </button>
             </button>
           );
