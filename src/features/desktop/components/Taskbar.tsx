@@ -19,7 +19,6 @@ export function TaskbarInline() {
       | {
           kind: 'tab';
           id: string;
-          title: string;
           icon: string;
           tabId: any;
           isActive: boolean;
@@ -27,7 +26,6 @@ export function TaskbarInline() {
       | {
           kind: 'folder';
           id: string;
-          title: string;
           icon: string;
           isActive: boolean;
         }
@@ -38,7 +36,6 @@ export function TaskbarInline() {
         arr.push({
           kind: 'tab',
           id: `pages:${t.id}`,
-          title: t.title,
           icon: t.icon,
           tabId: t.id,
           isActive:
@@ -54,7 +51,6 @@ export function TaskbarInline() {
         arr.push({
           kind: 'folder',
           id: w.id,
-          title: w.title,
           icon: w.icon,
           isActive: !w.isMinimized && activeWindowId === w.id,
         });
@@ -92,14 +88,12 @@ export function TaskbarInline() {
           className={`flex items-center gap-2 px-3 py-1 rounded-md hover:bg-white/10 transition ${
             it.isActive ? 'bg-white/15 outline outline-1 outline-white/25' : ''
           }`}
-          title={it.title}
         >
           <img
             src={it.icon}
             alt=''
-            className='w-5 h-5 object-contain rounded-sm'
+            className='w-8 h-8 object-contain rounded-sm'
           />
-          <span className='text-sm text-white/90'>{it.title}</span>
         </button>
       ))}
     </div>

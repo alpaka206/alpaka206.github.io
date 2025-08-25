@@ -35,13 +35,14 @@ export default function FolderView() {
   ];
 
   return (
-    <div className='w-full h-full p-4 md:p-5 overflow-auto'>
-      <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-6 gap-y-8'>
+    <div className='w-full h-full p-4 md:p-5 overflow-auto bg-[#f0f0f0]'>
+      <div className='grid grid-cols-10 gap-x-6 gap-y-8'>
         {items.map((it) => (
           <FolderIcon
             key={it.id}
             imageUrl={it.icon}
             title={it.title}
+            variant='folder'
             onClick={() =>
               openProject({
                 id: it.id,
