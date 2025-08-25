@@ -3,9 +3,22 @@ type Props = {
   title: string;
   onClick?: () => void;
   className?: string;
+  variant?: 'desktop' | 'folder';
 };
 
-export function FolderIcon({ imageUrl, title, onClick, className }: Props) {
+export function FolderIcon({
+  imageUrl,
+  title,
+  onClick,
+  className,
+  variant = 'desktop',
+}: Props) {
+  const labelTone =
+    variant === 'folder'
+      ? 'text-black/90 group-hover:text-black'
+      : 'text-white/90 group-hover:text-white';
+
+  const labelShadow = variant === 'folder' ? '' : 'drop-shadow';
   return (
     <button
       onClick={onClick}
@@ -26,7 +39,13 @@ export function FolderIcon({ imageUrl, title, onClick, className }: Props) {
           className='w-full h-full object-contain select-none pointer-events-none transition-transform group-hover:scale-105'
         />
       </div>
-      <span className='text-xs md:text-sm font-medium drop-shadow'>
+      <span
+        className={[
+          'text-xs md:text-sm font-medium',
+          labelTone,
+          labelShadow,
+        ].join(' ')}
+      >
         {title}
       </span>
     </button>
