@@ -1,11 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
-import OpenExternalBrowser from './OpenExternalBrowser.tsx';
+import { useExternalBrowserRedirect } from './hooks/useExternalBrowserRedirect';
 import AppRoutes from './routes/AppRoutes.tsx';
 
 export default function App() {
+  useExternalBrowserRedirect();
+
   return (
     <BrowserRouter>
-      <OpenExternalBrowser />
       <AppRoutes />
     </BrowserRouter>
   );
