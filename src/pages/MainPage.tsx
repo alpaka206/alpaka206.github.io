@@ -1,5 +1,5 @@
 import { FolderIcon } from '@/components/FolderIcon';
-import { useDesktopStore } from '@/store/useDesktopStore';
+import { useDesktopStore } from '@/stores/useDesktopStore';
 import Desktop from '@/features/desktop/components/Desktop';
 import FolderView from '@/features/folder-window/components/FolderView';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
@@ -30,7 +30,7 @@ export default function MainPage() {
       '
       style={{ backgroundImage: "url('/assets/BGimage.webp')" }}
     >
-      <div className='absolute inset-0 p-6 flex flex-col gap-6 md:gap-8 items-start'>
+      <div className='absolute inset-0 flex flex-col gap-6 md:gap-8 items-start'>
         <FolderIcon
           imageUrl='/assets/Profile.webp'
           title='About Me'

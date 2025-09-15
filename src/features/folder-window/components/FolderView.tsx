@@ -1,6 +1,6 @@
 import { FolderIcon } from '@/components/FolderIcon';
-import { useDesktopStore } from '@/store/useDesktopStore';
-import type { PageTab, PageType } from '@/store/useDesktopStore';
+import { useDesktopStore } from '@/stores/useDesktopStore';
+import type { PageTab, PageType } from '@/stores/useDesktopStore';
 import { resolveUrl } from '@/utils/resolveUrl';
 
 export default function FolderView() {
