@@ -1,4 +1,4 @@
-export type Chip = Readonly<{ label: string; color: string }>;
+export type Chip = Readonly<{ label: string; color?: string }>;
 
 export function Chips({ items }: { items: readonly Chip[] }) {
   return (
@@ -6,9 +6,26 @@ export function Chips({ items }: { items: readonly Chip[] }) {
       {items.map(({ label, color }) => (
         <span
           key={label}
-          className='inline-flex items-center px-2 py-[2px] rounded-lg shadow-sm text-sm font-bold'
-          style={{ backgroundColor: color }}
+          className={[
+            // glass pill
+            'inline-flex items-center gap-1.5',
+            'px-2.5 py-1 rounded-full',
+            'text-[13px] font-semibold',
+            'bg-white/10 backdrop-blur-md',
+            'border border-white/20 shadow-sm',
+          ].join(' ')}
+          style={
+            color ? { boxShadow: `inset 0 0 0 1px ${color}100` } : undefined
+          }
+          title={label}
         >
+          {/* 색 지정이 있으면 점 표시 */}
+          {color && (
+            <span
+              className='inline-block size-2 rounded-full'
+              style={{ backgroundColor: color }}
+            />
+          )}
           {label}
         </span>
       ))}
