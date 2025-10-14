@@ -9,4 +9,4 @@ export { GitHubLink } from './GitHubLink';
 export { ProjectDetail } from './ProjectDetail';
 export { ProjectImageGrid } from './ProjectImageGrid';
 
-export type { ProjectData, ProjectSection } from './types';
+export type { ProjectData, ProjectSection, Chip } from './types';

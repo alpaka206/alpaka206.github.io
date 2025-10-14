@@ -42,7 +42,7 @@ export const SHAREIT_DATA: ProjectData = {
     {
       title: '메인페이지',
       bullets: [
-        '개인 정보/반납·대여 일정 확인',
+        '개인 정보/반납 & 대여 일정 확인',
         '최근 등록 물건',
         '사이드바',
         '최근 검색어 & 자동완성',
@@ -56,7 +56,7 @@ export const SHAREIT_DATA: ProjectData = {
       title: '등록',
       bullets: [
         '필요해요/빌려주기 등록',
-        '사진·가격·해시태그·부가설명',
+        '사진 & 가격 & 해시태그 & 부가설명',
         '빌려주기만 사진 필수',
       ],
       images: ['/assets/projects/ShareIt/registration.webp'],
