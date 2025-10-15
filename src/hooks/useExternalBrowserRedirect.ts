@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 
-const OpenExternalBrowser = () => {
+export function useExternalBrowserRedirect() {
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined')
+      return;
     const userAgent = navigator.userAgent.toLowerCase();
     const href = window.location.href;
     const url = new URL(href);
@@ -68,7 +70,7 @@ const OpenExternalBrowser = () => {
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
         textarea.select();
-        document.execCommand('copy'); // deprecated fallback
+        document.execCommand('copy');
         document.body.removeChild(textarea);
         return true;
       } catch {
@@ -76,7 +78,6 @@ const OpenExternalBrowser = () => {
       }
     };
     const redirect = async () => {
-      // 1) KakaoTalk 인앱
       if (isKakao) {
         const target =
           'kakaotalk://web/openExternal?url=' + encodeURIComponent(href);
@@ -84,7 +85,6 @@ const OpenExternalBrowser = () => {
         return;
       }
 
-      // 2) LINE 인앱
       if (isLine) {
         const lineUrl = new URL(href);
         lineUrl.searchParams.set('openExternalBrowser', '1');
@@ -92,20 +92,15 @@ const OpenExternalBrowser = () => {
         return;
       }
 
-      // 3) 기타 인앱 (Instagram/FB/Twitter/네이버앱 등)
       if (isGenericInApp) {
         if (isIOS) {
-          // iOS는 완전 자동 열기가 제한될 수 있음 → 클립보드 + 안내 후 Safari 호출 시도
           await copyToClipboard(href);
           alert(
             'URL이 클립보드에 복사되었어요.\n\n아래에서 Safari가 열리면 주소창을 길게 눌러 "붙여넣기 및 이동"을 선택해 주세요.'
           );
-          // iOS에서 외부 브라우저 열기 트릭은 OS/앱 버전에 따라 제한됨
-          // 가능 시도 (실패해도 무해)
           window.location.replace('x-web-search://?');
           return;
         } else if (isAndroid) {
-          // Chrome intent with fallback
           const hostAndPath = href.replace(/^https?:\/\//i, '');
           const fallback = encodeURIComponent(href);
           const intent =
@@ -116,8 +111,6 @@ const OpenExternalBrowser = () => {
           return;
         }
       }
-
-      // 그 외: 아무 것도 하지 않음 (정상 브라우저)
     };
 
     if (document.readyState !== 'loading') redirect();
@@ -125,6 +118,4 @@ const OpenExternalBrowser = () => {
   }, []);
 
   return null;
-};
-
-export default OpenExternalBrowser;
+}
