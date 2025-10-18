@@ -1,4 +1,4 @@
-import type { Chip } from './Chips';
+export type Chip = Readonly<{ label: string; color?: string }>;
 
 export type ProjectSection = {
   title: string;

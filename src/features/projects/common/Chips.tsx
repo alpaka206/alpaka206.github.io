@@ -1,4 +1,4 @@
-export type Chip = Readonly<{ label: string; color?: string }>;
+import { Chip } from './types';
 
 export function Chips({ items }: { items: readonly Chip[] }) {
   return (
