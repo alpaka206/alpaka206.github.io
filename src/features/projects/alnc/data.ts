@@ -2,7 +2,7 @@ import type { ProjectData } from '@/features/projects/common/types';
 
 export const ALNC_DATA: ProjectData = {
   title: '새차처럼',
-  hero: '/assets/ALNC/mainpage.webp',
+  hero: '/assets/projects/ALNC/main.webp',
   skills: [
     { label: 'React', color: '#61DBFB' },
     { label: 'JavaScript', color: '#F0DB4F' },
@@ -34,12 +34,12 @@ export const ALNC_DATA: ProjectData = {
     {
       title: '기능 - 로그인',
       bullets: ['사용자 구분을 위한 로그인 기능'],
-      images: ['/assets/ALNC/login.webp'],
+      images: ['/assets/projects/ALNC/login.webp'],
     },
     {
       title: '메인페이지',
       bullets: ['날씨정보 확인 가능', '간단한 게시글 열람 가능'],
-      images: ['/assets/ALNC/mainpage.webp'],
+      images: ['/assets/projects/ALNC/main.webp'],
     },
     {
       title: '견적 신청',
@@ -49,20 +49,23 @@ export const ALNC_DATA: ProjectData = {
         '사진 및 정보 작성 가능',
       ],
       images: [
-        '/assets/ALNC/pick_first.webp',
-        '/assets/ALNC/pick_second.webp',
-        '/assets/ALNC/pick_final.webp',
+        '/assets/projects/ALNC/selection/select-service.webp',
+        '/assets/projects/ALNC/selection/select-option.webp',
+        '/assets/projects/ALNC/selection/select-priority.webp',
       ],
     },
     {
       title: '견적서 보기',
       bullets: ['견적서 보낸 업체 리스트 열람', '업체 상세정보 열람'],
-      images: ['/assets/ALNC/list.webp', '/assets/ALNC/list_detail.webp'],
+      images: [
+        '/assets/projects/ALNC/list/history.webp',
+        '/assets/projects/ALNC/list/detail.webp',
+      ],
     },
     {
       title: '견적함',
       bullets: ['예약 내역 열람 가능'],
-      images: ['/assets/ALNC/pick_list.webp'],
+      images: ['/assets/projects/ALNC/quotes-overview.webp'],
     },
   ],
 };

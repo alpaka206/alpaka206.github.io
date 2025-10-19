@@ -99,7 +99,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
               title='Minimize'
             >
               <img
-                src='/assets/icons/line.webp'
+                src='/assets/window-controls/minimize.webp'
                 alt=''
                 className='w-[12px] select-none pointer-events-none'
               />
@@ -110,7 +110,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
               title='Maximize'
             >
               <img
-                src='/assets/icons/enlargement.webp'
+                src='/assets/window-controls/maximize.webp'
                 alt=''
                 className='w-[12px] h-[12px] select-none pointer-events-none'
               />
@@ -121,7 +121,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
               title='Close'
             >
               <img
-                src='/assets/icons/close.webp'
+                src='/assets/window-controls/close.webp'
                 alt=''
                 className='w-[12px] h-[12px] select-none pointer-events-none'
               />
@@ -191,9 +191,9 @@ function PageTabsInline({
                 className='ml-2 px-1 leading-none text-[#1f1f1f]/70 hover:text-[#1f1f1f]'
               >
                 <img
-                  src='/assets/icons/close.webp'
+                  src='/assets/window-controls/close.webp'
                   alt=''
-                  className='w-[12px] h-[12px] select-none pointer-events-none'
+                  className='w-[12px] h-[10px] select-none pointer-events-none'
                 />
               </button>
             </button>

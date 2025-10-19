@@ -42,7 +42,7 @@ export default function FullscreenGate() {
     <div
       className={[
         'fixed inset-0 z-[9999] select-none text-white',
-        'bg-[url("/assets/window/BGimage.webp")] bg-cover bg-center',
+        'bg-[url("/assets/common/system/window/BGimage.webp")] bg-cover bg-center',
       ].join(' ')}
     >
       <div
@@ -54,7 +54,7 @@ export default function FullscreenGate() {
         <div className='w-[360px] max-w-[90vw] rounded-2xl border border-white/20 shadow-2xl bg-white/14 backdrop-blur-2xl p-6 text-center'>
           <div className='mx-auto size-40 rounded-full overflow-hidden ring-1 ring-white/30 shadow-inner'>
             <img
-              src='/assets/commom/ProfileImage.webp'
+              src='/assets/common/profile/ProfileImage.webp'
               alt='프로필'
               className='w-full h-full object-cover object-[0%_10%]'
               draggable={false}

@@ -17,19 +17,19 @@ export default function FolderView() {
     {
       id: 'comatching',
       title: 'COMATCHING',
-      icon: '/assets/Comatching/icon.webp',
+      icon: '/assets/projects/Comatching/icon.webp',
       iframeSrc: resolveUrl('/Comatching'),
     },
     {
       id: 'share-it',
       title: 'Share-It',
-      icon: '/assets/ShareIt/icon.webp',
+      icon: '/assets/projects/ShareIt/icon.webp',
       iframeSrc: resolveUrl('/ShareIt'),
     },
     {
       id: 'alnc',
       title: '새차처럼',
-      icon: '/assets/ALNC/icon.webp',
+      icon: '/assets/projects/ALNC/icon.webp',
       iframeSrc: resolveUrl('/ALNC'),
     },
   ];
