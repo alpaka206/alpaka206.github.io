@@ -5,7 +5,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
   about: {
     id: 'about' as any,
     title: 'About Me',
-    icon: '/assets/Profile.webp',
+    icon: '/assets/window/Profile.webp',
     content: (
       <iframe
         src={resolveUrl('/profile')}
@@ -17,7 +17,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
   blog: {
     id: 'blog' as any,
     title: 'Tech Blog',
-    icon: '/assets/Blog.webp',
+    icon: '/assets/common/Blog.webp',
     content: (
       <iframe
         src='https://alpaka206.vercel.app/'
@@ -29,7 +29,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
   insta: {
     id: 'insta' as any,
     title: 'Instagram',
-    icon: '/assets/Insta.webp',
+    icon: '/assets/common/Insta.webp',
     content: (
       <iframe
         src='https://www.instagram.com/alpaka_dev/embed'
@@ -41,7 +41,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
   awards: {
     id: 'awards' as any,
     title: 'Awards',
-    icon: '/assets/prize.webp',
+    icon: '/assets/common/prize.webp',
     content: (
       <iframe
         src={resolveUrl('/prize')}

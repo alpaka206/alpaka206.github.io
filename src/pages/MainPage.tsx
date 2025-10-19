@@ -28,44 +28,44 @@ export default function MainPage() {
         bg-cover bg-center bg-no-repeat
         text-white
       '
-      style={{ backgroundImage: "url('/assets/BGimage.webp')" }}
+      style={{ backgroundImage: "url('/assets/window/BGimage.webp')" }}
     >
       <div className='absolute inset-0 flex flex-col gap-6 md:gap-8 items-start'>
         <FolderIcon
-          imageUrl='/assets/Profile.webp'
+          imageUrl='/assets/window/Profile.webp'
           title='About Me'
           onClick={() => openPage(PAGE_TABS.about)}
         />
         <FolderIcon
-          imageUrl='/assets/folder1.webp'
+          imageUrl='/assets/window/folder.webp'
           title='Projects'
           onClick={() =>
             openFolder({
               id: 'folder:projects',
               title: 'Projects',
-              icon: '/assets/folder.webp',
+              icon: '/assets/window/folder.webp',
               content: <FolderView />,
               initialPos: { x: 160, y: 120 },
             })
           }
         />
         <FolderIcon
-          imageUrl='/assets/Blog.webp'
+          imageUrl='/assets/common/Blog.webp'
           title='Tech Blog'
           onClick={() => openPage(PAGE_TABS.blog)}
         />
         <FolderIcon
-          imageUrl='/assets/Insta.webp'
+          imageUrl='/assets/common/Insta.webp'
           title='Instagram'
           onClick={() => openPage(PAGE_TABS.insta)}
         />
         <FolderIcon
-          imageUrl='/assets/prize.webp'
+          imageUrl='/assets/common/prize.webp'
           title='Awards'
           onClick={() => openPage(PAGE_TABS.awards)}
         />
         <FolderIcon
-          imageUrl='/assets/Github.webp'
+          imageUrl='/assets/common/Github.webp'
           title='GitHub'
           onClick={openGitHubPage}
         />
