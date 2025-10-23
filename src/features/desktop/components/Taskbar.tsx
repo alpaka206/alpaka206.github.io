@@ -1,6 +1,6 @@
-import { useDesktopStore } from '@/store';
+import { useDesktopStore } from '@/stores';
 import { useMemo } from 'react';
-import type { PagesWindow } from '@/store';
+import type { PagesWindow } from '@/stores';
 
 export function TaskbarInline() {
   const windows = useDesktopStore((s) => s.windows);

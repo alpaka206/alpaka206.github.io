@@ -1,4 +1,4 @@
-import type { PageTab } from '@/store/useDesktopStore';
+import type { PageTab } from '@/stores/useDesktopStore';
 import { resolveUrl } from '@/utils/resolveUrl';
 
 export const PAGE_TABS: Record<string, PageTab> = {

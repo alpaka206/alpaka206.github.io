@@ -1,4 +1,4 @@
-import { FolderWindow } from '@/store';
+import { FolderWindow } from '@/stores';
 
 export function FolderBody({ win }: { win: FolderWindow }) {
   return (
