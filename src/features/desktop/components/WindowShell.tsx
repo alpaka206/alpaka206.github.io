@@ -1,4 +1,9 @@
-import { AnyWindow, FolderWindow, PagesWindow, useDesktopStore } from '@/store';
+import {
+  AnyWindow,
+  FolderWindow,
+  PagesWindow,
+  useDesktopStore,
+} from '@/stores';
 import { useRef } from 'react';
 import { PagesBody } from './PagesBody';
 import { FolderBody } from './FolderBody';

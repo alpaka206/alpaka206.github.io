@@ -1,4 +1,4 @@
-import { PagesWindow } from '@/store';
+import { PagesWindow } from '@/stores';
 import { useMemo } from 'react';
 
 export function PagesBody({ win }: { win: PagesWindow }) {

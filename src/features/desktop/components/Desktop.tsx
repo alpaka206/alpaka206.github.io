@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useDesktopStore } from '@/store/useDesktopStore';
+import { useDesktopStore } from '@/stores/useDesktopStore';
 import { WindowShell } from './WindowShell';
 import { TaskbarInline } from './Taskbar';
 
