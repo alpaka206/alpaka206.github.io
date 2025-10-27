@@ -7,12 +7,11 @@ export function Chips({ items }: { items: readonly Chip[] }) {
         <span
           key={label}
           className={[
-            // glass pill
             'inline-flex items-center gap-1.5',
             'px-2.5 py-1 rounded-full',
             'text-[13px] font-semibold',
-            'bg-white/10 backdrop-blur-md',
-            'border border-white/20 shadow-sm',
+            'bg-white/12 backdrop-blur-md',
+            'border border-white/15 shadow-sm',
           ].join(' ')}
           style={
             color ? { boxShadow: `inset 0 0 0 1px ${color}100` } : undefined
