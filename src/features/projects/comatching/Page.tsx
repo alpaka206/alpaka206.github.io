@@ -1,13 +1,13 @@
 import { DotItem } from '@/components/DotItem/DotItem';
-import { Chips } from '@/features/projects/common/Chips';
 import {
+  Chips,
   Divider,
   FieldRow,
   ProjectLayout,
   SectionTitle,
-} from '@/features/projects/common/ProjectLayout';
-import { ProjectImg } from '@/features/projects/common/ProjectImg';
-import { GitHubLink } from '@/features/projects/common/GitHubLink';
+  ProjectImg,
+  GitHubLink,
+} from '@/features/projects/common';
 import { COMATCHING_DATA as D } from './data';
 
 export default function COMATCHING() {
