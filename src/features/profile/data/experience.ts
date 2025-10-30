@@ -2,7 +2,7 @@ import type { ExperienceSection } from '../types';
 
 export const EXPERIENCE: ExperienceSection[] = [
   {
-    title: '🖥️ Frontend Development',
+    title: 'Frontend Development',
     lines: [
       'React와 TypeScript 기반의 SPA 개발에 익숙하며, 서비스의 구조 설계부터 사용자 흐름, 상태 관리까지 전체적인 화면 동작을 고려한 개발을 지향합니다.',
       'Recoil, Zustand 등 다양한 상태 관리 도구를 프로젝트 상황에 맞게 선택하고 구조화해본 경험이 있으며, 최근에는 Zustand 기반 구조 개선 및 리팩토링 작업에 참여했습니다.',
