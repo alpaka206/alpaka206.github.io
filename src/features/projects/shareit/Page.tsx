@@ -8,7 +8,7 @@ import {
 } from '@/features/projects/common/ProjectLayout';
 import { ProjectImg } from '@/features/projects/common/ProjectImg';
 import { GitHubLink } from '@/features/projects/common/GitHubLink';
-import { SHAREIT_DATA as D } from '@/features/projects/shareit/data';
+import { SHAREIT_DATA as D } from './data';
 
 export default function ShareIt() {
   return (
@@ -79,3 +79,4 @@ export default function ShareIt() {
     </ProjectLayout>
   );
 }
+

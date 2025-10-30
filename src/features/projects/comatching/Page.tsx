@@ -7,13 +7,15 @@ import {
   SectionTitle,
 } from '@/features/projects/common/ProjectLayout';
 import { ProjectImg } from '@/features/projects/common/ProjectImg';
-import { ALNC_DATA as D } from '@/features/projects/alnc/data';
+import { GitHubLink } from '@/features/projects/common/GitHubLink';
+import { COMATCHING_DATA as D } from './data';
 
-export default function ALNC() {
+export default function COMATCHING() {
   return (
     <ProjectLayout>
-      <div className='text-base mb-2.5'>프로젝트 개요</div>
-      <h1 className='text-2xl font-bold mb-2.5'>{D.title}</h1>
+      {/* 프로젝트 개요 */}
+      <div className='text-sm tracking-wide mb-1.5'>프로젝트 개요</div>
+      <h1 className='text-2xl md:text-[28px] font-bold mb-4'>{D.title}</h1>
 
       <img
         src={D.hero}
@@ -54,7 +56,11 @@ export default function ALNC() {
       {D.result && (
         <FieldRow label='성과'>
           {Array.isArray(D.result) ? (
-            D.result.map((r) => <div key={r}>{r}</div>)
+            <div className='flex flex-col gap-1'>
+              {D.result.map((r) => (
+                <div key={r}>{r}</div>
+              ))}
+            </div>
           ) : (
             <div>{D.result}</div>
           )}
@@ -63,6 +69,11 @@ export default function ALNC() {
       {D.category && (
         <FieldRow label='카테고리'>
           <Chips items={[D.category]} />
+        </FieldRow>
+      )}
+      {D.githubUrl && (
+        <FieldRow label='github'>
+          <GitHubLink url={D.githubUrl} />
         </FieldRow>
       )}
 

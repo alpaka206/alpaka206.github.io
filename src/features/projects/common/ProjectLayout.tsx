@@ -13,11 +13,16 @@ export function ProjectLayout({ children }: { children: React.ReactNode }) {
 
 export function FieldRow({ label, children }: FieldRowProps) {
   return (
-    <div className='flex my-4 gap-4'>
-      <div className='text-lg font-semibold text-[#555] min-w-[25%] md:w-[15%]'>
+    <div
+      className={[
+        'grid grid-cols-1 md:grid-cols-12 items-start gap-3',
+        'py-2 border-b border-white/10 last:border-b-0',
+      ].join(' ')}
+    >
+      <div className='md:col-span-1 text-sm md:text-[15px] font-semibold'>
         {label}
       </div>
-      <div className='min-w-0'>{children}</div>
+      <div className='md:col-span-9 min-w-0 text-[15px]'>{children}</div>
     </div>
   );
 }

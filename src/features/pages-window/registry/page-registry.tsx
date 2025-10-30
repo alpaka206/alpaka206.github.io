@@ -8,7 +8,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
     icon: '/assets/Profile.webp',
     content: (
       <iframe
-        src={resolveUrl('/Profile')}
+        src={resolveUrl('/profile')}
         title='About Me'
         className='w-full h-full'
       />
@@ -44,7 +44,7 @@ export const PAGE_TABS: Record<string, PageTab> = {
     icon: '/assets/prize.webp',
     content: (
       <iframe
-        src={resolveUrl('/Prize')}
+        src={resolveUrl('/prize')}
         title='Awards'
         className='w-full h-full'
       />
