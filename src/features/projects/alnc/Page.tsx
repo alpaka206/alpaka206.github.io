@@ -7,10 +7,9 @@ import {
   SectionTitle,
 } from '@/features/projects/common/ProjectLayout';
 import { ProjectImg } from '@/features/projects/common/ProjectImg';
-import { GitHubLink } from '@/features/projects/common/GitHubLink';
-import { COMATCHING_DATA as D } from '@/features/projects/comatching/data';
+import { ALNC_DATA as D } from './data';
 
-export default function COMATCHING() {
+export default function ALNC() {
   return (
     <ProjectLayout>
       <div className='text-base mb-2.5'>프로젝트 개요</div>
@@ -55,11 +54,7 @@ export default function COMATCHING() {
       {D.result && (
         <FieldRow label='성과'>
           {Array.isArray(D.result) ? (
-            <div className='flex flex-col gap-1'>
-              {D.result.map((r) => (
-                <div key={r}>{r}</div>
-              ))}
-            </div>
+            D.result.map((r) => <div key={r}>{r}</div>)
           ) : (
             <div>{D.result}</div>
           )}
@@ -68,11 +63,6 @@ export default function COMATCHING() {
       {D.category && (
         <FieldRow label='카테고리'>
           <Chips items={[D.category]} />
-        </FieldRow>
-      )}
-      {D.githubUrl && (
-        <FieldRow label='github'>
-          <GitHubLink url={D.githubUrl} />
         </FieldRow>
       )}
 
@@ -92,3 +82,4 @@ export default function COMATCHING() {
     </ProjectLayout>
   );
 }
+

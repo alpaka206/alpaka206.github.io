@@ -81,15 +81,5 @@ export const COMATCHING_DATA: ProjectData = {
       bullets: ['관리자가 포인트 충전 및 뽑힐 횟수 증가 가능'],
       images: ['/assets/Comatching/admin.webp'],
     },
-    {
-      title: '앞으로 구현하고자 하는 것',
-      bullets: [
-        '매칭 뽑힌 사람끼리 쪽지 가능',
-        '이메일 인증 재구현',
-        '소개팅 희망자들을 위해 채팅방 개설',
-        '토근 관리 RTR 방식 적용',
-        '매칭 및 뽑힐기회 충전 사용자가 직접 가능하도록',
-      ],
-    },
   ],
 };
