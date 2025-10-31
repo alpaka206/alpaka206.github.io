@@ -2,7 +2,7 @@ import type { ProjectData } from '@/features/projects/common/types';
 
 export const COMATCHING_DATA: ProjectData = {
   title: 'COMATCHING',
-  hero: '/assets/Comatching/mainpage.webp',
+  hero: '/assets/projects/Comatching/main.webp',
   skills: [
     { label: 'React', color: '#61DBFB' },
     { label: 'JavaScript', color: '#F0DB4F' },
@@ -41,10 +41,10 @@ export const COMATCHING_DATA: ProjectData = {
         '순서대로 추가 정보를 입력 받음',
       ],
       images: [
-        '/assets/Comatching/loginpage.webp',
-        '/assets/Comatching/registerchat.webp',
-        '/assets/Comatching/registerhobby.webp',
-        '/assets/Comatching/registerfinal.webp',
+        '/assets/projects/Comatching/register/login.webp',
+        '/assets/projects/Comatching/register/chat.webp',
+        '/assets/projects/Comatching/register/hobby.webp',
+        '/assets/projects/Comatching/register/user-info.webp',
       ],
     },
     {
@@ -55,9 +55,8 @@ export const COMATCHING_DATA: ProjectData = {
         'QR코드로 빠르게 진행 가능',
       ],
       images: [
-        '/assets/Comatching/mainpage.webp',
-        '/assets/Comatching/mainpagecharge.webp',
-        '/assets/Comatching/QRpage.webp',
+        '/assets/projects/Comatching/main.webp',
+        '/assets/projects/Comatching/charge.webp',
       ],
     },
     {
@@ -67,19 +66,23 @@ export const COMATCHING_DATA: ProjectData = {
         'AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공',
       ],
       images: [
-        '/assets/Comatching/matching.webp',
-        '/assets/Comatching/matchingresult.webp',
+        '/assets/projects/Comatching/matching/matching.webp',
+        '/assets/projects/Comatching/matching/loading.webp',
+        '/assets/projects/Comatching/matching/result.webp',
       ],
     },
     {
       title: '결과 모아보기',
       bullets: ['본인이 뽑은 내역 확인 가능 및 사후평가'],
-      images: ['/assets/Comatching/review.webp'],
+      images: ['/assets/projects/Comatching/result-overview.webp'],
     },
     {
       title: '관리자 충전 내역 관리',
       bullets: ['관리자가 포인트 충전 및 뽑힐 횟수 증가 가능'],
-      images: ['/assets/Comatching/admin.webp'],
+      images: [
+        '/assets/projects/Comatching/admin/admin-login.webp',
+        '/assets/projects/Comatching/admin/request.webp',
+      ],
     },
   ],
 };

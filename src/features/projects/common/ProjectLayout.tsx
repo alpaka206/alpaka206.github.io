@@ -29,7 +29,7 @@ export function FieldRow({ label, children }: FieldRowProps) {
 
 export function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className='text-2xl font-extrabold mb-2 text-black'>{children}</h2>
+    <h2 className='text-2xl font-extrabold mt-4 mb-2 text-black'>{children}</h2>
   );
 }
 
