@@ -2,7 +2,7 @@ import type { ProjectData } from '@/features/projects/common/types';
 
 export const SHAREIT_DATA: ProjectData = {
   title: 'ShareIt',
-  hero: '/assets/ShareIt/mainpage.webp',
+  hero: '/assets/projects/ShareIt/main/main.webp',
   skills: [
     { label: 'React', color: '#61DBFB' },
     { label: 'JavaScript', color: '#F0DB4F' },
@@ -34,7 +34,10 @@ export const SHAREIT_DATA: ProjectData = {
         '이메일 인증',
         '입력 시 다음 단계 슬라이딩',
       ],
-      images: ['/assets/ShareIt/KaKaologin.webp', '/assets/ShareIt/Email.webp'],
+      images: [
+        '/assets/projects/ShareIt/register/login_kakao.webp',
+        '/assets/projects/ShareIt/register/login_email.webp',
+      ],
     },
     {
       title: '메인페이지',
@@ -44,7 +47,10 @@ export const SHAREIT_DATA: ProjectData = {
         '사이드바',
         '최근 검색어 & 자동완성',
       ],
-      images: ['/assets/ShareIt/Search.webp', '/assets/ShareIt/sidebar.webp'],
+      images: [
+        '/assets/projects/ShareIt/search.webp',
+        '/assets/projects/ShareIt/sidebar.webp',
+      ],
     },
     {
       title: '등록',
@@ -53,33 +59,36 @@ export const SHAREIT_DATA: ProjectData = {
         '사진·가격·해시태그·부가설명',
         '빌려주기만 사진 필수',
       ],
-      images: ['/assets/ShareIt/registration.webp'],
+      images: ['/assets/projects/ShareIt/registration.webp'],
     },
     {
       title: '리스트',
       bullets: ['최근 등록순 기본', '무한 스크롤', '인기 해시태그'],
       images: [
-        '/assets/ShareIt/borrowpage.webp',
-        '/assets/ShareIt/needpage.webp',
+        '/assets/projects/ShareIt/borrow/list.webp',
+        '/assets/projects/ShareIt/need/list.webp',
       ],
     },
     {
       title: '상세페이지',
       bullets: ['평점/좋아요 확인'],
       images: [
-        '/assets/ShareIt/borrowDetail.webp',
-        '/assets/ShareIt/needDetail.webp',
+        '/assets/projects/ShareIt/borrow/detail.webp',
+        '/assets/projects/ShareIt/need/detail.webp',
       ],
     },
     {
       title: '채팅페이지',
       bullets: ['약속 잡기, 거래 완료'],
-      images: ['/assets/ShareIt/chat.webp', '/assets/ShareIt/chatwidget.webp'],
+      images: [
+        '/assets/projects/ShareIt/chat/chat.webp',
+        '/assets/projects/ShareIt/chat/widget.webp',
+      ],
     },
     {
       title: '리뷰페이지',
       bullets: ['거래내역 확인, 별점 부여'],
-      images: ['/assets/ShareIt/review.webp'],
+      images: ['/assets/projects/ShareIt/review.webp'],
     },
     {
       title: '개발한 내역',
