@@ -1,4 +1,4 @@
-export type Chip = Readonly<{ label: string; color?: string }>;
+import type { Chip } from './types';
 
 export function Chips({ items }: { items: readonly Chip[] }) {
   return (
@@ -18,7 +18,6 @@ export function Chips({ items }: { items: readonly Chip[] }) {
           }
           title={label}
         >
-          {/* 색 지정이 있으면 점 표시 */}
           {color && (
             <span
               className='inline-block size-2 rounded-full'
