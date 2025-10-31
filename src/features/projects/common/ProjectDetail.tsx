@@ -7,7 +7,7 @@ import {
   SectionTitle,
 } from './ProjectLayout';
 import { GitHubLink } from './GitHubLink';
-import type { ProjectData } from './types';
+import type { ProjectData, ProjectImageItem } from './types';
 import { ProjectImageGrid } from './ProjectImageGrid';
 
 export function ProjectDetail({ data: D }: { data: ProjectData }) {
@@ -16,7 +16,11 @@ export function ProjectDetail({ data: D }: { data: ProjectData }) {
       <div className='text-sm tracking-wide mb-1.5'>프로젝트 개요</div>
       <h1 className='text-2xl md:text-[28px] font-bold mb-4'>{D.title}</h1>
 
-      <img src={D.hero} alt='hero' className='w-1/4 mx-auto mb-4 rounded-md' />
+      <img
+        src={D.hero}
+        alt='hero'
+        className='w-4/5 max-w-[400px] mx-auto mb-4 rounded-md'
+      />
 
       {D.skills && (
         <FieldRow label='Skills'>
@@ -67,7 +71,7 @@ export function ProjectDetail({ data: D }: { data: ProjectData }) {
         </FieldRow>
       )}
       {D.githubUrl && (
-        <FieldRow label='github'>
+        <FieldRow label='GitHub'>
           <GitHubLink url={D.githubUrl} />
         </FieldRow>
       )}
@@ -81,7 +85,13 @@ export function ProjectDetail({ data: D }: { data: ProjectData }) {
             <DotItem key={b}>{b}</DotItem>
           ))}
           {s.images && s.images.length > 0 && (
-            <ProjectImageGrid images={s.images} alt={s.title} />
+            <ProjectImageGrid
+              items={(s.images as (string | ProjectImageItem)[]).map((img) =>
+                typeof img === 'string'
+                  ? { src: img, alt: s.title }
+                  : { src: img.src, alt: img.alt ?? s.title }
+              )}
+            />
           )}
         </div>
       ))}

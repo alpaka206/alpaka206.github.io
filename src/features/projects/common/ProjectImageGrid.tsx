@@ -1,13 +1,14 @@
-export function ProjectImageGrid({
-  images,
-  alt,
-}: {
-  images: string[];
-  alt: string;
-}) {
+import { ProjectImageItem } from './types';
+
+export function ProjectImageGrid({ items }: { items: ProjectImageItem[] }) {
   return (
-    <div className={['columns-1 sm:columns-2 lg:columns-3', '[column-gap:1rem]'].join(' ')}>
-      {images.map((src) => (
+    <div
+      className={[
+        'columns-1 sm:columns-2 lg:columns-3',
+        '[column-gap:1rem]',
+      ].join(' ')}
+    >
+      {items.map(({ src, alt }) => (
         <div
           key={src}
           className={[
@@ -17,10 +18,9 @@ export function ProjectImageGrid({
             'bg-white/40',
           ].join(' ')}
         >
-          <img src={src} alt={alt} className='w-full h-auto block' />
+          <img src={src} alt={alt || ''} className='w-full h-auto block' />
         </div>
       ))}
     </div>
   );
 }
-

@@ -1,9 +1,11 @@
-import type { Chip } from './Chips';
+export type Chip = Readonly<{ label: string; color?: string }>;
+
+export type ProjectImageItem = { src: string; alt?: string };
 
 export type ProjectSection = {
   title: string;
   bullets?: string[];
-  images?: string[];
+  images?: (string | ProjectImageItem)[];
 };
 
 export type ProjectData = {
