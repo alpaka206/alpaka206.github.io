@@ -1,35 +1,48 @@
 import { useDesktopStore } from '@/stores';
 import { useMemo } from 'react';
-import type { PagesWindow } from '@/stores';
+import type { PagesWindow, PageType } from '@/stores';
+import { useShallow } from 'zustand/shallow';
+
+type TaskbarItem =
+  | {
+      kind: 'tab';
+      id: string;
+      icon: string;
+      tabId: PageType;
+      isActive: boolean;
+    }
+  | {
+      kind: 'folder';
+      id: string;
+      icon: string;
+      isActive: boolean;
+    };
 
 export function TaskbarInline() {
-  const windows = useDesktopStore((s) => s.windows);
-  const activeWindowId = useDesktopStore((s) => s.activeWindowId);
-  const toggleTaskbar = useDesktopStore((s) => s.toggleTaskbarItem);
-  const setActiveTab = useDesktopStore((s) => s.setActiveTab);
-  const focusWindow = useDesktopStore((s) => s.focusWindow);
-  const minimizeWindow = useDesktopStore((s) => s.minimizeWindow);
+  const {
+    windows,
+    activeWindowId,
+    toggleTaskbarItem,
+    setActiveTab,
+    focusWindow,
+    minimizeWindow,
+  } = useDesktopStore(
+    useShallow((s) => ({
+      windows: s.windows,
+      activeWindowId: s.activeWindowId,
+      toggleTaskbarItem: s.toggleTaskbarItem,
+      setActiveTab: s.setActiveTab,
+      focusWindow: s.focusWindow,
+      minimizeWindow: s.minimizeWindow,
+    }))
+  );
 
   const pages = windows.find((w) => w.type === 'pages') as
     | PagesWindow
     | undefined;
 
   const items = useMemo(() => {
-    const arr: Array<
-      | {
-          kind: 'tab';
-          id: string;
-          icon: string;
-          tabId: any;
-          isActive: boolean;
-        }
-      | {
-          kind: 'folder';
-          id: string;
-          icon: string;
-          isActive: boolean;
-        }
-    > = [];
+    const arr: TaskbarItem[] = [];
 
     if (pages && (pages.isOpen || pages.isMinimized)) {
       for (const t of pages.tabs) {
@@ -60,7 +73,7 @@ export function TaskbarInline() {
     return arr;
   }, [windows, pages, activeWindowId]);
 
-  const handleClick = (it: (typeof items)[number]) => {
+  const handleClick = (it: TaskbarItem) => {
     if (it.kind === 'tab') {
       if (!pages) return;
       if (pages.isMinimized) {
@@ -75,7 +88,7 @@ export function TaskbarInline() {
       setActiveTab(it.tabId);
       focusWindow(pages.id);
     } else {
-      toggleTaskbar(it.id);
+      toggleTaskbarItem(it.id);
     }
   };
 
