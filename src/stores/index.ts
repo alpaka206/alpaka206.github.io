@@ -1,1 +1,2 @@
-export * from "./useDesktopStore";
+export * from './useDesktopStore';
+export * from './useStartStore';
