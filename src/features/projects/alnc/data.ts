@@ -1,27 +1,43 @@
 import type { ProjectData } from '@/features/projects/common/types';
+import {
+  ALNC_HIGHLIGHTS,
+  ALNC_OUTCOMES,
+  ALNC_RESPONSIBILITIES,
+  ALNC_SECTIONS,
+  ALNC_SUMMARY,
+} from './content';
+import {
+  categoryChip,
+  roleChip,
+  skillChip,
+  toolChip,
+} from '@/features/projects/common/constants';
 
 export const ALNC_DATA: ProjectData = {
   title: '새차처럼',
   hero: '/assets/projects/ALNC/main.webp',
+  summary: ALNC_SUMMARY,
+  highlights: ALNC_HIGHLIGHTS,
+  responsibilities: ALNC_RESPONSIBILITIES,
+  outcomes: ALNC_OUTCOMES,
   skills: [
-    { label: 'React', color: '#61DBFB' },
-    { label: 'JavaScript', color: '#F0DB4F' },
-    { label: 'axios', color: '#0A99E0' },
+    skillChip('React'),
+    skillChip('JavaScript'),
   ],
   tools: [
-    { label: 'Visual Studio Code', color: '#b0a1ec' },
-    { label: 'Notion', color: '#eeeeee' },
-    { label: 'Figma', color: '#F24E1E' },
-    { label: 'Firebase', color: '#FFCA28' },
+    toolChip('Visual Studio Code'),
+    toolChip('Notion'),
+    toolChip('Figma'),
+    toolChip('Firebase'),
   ],
   period: '2022.11.10 ~ 2023.08.25',
   membersLabel: '참가 인원',
   members: '4명',
   roles: [
-    { label: '프론트엔드 개발', color: '#dbebdb' },
-    { label: '퍼블리싱', color: '#ffe2dd' },
-    { label: '기획', color: '#f1c40f' },
-    { label: '운영 및 홍보', color: '#fe340f' },
+    roleChip('프론트엔드 개발'),
+    roleChip('퍼블리싱'),
+    roleChip('기획'),
+    roleChip('운영 및 홍보'),
   ],
   contribution: '100%',
   result: [
@@ -29,43 +45,6 @@ export const ALNC_DATA: ProjectData = {
     '하나 소셜벤처 유니버시티 우수팀 선정',
     '가톨릭대학교 창업경진대회 장려상 수상',
   ],
-  category: { label: 'WEB', color: '#f1780f' },
-  sections: [
-    {
-      title: '기능 - 로그인',
-      bullets: ['사용자 구분을 위한 로그인 기능'],
-      images: ['/assets/projects/ALNC/login.webp'],
-    },
-    {
-      title: '메인페이지',
-      bullets: ['날씨정보 확인 가능', '간단한 게시글 열람 가능'],
-      images: ['/assets/projects/ALNC/main.webp'],
-    },
-    {
-      title: '견적 신청',
-      bullets: [
-        '고압수, 스팀 세차 선택 가능',
-        '우선순위 선택 가능',
-        '사진 및 정보 작성 가능',
-      ],
-      images: [
-        '/assets/projects/ALNC/selection/select-service.webp',
-        '/assets/projects/ALNC/selection/select-option.webp',
-        '/assets/projects/ALNC/selection/select-priority.webp',
-      ],
-    },
-    {
-      title: '견적서 보기',
-      bullets: ['견적서 보낸 업체 리스트 열람', '업체 상세정보 열람'],
-      images: [
-        '/assets/projects/ALNC/list/history.webp',
-        '/assets/projects/ALNC/list/detail.webp',
-      ],
-    },
-    {
-      title: '견적함',
-      bullets: ['예약 내역 열람 가능'],
-      images: ['/assets/projects/ALNC/quotes-overview.webp'],
-    },
-  ],
+  category: categoryChip('WEB'),
+  sections: ALNC_SECTIONS,
 };
