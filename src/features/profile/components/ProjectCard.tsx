@@ -1,36 +1,65 @@
 import type { Project } from '../types';
 
 export function ProjectCard({ p }: { p: Project }) {
+  const Title = (
+    <h3 className='text-[20px] font-extrabold text-[#0b61d8]'>{p.title}</h3>
+  );
+
   return (
-    <div className='w-full max-w-full border border-[#e2e2e2] rounded-[12px] p-5 mb-6 bg-[#fafafa] overflow-hidden break-words'>
+    <div className='w-full max-w-full border border-[#e2e2e2] rounded-[14px] p-5 bg-[#fafafa] overflow-hidden break-words shadow-sm'>
       <div className='mb-3'>
-        {p.link ? (
-          <a href={p.link} target='_blank' rel='noopener noreferrer'>
-            <h3 className='text-[20px] font-extrabold text-[#0b61d8]'>
-              {p.title}
-            </h3>
-          </a>
-        ) : (
-          <h3 className='text-[20px] font-extrabold text-[#0b61d8]'>
-            {p.title}
-          </h3>
-        )}
+        <div className='flex flex-wrap items-center gap-2'>
+          {p.link ? (
+            <a href={p.link} target='_blank' rel='noopener noreferrer'>
+              {Title}
+            </a>
+          ) : (
+            Title
+          )}
+          <span className='text-[12px] font-semibold text-[#1f2937] bg-[#e6eefc] px-2 py-1 rounded-full'>
+            {p.role}
+          </span>
+        </div>
         {p.subtitle && (
           <div className='mt-1 text-sm text-[#555]'>{p.subtitle}</div>
         )}
       </div>
 
-      <p className='text-sm text-[#333] mb-2 leading-relaxed'>
-        <span className='font-semibold text-[#222]'>Role:</span> {p.role}
-      </p>
+      <div className='flex flex-wrap gap-3 text-[12px] text-[#555] mb-3'>
+        {p.period && (
+          <span className='bg-white border border-[#e5e7eb] px-2 py-1 rounded'>
+            기간: {p.period}
+          </span>
+        )}
+        {p.teamSize && (
+          <span className='bg-white border border-[#e5e7eb] px-2 py-1 rounded'>
+            팀: {p.teamSize}
+          </span>
+        )}
+      </div>
 
-      {p.points.map((line, i) => (
-        <p key={i} className='text-sm text-[#333] mb-2 leading-relaxed'>
-          - {line}
-        </p>
-      ))}
+      {p.highlights && p.highlights.length > 0 && (
+        <div className='mb-3'>
+          {p.highlights.map((h, i) => (
+            <div
+              key={i}
+              className='text-sm font-semibold text-[#111827] mb-1'
+            >
+              {h}
+            </div>
+          ))}
+        </div>
+      )}
 
-      <div className='flex flex-wrap gap-2 mt-3'>
+      <ul className='text-sm text-[#333] leading-relaxed list-disc pl-5'>
+        {p.points.map((line, i) => (
+          <li key={i} className='mb-2'>
+            {line}
+          </li>
+        ))}
+      </ul>
+
+      <div className='flex flex-wrap gap-2 mt-4'>
         {p.stacks.map((s) => (
           <span
             key={s}
