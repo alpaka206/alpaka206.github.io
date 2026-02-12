@@ -5,8 +5,8 @@ type FieldRowProps = {
 
 export function ProjectLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='w-full px-5 py-5 leading-relaxed text-[#333] bg-[#f9f9f9]'>
-      {children}
+    <div className='w-full px-3 md:px-4 py-6 leading-relaxed text-[#333] bg-[#f9f9f9]'>
+      <div className='max-w-7xl mx-auto'>{children}</div>
     </div>
   );
 }
@@ -16,13 +16,13 @@ export function FieldRow({ label, children }: FieldRowProps) {
     <div
       className={[
         'grid grid-cols-1 md:grid-cols-12 items-start gap-3',
-        'py-2 border-b border-white/10 last:border-b-0',
+        'py-2 border-b border-[#e5e7eb] last:border-b-0',
       ].join(' ')}
     >
-      <div className='md:col-span-1 text-sm md:text-[15px] font-semibold'>
+      <div className='md:col-span-2 text-sm md:text-[15px] font-semibold'>
         {label}
       </div>
-      <div className='md:col-span-9 min-w-0 text-[15px]'>{children}</div>
+      <div className='md:col-span-10 min-w-0 text-[15px]'>{children}</div>
     </div>
   );
 }
