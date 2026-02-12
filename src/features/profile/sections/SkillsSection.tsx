@@ -13,14 +13,19 @@ export function SkillsSection() {
   return (
     <Element name='skills'>
       <Section title='🛠 Skills'>
-        <BadgeRow title='🚀 Frontend' items={FRONTEND_BADGES} />
-        <BadgeRow title='🎨 Styling' items={STYLING_BADGES} />
-        <BadgeRow title='🧪 Test (Basic Understanding)' items={TEST_BADGES} />
-        <BadgeRow
-          title='🧩 Backend / Infra (Basic Understanding)'
-          items={BACKEND_BADGES}
-        />
-        <BadgeRow title='🧰 Collaboration & Deployment' items={COLLAB_BADGES} />
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+          <BadgeRow title='🚀 Frontend' items={FRONTEND_BADGES} />
+          <BadgeRow title='🎨 Styling' items={STYLING_BADGES} />
+          <BadgeRow title='🧪 Test (Basic Understanding)' items={TEST_BADGES} />
+          <BadgeRow
+            title='🧩 Backend / Infra (Basic Understanding)'
+            items={BACKEND_BADGES}
+          />
+          <BadgeRow
+            title='🧰 Collaboration & Deployment'
+            items={COLLAB_BADGES}
+          />
+        </div>
       </Section>
     </Element>
   );
