@@ -11,6 +11,10 @@ export type ProjectSection = {
 export type ProjectData = {
   title: string;
   hero: string;
+  summary?: string;
+  highlights?: string[];
+  responsibilities?: { title: string; items: string[] }[];
+  outcomes?: string[];
   skills?: readonly Chip[];
   tools?: readonly Chip[];
   period?: string;
