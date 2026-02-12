@@ -13,9 +13,7 @@ export function Chips({ items }: { items: readonly Chip[] }) {
             'bg-white/12 backdrop-blur-md',
             'border border-white/15 shadow-sm',
           ].join(' ')}
-          style={
-            color ? { boxShadow: `inset 0 0 0 1px ${color}100` } : undefined
-          }
+          style={color ? { borderColor: color } : undefined}
           title={label}
         >
           {color && (

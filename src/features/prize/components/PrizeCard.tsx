@@ -33,6 +33,10 @@ export default function PrizeCard({
         <img
           src={src}
           alt={`${title} 이미지`}
+          loading='lazy'
+          decoding='async'
+          width={320}
+          height={200}
           className='w-full h-full object-contain block'
         />
       </div>

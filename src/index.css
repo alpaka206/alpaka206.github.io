@@ -1,5 +1,12 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: 'Segoe UI Variable';
+  src: url('/fonts/SegoeUIVariable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+}
+
 @layer root {
   html,
   body,
@@ -9,6 +16,12 @@
     padding: 0;
   }
   body {
+    font-family:
+      'Segoe UI Variable',
+      'Segoe UI',
+      system-ui,
+      -apple-system,
+      sans-serif;
     -ms-overflow-style: none; /* IE/구형 Edge */
     scrollbar-width: none; /* Firefox */
   }

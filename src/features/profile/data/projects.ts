@@ -4,7 +4,7 @@ export const PROJECTS: Project[] = [
   {
     title: 'COMATCHING',
     subtitle: 'AI 기반 실시간 커플 매칭 서비스',
-    role: 'Front-End Leader',
+    role: 'Frontend Leader',
     points: [
       '실시간 포인트 관리 및 사용자 매칭 로직 구현',
       'Recoil 기반 상태 구조 설계로 프로필 카드, 포인트 흐름 등 전체 UX 설계',
@@ -27,7 +27,7 @@ export const PROJECTS: Project[] = [
   {
     title: '부천FC - Friends Community',
     subtitle: '응원 성향 기반 축구 팬 매칭 플랫폼',
-    role: 'Front-End Developer',
+    role: 'Frontend Developer',
     points: [
       'COMATCHING 기반 확장, 실시간 팬 매칭 서비스 외주 개발',
       '응원 성향에 따른 실시간 매칭 UI 구현 및 관리자 기능 추가',
@@ -40,7 +40,7 @@ export const PROJECTS: Project[] = [
   {
     title: 'Share-It',
     subtitle: '교내 중고 물품 공유 및 대여 플랫폼',
-    role: 'Front-End Developer',
+    role: 'Frontend Developer',
     points: [
       '대여 주기를 고려한 상품 등록/검색/예약 UI 흐름 설계/구현',
       '무한 스크롤 목록 조회 및 실시간 채팅 기능 직접 구현',
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
   {
     title: '새차처럼',
     subtitle: '손세차 매장 정보 및 예약 플랫폼',
-    role: 'Front-End Developer',
+    role: 'Frontend Developer',
     points: [
       '매장 정보 제공, 예약 및 리뷰가 가능한 웹 플랫폼',
       '상인 홍보/예약 시스템, 사용자 정보 탐색/합리 가격 연결',
