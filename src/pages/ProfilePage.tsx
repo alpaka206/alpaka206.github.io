@@ -14,9 +14,9 @@ function ProfileDivider() {
 export default function ProfilePage() {
   return (
     <div className='min-h-screen w-full bg-[#f9f9f9] text-[#1a1a1a]'>
-      <div className='w-full max-w-[1400px] mx-auto pb-10'>
+      <div className='w-full max-w-[1400px] mx-auto pb-10 pr-2'>
         <div className='flex items-start'>
-          <aside className='hidden md:block sticky top-6 h-fit self-start'>
+          <aside className='hidden md:block sticky top-0 h-fit self-start'>
             <SideNav />
           </aside>
 
