@@ -18,8 +18,10 @@ export function ProjectDetail({ data: D }: { data: ProjectData }) {
 
       <img
         src={D.hero}
-        alt='hero'
+        alt={`프로젝트 대표 이미지: ${D.title}`}
         className='w-4/5 max-w-[400px] mx-auto mb-4 rounded-md'
+        loading='eager'
+        decoding='async'
       />
 
       {D.skills && (

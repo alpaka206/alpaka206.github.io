@@ -1,9 +1,7 @@
 import { create } from 'zustand';
-import React from 'react';
 
 export type PageType =
   | 'about'
-  | 'project'
   | 'blog'
   | 'insta'
   | 'awards'
@@ -15,10 +13,16 @@ export interface PageTab {
   id: PageType;
   title: string;
   icon: string;
-  content: React.ReactNode;
 }
 
 type WindowType = 'pages' | 'folder';
+
+export type FolderContentType = 'projects';
+
+interface WindowBounds {
+  position: { x: number; y: number };
+  size: { w: number; h: number } | null;
+}
 
 interface BaseWindow {
   id: string;
@@ -31,6 +35,7 @@ interface BaseWindow {
   isMinimized: boolean;
   isMaximized: boolean;
   zIndex: number;
+  prevBounds?: WindowBounds;
 }
 
 export interface PagesWindow extends BaseWindow {
@@ -41,7 +46,7 @@ export interface PagesWindow extends BaseWindow {
 
 export interface FolderWindow extends BaseWindow {
   type: 'folder';
-  content: React.ReactNode;
+  contentType: FolderContentType;
 }
 
 export type AnyWindow = PagesWindow | FolderWindow;
@@ -59,7 +64,7 @@ interface DesktopState {
     id?: string;
     title: string;
     icon: string;
-    content: React.ReactNode;
+    contentType: FolderContentType;
     initialPos?: { x: number; y: number };
   }) => void;
 
@@ -72,7 +77,7 @@ interface DesktopState {
   // -------- 윈도우 제어 ----------
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
-  maximizeWindow: (id: string) => void; // 토글
+  maximizeWindow: (id: string) => void;
   closeWindow: (id: string) => void;
   toggleTaskbarItem: (id: string) => void;
 
@@ -117,7 +122,6 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
 
   // ------------- 열기/포커스 -------
   openPage: (tab) => {
-    // 1) pages 창이 없으면 만든다
     let pages = get().getPagesWindow();
 
     if (!pages) {
@@ -141,10 +145,9 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
         zIndexCounter: nextZ,
         activeWindowId: PAGE_WINDOW_ID,
       }));
-      pages = get().getPagesWindow(); // 업데이트 후 다시 조회
+      pages = get().getPagesWindow();
     }
 
-    // 2) 탭 추가/활성 + zIndex 올리기
     set((s) => {
       const updated = s.windows.map((w) => {
         if (w.id !== PAGE_WINDOW_ID) return w;
@@ -168,7 +171,13 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
     });
   },
 
-  openFolder: ({ id = 'folder:root', title, icon, content, initialPos }) => {
+  openFolder: ({
+    id = 'folder:root',
+    title,
+    icon,
+    contentType,
+    initialPos,
+  }) => {
     const { windows, zIndexCounter } = get();
     const existing = windows.find((w) => w.id === id) as
       | FolderWindow
@@ -198,7 +207,7 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
       type: 'folder',
       title,
       icon,
-      content,
+      contentType,
       position: initialPos ?? { x: 120, y: 120 },
       size: null,
       isOpen: true,
@@ -249,7 +258,9 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
       });
 
       const stillOpen = (
-        updated.find((w) => w.id === PAGE_WINDOW_ID) as PagesWindow | undefined
+        updated.find((w) => w.id === PAGE_WINDOW_ID) as
+          | PagesWindow
+          | undefined
       )?.isOpen;
 
       return {
@@ -257,8 +268,8 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
         activeWindowId: stillOpen
           ? s.activeWindowId
           : s.activeWindowId === PAGE_WINDOW_ID
-          ? null
-          : s.activeWindowId,
+            ? null
+            : s.activeWindowId,
       };
     });
   },
@@ -319,18 +330,16 @@ export const useDesktopStore = create<DesktopState>((set, get) => ({
           return {
             ...w,
             isMaximized: true,
-            __prevBounds: { position: w.position, size: w.size },
-          } as any;
-        } else {
-          const prev = (w as any).__prevBounds;
-          return {
-            ...w,
-            isMaximized: false,
-            position: prev?.position ?? w.position,
-            size: prev?.size ?? w.size,
-            __prevBounds: undefined,
-          } as any;
+            prevBounds: { position: w.position, size: w.size },
+          };
         }
+        return {
+          ...w,
+          isMaximized: false,
+          position: w.prevBounds?.position ?? w.position,
+          size: w.prevBounds?.size ?? w.size,
+          prevBounds: undefined,
+        };
       }),
     }));
   },

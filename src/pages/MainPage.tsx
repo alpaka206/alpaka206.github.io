@@ -1,25 +1,11 @@
 import { FolderIcon } from '@/components/FolderIcon';
 import { useDesktopStore } from '@/stores/useDesktopStore';
 import Desktop from '@/features/desktop/components/Desktop';
-import FolderView from '@/features/folder-window/components/FolderView';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 
 export default function MainPage() {
   const openPage = useDesktopStore((s) => s.openPage);
   const openFolder = useDesktopStore((s) => s.openFolder);
-
-  const openGitHubPage = () => {
-    const popupWidth = 1200;
-    const popupHeight = 600;
-    const popupX = Math.round(
-      window.screenX + window.outerWidth / 2 - popupWidth / 2
-    );
-    const popupY = Math.round(
-      window.screenY + window.outerHeight / 2 - popupHeight / 2
-    );
-    const featureWindow = `width=${popupWidth}, height=${popupHeight}, left=${popupX}, top=${popupY}`;
-    return window.open('https://github.com/alpaka206', '_blank', featureWindow);
-  };
 
   return (
     <div
@@ -46,7 +32,7 @@ export default function MainPage() {
               id: 'folder:projects',
               title: 'Projects',
               icon: '/assets/common/system/window/folder.webp',
-              content: <FolderView />,
+              contentType: 'projects',
               initialPos: { x: 160, y: 120 },
             })
           }
@@ -69,7 +55,9 @@ export default function MainPage() {
         <FolderIcon
           imageUrl='/assets/common/socials/Github.webp'
           title='GitHub'
-          onClick={openGitHubPage}
+          onClick={() =>
+            window.open('https://github.com/alpaka206', '_blank', 'noopener')
+          }
         />
       </div>
       <Desktop />
