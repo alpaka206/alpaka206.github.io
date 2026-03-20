@@ -1,11 +1,10 @@
 import { Link } from 'react-scroll';
+import { usePageScrollContainerId } from '@/features/pages-window/context/PageScrollContext';
 import {
   DESKTOP_SCROLL_OFFSET,
   MOBILE_SCROLL_OFFSET,
   NAV_ITEMS,
 } from '../data/nav';
-
-const SCROLL_CONTAINER_ID = 'pages-scroll-container';
 
 export function SideNav({
   orientation = 'vertical',
@@ -13,6 +12,7 @@ export function SideNav({
   orientation?: 'vertical' | 'horizontal';
 }) {
   const isHorizontal = orientation === 'horizontal';
+  const scrollContainerId = usePageScrollContainerId();
   const offset = isHorizontal
     ? MOBILE_SCROLL_OFFSET
     : DESKTOP_SCROLL_OFFSET;
@@ -34,7 +34,7 @@ export function SideNav({
           smooth
           duration={320}
           offset={offset}
-          containerId={SCROLL_CONTAINER_ID}
+          containerId={scrollContainerId}
           activeClass='!border-[#0b61d8] !bg-[#0b61d8] !text-white shadow-[0_10px_24px_rgba(11,97,216,0.18)]'
           className={[
             'inline-flex cursor-pointer items-center rounded-full border border-transparent px-2.5 py-1.5 text-[13px] font-semibold whitespace-nowrap text-[#4b5563] transition-all',
