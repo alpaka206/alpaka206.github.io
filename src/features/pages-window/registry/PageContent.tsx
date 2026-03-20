@@ -22,7 +22,7 @@ const PAGE_CONTENT_MAP: Record<PageType, PageEntry> = {
   },
   'share-it': {
     kind: 'component',
-    Component: lazy(() => import('@/features/projects/shareit/Page')),
+    Component: lazy(() => import('@/features/projects/share-it/Page')),
   },
   alnc: {
     kind: 'component',

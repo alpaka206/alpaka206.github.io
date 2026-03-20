@@ -15,7 +15,13 @@ import {
 
 export const ALNC_DATA: ProjectData = {
   title: '새차처럼',
-  hero: '/assets/projects/ALNC/main.webp',
+  hero: '/assets/projects/alnc/main.webp',
+  featuredAssets: [
+    '/assets/projects/alnc/main.webp',
+    '/assets/projects/alnc/login.webp',
+    '/assets/projects/alnc/selection/select-service.webp',
+    '/assets/projects/alnc/list/history.webp',
+  ],
   summary: ALNC_SUMMARY,
   highlights: ALNC_HIGHLIGHTS,
   responsibilities: ALNC_RESPONSIBILITIES,

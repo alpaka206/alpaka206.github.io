@@ -15,7 +15,13 @@ import {
 
 export const COMATCHING_DATA: ProjectData = {
   title: 'COMATCHING',
-  hero: '/assets/projects/Comatching/main.webp',
+  hero: '/assets/projects/comatching/main.webp',
+  featuredAssets: [
+    '/assets/projects/comatching/main.webp',
+    '/assets/projects/comatching/register/login.webp',
+    '/assets/projects/comatching/register/chat.webp',
+    '/assets/projects/comatching/matching/matching.webp',
+  ],
   summary: COMATCHING_SUMMARY,
   highlights: COMATCHING_HIGHLIGHTS,
   responsibilities: COMATCHING_RESPONSIBILITIES,
