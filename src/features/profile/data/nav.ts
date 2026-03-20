@@ -10,4 +10,5 @@ export const NAV_ITEMS: NavItem[] = [
   { name: 'Experience', target: 'experience' },
 ];
 
-export const SCROLL_OFFSET = -24;
+export const DESKTOP_SCROLL_OFFSET = -24;
+export const MOBILE_SCROLL_OFFSET = -72;

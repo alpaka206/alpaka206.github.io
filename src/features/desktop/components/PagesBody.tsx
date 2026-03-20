@@ -13,7 +13,7 @@ export function PagesBody({ win }: { win: PagesWindow }) {
     <div className='flex flex-col w-full h-full min-h-0'>
       <div
         id='pages-scroll-container'
-        className='flex-1 min-h-0 overflow-y-auto p-0
+        className='app-scroll flex-1 min-h-0 overflow-y-auto overscroll-y-contain p-0
                    [&_img]:max-w-full [&_img]:h-auto [&_img]:object-contain
                    [&_iframe]:w-full [&_iframe]:h-full'
       >
