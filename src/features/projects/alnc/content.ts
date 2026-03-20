@@ -44,12 +44,12 @@ export const ALNC_SECTIONS: ProjectSection[] = [
   {
     title: '기능 - 로그인',
     bullets: ['사용자 구분을 위한 로그인 기능'],
-    images: ['/assets/projects/ALNC/login.webp'],
+    images: ['/assets/projects/alnc/login.webp'],
   },
   {
     title: '메인페이지',
     bullets: ['날씨정보 확인 가능', '간단한 게시글 열람 가능'],
-    images: ['/assets/projects/ALNC/main.webp'],
+    images: ['/assets/projects/alnc/main.webp'],
   },
   {
     title: '견적 신청',
@@ -59,22 +59,22 @@ export const ALNC_SECTIONS: ProjectSection[] = [
       '사진 및 정보 작성 가능',
     ],
     images: [
-      '/assets/projects/ALNC/selection/select-service.webp',
-      '/assets/projects/ALNC/selection/select-option.webp',
-      '/assets/projects/ALNC/selection/select-priority.webp',
+      '/assets/projects/alnc/selection/select-service.webp',
+      '/assets/projects/alnc/selection/select-option.webp',
+      '/assets/projects/alnc/selection/select-priority.webp',
     ],
   },
   {
     title: '견적서 보기',
     bullets: ['견적서 보낸 업체 리스트 열람', '업체 상세정보 열람'],
     images: [
-      '/assets/projects/ALNC/list/history.webp',
-      '/assets/projects/ALNC/list/detail.webp',
+      '/assets/projects/alnc/list/history.webp',
+      '/assets/projects/alnc/list/detail.webp',
     ],
   },
   {
     title: '견적함',
     bullets: ['예약 내역 열람 가능'],
-    images: ['/assets/projects/ALNC/quotes-overview.webp'],
+    images: ['/assets/projects/alnc/quotes-overview.webp'],
   },
 ];

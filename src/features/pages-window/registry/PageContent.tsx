@@ -22,7 +22,7 @@ const PAGE_CONTENT_MAP: Record<PageType, PageEntry> = {
   },
   'share-it': {
     kind: 'component',
-    Component: lazy(() => import('@/features/projects/shareit/Page')),
+    Component: lazy(() => import('@/features/projects/share-it/Page')),
   },
   alnc: {
     kind: 'component',
@@ -40,7 +40,13 @@ const PAGE_CONTENT_MAP: Record<PageType, PageEntry> = {
   },
 };
 
-export function PageContent({ pageId }: { pageId: PageType }) {
+export function PageContent({
+  pageId,
+  onIframeFocus,
+}: {
+  pageId: PageType;
+  onIframeFocus?: () => void;
+}) {
   const entry = PAGE_CONTENT_MAP[pageId];
 
   if (entry.kind === 'iframe') {
@@ -49,6 +55,7 @@ export function PageContent({ pageId }: { pageId: PageType }) {
         src={entry.src}
         title={entry.title}
         className='w-full h-full border-0'
+        onFocus={onIframeFocus}
       />
     );
   }

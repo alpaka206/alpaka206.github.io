@@ -15,7 +15,13 @@ import {
 
 export const SHAREIT_DATA: ProjectData = {
   title: 'Share-It',
-  hero: '/assets/projects/ShareIt/main/main.webp',
+  hero: '/assets/projects/share-it/main/main.webp',
+  featuredAssets: [
+    '/assets/projects/share-it/main/main.webp',
+    '/assets/projects/share-it/register/login_kakao.webp',
+    '/assets/projects/share-it/register/login_email.webp',
+    '/assets/projects/share-it/search.webp',
+  ],
   summary: SHAREIT_SUMMARY,
   highlights: SHAREIT_HIGHLIGHTS,
   responsibilities: SHAREIT_RESPONSIBILITIES,
