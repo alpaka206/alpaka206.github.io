@@ -8,6 +8,7 @@ import { useShallow } from 'zustand/shallow';
 
 export function WindowShell({ win }: { win: AnyWindow }) {
   const {
+    activeWindowId,
     focusWindow,
     minimizeWindow,
     maximizeWindow,
@@ -17,6 +18,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
     closeTab,
   } = useDesktopStore(
     useShallow((s) => ({
+      activeWindowId: s.activeWindowId,
       focusWindow: s.focusWindow,
       minimizeWindow: s.minimizeWindow,
       maximizeWindow: s.maximizeWindow,
@@ -47,7 +49,9 @@ export function WindowShell({ win }: { win: AnyWindow }) {
 
   const onPointerDownHeader = (e: React.PointerEvent) => {
     if ((e.target as HTMLElement).closest('[data-nodrag]')) return;
-    focusWindow(win.id);
+    if (activeWindowId !== win.id || win.isMinimized) {
+      focusWindow(win.id);
+    }
     (e.target as Element).setPointerCapture?.(e.pointerId);
     draggingRef.current = {
       startX: e.clientX,
@@ -80,6 +84,12 @@ export function WindowShell({ win }: { win: AnyWindow }) {
     (e.target as Element).releasePointerCapture?.(e.pointerId);
   };
 
+  const onPointerDownShellCapture = () => {
+    if (activeWindowId !== win.id || win.isMinimized) {
+      focusWindow(win.id);
+    }
+  };
+
   return (
     <div
       ref={shellRef}
@@ -87,6 +97,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
         win.isMaximized ? 'inset-0' : ''
       } ${win.isOpen && !win.isMinimized ? '' : 'hidden'}`}
       style={shellStyle}
+      onPointerDownCapture={onPointerDownShellCapture}
     >
       <div className='flex flex-col w-full h-full rounded-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.3)] overflow-hidden border border-[#888] bg-[#fefefe]'>
         <div
