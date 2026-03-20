@@ -49,8 +49,8 @@ export const SHAREIT_SECTIONS: ProjectSection[] = [
       '입력 시 다음 단계 슬라이딩',
     ],
     images: [
-      '/assets/projects/ShareIt/register/login_kakao.webp',
-      '/assets/projects/ShareIt/register/login_email.webp',
+      '/assets/projects/share-it/register/login_kakao.webp',
+      '/assets/projects/share-it/register/login_email.webp',
     ],
   },
   {
@@ -62,8 +62,8 @@ export const SHAREIT_SECTIONS: ProjectSection[] = [
       '최근 검색어 & 자동완성',
     ],
     images: [
-      '/assets/projects/ShareIt/search.webp',
-      '/assets/projects/ShareIt/sidebar.webp',
+      '/assets/projects/share-it/search.webp',
+      '/assets/projects/share-it/sidebar.webp',
     ],
   },
   {
@@ -73,36 +73,36 @@ export const SHAREIT_SECTIONS: ProjectSection[] = [
       '사진 & 가격 & 해시태그 & 부가설명',
       '빌려주기만 사진 필수',
     ],
-    images: ['/assets/projects/ShareIt/registration.webp'],
+    images: ['/assets/projects/share-it/registration.webp'],
   },
   {
     title: '리스트',
     bullets: ['최근 등록순 기본', '무한 스크롤', '인기 해시태그'],
     images: [
-      '/assets/projects/ShareIt/borrow/list.webp',
-      '/assets/projects/ShareIt/need/list.webp',
+      '/assets/projects/share-it/borrow/list.webp',
+      '/assets/projects/share-it/need/list.webp',
     ],
   },
   {
     title: '상세페이지',
     bullets: ['평점/좋아요 확인'],
     images: [
-      '/assets/projects/ShareIt/borrow/detail.webp',
-      '/assets/projects/ShareIt/need/detail.webp',
+      '/assets/projects/share-it/borrow/detail.webp',
+      '/assets/projects/share-it/need/detail.webp',
     ],
   },
   {
     title: '채팅페이지',
     bullets: ['약속 잡기, 거래 완료'],
     images: [
-      '/assets/projects/ShareIt/chat/chat.webp',
-      '/assets/projects/ShareIt/chat/widget.webp',
+      '/assets/projects/share-it/chat/chat.webp',
+      '/assets/projects/share-it/chat/widget.webp',
     ],
   },
   {
     title: '리뷰페이지',
     bullets: ['거래내역 확인, 별점 부여'],
-    images: ['/assets/projects/ShareIt/review.webp'],
+    images: ['/assets/projects/share-it/review.webp'],
   },
   {
     title: '개발한 내역',

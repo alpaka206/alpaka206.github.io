@@ -8,7 +8,7 @@ const FOLDER_CONTENT: Record<FolderContentType, React.FC> = {
 export function FolderBody({ win }: { win: FolderWindow }) {
   const Content = FOLDER_CONTENT[win.contentType];
   return (
-    <div className='w-full h-full min-h-0 overflow-auto'>
+    <div className='app-scroll w-full h-full min-h-0 overflow-auto bg-[#f0f0f0]'>
       <Content />
     </div>
   );

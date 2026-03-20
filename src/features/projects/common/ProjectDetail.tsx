@@ -10,11 +10,14 @@ import { GitHubLink } from './GitHubLink';
 import type { ProjectData, ProjectImageItem } from './types';
 import { ProjectImageGrid } from './ProjectImageGrid';
 import { ProjectImageModal } from './ProjectImageModal';
+import { useImagePreload } from '@/utils/preloadAssets';
 
 export function ProjectDetail({ data: D }: { data: ProjectData }) {
   const [selectedImage, setSelectedImage] = useState<ProjectImageItem | null>(
     null
   );
+
+  useImagePreload(D.featuredAssets ?? [D.hero]);
 
   return (
     <ProjectLayout>

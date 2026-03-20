@@ -3,6 +3,7 @@ type Props = {
   title: string;
   onClick?: () => void;
   className?: string;
+  imageFrameClassName?: string;
   variant?: 'desktop' | 'folder';
 };
 
@@ -11,6 +12,7 @@ export function FolderIcon({
   title,
   onClick,
   className,
+  imageFrameClassName,
   variant = 'desktop',
 }: Props) {
   const labelTone =
@@ -39,7 +41,12 @@ export function FolderIcon({
         className ?? '',
       ].join(' ')}
     >
-      <div className='size-12 md:size-14 shrink-0 grid place-items-center'>
+      <div
+        className={[
+          'size-12 md:size-14 shrink-0 grid place-items-center',
+          imageFrameClassName ?? '',
+        ].join(' ')}
+      >
         <img
           src={imageUrl}
           alt={title}

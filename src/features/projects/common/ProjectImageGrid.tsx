@@ -19,7 +19,7 @@ export function ProjectImageGrid({
     return (
       <div
         className={[
-          'flex gap-3 overflow-x-auto pb-2',
+          'horizontal-scroll flex gap-3 overflow-x-auto overscroll-x-contain pb-3 pr-1',
           'scroll-smooth snap-x snap-mandatory',
           className ?? '',
         ].join(' ')}
@@ -56,7 +56,7 @@ export function ProjectImageGrid({
     <div
       className={[
         'grid grid-cols-2 lg:grid-cols-3',
-        'gap-3',
+        'gap-3 items-start',
         className ?? '',
       ].join(' ')}
     >

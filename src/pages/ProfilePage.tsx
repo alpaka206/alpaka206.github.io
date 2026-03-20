@@ -1,3 +1,4 @@
+import { PROFILE_FEATURED_ASSETS } from '@/config/featured-assets';
 import { SideNav } from '@/features/profile/components/SideNav';
 import { AboutSection } from '@/features/profile/sections/AboutSection';
 import { ContactSection } from '@/features/profile/sections/ContactSection';
@@ -6,23 +7,28 @@ import { ProjectsSection } from '@/features/profile/sections/ProjectsSection';
 import { CareerSection } from '@/features/profile/sections/CareerSection';
 import { EducationSection } from '@/features/profile/sections/EducationSection';
 import { ExperienceSection } from '@/features/profile/sections/ExperienceSection';
+import { useImagePreload } from '@/utils/preloadAssets';
 
 function ProfileDivider() {
-  return <hr className='w-full h-px bg-[#ddd] border-0' />;
+  return <hr className='my-6 w-full h-px bg-[#ddd] border-0' />;
 }
 
 export default function ProfilePage() {
+  useImagePreload(PROFILE_FEATURED_ASSETS);
+
   return (
-    <div className='min-h-screen w-full bg-[#f9f9f9] text-[#1a1a1a]'>
-      <div className='w-full max-w-[1400px] mx-auto pb-10 pr-2'>
-        <div className='flex items-start'>
-          <aside className='hidden md:block sticky top-0 h-fit self-start'>
+    <div className='min-h-full w-full bg-[linear-gradient(180deg,#fafafa_0%,#f3f4f6_100%)] text-[#1a1a1a]'>
+      <div className='mx-auto w-full max-w-[1480px] px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-8'>
+        <div className='sticky top-0 z-20 -mx-4 mb-5 border-b border-[#e5e7eb] bg-[#f9f9f9]/95 px-4 py-3 backdrop-blur md:hidden'>
+          <SideNav orientation='horizontal' />
+        </div>
+
+        <div className='grid grid-cols-1 items-start gap-5 md:grid-cols-[7rem_minmax(0,1fr)] lg:grid-cols-[7.25rem_minmax(0,1fr)] lg:gap-7'>
+          <aside className='hidden self-start md:sticky md:top-6 md:block'>
             <SideNav />
           </aside>
 
-          <div className='hidden md:block w-px self-stretch bg-[#ddd]' />
-
-          <main className='flex-1 min-w-0 break-words pl-6 [&_img]:max-w-full [&_img]:h-auto'>
+          <main className='min-w-0 break-words rounded-[24px] border border-white/70 bg-white/80 px-5 py-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-sm md:px-8 md:py-6 [&_img]:h-auto [&_img]:max-w-full'>
             <AboutSection />
             <ProfileDivider />
             <ContactSection />

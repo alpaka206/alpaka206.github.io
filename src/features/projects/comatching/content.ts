@@ -59,10 +59,10 @@ export const COMATCHING_SECTIONS: ProjectSection[] = [
       '순서대로 추가 정보를 입력 받음',
     ],
     images: [
-      '/assets/projects/Comatching/register/login.webp',
-      '/assets/projects/Comatching/register/chat.webp',
-      '/assets/projects/Comatching/register/hobby.webp',
-      '/assets/projects/Comatching/register/user-info.webp',
+      '/assets/projects/comatching/register/login.webp',
+      '/assets/projects/comatching/register/chat.webp',
+      '/assets/projects/comatching/register/hobby.webp',
+      '/assets/projects/comatching/register/user-info.webp',
     ],
   },
   {
@@ -73,8 +73,8 @@ export const COMATCHING_SECTIONS: ProjectSection[] = [
       'QR코드로 빠르게 진행 가능',
     ],
     images: [
-      '/assets/projects/Comatching/main.webp',
-      '/assets/projects/Comatching/charge.webp',
+      '/assets/projects/comatching/main.webp',
+      '/assets/projects/comatching/charge.webp',
     ],
   },
   {
@@ -84,22 +84,22 @@ export const COMATCHING_SECTIONS: ProjectSection[] = [
       'AI를 활용하여 본인이 고른 조건과 가장 유사한 사람 제공',
     ],
     images: [
-      '/assets/projects/Comatching/matching/matching.webp',
-      '/assets/projects/Comatching/matching/loading.webp',
-      '/assets/projects/Comatching/matching/result.webp',
+      '/assets/projects/comatching/matching/matching.webp',
+      '/assets/projects/comatching/matching/loading.webp',
+      '/assets/projects/comatching/matching/result.webp',
     ],
   },
   {
     title: '결과 모아보기',
     bullets: ['본인이 뽑은 내역 확인 가능 및 사후평가'],
-    images: ['/assets/projects/Comatching/result-overview.webp'],
+    images: ['/assets/projects/comatching/result-overview.webp'],
   },
   {
     title: '관리자 충전 내역 관리',
     bullets: ['관리자가 포인트 충전 및 뽑힐 횟수 증가 가능'],
     images: [
-      '/assets/projects/Comatching/admin/admin-login.webp',
-      '/assets/projects/Comatching/admin/request.webp',
+      '/assets/projects/comatching/admin/admin-login.webp',
+      '/assets/projects/comatching/admin/request.webp',
     ],
   },
 ];
