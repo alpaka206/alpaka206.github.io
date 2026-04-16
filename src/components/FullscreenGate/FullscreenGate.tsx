@@ -1,9 +1,34 @@
 import { useEffect, useState } from 'react';
+import { getWallpaperStyle } from '@/features/desktop/config/shell';
+import { useClock } from '@/hooks/useClock';
 import { useFullscreen } from '@/hooks/useFullscreen';
-import { useStartStore } from '@/stores/useStartStore';
+import { useVisitorCount } from '@/hooks/useVisitorCount';
+import {
+  useDesktopPreferencesStore,
+  useStartStore,
+} from '@/stores';
+import { playSystemSound } from '@/utils/systemSounds';
+
+function formatLockTime(now: Date) {
+  return new Intl.DateTimeFormat('ko-KR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(now);
+}
+
+function formatLockDate(now: Date) {
+  return new Intl.DateTimeFormat('ko-KR', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  }).format(now);
+}
 
 export default function FullscreenGate() {
   const { request } = useFullscreen();
+  const now = useClock();
+  const visitorCount = useVisitorCount();
+  const wallpaperId = useDesktopPreferencesStore((s) => s.wallpaperId);
 
   const started = useStartStore((s) => s.started);
   const markStarted = useStartStore((s) => s.markStarted);
@@ -16,73 +41,77 @@ export default function FullscreenGate() {
       await request();
       await new Promise<void>((resolve) => {
         let done = false;
-        const h = () => {
+        const handle = () => {
           if (!done) {
             done = true;
-            document.removeEventListener('fullscreenchange', h);
+            document.removeEventListener('fullscreenchange', handle);
             resolve();
           }
         };
-        document.addEventListener('fullscreenchange', h, { once: true });
+        document.addEventListener('fullscreenchange', handle, { once: true });
         setTimeout(() => {
           if (!done) {
             done = true;
             resolve();
           }
-        }, 150);
+        }, 180);
       });
     } catch {}
+
     markStarted();
     setVisible(false);
+    playSystemSound('startup');
   };
+
+  useEffect(() => {
+    if (!visible) return;
+
+    const onKeyDown = () => {
+      void enter();
+    };
+
+    window.addEventListener('keydown', onKeyDown, { once: true });
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [visible]);
 
   if (!visible) return null;
 
   return (
-    <div
-      className={[
-        'fixed inset-0 z-[9999] select-none text-white',
-        'bg-[url("/assets/common/system/window/BGimage.webp")] bg-cover bg-center',
-      ].join(' ')}
+    <button
+      onClick={() => void enter()}
+      className='fixed inset-0 z-[10000] block select-none text-left text-white'
+      style={getWallpaperStyle(wallpaperId)}
     >
       <div
-        className='absolute inset-0 bg-white/10 md:bg-white/5 backdrop-blur-3xl backdrop-saturate-150'
+        className='absolute inset-0 bg-[linear-gradient(180deg,rgba(4,11,24,0.26)_0%,rgba(5,10,20,0.56)_100%)]'
         aria-hidden
       />
 
-      <div className='relative w-full h-full absolute inset-0 grid place-items-center px-4'>
-        <div className='w-[360px] max-w-[90vw] rounded-2xl border border-white/20 shadow-2xl bg-white/14 backdrop-blur-2xl p-6 text-center'>
-          <div className='mx-auto size-40 rounded-full overflow-hidden ring-1 ring-white/30 shadow-inner'>
-            <img
-              src='/assets/common/profile/ProfileImage.webp'
-              alt='프로필'
-              className='w-full h-full object-cover object-[0%_10%]'
-              draggable={false}
-            />
+      <div className='relative flex h-full flex-col justify-between px-6 py-8 md:px-10 md:py-10'>
+        <div className='flex items-start justify-between'>
+          <div className='rounded-full border border-white/20 bg-black/20 px-4 py-2 text-xs font-medium tracking-[0.18em] text-white/80 backdrop-blur-xl'>
+            Click or press any key to unlock
           </div>
-          <div className='mt-4 text-[22px] font-semibold drop-shadow'>
-            환영합니다
-          </div>
-          <div className='mt-1 text-sm opacity-90'>
-            김규원의 포트폴리오입니다.
-          </div>
+          {visitorCount !== null ? (
+            <div className='rounded-full border border-white/20 bg-black/20 px-4 py-2 text-xs font-medium text-white/85 backdrop-blur-xl'>
+              Visitors {visitorCount.toLocaleString()}
+            </div>
+          ) : null}
+        </div>
 
-          <button
-            onClick={enter}
-            className='mt-6 w-full rounded-xl py-3 font-medium bg-white text-black hover:bg-white/90 transition-colors'
-          >
-            전체 화면으로 시작하기
-          </button>
-
-          <div className='mt-4 pt-3 border-t border-white/10 text-xs opacity-90 flex items-center justify-center gap-4'>
-            <span>로그인 옵션</span>
-            <span className='opacity-60'>•</span>
-            <span>네트워크</span>
-            <span className='opacity-60'>•</span>
-            <span>접근성</span>
+        <div className='max-w-[680px] pb-20'>
+          <div className='text-[82px] font-semibold leading-none tracking-[-0.05em] md:text-[112px]'>
+            {formatLockTime(now)}
+          </div>
+          <div className='mt-4 text-[22px] font-medium text-white/88 md:text-[28px]'>
+            {formatLockDate(now)}
+          </div>
+          <div className='mt-6 max-w-[520px] text-sm leading-7 text-white/76 md:text-[15px]'>
+            Windows-inspired shell for portfolio, projects, browser previews,
+            notes, and a curated code explorer.
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
