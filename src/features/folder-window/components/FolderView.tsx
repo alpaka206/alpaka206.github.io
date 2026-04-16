@@ -11,19 +11,19 @@ const FOLDER_ITEMS: Array<{
   {
     id: 'comatching',
     title: 'COMATCHING',
-    icon: '/assets/projects/comatching/icon.webp',
+    icon: '/assets/projects/comatching/comatching-icon.webp',
   },
   {
     id: 'share-it',
     title: 'Share-It',
-    icon: '/assets/projects/share-it/icon.webp',
+    icon: '/assets/projects/share-it/share-it-icon.webp',
     iconFrameClassName:
       'rounded-[18px] border border-black/10 bg-white/90 p-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.08)]',
   },
   {
     id: 'alnc',
     title: '새차처럼',
-    icon: '/assets/projects/alnc/icon.webp',
+    icon: '/assets/projects/alnc/alnc-icon.webp',
   },
 ];
 

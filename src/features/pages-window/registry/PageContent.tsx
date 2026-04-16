@@ -1,73 +1,72 @@
-import { lazy, Suspense, type ComponentType } from 'react';
+import {
+  lazy,
+  Suspense,
+  type ComponentType,
+  type LazyExoticComponent,
+} from 'react';
+import { BROWSER_APPS } from '@/features/desktop/config/shell';
 import type { PageType } from '@/stores/useDesktopStore';
 
-type LazyComponent = React.LazyExoticComponent<ComponentType>;
+type LazyComponent = LazyExoticComponent<ComponentType>;
 
-type PageEntry =
-  | { kind: 'component'; Component: LazyComponent }
-  | { kind: 'iframe'; src: string; title: string };
-
-const PAGE_CONTENT_MAP: Record<PageType, PageEntry> = {
-  about: {
-    kind: 'component',
-    Component: lazy(() => import('@/pages/ProfilePage')),
-  },
-  awards: {
-    kind: 'component',
-    Component: lazy(() => import('@/pages/PrizePage')),
-  },
-  comatching: {
-    kind: 'component',
-    Component: lazy(() => import('@/features/projects/comatching/Page')),
-  },
-  'share-it': {
-    kind: 'component',
-    Component: lazy(() => import('@/features/projects/share-it/Page')),
-  },
-  alnc: {
-    kind: 'component',
-    Component: lazy(() => import('@/features/projects/alnc/Page')),
-  },
-  blog: {
-    kind: 'iframe',
-    src: 'https://alpaka206.vercel.app/',
-    title: 'Tech Blog',
-  },
-  insta: {
-    kind: 'iframe',
-    src: 'https://www.instagram.com/alpaka_dev/embed',
-    title: 'Instagram',
-  },
+const PAGE_CONTENT_MAP: Partial<Record<PageType, LazyComponent>> = {
+  about: lazy(() => import('@/pages/ProfilePage')),
+  awards: lazy(() => import('@/pages/PrizePage')),
+  comatching: lazy(() => import('@/features/projects/comatching/Page')),
+  'share-it': lazy(() => import('@/features/projects/share-it/Page')),
+  alnc: lazy(() => import('@/features/projects/alnc/Page')),
 };
 
 export function PageContent({
   pageId,
-  onIframeFocus,
+  refreshToken = 0,
 }: {
   pageId: PageType;
-  onIframeFocus?: () => void;
+  refreshToken?: number;
 }) {
-  const entry = PAGE_CONTENT_MAP[pageId];
+  const Component = PAGE_CONTENT_MAP[pageId];
 
-  if (entry.kind === 'iframe') {
+  if (Component) {
     return (
-      <iframe
-        src={entry.src}
-        title={entry.title}
-        className='w-full h-full border-0'
-        onFocus={onIframeFocus}
-      />
+      <Suspense
+        fallback={<div className='p-4 text-sm text-black/60'>Loading...</div>}
+      >
+        <Component key={`${pageId}-${refreshToken}`} />
+      </Suspense>
     );
   }
 
-  const { Component } = entry;
+  if (pageId === 'github') {
+    const app = BROWSER_APPS.github;
+    return (
+      <div className='grid h-full place-items-center bg-[linear-gradient(180deg,#f8fafc_0%,#e9eef5_100%)] p-8'>
+        <div className='w-full max-w-[720px] rounded-[28px] border border-white/70 bg-white/90 p-8 text-[#0f172a] shadow-[0_24px_60px_rgba(15,23,42,0.12)]'>
+          <div className='text-[26px] font-semibold'>Preview unavailable</div>
+          <p className='mt-3 text-sm leading-7 text-[#475569]'>
+            {app.description}
+          </p>
+          <div className='mt-6 rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-4 text-sm text-[#334155]'>
+            {app.address}
+          </div>
+          <button
+            onClick={() => window.open(app.url, '_blank', 'noopener,noreferrer')}
+            className='mt-6 rounded-2xl bg-[#0b61d8] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#084eaf]'
+          >
+            Open on GitHub
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const app = pageId === 'blog' ? BROWSER_APPS.blog : BROWSER_APPS.insta;
+
   return (
-    <Suspense
-      fallback={
-        <div className='p-4 text-black/60 text-sm'>Loading...</div>
-      }
-    >
-      <Component />
-    </Suspense>
+    <iframe
+      key={`${pageId}-${refreshToken}`}
+      src={app.url}
+      title={app.title}
+      className='h-full w-full border-0 bg-white'
+    />
   );
 }

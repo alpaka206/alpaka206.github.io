@@ -68,3 +68,11 @@
   border-radius: 999px;
   background-clip: padding-box;
 }
+
+.tab-strip-scroll {
+  scrollbar-width: none;
+}
+
+.tab-strip-scroll::-webkit-scrollbar {
+  display: none;
+}
