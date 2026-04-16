@@ -14,7 +14,7 @@ export function PageTabsInline({
       className='flex h-full min-w-0 items-end overflow-hidden pl-2 pr-1 pb-0 pt-[6px]'
       data-nodrag
     >
-      <div className='tab-strip-scroll flex min-w-0 flex-1 items-end gap-0.5 overflow-x-auto overflow-y-hidden px-[8px]'>
+      <div className='tab-strip-scroll flex min-w-0 flex-1 items-end gap-0 overflow-x-auto overflow-y-hidden px-[8px]'>
         {win.tabs.map((t, index) => {
           const isActive = t.id === win.activeTabId;
           const prevTab = win.tabs[index - 1];
@@ -39,22 +39,22 @@ export function PageTabsInline({
                 <>
                   <span
                     aria-hidden='true'
-                    className='pointer-events-none absolute -left-[10px] bottom-0 h-[10px] w-[10px] bg-[#4a4c4f]'
+                    className='pointer-events-none absolute -left-[5px] bottom-0 h-[6px] w-[6px] bg-[#4a4c4f]'
                     style={{
                       WebkitMaskImage:
-                        'radial-gradient(circle at top left, transparent 7.5px, black 8px)',
+                        'radial-gradient(circle at top left, transparent 3.5px, black 4px)',
                       maskImage:
-                        'radial-gradient(circle at top left, transparent 7.5px, black 8px)',
+                        'radial-gradient(circle at top left, transparent 3.5px, black 4px)',
                     }}
                   />
                   <span
                     aria-hidden='true'
-                    className='pointer-events-none absolute -right-[10px] bottom-0 h-[10px] w-[10px] bg-[#4a4c4f]'
+                    className='pointer-events-none absolute -right-[5px] bottom-0 h-[6px] w-[6px] bg-[#4a4c4f]'
                     style={{
                       WebkitMaskImage:
-                        'radial-gradient(circle at top right, transparent 7.5px, black 8px)',
+                        'radial-gradient(circle at top right, transparent 3.5px, black 4px)',
                       maskImage:
-                        'radial-gradient(circle at top right, transparent 7.5px, black 8px)',
+                        'radial-gradient(circle at top right, transparent 3.5px, black 4px)',
                     }}
                   />
                 </>

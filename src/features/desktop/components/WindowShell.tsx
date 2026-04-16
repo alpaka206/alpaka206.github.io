@@ -1,21 +1,25 @@
 import {
   lazy,
   Suspense,
+  useEffect,
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type PointerEvent,
 } from 'react';
+import { BROWSER_HOME_URL, normalizeBrowserInput } from '@/features/browser-window/browserPolicy';
+import { BROWSER_APPS } from '@/features/desktop/config/shell';
 import type {
   AnyWindow,
   BrowserWindow,
   CodeWindow,
   FolderWindow,
-  NoteWindow,
   PagesWindow,
+  TerminalWindow,
+  TextFileWindow,
 } from '@/stores';
 import { useDesktopStore } from '@/stores';
-import { BROWSER_APPS } from '@/features/desktop/config/shell';
 import { PagesBody } from './PagesBody';
 import { FolderBody } from './FolderBody';
 import { PageTabsInline } from './PageTabsInline';
@@ -31,46 +35,110 @@ const Github1sCodeWindow = lazy(async () => {
   return { default: module.Github1sCodeWindow };
 });
 
-const NoteWindowBody = lazy(async () => {
-  const module = await import('@/features/note-window/components/NoteWindowBody');
-  return { default: module.NoteWindowBody };
+const NotepadWindowBody = lazy(async () => {
+  const module = await import('@/features/notepad-window/components/NotepadWindowBody');
+  return { default: module.NotepadWindowBody };
 });
 
+const TerminalWindowBody = lazy(async () => {
+  const module = await import('@/features/terminal-window/components/TerminalWindowBody');
+  return { default: module.TerminalWindowBody };
+});
+
+function HomeIcon() {
+  return (
+    <svg viewBox='0 0 16 16' className='h-4 w-4 fill-none stroke-current'>
+      <path
+        d='M2.4 7.2 8 2.8l5.6 4.4v5.4a1 1 0 0 1-1 1H10V9.4H6v4.2H3.4a1 1 0 0 1-1-1z'
+        strokeWidth='1.4'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
+}
+
+function RefreshIcon() {
+  return (
+    <svg viewBox='0 0 16 16' className='h-4 w-4 fill-none stroke-current'>
+      <path
+        d='M12.8 7.2A4.8 4.8 0 1 1 11.4 4M12 2.8v2.6H9.4'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
+}
+
 function BrowserChrome({
+  windowId,
   appId,
+  currentUrl,
   refreshToken,
   onRefresh,
 }: {
+  windowId: string;
   appId: BrowserWindow['browserAppId'];
+  currentUrl: string;
   refreshToken: number;
   onRefresh: () => void;
 }) {
+  const updateBrowserUrl = useDesktopStore((s) => s.updateBrowserUrl);
+  const goBrowserHome = useDesktopStore((s) => s.goBrowserHome);
+  const [address, setAddress] = useState(currentUrl);
   const app = BROWSER_APPS[appId];
 
+  useEffect(() => {
+    setAddress(currentUrl);
+  }, [currentUrl]);
+
   return (
-    <div className='border-b border-[#e5e7eb] bg-[linear-gradient(180deg,#f7f8fa_0%,#eceff3_100%)] px-3 py-3'>
+    <div className='border-b border-[#d7dce3] bg-[linear-gradient(180deg,#f7f8fa_0%,#eceff3_100%)] px-3 py-3'>
       <div className='flex items-end gap-2'>
         <div className='rounded-t-[14px] border border-b-0 border-[#dfe3ea] bg-white px-4 py-2 text-[12px] font-medium text-[#0f172a] shadow-[0_-6px_18px_rgba(15,23,42,0.04)]'>
           {app.title}
         </div>
       </div>
+
       <div className='mt-2 flex items-center gap-2'>
-        <button className='grid size-8 place-items-center rounded-full text-[#64748b] hover:bg-black/5'>
-          ‹
+        <button
+          onClick={() => {
+            setAddress(BROWSER_HOME_URL);
+            goBrowserHome(windowId);
+          }}
+          className='grid size-8 place-items-center rounded-full text-[#64748b] transition-colors hover:bg-black/5'
+          title='Home'
+        >
+          <HomeIcon />
         </button>
-        <button className='grid size-8 place-items-center rounded-full text-[#64748b] hover:bg-black/5'>
-          ›
-        </button>
+
         <button
           onClick={onRefresh}
-          className='grid size-8 place-items-center rounded-full text-[#64748b] hover:bg-black/5'
+          className='grid size-8 place-items-center rounded-full text-[#64748b] transition-colors hover:bg-black/5'
           title='Refresh'
         >
-          ↻
+          <RefreshIcon />
         </button>
-        <div className='flex min-w-0 flex-1 items-center rounded-full border border-[#d8dee8] bg-white px-4 py-2 text-[12px] text-[#475569] shadow-[inset_0_1px_1px_rgba(15,23,42,0.05)]'>
-          <span className='truncate'>{app.address}</span>
-        </div>
+
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            updateBrowserUrl(windowId, normalizeBrowserInput(address));
+          }}
+          className='flex min-w-0 flex-1 items-center rounded-full border border-[#d8dee8] bg-white px-4 py-2 shadow-[inset_0_1px_1px_rgba(15,23,42,0.05)]'
+        >
+          <input
+            value={address}
+            onChange={(event) => setAddress(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') {
+                setAddress(currentUrl);
+              }
+            }}
+            placeholder={BROWSER_HOME_URL}
+            className='min-w-0 flex-1 bg-transparent text-[12px] text-[#475569] outline-none'
+          />
+        </form>
       </div>
       <div className='sr-only'>{refreshToken}</div>
     </div>
@@ -87,6 +155,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
     setWindowPosition,
     setActiveTab,
     closeTab,
+    updateBrowserUrl,
   } = useDesktopStore(
     useShallow((s) => ({
       activeWindowId: s.activeWindowId,
@@ -97,6 +166,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
       setWindowPosition: s.setWindowPosition,
       setActiveTab: s.setActiveTab,
       closeTab: s.closeTab,
+      updateBrowserUrl: s.updateBrowserUrl,
     }))
   );
 
@@ -111,7 +181,7 @@ export function WindowShell({ win }: { win: AnyWindow }) {
   const isPagesWindow = win.type === 'pages';
 
   const isActive = !win.isMinimized && activeWindowId === win.id;
-  const shellStyle: React.CSSProperties = win.isMaximized
+  const shellStyle: CSSProperties = win.isMaximized
     ? { zIndex: win.zIndex }
     : {
         left: win.position.x,
@@ -168,16 +238,20 @@ export function WindowShell({ win }: { win: AnyWindow }) {
         return (
           <>
             <BrowserChrome
+              windowId={win.id}
               appId={(win as BrowserWindow).browserAppId}
+              currentUrl={(win as BrowserWindow).url}
               refreshToken={browserRefreshToken}
-              onRefresh={() =>
-                setBrowserRefreshToken((token) => token + 1)
-              }
+              onRefresh={() => setBrowserRefreshToken((token) => token + 1)}
             />
-            <Suspense fallback={<div className='p-4 text-sm text-black/60'>Loading browser…</div>}>
+            <Suspense
+              fallback={<div className='p-4 text-sm text-black/60'>Loading browser...</div>}
+            >
               <BrowserWindowBody
                 browserAppId={(win as BrowserWindow).browserAppId}
+                url={(win as BrowserWindow).url}
                 refreshToken={browserRefreshToken}
+                onNavigate={(nextUrl) => updateBrowserUrl(win.id, nextUrl)}
                 onIframeFocus={() => focusWindow(win.id)}
               />
             </Suspense>
@@ -185,7 +259,9 @@ export function WindowShell({ win }: { win: AnyWindow }) {
         );
       case 'code':
         return (
-          <Suspense fallback={<div className='p-4 text-sm text-black/60'>Loading workspace…</div>}>
+          <Suspense
+            fallback={<div className='p-4 text-sm text-black/60'>Loading workspace...</div>}
+          >
             <Github1sCodeWindow
               owner={(win as CodeWindow).owner}
               repo={(win as CodeWindow).repo}
@@ -196,14 +272,24 @@ export function WindowShell({ win }: { win: AnyWindow }) {
             />
           </Suspense>
         );
-      case 'note':
+      case 'text-file':
         return (
-          <Suspense fallback={<div className='p-4 text-sm text-black/60'>Loading note…</div>}>
-            <NoteWindowBody noteId={(win as NoteWindow).noteId} />
+          <Suspense
+            fallback={<div className='p-4 text-sm text-black/60'>Loading notepad...</div>}
+          >
+            <NotepadWindowBody fileId={(win as TextFileWindow).fileId} />
+          </Suspense>
+        );
+      case 'terminal':
+        return (
+          <Suspense
+            fallback={<div className='p-4 text-sm text-black/60'>Loading terminal...</div>}
+          >
+            <TerminalWindowBody />
           </Suspense>
         );
     }
-  }, [browserRefreshToken, focusWindow, win]);
+  }, [browserRefreshToken, focusWindow, updateBrowserUrl, win]);
 
   return (
     <div
@@ -255,11 +341,17 @@ export function WindowShell({ win }: { win: AnyWindow }) {
                 alt=''
                 className='h-5 w-5 rounded-sm object-contain'
               />
-              <span className='text-sm font-medium text-[#1f2937]'>
+              <span
+                className={[
+                  'text-sm font-medium',
+                  isActive ? 'text-[#1f2937]' : 'text-[#475569]',
+                ].join(' ')}
+              >
                 {win.title}
               </span>
             </div>
           )}
+
           <div className='flex items-center gap-1' data-nodrag>
             <button
               onClick={() => minimizeWindow(win.id)}

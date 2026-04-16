@@ -1,9 +1,11 @@
 import type { CSSProperties } from 'react';
+import { BROWSER_HOME_URL } from '@/features/browser-window/browserPolicy';
 import type {
   BrowserAppId,
   CodeWorkspaceId,
   DesktopShortcutItem,
-  NoteColorId,
+  PageType,
+  TextFileId,
   WallpaperId,
 } from '@/stores/desktopModels';
 
@@ -20,24 +22,24 @@ const recycleBinSvg = `
   </svg>
 `;
 
-const stickyNoteSvg = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-    <defs>
-      <linearGradient id="note" x1="0%" x2="100%" y1="0%" y2="100%">
-        <stop offset="0%" stop-color="#ffe47a"/>
-        <stop offset="100%" stop-color="#ffce4f"/>
-      </linearGradient>
-    </defs>
-    <rect width="64" height="64" rx="12" fill="url(#note)"/>
-    <path d="M47 64V45a6 6 0 0 1 6-6h11" fill="#f6ba2b"/>
-    <path d="M16 22h32M16 31h24M16 40h20" stroke="#9f6a00" stroke-width="3" stroke-linecap="round"/>
-  </svg>
-`;
-
 const windowsSvg = `
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
     <rect width="64" height="64" rx="16" fill="#0b61d8"/>
     <path d="M10 14 30 11v22H10zm22-3 22-3v25H32zm-22 24h20v19l-20-3zm22 0h22v22l-22-3z" fill="#fff"/>
+  </svg>
+`;
+
+const terminalSvg = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <defs>
+      <linearGradient id="terminal" x1="0%" x2="100%" y1="0%" y2="100%">
+        <stop offset="0%" stop-color="#1b2638"/>
+        <stop offset="100%" stop-color="#0a1320"/>
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="14" fill="url(#terminal)"/>
+    <path d="M16 20 28 30 16 40" fill="none" stroke="#69a7ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M32 42h16" fill="none" stroke="#d9e8ff" stroke-width="4" stroke-linecap="round"/>
   </svg>
 `;
 
@@ -64,53 +66,64 @@ const batterySvg = `
 export const WINDOWS_ICON = svgDataUri(windowsSvg);
 export const CHROME_ICON = '/assets/common/brands/chrome.webp';
 export const VS_CODE_ICON = '/assets/common/brands/visual-studio-code.webp';
+export const GITHUB_ICON = '/assets/common/brands/github.webp';
 export const RECYCLE_BIN_ICON = svgDataUri(recycleBinSvg);
-export const STICKY_NOTE_ICON = svgDataUri(stickyNoteSvg);
+export const TERMINAL_ICON = svgDataUri(terminalSvg);
+export const NOTEPAD_ICON = '/assets/common/brands/text-file.webp';
+export const SETTINGS_ICON = '/assets/common/brands/setting.webp';
 export const WIFI_ICON = svgDataUri(wifiSvg);
 export const VOLUME_ICON = svgDataUri(volumeSvg);
 export const BATTERY_ICON = svgDataUri(batterySvg);
+
+export type LauncherAction =
+  | { kind: 'page'; pageId: PageType }
+  | { kind: 'folder'; folderId: 'projects' | 'recycle-bin' }
+  | { kind: 'browser'; browserAppId: BrowserAppId }
+  | { kind: 'code'; workspaceId: CodeWorkspaceId }
+  | { kind: 'text-file'; fileId: TextFileId }
+  | { kind: 'terminal' };
+
+export type LauncherEntry = {
+  id: string;
+  label: string;
+  icon: string;
+  subtitle: string;
+  keywords: string[];
+  launch: LauncherAction;
+};
 
 export const BROWSER_APPS: Record<
   BrowserAppId,
   {
     title: string;
     icon: string;
-    mode: 'home' | 'iframe' | 'external';
-    url: string;
-    address: string;
-    description?: string;
+    initialUrl: string;
+    description: string;
   }
 > = {
   'browser-home': {
     title: 'Chrome',
     icon: CHROME_ICON,
-    mode: 'home',
-    url: 'chrome://newtab',
-    address: 'chrome://newtab',
-    description: 'Frequently used portfolio destinations and external links.',
+    initialUrl: BROWSER_HOME_URL,
+    description: 'Google iframe 시작 페이지를 여는 browser shell',
   },
   blog: {
     title: 'Tech Blog',
     icon: '/assets/common/brands/blog.webp',
-    mode: 'iframe',
-    url: 'https://alpaka206.vercel.app/',
-    address: 'https://alpaka206.vercel.app/',
+    initialUrl: 'https://alpaka206.vercel.app/',
+    description: '개인 기술 블로그 iframe 콘텐츠',
   },
   insta: {
     title: 'Instagram',
     icon: '/assets/common/brands/instagram.webp',
-    mode: 'iframe',
-    url: 'https://www.instagram.com/alpaka_dev/embed',
-    address: 'https://www.instagram.com/alpaka_dev/',
+    initialUrl: 'https://www.instagram.com/alpaka_dev/',
+    description: 'Instagram 프로필 URL을 표시하고 embed로 렌더링',
   },
   github: {
     title: 'GitHub',
-    icon: '/assets/common/brands/github.webp',
-    mode: 'external',
-    url: 'https://github.com/alpaka206',
-    address: 'https://github.com/alpaka206',
-    description:
-      'GitHub blocks rich in-app embedding, so the browser window shows a native handoff card.',
+    icon: GITHUB_ICON,
+    initialUrl: 'https://github.com/alpaka206',
+    description: 'GitHub 메인 페이지는 새 탭 전환으로 처리',
   },
 };
 
@@ -139,30 +152,6 @@ export const CODE_WORKSPACES: Record<
   },
 };
 
-export const NOTE_COLORS: Record<
-  NoteColorId,
-  { label: string; tile: string; surface: string; accent: string }
-> = {
-  yellow: {
-    label: 'Honey',
-    tile: 'linear-gradient(180deg,#ffe58b 0%,#ffd55d 100%)',
-    surface: '#ffe58b',
-    accent: '#d79f09',
-  },
-  blue: {
-    label: 'Sky',
-    tile: 'linear-gradient(180deg,#b7e3ff 0%,#8bd0ff 100%)',
-    surface: '#b7e3ff',
-    accent: '#2f7db7',
-  },
-  pink: {
-    label: 'Blush',
-    tile: 'linear-gradient(180deg,#ffc4dd 0%,#ff9fc6 100%)',
-    surface: '#ffc4dd',
-    accent: '#bb4d7a',
-  },
-};
-
 export const WALLPAPERS: Record<
   WallpaperId,
   { id: WallpaperId; label: string; style: CSSProperties; accent: string }
@@ -171,7 +160,8 @@ export const WALLPAPERS: Record<
     id: 'windows-cloud',
     label: 'Cloud',
     style: {
-      backgroundImage: "url('/assets/common/desktop/windows-cloud-wallpaper.webp')",
+      backgroundImage:
+        "url('/assets/common/desktop/windows-cloud-wallpaper.webp')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
@@ -219,39 +209,30 @@ export const DEFAULT_DESKTOP_ITEMS: DesktopShortcutItem[] = [
     isSystem: true,
   },
   {
-    id: 'shortcut:chrome',
-    kind: 'browser',
-    browserAppId: 'browser-home',
-    title: 'Chrome',
-    icon: CHROME_ICON,
+    id: 'shortcut:readme',
+    kind: 'text-file',
+    fileId: 'readme',
+    title: 'README.txt',
+    icon: NOTEPAD_ICON,
     position: { x: 28, y: 276 },
     isSystem: true,
   },
   {
-    id: 'shortcut:blog',
-    kind: 'page',
-    pageId: 'blog',
-    title: 'Tech Blog',
-    icon: '/assets/common/brands/blog.webp',
+    id: 'shortcut:resume',
+    kind: 'text-file',
+    fileId: 'resume',
+    title: 'RESUME.txt',
+    icon: NOTEPAD_ICON,
     position: { x: 28, y: 400 },
     isSystem: true,
   },
   {
-    id: 'shortcut:insta',
+    id: 'shortcut:chrome',
     kind: 'page',
-    pageId: 'insta',
-    title: 'Instagram',
-    icon: '/assets/common/brands/instagram.webp',
+    pageId: 'chrome',
+    title: 'Chrome',
+    icon: CHROME_ICON,
     position: { x: 138, y: 28 },
-    isSystem: true,
-  },
-  {
-    id: 'shortcut:awards',
-    kind: 'page',
-    pageId: 'awards',
-    title: 'Awards',
-    icon: '/assets/common/awards/awards-icon.webp',
-    position: { x: 138, y: 152 },
     isSystem: true,
   },
   {
@@ -259,8 +240,8 @@ export const DEFAULT_DESKTOP_ITEMS: DesktopShortcutItem[] = [
     kind: 'page',
     pageId: 'github',
     title: 'GitHub',
-    icon: '/assets/common/brands/github.webp',
-    position: { x: 138, y: 276 },
+    icon: GITHUB_ICON,
+    position: { x: 138, y: 152 },
     isSystem: true,
   },
   {
@@ -269,83 +250,195 @@ export const DEFAULT_DESKTOP_ITEMS: DesktopShortcutItem[] = [
     workspaceId: 'portfolio-workspace',
     title: 'VS Code',
     icon: VS_CODE_ICON,
+    position: { x: 138, y: 276 },
+    isSystem: true,
+  },
+  {
+    id: 'shortcut:terminal',
+    kind: 'terminal',
+    title: 'Terminal',
+    icon: TERMINAL_ICON,
     position: { x: 138, y: 400 },
     isSystem: true,
   },
   {
-    id: 'shortcut:recycle-bin',
-    kind: 'folder',
-    folderId: 'recycle-bin',
-    contentType: 'recycle-bin',
-    title: 'Recycle Bin',
-    icon: RECYCLE_BIN_ICON,
+    id: 'shortcut:contact',
+    kind: 'text-file',
+    fileId: 'contact',
+    title: 'CONTACT.txt',
+    icon: NOTEPAD_ICON,
     position: { x: 248, y: 28 },
+    isSystem: true,
+  },
+  {
+    id: 'shortcut:settings',
+    kind: 'page',
+    pageId: 'settings',
+    title: 'Settings',
+    icon: SETTINGS_ICON,
+    position: { x: 248, y: 152 },
+    isSystem: true,
+  },
+  {
+    id: 'shortcut:blog',
+    kind: 'page',
+    pageId: 'blog',
+    title: 'Tech Blog',
+    icon: '/assets/common/brands/blog.webp',
+    position: { x: 248, y: 276 },
+    isSystem: true,
+  },
+  {
+    id: 'shortcut:instagram',
+    kind: 'page',
+    pageId: 'insta',
+    title: 'Instagram',
+    icon: '/assets/common/brands/instagram.webp',
+    position: { x: 248, y: 400 },
     isSystem: true,
   },
 ];
 
-export const PINNED_APPS = [
+export const PINNED_APPS: LauncherEntry[] = [
   {
     id: 'pin:about',
-    label: 'About Me',
+    label: 'About',
     icon: '/assets/common/desktop/profile-shortcut.webp',
-    launch: { kind: 'page' as const, pageId: 'about' as const },
+    subtitle: '프로필 페이지',
+    keywords: ['about', 'profile', 'portfolio', '김규원'],
+    launch: { kind: 'page', pageId: 'about' },
   },
   {
     id: 'pin:projects',
     label: 'Projects',
     icon: '/assets/common/desktop/folder-shortcut.webp',
-    launch: { kind: 'folder' as const, folderId: 'projects' as const },
+    subtitle: '프로젝트 폴더',
+    keywords: ['projects', 'folder', 'work', 'portfolio'],
+    launch: { kind: 'folder', folderId: 'projects' },
   },
   {
     id: 'pin:chrome',
     label: 'Chrome',
     icon: CHROME_ICON,
-    launch: { kind: 'browser' as const, browserAppId: 'browser-home' as const },
+    subtitle: 'Pages 탭으로 여는 Google 시작 페이지',
+    keywords: ['browser', 'chrome', 'google', 'webview'],
+    launch: { kind: 'page', pageId: 'chrome' },
+  },
+  {
+    id: 'pin:terminal',
+    label: 'Terminal',
+    icon: TERMINAL_ICON,
+    subtitle: '포트폴리오 명령 라우터',
+    keywords: ['terminal', 'powershell', 'command', 'shell'],
+    launch: { kind: 'terminal' },
   },
   {
     id: 'pin:vscode',
     label: 'VS Code',
     icon: VS_CODE_ICON,
-    launch: {
-      kind: 'code' as const,
-      workspaceId: 'portfolio-workspace' as const,
-    },
+    subtitle: 'github1s 코드 보기',
+    keywords: ['vscode', 'code', 'github1s', 'source'],
+    launch: { kind: 'code', workspaceId: 'portfolio-workspace' },
   },
-] as const;
+];
 
-export const START_MENU_APPS = [
+export const START_MENU_APPS: LauncherEntry[] = [
   ...PINNED_APPS,
   {
-    id: 'start:blog',
-    label: 'Tech Blog',
-    icon: '/assets/common/brands/blog.webp',
-    launch: { kind: 'page' as const, pageId: 'blog' as const },
+    id: 'start:resume',
+    label: 'Resume',
+    icon: NOTEPAD_ICON,
+    subtitle: '메모장에서 보는 이력 요약',
+    keywords: ['resume', 'cv', '이력서', 'career'],
+    launch: { kind: 'text-file', fileId: 'resume' },
   },
   {
-    id: 'start:insta',
-    label: 'Instagram',
-    icon: '/assets/common/brands/instagram.webp',
-    launch: { kind: 'page' as const, pageId: 'insta' as const },
+    id: 'start:github',
+    label: 'GitHub',
+    icon: GITHUB_ICON,
+    subtitle: 'API 기반 프로필 요약',
+    keywords: ['github', 'repo', 'repositories', 'alpaka206'],
+    launch: { kind: 'page', pageId: 'github' },
+  },
+  {
+    id: 'start:settings',
+    label: 'Settings',
+    icon: SETTINGS_ICON,
+    subtitle: '배경과 데스크톱 설정',
+    keywords: ['settings', 'wallpaper', 'personalize', '배경', '설정'],
+    launch: { kind: 'page', pageId: 'settings' },
+  },
+  {
+    id: 'start:notepad',
+    label: 'Notepad',
+    icon: NOTEPAD_ICON,
+    subtitle: '텍스트 파일 뷰어',
+    keywords: ['notepad', 'text files', 'txt', 'readme', '메모장'],
+    launch: { kind: 'text-file', fileId: 'readme' },
+  },
+  {
+    id: 'start:readme',
+    label: 'README.txt',
+    icon: NOTEPAD_ICON,
+    subtitle: '셸 구조와 사용법',
+    keywords: ['readme', 'guide', 'usage', 'start', '가이드'],
+    launch: { kind: 'text-file', fileId: 'readme' },
+  },
+  {
+    id: 'start:about-file',
+    label: 'ABOUT.txt',
+    icon: NOTEPAD_ICON,
+    subtitle: '짧은 프로필 요약',
+    keywords: ['about.txt', 'about file', 'summary', '소개'],
+    launch: { kind: 'text-file', fileId: 'about-file' },
+  },
+  {
+    id: 'start:contact',
+    label: 'CONTACT.txt',
+    icon: NOTEPAD_ICON,
+    subtitle: '연락처 정보',
+    keywords: ['contact', 'email', 'phone', '연락처'],
+    launch: { kind: 'text-file', fileId: 'contact' },
+  },
+  {
+    id: 'start:now',
+    label: 'NOW.txt',
+    icon: NOTEPAD_ICON,
+    subtitle: '현재 집중 중인 일',
+    keywords: ['now', 'current', 'focus', '현재'],
+    launch: { kind: 'text-file', fileId: 'now' },
   },
   {
     id: 'start:awards',
     label: 'Awards',
     icon: '/assets/common/awards/awards-icon.webp',
-    launch: { kind: 'page' as const, pageId: 'awards' as const },
+    subtitle: '수상 및 선정 이력',
+    keywords: ['awards', 'prize', 'achievement', '수상'],
+    launch: { kind: 'page', pageId: 'awards' },
   },
   {
-    id: 'start:github',
-    label: 'GitHub',
-    icon: '/assets/common/brands/github.webp',
-    launch: { kind: 'page' as const, pageId: 'github' as const },
+    id: 'start:blog',
+    label: 'Tech Blog',
+    icon: '/assets/common/brands/blog.webp',
+    subtitle: 'Pages 탭으로 여는 기술 블로그',
+    keywords: ['blog', 'tech blog', 'posts'],
+    launch: { kind: 'page', pageId: 'blog' },
   },
   {
-    id: 'start:notepad',
-    label: 'Notepad',
-    icon: STICKY_NOTE_ICON,
-    launch: { kind: 'note-create' as const },
+    id: 'start:insta',
+    label: 'Instagram',
+    icon: '/assets/common/brands/instagram.webp',
+    subtitle: 'Pages 탭으로 여는 Instagram',
+    keywords: ['instagram', 'insta', 'social'],
+    launch: { kind: 'page', pageId: 'insta' },
   },
+];
+
+export const START_MENU_RECOMMENDED_IDS = [
+  'start:resume',
+  'start:github',
+  'start:settings',
+  'start:notepad',
 ] as const;
 
 export function getWallpaperStyle(wallpaperId: WallpaperId) {

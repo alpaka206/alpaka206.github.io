@@ -46,7 +46,7 @@ function normalizeLayoutItems(
   });
 
   const customItems = storedItems
-    .filter((item) => !defaultIds.has(item.id))
+    .filter((item) => !defaultIds.has(item.id) && !item.isSystem)
     .map((item) => ({
       ...item,
       position: reservePosition(item.position),

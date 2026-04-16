@@ -1,12 +1,14 @@
 export type PageType =
   | 'about'
   | 'awards'
+  | 'chrome'
   | 'blog'
   | 'insta'
   | 'github'
   | 'comatching'
   | 'share-it'
-  | 'alnc';
+  | 'alnc'
+  | 'settings';
 
 export type BrowserAppId =
   | 'browser-home'
@@ -15,6 +17,13 @@ export type BrowserAppId =
   | 'github';
 
 export type CodeWorkspaceId = 'portfolio-workspace';
+
+export type TextFileId =
+  | 'readme'
+  | 'about-file'
+  | 'contact'
+  | 'now'
+  | 'resume';
 
 export type FolderContentType =
   | 'projects'
@@ -25,8 +34,6 @@ export type WallpaperId =
   | 'windows-cloud'
   | 'aurora-flow'
   | 'sunset-panel';
-
-export type NoteColorId = 'yellow' | 'blue' | 'pink';
 
 export interface DesktopPosition {
   x: number;
@@ -70,23 +77,38 @@ export type CodeShortcutItem = DesktopShortcutBase & {
   workspaceId: CodeWorkspaceId;
 };
 
+export type TerminalShortcutItem = DesktopShortcutBase & {
+  kind: 'terminal';
+};
+
+export type TextFileShortcutItem = DesktopShortcutBase & {
+  kind: 'text-file';
+  fileId: TextFileId;
+};
+
 export type DesktopShortcutItem =
   | PageShortcutItem
   | BrowserShortcutItem
   | FolderShortcutItem
-  | CodeShortcutItem;
+  | CodeShortcutItem
+  | TerminalShortcutItem
+  | TextFileShortcutItem;
 
-export interface DesktopNote {
-  id: string;
+export interface DesktopTextFile {
+  id: TextFileId;
   title: string;
+  description: string;
   content: string;
-  color: NoteColorId;
-  position: DesktopPosition;
-  zIndex: number;
-  surfaceVisible: boolean;
+  isReadOnly: boolean;
 }
 
-type WindowType = 'pages' | 'folder' | 'browser' | 'code' | 'note';
+type WindowType =
+  | 'pages'
+  | 'folder'
+  | 'browser'
+  | 'code'
+  | 'text-file'
+  | 'terminal';
 
 interface WindowBounds {
   position: DesktopPosition;
@@ -134,9 +156,14 @@ export interface CodeWindow extends BaseWindow {
   path: string;
 }
 
-export interface NoteWindow extends BaseWindow {
-  type: 'note';
-  noteId: string;
+export interface TextFileWindow extends BaseWindow {
+  type: 'text-file';
+  fileId: TextFileId;
+}
+
+export interface TerminalWindow extends BaseWindow {
+  type: 'terminal';
+  terminalId: 'main';
 }
 
 export type AnyWindow =
@@ -144,4 +171,5 @@ export type AnyWindow =
   | FolderWindow
   | BrowserWindow
   | CodeWindow
-  | NoteWindow;
+  | TextFileWindow
+  | TerminalWindow;

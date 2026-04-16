@@ -1,0 +1,156 @@
+WINDOWS PORTFOLIO DEV NOTES
+
+관련 파일과 역할
+
+- src/features/desktop/components/WindowShell.tsx
+  공통 창 컨테이너. drag, focus, minimize, maximize, close, body 분기 처리
+- src/features/desktop/components/Taskbar.tsx
+  Start 메뉴, 검색, 추천 앱, pinned 앱, running window, quick panel 처리
+- src/features/desktop/components/DesktopSurface.tsx
+  바탕화면 아이콘 surface. 선택, 더블클릭 실행, 그리드 이동, 컨텍스트 메뉴 처리
+- src/features/desktop/config/shell.ts
+  앱 메타, launcher entry, wallpaper 목록, browser app 메타, github1s workspace, 기본 desktop shortcut 정의
+- src/features/browser-window/browserPolicy.ts
+  iframe allowlist와 external fallback 정책 정의
+- src/features/browser-window/components/BrowserWindowBody.tsx
+  allowlist 결과에 따라 iframe 또는 external handoff 카드 렌더링
+- src/features/pages-window/registry/page-registry.tsx
+  Pages 탭 메타와 주소 표시 규칙 정의
+- src/features/pages-window/registry/PageContent.tsx
+  Pages 창에서 탭별 실제 콘텐츠 컴포넌트 연결
+- src/features/github/components/GitHubProfilePanel.tsx
+  GitHub API 기반 프로필 요약 UI
+- src/features/settings/components/SettingsPage.tsx
+  wallpaper, sound, launcher 기록, storage 메모 표시
+- src/features/notepad/data/textFiles.ts
+  시스템 txt 파일 정의
+- src/features/notepad-window/components/NotepadWindowBody.tsx
+  txt 파일을 Notepad 창으로 보여주는 body
+- src/features/terminal-window/components/TerminalWindowBody.tsx
+  Terminal UI와 명령 라우팅 구현
+- src/stores/desktopModels.ts
+  desktop item, text file, page tab, window type 모델 정의
+- src/stores/useDesktopStore.ts
+  창 상태 관리. open, focus, minimize, maximize, close, tab 전환 처리
+- src/stores/useDesktopPreferencesStore.ts
+  wallpaper, soundEnabled, lastBrowserUrl, recentLauncherIds 저장
+- src/stores/useDesktopLayoutStore.ts
+  바탕화면 아이콘 위치와 사용자 폴더 상태 저장
+- src/stores/useDesktopTextFilesStore.ts
+  txt 파일 상태와 마지막으로 연 파일 저장
+- src/stores/useDesktopTerminalStore.ts
+  terminal session 로그 저장
+
+앱 registry / shell config 구조
+
+- shell.ts가 launcher 중심 registry 역할 수행
+- LauncherEntry는 id, label, icon, subtitle, keywords, launch를 가짐
+- launch.kind는 page, folder, browser, code, text-file, terminal 중 하나
+- BROWSER_APPS는 browser shell에서 쓰는 URL과 메타를 정의
+- CODE_WORKSPACES는 github1s 대상 owner, repo, branch, path를 정의
+- DEFAULT_DESKTOP_ITEMS는 초기 바탕화면 아이콘 집합
+
+window state 관리 방식
+
+- Zustand 단일 store인 useDesktopStore가 windows 배열, activeWindowId, zIndexCounter 관리
+- Pages 창은 단일 창 안에 여러 탭을 보관
+- Text file, Terminal, Folder, Code, Browser는 개별 창으로 관리
+- focusWindow 호출 시 z-index 상승
+- toggleTaskbarItem은 active 상태면 minimize, minimized 상태면 focus 수행
+
+launcher / search 동작 방식
+
+- Start 메뉴 데이터 소스는 START_MENU_APPS
+- 검색은 label, subtitle, keywords를 합친 문자열 기준 부분 일치 방식
+- 추천 앱은 recentLauncherIds가 있으면 최근 실행 기준 사용
+- recentLauncherIds가 없으면 START_MENU_RECOMMENDED_IDS 사용
+- launcher 실행 시 recordLauncherUse 호출로 최근 실행 기록 갱신
+
+wallpaper 저장 방식
+
+- store: useDesktopPreferencesStore
+- key: desktop_preferences
+- field: wallpaperId
+- quick panel과 Settings 페이지 모두 setWallpaper 호출
+
+terminal command routing 방식
+
+- 구현 위치: src/features/terminal-window/components/TerminalWindowBody.tsx
+- 입력은 소문자와 공백 정규화 후 분기
+- 지원 명령
+  help
+  clear
+  exit
+  open about
+  open projects
+  open resume
+  open github
+  open browser
+  open settings
+  open notepad
+  wallpaper list
+  wallpaper set <id>
+- 실제 동작은 useDesktopStore의 openPage, openFolder, openTextFileWindow, closeWindow와 useDesktopPreferencesStore의 setWallpaper 호출로 연결
+
+browser allowlist / fallback 정책
+
+- 구현 위치: src/features/browser-window/browserPolicy.ts
+- 기본 홈 URL: https://www.google.com/webhp?igu=1
+- iframe allowlist
+  https://www.google.com/webhp?igu=1
+  https://alpaka206.vercel.app/
+  https://www.instagram.com/alpaka_dev/embed
+- Instagram 프로필 주소는 실제 주소를 표시하고 embed URL로 렌더링
+- GitHub 메인 페이지와 일반 저장소 페이지는 external handoff 처리
+- allowlist 밖 URL도 external handoff 처리
+
+GitHub API fetch 위치와 fallback 방식
+
+- 구현 위치: src/features/github/components/GitHubProfilePanel.tsx
+- 사용자 API
+  https://api.github.com/users/alpaka206
+- 저장소 API
+  https://api.github.com/users/alpaka206/repos?sort=updated&per_page=6
+- Promise.all로 병렬 요청
+- 성공 시 프로필 카드와 최근 저장소 카드 렌더링
+- 실패 시 GitHub 본문 링크를 제공하는 fallback 화면 렌더링
+
+txt / notepad 데이터 구조와 window type
+
+- TextFileId
+  readme
+  about-file
+  contact
+  now
+  resume
+- DesktopTextFile
+  id
+  title
+  description
+  content
+  isReadOnly
+- window type
+  text-file
+- 바탕화면 아이콘과 Start 메뉴는 text-file launch.kind로 동일한 Notepad 창 흐름에 연결
+
+localStorage / sessionStorage 키 목록
+
+- localStorage
+  desktop_layout
+  desktop_preferences
+  desktop_text_files
+- sessionStorage
+  start_store_session
+
+추후 확장 포인트
+
+- Terminal 명령 추가
+  open awards, open contact, open comatching 같은 확장 가능
+- Browser allowlist 확장
+  embed 가능한 서비스가 늘어나면 browserPolicy.ts에 안전하게 추가 가능
+- editable txt 파일 추가
+  사용자 메모용 NOTES.txt 같은 가변 파일 확장 가능
+- 창 기능 확장
+  resize handle, snap layout, multi-session terminal 추가 가능
+- GitHub 화면 확장
+  pinned repo, language 비중 카드, 활동 요약 카드 추가 가능
