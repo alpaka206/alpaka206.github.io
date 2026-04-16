@@ -4,21 +4,25 @@ import {
   BROWSER_APPS,
   PINNED_APPS,
   START_MENU_APPS,
+  START_MENU_RECOMMENDED_IDS,
   WALLPAPERS,
   WIFI_ICON,
   WINDOWS_ICON,
   VOLUME_ICON,
+  type LauncherAction,
+  type LauncherEntry,
 } from '@/features/desktop/config/shell';
+import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 import { useClock } from '@/hooks/useClock';
 import { useVisitorCount } from '@/hooks/useVisitorCount';
 import {
   useDesktopLayoutStore,
-  useDesktopNotesStore,
   useDesktopPreferencesStore,
   useDesktopStore,
+  useDesktopTerminalStore,
+  useDesktopTextFilesStore,
 } from '@/stores';
 import type { AnyWindow, PagesWindow } from '@/stores';
-import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 import { playSystemSound } from '@/utils/systemSounds';
 import { useShallow } from 'zustand/shallow';
 
@@ -45,6 +49,58 @@ function formatPanelDate(now: Date) {
     month: 'long',
     day: 'numeric',
   }).format(now);
+}
+
+function matchesLauncher(entry: LauncherEntry, query: string) {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) {
+    return true;
+  }
+
+  const haystack = [entry.label, entry.subtitle, ...entry.keywords]
+    .join(' ')
+    .toLowerCase();
+
+  return normalizedQuery
+    .split(/\s+/)
+    .every((term) => haystack.includes(term));
+}
+
+function getFolderLaunchOptions(folderId: 'projects' | 'recycle-bin') {
+  if (folderId === 'projects') {
+    return {
+      id: 'folder:projects',
+      folderId: 'projects' as const,
+      title: 'Projects',
+      icon: '/assets/common/desktop/folder-shortcut.webp',
+      contentType: 'projects' as const,
+    };
+  }
+
+  return {
+    id: 'folder:recycle-bin',
+    folderId: 'recycle-bin' as const,
+    title: 'Recycle Bin',
+    icon: '/assets/common/desktop/folder-shortcut.webp',
+    contentType: 'recycle-bin' as const,
+  };
+}
+
+function getLaunchWindowId(action: LauncherAction) {
+  switch (action.kind) {
+    case 'folder':
+      return `folder:${action.folderId}`;
+    case 'browser':
+      return `browser:${action.browserAppId}`;
+    case 'code':
+      return `code:${action.workspaceId}`;
+    case 'text-file':
+      return `text-file:${action.fileId}`;
+    case 'terminal':
+      return 'terminal:main';
+    case 'page':
+      return 'pages';
+  }
 }
 
 function TaskbarButton({
@@ -76,38 +132,164 @@ function TaskbarButton({
   );
 }
 
-function StartMenu({
+function LauncherList({
+  title,
+  entries,
   onLaunch,
 }: {
-  onLaunch: (launch: (typeof START_MENU_APPS)[number]['launch']) => void;
+  title: string;
+  entries: LauncherEntry[];
+  onLaunch: (entry: LauncherEntry) => void;
 }) {
+  if (entries.length === 0) {
+    return null;
+  }
+
   return (
-    <div className='absolute bottom-16 left-3 z-[9999] w-[340px] rounded-[28px] border border-white/15 bg-[#0d1118]/88 p-4 text-white shadow-[0_28px_80px_rgba(15,23,42,0.55)] backdrop-blur-3xl'>
-      <div className='rounded-[22px] border border-white/10 bg-white/6 px-4 py-4'>
-        <div className='text-[14px] text-white/70'>Kim GyuWon</div>
-        <div className='mt-1 text-[24px] font-semibold tracking-[-0.03em]'>
-          Start
+    <section className='mt-5'>
+      <div className='mb-3 flex items-center justify-between px-1'>
+        <div className='text-[12px] font-semibold uppercase tracking-[0.18em] text-white/48'>
+          {title}
         </div>
       </div>
-
-      <div className='mt-4 grid grid-cols-2 gap-3'>
-        {START_MENU_APPS.map((app) => (
+      <div className='space-y-2'>
+        {entries.map((entry) => (
           <button
-            key={app.id}
-            onClick={() => onLaunch(app.launch)}
-            className='rounded-[20px] border border-white/10 bg-white/6 p-4 text-left transition-colors hover:bg-white/10'
+            key={entry.id}
+            onClick={() => onLaunch(entry)}
+            className='flex w-full items-center gap-3 rounded-[20px] border border-white/10 bg-white/6 px-3 py-3 text-left transition-colors hover:bg-white/10'
           >
             <img
-              src={app.icon}
+              src={entry.icon}
               alt=''
-              className='h-9 w-9 rounded-xl object-contain'
+              className='h-10 w-10 rounded-[14px] object-contain'
             />
-            <div className='mt-3 text-sm font-semibold text-white'>
-              {app.label}
+            <div className='min-w-0'>
+              <div className='truncate text-sm font-semibold text-white'>
+                {entry.label}
+              </div>
+              <div className='mt-1 truncate text-[12px] text-white/60'>
+                {entry.subtitle}
+              </div>
             </div>
           </button>
         ))}
       </div>
+    </section>
+  );
+}
+
+function StartMenu({
+  query,
+  onQueryChange,
+  results,
+  recommendedEntries,
+  onLaunch,
+}: {
+  query: string;
+  onQueryChange: (value: string) => void;
+  results: LauncherEntry[];
+  recommendedEntries: LauncherEntry[];
+  onLaunch: (entry: LauncherEntry) => void;
+}) {
+  const isSearching = query.trim().length > 0;
+
+  return (
+    <div className='absolute bottom-16 left-3 z-[9999] w-[360px] rounded-[28px] border border-white/15 bg-[#0d1118]/88 p-4 text-white shadow-[0_28px_80px_rgba(15,23,42,0.55)] backdrop-blur-3xl'>
+      <div className='rounded-[22px] border border-white/10 bg-white/6 px-4 py-4'>
+        <div className='text-[14px] text-white/70'>Kim GyuWon Portfolio</div>
+        <div className='mt-1 text-[24px] font-semibold tracking-[-0.03em]'>
+          Start
+        </div>
+        <p className='mt-2 text-sm leading-6 text-white/56'>
+          앱 이름과 키워드로 빠르게 검색 가능
+        </p>
+      </div>
+
+      <label className='mt-4 flex items-center gap-3 rounded-[20px] border border-white/10 bg-white/6 px-4 py-3'>
+        <span className='text-sm text-white/50'>Search</span>
+        <input
+          value={query}
+          onChange={(event) => onQueryChange(event.target.value)}
+          placeholder='About, GitHub, Terminal, README.txt'
+          className='min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/35'
+        />
+      </label>
+
+      {isSearching ? (
+        <section className='mt-5'>
+          <div className='mb-3 px-1 text-[12px] font-semibold uppercase tracking-[0.18em] text-white/48'>
+            Search Results
+          </div>
+          {results.length > 0 ? (
+            <div className='space-y-2'>
+              {results.map((entry) => (
+                <button
+                  key={entry.id}
+                  onClick={() => onLaunch(entry)}
+                  className='flex w-full items-center gap-3 rounded-[20px] border border-white/10 bg-white/6 px-3 py-3 text-left transition-colors hover:bg-white/10'
+                >
+                  <img
+                    src={entry.icon}
+                    alt=''
+                    className='h-10 w-10 rounded-[14px] object-contain'
+                  />
+                  <div className='min-w-0'>
+                    <div className='truncate text-sm font-semibold text-white'>
+                      {entry.label}
+                    </div>
+                    <div className='mt-1 truncate text-[12px] text-white/60'>
+                      {entry.subtitle}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className='rounded-[20px] border border-white/10 bg-white/6 px-4 py-5 text-sm leading-6 text-white/60'>
+              검색 결과가 없습니다. `About`, `Projects`, `Terminal`, `Notepad`,
+              `GitHub` 같은 이름으로 다시 시도해보세요.
+            </div>
+          )}
+        </section>
+      ) : (
+        <>
+          <section className='mt-5'>
+            <div className='mb-3 flex items-center justify-between px-1'>
+              <div className='text-[12px] font-semibold uppercase tracking-[0.18em] text-white/48'>
+                Pinned
+              </div>
+            </div>
+            <div className='grid grid-cols-2 gap-3'>
+              {PINNED_APPS.map((entry) => (
+                <button
+                  key={entry.id}
+                  onClick={() => onLaunch(entry)}
+                  className='rounded-[20px] border border-white/10 bg-white/6 p-4 text-left transition-colors hover:bg-white/10'
+                >
+                  <img
+                    src={entry.icon}
+                    alt=''
+                    className='h-9 w-9 rounded-xl object-contain'
+                  />
+                  <div className='mt-3 text-sm font-semibold text-white'>
+                    {entry.label}
+                  </div>
+                  <div className='mt-1 text-[12px] text-white/58'>
+                    {entry.subtitle}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <LauncherList
+            title='Recommended'
+            entries={recommendedEntries}
+            onLaunch={onLaunch}
+          />
+        </>
+      )}
     </div>
   );
 }
@@ -116,10 +298,12 @@ function QuickPanel({
   now,
   visitorCount,
   onReset,
+  onOpenSettings,
 }: {
   now: Date;
   visitorCount: number | null;
   onReset: () => void;
+  onOpenSettings: () => void;
 }) {
   const wallpaperId = useDesktopPreferencesStore((s) => s.wallpaperId);
   const setWallpaper = useDesktopPreferencesStore((s) => s.setWallpaper);
@@ -161,8 +345,16 @@ function QuickPanel({
       </div>
 
       <div className='mt-4 rounded-[22px] border border-white/10 bg-white/6 p-4'>
-        <div className='text-[12px] uppercase tracking-[0.16em] text-white/50'>
-          Wallpaper
+        <div className='flex items-center justify-between gap-3'>
+          <div className='text-[12px] uppercase tracking-[0.16em] text-white/50'>
+            Wallpaper
+          </div>
+          <button
+            onClick={onOpenSettings}
+            className='rounded-full border border-white/10 bg-white/8 px-3 py-1 text-[11px] font-semibold text-white/80 transition-colors hover:bg-white/12'
+          >
+            Open Settings
+          </button>
         </div>
         <div className='mt-3 grid grid-cols-3 gap-2'>
           {Object.values(WALLPAPERS).map((wallpaper) => (
@@ -179,10 +371,7 @@ function QuickPanel({
                   : 'border-white/10 hover:bg-white/8',
               ].join(' ')}
             >
-              <div
-                className='h-14 rounded-xl'
-                style={wallpaper.style}
-              />
+              <div className='h-14 rounded-xl' style={wallpaper.style} />
               <div className='px-1 pb-1 pt-2 text-[12px] text-white/80'>
                 {wallpaper.label}
               </div>
@@ -212,7 +401,8 @@ export function TaskbarInline() {
     openFolder,
     openBrowser,
     openCodeWorkspace,
-    openNoteWindow,
+    openTextFileWindow,
+    openTerminalWindow,
     resetWindows,
   } = useDesktopStore(
     useShallow((s) => ({
@@ -223,17 +413,50 @@ export function TaskbarInline() {
       openFolder: s.openFolder,
       openBrowser: s.openBrowser,
       openCodeWorkspace: s.openCodeWorkspace,
-      openNoteWindow: s.openNoteWindow,
+      openTextFileWindow: s.openTextFileWindow,
+      openTerminalWindow: s.openTerminalWindow,
       resetWindows: s.resetWindows,
     }))
   );
-  const createNote = useDesktopNotesStore((s) => s.createNote);
-  const resetNotes = useDesktopNotesStore((s) => s.resetNotes);
-  const resetLayout = useDesktopLayoutStore((s) => s.resetLayout);
+
+  const recordLauncherUse = useDesktopPreferencesStore((s) => s.recordLauncherUse);
+  const recentLauncherIds = useDesktopPreferencesStore((s) => s.recentLauncherIds);
   const resetPreferences = useDesktopPreferencesStore((s) => s.resetPreferences);
+  const resetLayout = useDesktopLayoutStore((s) => s.resetLayout);
+  const resetTextFiles = useDesktopTextFilesStore((s) => s.resetTextFiles);
+  const resetTerminal = useDesktopTerminalStore((s) => s.resetTerminal);
 
   const [startOpen, setStartOpen] = useState(false);
   const [quickPanelOpen, setQuickPanelOpen] = useState(false);
+  const [launcherQuery, setLauncherQuery] = useState('');
+
+  const startEntriesById = useMemo(
+    () => new Map(START_MENU_APPS.map((entry) => [entry.id, entry])),
+    []
+  );
+
+  const searchResults = useMemo(
+    () =>
+      START_MENU_APPS.filter((entry) => matchesLauncher(entry, launcherQuery)).slice(
+        0,
+        12
+      ),
+    [launcherQuery]
+  );
+
+  const recommendedEntries = useMemo(() => {
+    const recentEntries = recentLauncherIds
+      .map((id) => startEntriesById.get(id))
+      .filter((entry): entry is LauncherEntry => Boolean(entry));
+
+    if (recentEntries.length > 0) {
+      return recentEntries;
+    }
+
+    return START_MENU_RECOMMENDED_IDS.map((id) => startEntriesById.get(id)).filter(
+      (entry): entry is LauncherEntry => Boolean(entry)
+    );
+  }, [recentLauncherIds, startEntriesById]);
 
   const runningItems = useMemo(() => {
     return windows
@@ -254,7 +477,15 @@ export function TaskbarInline() {
           return false;
         }
 
-        if (window.type === 'pages' && window.activeTabId === 'about') {
+        if (window.type === 'terminal' && window.id === 'terminal:main') {
+          return false;
+        }
+
+        if (
+          window.type === 'pages' &&
+          window.activeTabId === 'about' &&
+          window.tabs.length <= 1
+        ) {
           return false;
         }
 
@@ -262,9 +493,39 @@ export function TaskbarInline() {
       })
       .sort((a, b) => a.zIndex - b.zIndex);
   }, [windows]);
+
   const pagesWindow = windows.find(
     (window): window is PagesWindow => window.type === 'pages'
   );
+
+  const launchEntry = (entry: LauncherEntry) => {
+    recordLauncherUse(entry.id);
+    setStartOpen(false);
+    setLauncherQuery('');
+
+    switch (entry.launch.kind) {
+      case 'page':
+        openPage(PAGE_TABS[entry.launch.pageId]);
+        break;
+      case 'folder':
+        openFolder(getFolderLaunchOptions(entry.launch.folderId));
+        break;
+      case 'browser':
+        openBrowser(entry.launch.browserAppId);
+        break;
+      case 'code':
+        openCodeWorkspace(entry.launch.workspaceId);
+        break;
+      case 'text-file':
+        openTextFileWindow(entry.launch.fileId);
+        break;
+      case 'terminal':
+        openTerminalWindow();
+        break;
+    }
+
+    playSystemSound('open');
+  };
 
   const toggleQuickPanel = () => {
     setQuickPanelOpen((value) => !value);
@@ -272,49 +533,7 @@ export function TaskbarInline() {
     playSystemSound('click');
   };
 
-  const launchFromMenu = (
-    launch: (typeof START_MENU_APPS)[number]['launch']
-  ) => {
-    setStartOpen(false);
-    switch (launch.kind) {
-      case 'page':
-        openPage(PAGE_TABS[launch.pageId]);
-        break;
-      case 'folder':
-        openFolder({
-          id: `folder:${launch.folderId}`,
-          folderId: launch.folderId,
-          title: launch.folderId === 'projects' ? 'Projects' : 'Folder',
-          icon:
-            launch.folderId === 'recycle-bin'
-              ? '/assets/common/desktop/folder-shortcut.webp'
-              : '/assets/common/desktop/folder-shortcut.webp',
-          contentType:
-            launch.folderId === 'projects' ? 'projects' : 'user-folder',
-        });
-        break;
-      case 'browser':
-        openBrowser(launch.browserAppId);
-        break;
-      case 'code':
-        openCodeWorkspace(launch.workspaceId);
-        break;
-      case 'note-create': {
-        const id = createNote(
-          { x: 320, y: 180 },
-          {
-            surfaceVisible: false,
-            title: 'Untitled Note',
-          }
-        );
-        openNoteWindow(id);
-        break;
-      }
-    }
-    playSystemSound('open');
-  };
-
-  const handlePinnedClick = (pin: (typeof PINNED_APPS)[number]) => {
+  const handlePinnedClick = (pin: LauncherEntry) => {
     if (
       pin.launch.kind === 'page' &&
       pagesWindow?.type === 'pages' &&
@@ -325,41 +544,20 @@ export function TaskbarInline() {
       return;
     }
 
-    const windowId =
-      pin.launch.kind === 'browser'
-        ? `browser:${pin.launch.browserAppId}`
-        : pin.launch.kind === 'folder'
-          ? `folder:${pin.launch.folderId}`
-          : pin.launch.kind === 'code'
-            ? `code:${pin.launch.workspaceId}`
-            : null;
+    const windowId = getLaunchWindowId(pin.launch);
 
-    if (windowId && windows.some((window) => window.id === windowId)) {
+    if (
+      pin.launch.kind !== 'page' &&
+      windows.some((window) => window.id === windowId)
+    ) {
       toggleTaskbarItem(windowId);
       return;
     }
 
-    if (pin.launch.kind === 'page') {
-      openPage(PAGE_TABS[pin.launch.pageId]);
-    } else if (pin.launch.kind === 'folder') {
-      openFolder({
-        id: `folder:${pin.launch.folderId}`,
-        folderId: pin.launch.folderId,
-        title: 'Projects',
-        icon: '/assets/common/desktop/folder-shortcut.webp',
-        contentType: 'projects',
-      });
-    } else if (pin.launch.kind === 'browser') {
-      openBrowser(pin.launch.browserAppId);
-    } else if (pin.launch.kind === 'code') {
-      openCodeWorkspace(pin.launch.workspaceId);
-    }
-    playSystemSound('open');
+    launchEntry(pin);
   };
 
-  const getPinStatus = (
-    pin: (typeof PINNED_APPS)[number]
-  ): TaskbarButtonStatus => {
+  const getPinStatus = (pin: LauncherEntry): TaskbarButtonStatus => {
     if (pin.launch.kind === 'page') {
       const hasTab =
         pagesWindow?.type === 'pages' &&
@@ -376,25 +574,7 @@ export function TaskbarInline() {
         return false;
       }
 
-      if (pin.launch.kind === 'folder') {
-        return window.id === `folder:${pin.launch.folderId}`;
-      }
-
-      if (pin.launch.kind === 'browser') {
-        return (
-          window.type === 'browser' &&
-          window.browserAppId === pin.launch.browserAppId
-        );
-      }
-
-      if (pin.launch.kind === 'code') {
-        return (
-          window.type === 'code' &&
-          window.workspaceId === pin.launch.workspaceId
-        );
-      }
-
-      return false;
+      return window.id === getLaunchWindowId(pin.launch);
     });
 
     if (!matchedWindow) {
@@ -413,10 +593,13 @@ export function TaskbarInline() {
 
   const resetDesktop = () => {
     resetLayout();
-    resetNotes();
     resetPreferences();
+    resetTextFiles();
+    resetTerminal();
     resetWindows();
     setQuickPanelOpen(false);
+    setStartOpen(false);
+    setLauncherQuery('');
     playSystemSound('click');
   };
 
@@ -434,9 +617,26 @@ export function TaskbarInline() {
       ) : null}
 
       <div className='fixed bottom-0 left-0 right-0 z-[9998] border-t border-white/10 bg-black/26 px-3 pb-2 pt-2 backdrop-blur-2xl'>
-        {startOpen ? <StartMenu onLaunch={launchFromMenu} /> : null}
+        {startOpen ? (
+          <StartMenu
+            query={launcherQuery}
+            onQueryChange={setLauncherQuery}
+            results={searchResults}
+            recommendedEntries={recommendedEntries}
+            onLaunch={launchEntry}
+          />
+        ) : null}
         {quickPanelOpen ? (
-          <QuickPanel now={now} visitorCount={visitorCount} onReset={resetDesktop} />
+          <QuickPanel
+            now={now}
+            visitorCount={visitorCount}
+            onReset={resetDesktop}
+            onOpenSettings={() => {
+              setQuickPanelOpen(false);
+              openPage(PAGE_TABS.settings);
+              playSystemSound('open');
+            }}
+          />
         ) : null}
 
         <div className='flex h-14 items-center justify-between gap-3 rounded-[22px] border border-white/10 bg-black/28 px-3'>

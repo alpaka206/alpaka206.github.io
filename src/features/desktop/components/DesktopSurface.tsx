@@ -7,19 +7,18 @@ import {
   type PointerEvent,
 } from 'react';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
-import { NOTE_COLORS, WALLPAPERS } from '@/features/desktop/config/shell';
+import { WALLPAPERS } from '@/features/desktop/config/shell';
 import { resolveDesktopShortcutPosition } from '@/features/desktop/utils/shortcutGrid';
 import {
   useDesktopLayoutStore,
-  useDesktopNotesStore,
   useDesktopPreferencesStore,
   useDesktopStore,
+  useDesktopTerminalStore,
+  useDesktopTextFilesStore,
 } from '@/stores';
 import type {
-  DesktopNote,
   DesktopPosition,
   DesktopShortcutItem,
-  NoteColorId,
 } from '@/stores/desktopModels';
 import { playSystemSound } from '@/utils/systemSounds';
 
@@ -82,7 +81,6 @@ function DesktopShortcutTile({
   onOpen,
   onMove,
   resolveDropPosition,
-  onStartRename,
   onCommitRename,
   onContextMenu,
 }: {
@@ -93,7 +91,6 @@ function DesktopShortcutTile({
   onOpen: () => void;
   onMove: (position: DesktopPosition) => void;
   resolveDropPosition: (position: DesktopPosition) => DesktopPosition;
-  onStartRename: () => void;
   onCommitRename: (title: string) => void;
   onContextMenu: (event: MouseEvent) => void;
 }) {
@@ -111,7 +108,8 @@ function DesktopShortcutTile({
 
   useEffect(() => {
     setPreviewPosition(item.position);
-  }, [item.position]);
+    setDraftTitle(item.title);
+  }, [item.position, item.title]);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.button !== 0 || editing) return;
@@ -162,6 +160,7 @@ function DesktopShortcutTile({
         lastClickAtRef.current = now;
       }
     }
+
     dragRef.current = null;
     setDragging(false);
     event.currentTarget.releasePointerCapture(event.pointerId);
@@ -203,13 +202,13 @@ function DesktopShortcutTile({
           <input
             autoFocus
             value={draftTitle}
-            onChange={(e) => setDraftTitle(e.target.value)}
+            onChange={(event) => setDraftTitle(event.target.value)}
             onBlur={() => onCommitRename(draftTitle)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
                 onCommitRename(draftTitle);
               }
-              if (e.key === 'Escape') {
+              if (event.key === 'Escape') {
                 setDraftTitle(item.title);
                 onCommitRename(item.title);
               }
@@ -226,139 +225,10 @@ function DesktopShortcutTile({
   );
 }
 
-function StickyNoteWidget({
-  note,
-  selected,
-  onSelect,
-  onOpen,
-  onDelete,
-  onMove,
-  onChange,
-  onColorChange,
-  onContextMenu,
-}: {
-  note: DesktopNote;
-  selected: boolean;
-  onSelect: () => void;
-  onOpen: () => void;
-  onDelete: () => void;
-  onMove: (position: DesktopPosition) => void;
-  onChange: (patch: Partial<DesktopNote>) => void;
-  onColorChange: (color: NoteColorId) => void;
-  onContextMenu: (event: MouseEvent) => void;
-}) {
-  const dragRef = useRef<{
-    startX: number;
-    startY: number;
-    originX: number;
-    originY: number;
-  } | null>(null);
-  const [previewPosition, setPreviewPosition] = useState(note.position);
-
-  const palette = NOTE_COLORS[note.color];
-
-  useEffect(() => {
-    setPreviewPosition(note.position);
-  }, [note.position]);
-
-  return (
-    <div
-      className={[
-        'absolute flex h-[220px] w-[240px] flex-col overflow-hidden rounded-[22px] border border-black/10 shadow-[0_24px_54px_rgba(15,23,42,0.18)] backdrop-blur',
-        selected ? 'ring-2 ring-white/60' : '',
-      ].join(' ')}
-      style={{
-        left: previewPosition.x,
-        top: previewPosition.y,
-        zIndex: note.zIndex,
-        backgroundColor: palette.surface,
-      }}
-      onPointerDown={() => onSelect()}
-      onContextMenu={onContextMenu}
-      onDoubleClick={() => {
-        playSystemSound('open');
-        onOpen();
-      }}
-    >
-      <div
-        className='flex cursor-move items-center justify-between border-b border-black/10 px-3 py-2'
-        onPointerDown={(event) => {
-          dragRef.current = {
-            startX: event.clientX,
-            startY: event.clientY,
-            originX: note.position.x,
-            originY: note.position.y,
-          };
-          event.currentTarget.setPointerCapture(event.pointerId);
-        }}
-        onPointerMove={(event) => {
-          if (!dragRef.current) return;
-          setPreviewPosition(
-            clampPosition({
-              x:
-                dragRef.current.originX +
-                (event.clientX - dragRef.current.startX),
-              y:
-                dragRef.current.originY +
-                (event.clientY - dragRef.current.startY),
-            })
-          );
-        }}
-        onPointerUp={(event) => {
-          if (dragRef.current) {
-            onMove(previewPosition);
-          }
-          dragRef.current = null;
-          event.currentTarget.releasePointerCapture(event.pointerId);
-        }}
-      >
-        <input
-          value={note.title}
-          onChange={(event) => onChange({ title: event.target.value })}
-          className='min-w-0 flex-1 bg-transparent text-[13px] font-semibold text-[#3b2f00] outline-none'
-        />
-        <div className='flex items-center gap-1'>
-          <button
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={() => onOpen()}
-            className='rounded-md border border-black/10 px-2 py-1 text-[11px] font-semibold text-[#624800] transition-colors hover:bg-black/5'
-          >
-            Open
-          </button>
-          {(Object.keys(NOTE_COLORS) as NoteColorId[]).map((colorId) => (
-            <button
-              key={colorId}
-              onPointerDown={(event) => event.stopPropagation()}
-              onClick={() => onColorChange(colorId)}
-              className='size-3 rounded-full border border-black/10'
-              style={{ background: NOTE_COLORS[colorId].tile }}
-            />
-          ))}
-          <button
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={() => onDelete()}
-            className='grid size-5 place-items-center rounded-full text-[11px] font-bold text-[#624800] transition-colors hover:bg-black/5'
-            aria-label='Delete note'
-          >
-            X
-          </button>
-        </div>
-      </div>
-      <textarea
-        value={note.content}
-        onChange={(event) => onChange({ content: event.target.value })}
-        className='min-h-0 flex-1 resize-none bg-transparent px-3 py-3 text-[13px] leading-6 text-[#3b2f00] outline-none placeholder:text-[#715f2e]'
-        placeholder='Write something down...'
-      />
-    </div>
-  );
-}
-
 type MenuState =
   | null
   | { kind: 'desktop'; x: number; y: number }
-  | { kind: 'shortcut'; x: number; y: number; itemId: string }
-  | { kind: 'note'; x: number; y: number; noteId: string };
+  | { kind: 'shortcut'; x: number; y: number; itemId: string };
 
 export function DesktopSurface() {
   const surfaceRef = useRef<HTMLDivElement>(null);
@@ -369,15 +239,6 @@ export function DesktopSurface() {
   const removeFolder = useDesktopLayoutStore((s) => s.removeFolder);
   const resetLayout = useDesktopLayoutStore((s) => s.resetLayout);
 
-  const notes = useDesktopNotesStore((s) => s.notes);
-  const createNote = useDesktopNotesStore((s) => s.createNote);
-  const updateNote = useDesktopNotesStore((s) => s.updateNote);
-  const moveNote = useDesktopNotesStore((s) => s.moveNote);
-  const setNoteColor = useDesktopNotesStore((s) => s.setNoteColor);
-  const removeNote = useDesktopNotesStore((s) => s.removeNote);
-  const bringNoteToFront = useDesktopNotesStore((s) => s.bringNoteToFront);
-  const resetNotes = useDesktopNotesStore((s) => s.resetNotes);
-
   const wallpaperId = useDesktopPreferencesStore((s) => s.wallpaperId);
   const setWallpaper = useDesktopPreferencesStore((s) => s.setWallpaper);
   const resetPreferences = useDesktopPreferencesStore((s) => s.resetPreferences);
@@ -386,19 +247,18 @@ export function DesktopSurface() {
   const openFolder = useDesktopStore((s) => s.openFolder);
   const openBrowser = useDesktopStore((s) => s.openBrowser);
   const openCodeWorkspace = useDesktopStore((s) => s.openCodeWorkspace);
-  const openNoteWindow = useDesktopStore((s) => s.openNoteWindow);
-  const closeWindow = useDesktopStore((s) => s.closeWindow);
+  const openTextFileWindow = useDesktopStore((s) => s.openTextFileWindow);
+  const openTerminalWindow = useDesktopStore((s) => s.openTerminalWindow);
   const resetWindows = useDesktopStore((s) => s.resetWindows);
+
+  const resetTextFiles = useDesktopTextFilesStore((s) => s.resetTextFiles);
+  const resetTerminal = useDesktopTerminalStore((s) => s.resetTerminal);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [contextMenu, setContextMenu] = useState<MenuState>(null);
   const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
 
   const wallpaperList = useMemo(() => Object.values(WALLPAPERS), []);
-  const visibleNotes = useMemo(
-    () => notes.filter((note) => note.surfaceVisible !== false),
-    [notes]
-  );
   const resolveShortcutDropPosition = (
     itemId: string,
     position: DesktopPosition
@@ -434,8 +294,9 @@ export function DesktopSurface() {
 
   const resetDesktop = () => {
     resetLayout();
-    resetNotes();
     resetPreferences();
+    resetTextFiles();
+    resetTerminal();
     resetWindows();
     setSelectedId(null);
     setContextMenu(null);
@@ -444,6 +305,7 @@ export function DesktopSurface() {
 
   const handleOpenItem = (item: DesktopShortcutItem) => {
     setSelectedId(item.id);
+
     switch (item.kind) {
       case 'page':
         openPage(PAGE_TABS[item.pageId]);
@@ -462,6 +324,12 @@ export function DesktopSurface() {
         break;
       case 'code':
         openCodeWorkspace(item.workspaceId);
+        break;
+      case 'text-file':
+        openTextFileWindow(item.fileId);
+        break;
+      case 'terminal':
+        openTerminalWindow();
         break;
     }
   };
@@ -486,39 +354,24 @@ export function DesktopSurface() {
     playSystemSound('open');
   };
 
-  const handleNewNote = () => {
-    const rect = surfaceRef.current?.getBoundingClientRect();
-    if (!rect || !contextMenu) return;
-    const id = createNote(
-      toDesktopPosition(contextMenu.x, contextMenu.y, rect),
-      { surfaceVisible: true }
-    );
-    bringNoteToFront(id);
-    setSelectedId(id);
-    setContextMenu(null);
-    playSystemSound('open');
-  };
-
-  const handleDeleteNote = (noteId: string) => {
-    closeWindow(`note:${noteId}`);
-    removeNote(noteId);
-    setContextMenu(null);
-    setSelectedId((current) => (current === noteId ? null : current));
-    playSystemSound('click');
-  };
-
   const currentMenuItems = useMemo(() => {
     if (!contextMenu) return [];
 
     if (contextMenu.kind === 'desktop') {
       return [
         { label: 'New Folder', onClick: handleNewFolder },
-        { label: 'New Sticky Note', onClick: handleNewNote },
         {
-          label: 'Refresh',
+          label: 'Open Terminal',
           onClick: () => {
+            openTerminalWindow();
             setContextMenu(null);
-            playSystemSound('click');
+          },
+        },
+        {
+          label: 'Open README.txt',
+          onClick: () => {
+            openTextFileWindow('readme');
+            setContextMenu(null);
           },
         },
         {
@@ -529,72 +382,62 @@ export function DesktopSurface() {
             playSystemSound('click');
           },
         },
+        {
+          label: 'Open Settings',
+          onClick: () => {
+            openPage(PAGE_TABS.settings);
+            setContextMenu(null);
+          },
+        },
         { label: 'Reset Desktop', onClick: resetDesktop, danger: true },
       ];
     }
 
-    if (contextMenu.kind === 'shortcut') {
-      const item = items.find((entry) => entry.id === contextMenu.itemId);
-      if (!item) return [];
+    const item = items.find((entry) => entry.id === contextMenu.itemId);
+    if (!item) return [];
 
-      const actions = [
-        {
-          label: 'Open',
-          onClick: () => {
-            handleOpenItem(item);
-            setContextMenu(null);
-          },
-        },
-      ];
-
-      if (item.kind === 'folder' && item.mutable) {
-        actions.push(
-          {
-            label: 'Rename',
-            onClick: () => {
-              setEditingFolderId(item.id);
-              setContextMenu(null);
-            },
-          },
-          {
-            label: 'Delete',
-            onClick: () => {
-              removeFolder(item.id);
-              setContextMenu(null);
-            },
-            danger: true,
-          }
-        );
-      }
-
-      return actions;
-    }
-
-    const note = notes.find((entry) => entry.id === contextMenu.noteId);
-    if (!note) return [];
-
-    return [
+    const actions: Array<{
+      label: string;
+      onClick: () => void;
+      danger?: boolean;
+    }> = [
       {
-        label: 'Open in Note Window',
+        label: 'Open',
         onClick: () => {
-          openNoteWindow(note.id);
+          handleOpenItem(item);
           setContextMenu(null);
         },
       },
-      {
-        label: 'Delete Note',
-        onClick: () => handleDeleteNote(note.id),
-        danger: true,
-      },
     ];
+
+    if (item.kind === 'folder' && item.mutable) {
+      actions.push(
+        {
+          label: 'Rename',
+          onClick: () => {
+            setEditingFolderId(item.id);
+            setContextMenu(null);
+          },
+        },
+        {
+          label: 'Delete',
+          onClick: () => {
+            removeFolder(item.id);
+            setContextMenu(null);
+          },
+          danger: true,
+        }
+      );
+    }
+
+    return actions;
   }, [
     contextMenu,
     items,
-    notes,
-    openNoteWindow,
+    openPage,
+    openTerminalWindow,
+    openTextFileWindow,
     removeFolder,
-    handleDeleteNote,
-    wallpaperId,
   ]);
 
   return (
@@ -627,7 +470,6 @@ export function DesktopSurface() {
           resolveDropPosition={(position) =>
             resolveShortcutDropPosition(item.id, position)
           }
-          onStartRename={() => setEditingFolderId(item.id)}
           onCommitRename={(title) => {
             renameFolder(item.id, title);
             setEditingFolderId(null);
@@ -640,34 +482,6 @@ export function DesktopSurface() {
               x: event.clientX,
               y: event.clientY,
               itemId: item.id,
-            });
-          }}
-        />
-      ))}
-
-      {visibleNotes.map((note) => (
-        <StickyNoteWidget
-          key={note.id}
-          note={note}
-          selected={selectedId === note.id}
-          onSelect={() => {
-            setSelectedId(note.id);
-            bringNoteToFront(note.id);
-            setContextMenu(null);
-          }}
-          onOpen={() => openNoteWindow(note.id)}
-          onDelete={() => handleDeleteNote(note.id)}
-          onMove={(position) => moveNote(note.id, position)}
-          onChange={(patch) => updateNote(note.id, patch)}
-          onColorChange={(color) => setNoteColor(note.id, color)}
-          onContextMenu={(event) => {
-            event.preventDefault();
-            setSelectedId(note.id);
-            setContextMenu({
-              kind: 'note',
-              x: event.clientX,
-              y: event.clientY,
-              noteId: note.id,
             });
           }}
         />
