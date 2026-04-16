@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { DEFAULT_DESKTOP_ITEMS } from '@/features/desktop/config/shell';
-import { snapDesktopShortcutPosition } from '@/features/desktop/utils/shortcutGrid';
+import { resolveDesktopShortcutPosition } from '@/features/desktop/utils/shortcutGrid';
 import type {
   DesktopPosition,
   DesktopShortcutItem,
@@ -24,22 +24,32 @@ function normalizeLayoutItems(
 ): DesktopShortcutItem[] {
   const storedItems = items ?? [];
   const defaultIds = new Set(DEFAULT_DESKTOP_ITEMS.map((item) => item.id));
+  const occupiedPositions: DesktopPosition[] = [];
+
+  const reservePosition = (position: DesktopPosition) => {
+    const resolved = resolveDesktopShortcutPosition(position, occupiedPositions);
+    occupiedPositions.push(resolved);
+    return resolved;
+  };
 
   const systemItems = DEFAULT_DESKTOP_ITEMS.map((defaultItem) => {
     const storedItem = storedItems.find((item) => item.id === defaultItem.id);
     return storedItem
       ? {
           ...defaultItem,
-          position: snapDesktopShortcutPosition(storedItem.position),
+          position: reservePosition(storedItem.position),
         }
-      : defaultItem;
+      : {
+          ...defaultItem,
+          position: reservePosition(defaultItem.position),
+        };
   });
 
   const customItems = storedItems
     .filter((item) => !defaultIds.has(item.id))
     .map((item) => ({
       ...item,
-      position: snapDesktopShortcutPosition(item.position),
+      position: reservePosition(item.position),
     }));
   return [...systemItems, ...customItems];
 }
@@ -54,7 +64,12 @@ export const useDesktopLayoutStore = create<LayoutState>()(
             item.id === id
               ? {
                   ...item,
-                  position: snapDesktopShortcutPosition(position),
+                  position: resolveDesktopShortcutPosition(
+                    position,
+                    s.items
+                      .filter((entry) => entry.id !== id)
+                      .map((entry) => entry.position)
+                  ),
                 }
               : item
           ),
@@ -71,7 +86,10 @@ export const useDesktopLayoutStore = create<LayoutState>()(
               contentType: 'user-folder',
               title: 'New Folder',
               icon: '/assets/common/desktop/folder-shortcut.webp',
-              position: snapDesktopShortcutPosition(position),
+              position: resolveDesktopShortcutPosition(
+                position,
+                s.items.map((item) => item.position)
+              ),
               mutable: true,
             },
           ],
