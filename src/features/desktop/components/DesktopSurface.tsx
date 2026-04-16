@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 import { NOTE_COLORS, WALLPAPERS } from '@/features/desktop/config/shell';
-import { snapDesktopShortcutPosition } from '@/features/desktop/utils/shortcutGrid';
+import { resolveDesktopShortcutPosition } from '@/features/desktop/utils/shortcutGrid';
 import {
   useDesktopLayoutStore,
   useDesktopNotesStore,
@@ -81,6 +81,7 @@ function DesktopShortcutTile({
   onSelect,
   onOpen,
   onMove,
+  resolveDropPosition,
   onStartRename,
   onCommitRename,
   onContextMenu,
@@ -91,6 +92,7 @@ function DesktopShortcutTile({
   onSelect: () => void;
   onOpen: () => void;
   onMove: (position: DesktopPosition) => void;
+  resolveDropPosition: (position: DesktopPosition) => DesktopPosition;
   onStartRename: () => void;
   onCommitRename: (title: string) => void;
   onContextMenu: (event: MouseEvent) => void;
@@ -139,7 +141,7 @@ function DesktopShortcutTile({
       setDragging(true);
     }
 
-    setPreviewPosition(snapDesktopShortcutPosition(next));
+    setPreviewPosition(resolveDropPosition(next));
   };
 
   const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
@@ -397,6 +399,16 @@ export function DesktopSurface() {
     () => notes.filter((note) => note.surfaceVisible !== false),
     [notes]
   );
+  const resolveShortcutDropPosition = (
+    itemId: string,
+    position: DesktopPosition
+  ) =>
+    resolveDesktopShortcutPosition(
+      position,
+      items
+        .filter((item) => item.id !== itemId)
+        .map((item) => item.position)
+    );
 
   useEffect(() => {
     if (!contextMenu) return;
@@ -467,11 +479,7 @@ export function DesktopSurface() {
   const handleNewFolder = () => {
     const rect = surfaceRef.current?.getBoundingClientRect();
     if (!rect || !contextMenu) return;
-    const id = createFolder(
-      snapDesktopShortcutPosition(
-        toDesktopPosition(contextMenu.x, contextMenu.y, rect)
-      )
-    );
+    const id = createFolder(toDesktopPosition(contextMenu.x, contextMenu.y, rect));
     setSelectedId(id);
     setEditingFolderId(id);
     setContextMenu(null);
@@ -616,6 +624,9 @@ export function DesktopSurface() {
           }}
           onOpen={() => handleOpenItem(item)}
           onMove={(position) => moveItem(item.id, position)}
+          resolveDropPosition={(position) =>
+            resolveShortcutDropPosition(item.id, position)
+          }
           onStartRename={() => setEditingFolderId(item.id)}
           onCommitRename={(title) => {
             renameFolder(item.id, title);
