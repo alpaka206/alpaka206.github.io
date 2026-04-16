@@ -1,4 +1,10 @@
+import {
+  CHROME_ICON,
+  SETTINGS_ICON,
+} from '@/features/desktop/config/shell';
 import type { PageTab, PageType } from '@/stores/useDesktopStore';
+
+export const PORTFOLIO_DEPLOY_ORIGIN = 'https://alpaka206.github.io';
 
 export const PAGE_TABS: Record<PageType, PageTab> = {
   about: {
@@ -10,6 +16,11 @@ export const PAGE_TABS: Record<PageType, PageTab> = {
     id: 'awards',
     title: 'Awards',
     icon: '/assets/common/awards/awards-icon.webp',
+  },
+  chrome: {
+    id: 'chrome',
+    title: 'Chrome',
+    icon: CHROME_ICON,
   },
   blog: {
     id: 'blog',
@@ -26,6 +37,11 @@ export const PAGE_TABS: Record<PageType, PageTab> = {
     title: 'GitHub',
     icon: '/assets/common/brands/github.webp',
   },
+  settings: {
+    id: 'settings',
+    title: 'Settings',
+    icon: SETTINGS_ICON,
+  },
   comatching: {
     id: 'comatching',
     title: 'COMATCHING',
@@ -38,18 +54,51 @@ export const PAGE_TABS: Record<PageType, PageTab> = {
   },
   alnc: {
     id: 'alnc',
-    title: '인감처럼',
+    title: '새차처럼',
     icon: '/assets/projects/alnc/alnc-icon.webp',
   },
 };
 
-export const PAGE_ADDRESSES: Record<PageType, string> = {
-  about: 'portfolio://about-me',
-  awards: 'portfolio://awards',
-  blog: 'https://alpaka206.vercel.app/',
-  insta: 'https://www.instagram.com/alpaka_dev/',
-  github: 'https://github.com/alpaka206',
-  comatching: 'portfolio://projects/comatching',
-  'share-it': 'portfolio://projects/share-it',
-  alnc: 'portfolio://projects/alnc',
+export const PAGE_PATHS: Partial<Record<PageType, string>> = {
+  about: '/profile',
+  awards: '/prize',
+  github: '/github',
+  settings: '/settings',
+  comatching: '/comatching',
+  'share-it': '/share-it',
+  alnc: '/alnc',
 };
+
+export function getPortfolioOrigin() {
+  if (typeof window !== 'undefined' && window.location.origin) {
+    return window.location.origin;
+  }
+
+  return PORTFOLIO_DEPLOY_ORIGIN;
+}
+
+export function getAbsolutePortfolioUrl(path: string) {
+  return `${getPortfolioOrigin()}${path}`;
+}
+
+export function getPageAddress(pageId: PageType) {
+  if (pageId === 'chrome') {
+    return 'https://www.google.com/webhp?igu=1';
+  }
+
+  if (pageId === 'blog') {
+    return 'https://alpaka206.vercel.app/';
+  }
+
+  if (pageId === 'insta') {
+    return 'https://www.instagram.com/alpaka_dev/';
+  }
+
+  const internalPath = PAGE_PATHS[pageId];
+
+  if (internalPath) {
+    return getAbsolutePortfolioUrl(internalPath);
+  }
+
+  return getAbsolutePortfolioUrl('/');
+}

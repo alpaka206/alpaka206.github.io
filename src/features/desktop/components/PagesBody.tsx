@@ -6,7 +6,7 @@ import {
   PAGES_SCROLL_CONTAINER_ID,
 } from '@/features/pages-window/context/PageScrollContext';
 import { PageContent } from '@/features/pages-window/registry/PageContent';
-import { PAGE_ADDRESSES } from '@/features/pages-window/registry/page-registry';
+import { getPageAddress } from '@/features/pages-window/registry/page-registry';
 
 function BackIcon() {
   return (
@@ -80,11 +80,11 @@ export function PagesBody({ win }: { win: PagesWindow }) {
     });
   }, [activeTab?.id]);
 
-  const address = activeTab ? PAGE_ADDRESSES[activeTab.id] : '';
+  const address = activeTab ? getPageAddress(activeTab.id) : '';
   const isEmbeddedPage =
+    activeTab?.id === 'chrome' ||
     activeTab?.id === 'blog' ||
-    activeTab?.id === 'insta' ||
-    activeTab?.id === 'github';
+    activeTab?.id === 'insta';
 
   const canGoBack = historyState.index > 0;
   const canGoForward =
