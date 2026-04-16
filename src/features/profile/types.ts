@@ -6,9 +6,13 @@ export type Project = {
   title: string;
   subtitle?: string;
   role: string;
+  period?: string;
+  teamSize?: string;
+  highlights?: string[];
   points: string[];
   stacks: string[];
   link?: string;
+  thumbnail?: string;
 };
 
 export type About = {
@@ -19,19 +23,39 @@ export type About = {
   paragraphs: string[];
 };
 
+export type ContactItem = {
+  label: string;
+  value: string;
+  href?: string;
+  emoji?: string;
+};
+
 export type Contact = {
-  phone: string;
-  email: string;
+  items: ContactItem[];
+};
+
+export type CareerProject = {
+  title: string;
+  summary: string;
+  contributions: string[];
+  outcomes?: string[];
+  stacks?: string[];
 };
 
 export type CareerEntry = {
   org: string;
   period: string;
-  bullets: string[];
+  role: string;
+  highlights?: string[];
+  stacks?: string[];
+  projects?: CareerProject[];
 };
 
 export type EducationEntry = {
-  lines: string[];
+  school: string;
+  majors: string[];
+  period: string;
+  notes?: string[];
 };
 
 export type ExperienceSection = {

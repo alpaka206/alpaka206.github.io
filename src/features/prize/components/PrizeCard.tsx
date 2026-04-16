@@ -4,6 +4,7 @@ type PrizeCardProps = {
   date: string;
   organization: string;
   description: string;
+  priority?: boolean;
   onClick: () => void;
   className?: string;
 };
@@ -14,6 +15,7 @@ export default function PrizeCard({
   date,
   organization,
   description,
+  priority = false,
   onClick,
   className,
 }: PrizeCardProps) {
@@ -33,6 +35,10 @@ export default function PrizeCard({
         <img
           src={src}
           alt={`${title} 이미지`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding='async'
+          width={320}
+          height={200}
           className='w-full h-full object-contain block'
         />
       </div>
