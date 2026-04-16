@@ -1,0 +1,95 @@
+WINDOWS PORTFOLIO USAGE GUIDE
+
+이 포트폴리오는 Windows 11에서 받은 느낌을 바탕으로 만든 데스크톱 셸이다.
+운영체제를 그대로 복제한 사이트가 아니라, 창과 작업표시줄 구조로 포트폴리오 정보를 빠르게 보여주는 인터페이스다.
+
+구조 설명
+
+- 바탕화면 아이콘
+  About Me, Projects, README.txt, RESUME.txt, Chrome, GitHub, VS Code, Terminal, CONTACT.txt, Settings, Tech Blog, Instagram
+- 창 종류
+  Pages 창, Folder 창, github1s 코드 창, Notepad 창, Terminal 창
+- 작업표시줄
+  Start 메뉴, 고정 앱, 실행 중인 창, 빠른 패널로 구성
+
+창 열기와 닫기
+
+- 바탕화면 아이콘을 더블클릭하면 해당 창이 열림
+- Start 메뉴에서 앱을 클릭해도 같은 동작 수행
+- 작업표시줄 아이콘을 누르면 해당 창으로 이동하거나 최소화 상태 전환
+- 창 오른쪽 위 버튼으로 최소화, 최대화, 닫기 가능
+- 창 상단 바를 드래그해서 위치 이동 가능
+
+Start / Launcher / 검색 사용법
+
+- 작업표시줄의 Windows 버튼을 누르면 Start 메뉴가 열림
+- 검색칸에 앱 이름이나 키워드를 입력하면 결과 표시
+- 예시
+  About, Projects, GitHub, Chrome, Terminal, VS Code, Notepad, README.txt, Settings
+- 검색어가 없으면 고정 앱과 추천 앱 표시
+- 추천 앱은 최근 실행 기록이 있으면 최근 기록 기준으로 갱신
+
+배경 변경 방법
+
+- 작업표시줄 오른쪽 빠른 패널에서 바로 배경 선택 가능
+- Settings 페이지에서도 배경 목록과 현재 상태 확인 가능
+- 배경 설정은 localStorage에 저장되므로 다음 방문에도 유지
+
+Terminal 사용법
+
+- 바탕화면 Terminal 아이콘이나 Start 메뉴의 Terminal 항목으로 열 수 있음
+- 이 Terminal은 실제 시스템 셸이 아니라 포트폴리오 전용 명령 라우터임
+
+지원 명령어
+
+- help
+- clear
+- exit
+- open about
+- open projects
+- open resume
+- open github
+- open browser
+- open settings
+- open notepad
+- wallpaper list
+- wallpaper set <id>
+
+잘못된 명령어를 입력하면 사용 가능한 명령 목록과 예시를 다시 보여줌
+
+Browser / Chrome 동작 설명
+
+- Chrome, Tech Blog, Instagram은 About Me와 같은 Pages 창 안의 탭으로 열림
+- 주소 표시는 실제 URL 형식으로 보임
+- Chrome 기본 주소는 https://www.google.com/webhp?igu=1
+- iframe으로 안전하게 보여줄 수 있는 URL만 내부에 렌더링
+- iframe 제한이 큰 사이트는 새 탭 이동용 안내 카드로 전환
+- GitHub 메인 페이지나 일반 저장소 페이지를 억지로 iframe에 넣지 않음
+
+GitHub 화면 설명
+
+- GitHub 화면은 iframe이 아니라 GitHub API 요약 카드 UI로 구성
+- 이유
+  GitHub는 iframe 제약이 크고, 카드 요약 방식이 프로필과 최근 저장소를 더 안정적으로 보여주기 때문
+- 표시 내용
+  avatar, name, login, bio, blog, location, public repo count, followers, following, 최근 업데이트된 저장소 목록
+- API 호출이 실패하면 GitHub 본문으로 이동할 수 있는 fallback 화면 표시
+
+txt 파일 / Notepad 사용법
+
+- README.txt, ABOUT.txt, CONTACT.txt, NOW.txt, RESUME.txt를 Notepad 창으로 열 수 있음
+- 바탕화면 아이콘이나 Start 메뉴에서 열 수 있음
+- 현재 기본 시스템 txt 파일은 읽기 전용
+- 마지막으로 연 파일 정보는 다음 Notepad 실행 흐름에 사용
+
+VS Code 화면 설명
+
+- VS Code 창은 직접 만든 가짜 에디터가 아님
+- github1s를 iframe으로 임베드한 코드 보기 창임
+- 바깥 창 크롬만 사이트 디자인에 맞추고, 코드 UI 자체는 github1s가 담당
+
+모바일 제한사항
+
+- 모바일에서도 레이아웃이 완전히 깨지지 않도록 구성했지만 데스크톱 경험이 우선
+- 작은 화면에서는 창 이동과 다중 창 사용성이 제한적일 수 있음
+- iframe 기반 콘텐츠는 모바일 브라우저 정책에 따라 일부 동작이 달라질 수 있음
