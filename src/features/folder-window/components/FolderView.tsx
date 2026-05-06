@@ -11,19 +11,19 @@ const FOLDER_ITEMS: Array<{
   {
     id: 'comatching',
     title: 'COMATCHING',
-    icon: '/assets/projects/comatching/icon.webp',
+    icon: '/assets/projects/comatching/comatching-icon.webp',
   },
   {
     id: 'share-it',
     title: 'Share-It',
-    icon: '/assets/projects/share-it/icon.webp',
+    icon: '/assets/projects/share-it/share-it-icon.webp',
     iconFrameClassName:
       'rounded-[18px] border border-black/10 bg-white/90 p-1.5 shadow-[0_8px_20px_rgba(15,23,42,0.08)]',
   },
   {
     id: 'alnc',
     title: '새차처럼',
-    icon: '/assets/projects/alnc/icon.webp',
+    icon: '/assets/projects/alnc/alnc-icon.webp',
   },
 ];
 
@@ -33,20 +33,20 @@ export default function FolderView() {
   const openProject = (tab: PageTab) => openPage(tab);
 
   return (
-    <div className='w-full h-full p-4 md:p-5 overflow-auto'>
+    <div className='h-full w-full overflow-auto p-4 md:p-5'>
       <div className='grid [grid-template-columns:repeat(auto-fill,minmax(92px,1fr))] justify-items-start gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8'>
-        {FOLDER_ITEMS.map((it) => (
+        {FOLDER_ITEMS.map((item) => (
           <FolderIcon
-            key={it.id}
-            imageUrl={it.icon}
-            title={it.title}
-            imageFrameClassName={it.iconFrameClassName}
+            key={item.id}
+            imageUrl={item.icon}
+            title={item.title}
+            imageFrameClassName={item.iconFrameClassName}
             variant='folder'
             onClick={() =>
               openProject({
-                id: it.id,
-                title: it.title,
-                icon: it.icon,
+                id: item.id,
+                title: item.title,
+                icon: item.icon,
               })
             }
           />

@@ -1,88 +1,154 @@
 import { useEffect, useState } from 'react';
+import { getWallpaperStyle } from '@/features/desktop/config/shell';
+import { useClock } from '@/hooks/useClock';
 import { useFullscreen } from '@/hooks/useFullscreen';
-import { useStartStore } from '@/stores/useStartStore';
+import { useVisitorCount } from '@/hooks/useVisitorCount';
+import {
+  useDesktopPreferencesStore,
+  useStartStore,
+} from '@/stores';
+import { playSystemSound } from '@/utils/systemSounds';
+
+function formatLockTime(now: Date) {
+  return new Intl.DateTimeFormat('ko-KR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(now);
+}
+
+function formatLockDate(now: Date) {
+  return new Intl.DateTimeFormat('ko-KR', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  }).format(now);
+}
 
 export default function FullscreenGate() {
   const { request } = useFullscreen();
+  const now = useClock();
+  const visitorCount = useVisitorCount();
+  const wallpaperId = useDesktopPreferencesStore((s) => s.wallpaperId);
 
   const started = useStartStore((s) => s.started);
   const markStarted = useStartStore((s) => s.markStarted);
 
   const [visible, setVisible] = useState(() => !started);
-  useEffect(() => setVisible(!started), [started]);
+  const [isEntering, setIsEntering] = useState(false);
+
+  useEffect(() => {
+    setVisible(!started);
+    if (!started) {
+      setIsEntering(false);
+    }
+  }, [started]);
 
   const enter = async () => {
+    if (isEntering) return;
+
     try {
       await request();
       await new Promise<void>((resolve) => {
         let done = false;
-        const h = () => {
+        const handle = () => {
           if (!done) {
             done = true;
-            document.removeEventListener('fullscreenchange', h);
+            document.removeEventListener('fullscreenchange', handle);
             resolve();
           }
         };
-        document.addEventListener('fullscreenchange', h, { once: true });
+        document.addEventListener('fullscreenchange', handle, { once: true });
         setTimeout(() => {
           if (!done) {
             done = true;
             resolve();
           }
-        }, 150);
+        }, 180);
       });
     } catch {}
-    markStarted();
-    setVisible(false);
+
+    setIsEntering(true);
+    playSystemSound('startup');
+
+    window.setTimeout(() => {
+      markStarted();
+      setVisible(false);
+    }, 220);
   };
+
+  useEffect(() => {
+    if (!visible || isEntering) return;
+
+    const onKeyDown = () => {
+      void enter();
+    };
+
+    window.addEventListener('keydown', onKeyDown, { once: true });
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isEntering, visible]);
 
   if (!visible) return null;
 
   return (
-    <div
+    <button
+      onClick={() => void enter()}
+      type='button'
+      aria-label='Enter portfolio'
       className={[
-        'fixed inset-0 z-[9999] select-none text-white',
-        'bg-[url("/assets/common/system/window/BGimage.webp")] bg-cover bg-center',
+        'fixed inset-0 z-[10000] block select-none text-left text-white',
+        'transition-[opacity,transform] duration-300 ease-out',
+        isEntering ? 'pointer-events-none opacity-0 scale-[1.015]' : 'opacity-100',
       ].join(' ')}
+      style={getWallpaperStyle(wallpaperId)}
     >
       <div
-        className='absolute inset-0 bg-white/10 md:bg-white/5 backdrop-blur-3xl backdrop-saturate-150'
+        className='absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,255,255,0.12)_0%,transparent_20%),linear-gradient(180deg,rgba(4,11,24,0.16)_0%,rgba(5,10,20,0.36)_45%,rgba(5,10,20,0.68)_100%)]'
         aria-hidden
       />
 
-      <div className='relative w-full h-full absolute inset-0 grid place-items-center px-4'>
-        <div className='w-[360px] max-w-[90vw] rounded-2xl border border-white/20 shadow-2xl bg-white/14 backdrop-blur-2xl p-6 text-center'>
-          <div className='mx-auto size-40 rounded-full overflow-hidden ring-1 ring-white/30 shadow-inner'>
-            <img
-              src='/assets/common/profile/ProfileImage.webp'
-              alt='프로필'
-              className='w-full h-full object-cover object-[0%_10%]'
-              draggable={false}
-            />
+      <div className='relative flex h-full flex-col justify-between px-6 py-8 md:px-10 md:py-10'>
+        <div className='flex items-start justify-between'>
+          <div className='rounded-full border border-white/16 bg-black/18 px-4 py-2 text-[11px] font-medium tracking-[0.16em] text-white/72 backdrop-blur-xl md:text-xs'>
+            Press any key or click anywhere
           </div>
-          <div className='mt-4 text-[22px] font-semibold drop-shadow'>
-            환영합니다
+          {visitorCount !== null ? (
+            <div className='rounded-full border border-white/16 bg-black/18 px-4 py-2 text-[11px] font-medium text-white/78 backdrop-blur-xl md:text-xs'>
+              Visitors {visitorCount.toLocaleString()}
+            </div>
+          ) : null}
+        </div>
+
+        <div className='max-w-[680px] pb-10 md:pb-16'>
+          <div className='text-[82px] font-semibold leading-none tracking-[-0.05em] md:text-[112px]'>
+            {formatLockTime(now)}
           </div>
-          <div className='mt-1 text-sm opacity-90'>
-            김규원의 포트폴리오입니다.
+          <div className='mt-4 text-[22px] font-medium text-white/88 md:text-[28px]'>
+            {formatLockDate(now)}
           </div>
 
-          <button
-            onClick={enter}
-            className='mt-6 w-full rounded-xl py-3 font-medium bg-white text-black hover:bg-white/90 transition-colors'
-          >
-            전체 화면으로 시작하기
-          </button>
+          <div className='mt-8 max-w-[620px]'>
+            <div className='text-[11px] font-medium uppercase tracking-[0.28em] text-white/62 md:text-xs'>
+              Frontend Developer
+            </div>
+            <div className='mt-3 text-[28px] font-semibold tracking-[-0.04em] text-white md:text-[40px]'>
+              김규원 Portfolio
+            </div>
+            <div className='mt-4 max-w-[560px] text-sm leading-7 text-white/74 md:text-[15px]'>
+              Projects, profile, notes, browser previews, and a live GitHub
+              workspace inside a Windows-inspired desktop shell.
+            </div>
+          </div>
 
-          <div className='mt-4 pt-3 border-t border-white/10 text-xs opacity-90 flex items-center justify-center gap-4'>
-            <span>로그인 옵션</span>
-            <span className='opacity-60'>•</span>
-            <span>네트워크</span>
-            <span className='opacity-60'>•</span>
-            <span>접근성</span>
+          <div className='mt-8 flex flex-wrap items-center gap-3 md:mt-10'>
+            <div className='inline-flex min-h-11 items-center rounded-full border border-white/22 bg-white/14 px-5 text-[13px] font-semibold tracking-[0.08em] text-white shadow-[0_12px_30px_rgba(7,12,24,0.18)] backdrop-blur-xl'>
+              Enter Portfolio
+            </div>
+            <div className='text-sm text-white/64'>
+              Click anywhere or press any key
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
