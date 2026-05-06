@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, type ReactNode } from 'react';
+import {
+  GalaxyPhoneShell,
+  type PhoneInitialApp,
+} from '@/features/mobile/components/GalaxyPhoneShell';
 
 const MainPage = lazy(() => import('@/pages/MainPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
@@ -19,18 +23,91 @@ const ShareIt = lazy(() => import('@/features/projects/share-it/Page'));
 const ALNC = lazy(() => import('@/features/projects/alnc/Page'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
+function MobileAwareRoute({
+  initialApp,
+  children,
+}: {
+  initialApp: PhoneInitialApp;
+  children: ReactNode;
+}) {
+  return (
+    <>
+      <div className='hidden min-h-screen md:block'>{children}</div>
+      <div className='block h-screen md:hidden'>
+        <GalaxyPhoneShell initialApp={initialApp} />
+      </div>
+    </>
+  );
+}
+
 const AppRoutes = () => (
   <Suspense fallback={<div className='p-4 text-white/80'>Loading...</div>}>
     <Routes>
       <Route path='/' element={<MainPage />} />
-      <Route path='/profile' element={<ProfilePage />} />
-      <Route path='/prize' element={<PrizePage />} />
-      <Route path='/github' element={<GitHubProfilePanel />} />
-      <Route path='/settings' element={<SettingsPage />} />
-      <Route path='/comatching' element={<COMATCHING />} />
-      <Route path='/share-it' element={<ShareIt />} />
-      <Route path='/shareit' element={<ShareIt />} />
-      <Route path='/alnc' element={<ALNC />} />
+      <Route
+        path='/profile'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'about' }}>
+            <ProfilePage />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/prize'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'awards' }}>
+            <PrizePage />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/github'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'github' }}>
+            <GitHubProfilePanel />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/settings'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'settings' }}>
+            <SettingsPage />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/comatching'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'comatching' }}>
+            <COMATCHING />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/share-it'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'share-it' }}>
+            <ShareIt />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/shareit'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'share-it' }}>
+            <ShareIt />
+          </MobileAwareRoute>
+        }
+      />
+      <Route
+        path='/alnc'
+        element={
+          <MobileAwareRoute initialApp={{ kind: 'page', pageId: 'alnc' }}>
+            <ALNC />
+          </MobileAwareRoute>
+        }
+      />
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   </Suspense>
