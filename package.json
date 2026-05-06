@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/prepare-spa-routes.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
@@ -33,14 +33,20 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "homepage": "https://alpaka206.github.io",
-  "description": "<!-- # [임시 포트폴리오 사이트](https://alpaka206.github.io/portfolio/) -->",
+  "description": "Frontend developer portfolio for 김규원.",
   "main": "tailwind.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alpaka206/alpaka206.github.io.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "frontend",
+    "react",
+    "typescript",
+    "vite"
+  ],
+  "author": "김규원",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alpaka206/alpaka206.github.io/issues"
