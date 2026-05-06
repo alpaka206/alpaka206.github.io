@@ -14,7 +14,6 @@ import {
 } from '@/features/desktop/config/shell';
 import { PAGE_TABS } from '@/features/pages-window/registry/page-registry';
 import { useClock } from '@/hooks/useClock';
-import { useVisitorCount } from '@/hooks/useVisitorCount';
 import {
   useDesktopLayoutStore,
   useDesktopPreferencesStore,
@@ -296,12 +295,10 @@ function StartMenu({
 
 function QuickPanel({
   now,
-  visitorCount,
   onReset,
   onOpenSettings,
 }: {
   now: Date;
-  visitorCount: number | null;
   onReset: () => void;
   onOpenSettings: () => void;
 }) {
@@ -319,15 +316,7 @@ function QuickPanel({
         <div className='mt-1 text-sm text-white/70'>{formatPanelDate(now)}</div>
       </div>
 
-      <div className='mt-4 grid grid-cols-2 gap-3'>
-        <div className='rounded-[20px] border border-white/10 bg-white/6 p-4'>
-          <div className='text-[12px] uppercase tracking-[0.16em] text-white/50'>
-            Visitors
-          </div>
-          <div className='mt-2 text-[24px] font-semibold'>
-            {visitorCount !== null ? visitorCount.toLocaleString() : 'Hidden'}
-          </div>
-        </div>
+      <div className='mt-4 grid grid-cols-1 gap-3'>
         <button
           onClick={() => {
             toggleSound();
@@ -392,7 +381,6 @@ function QuickPanel({
 
 export function TaskbarInline() {
   const now = useClock();
-  const visitorCount = useVisitorCount();
   const {
     windows,
     activeWindowId,
@@ -629,7 +617,6 @@ export function TaskbarInline() {
         {quickPanelOpen ? (
           <QuickPanel
             now={now}
-            visitorCount={visitorCount}
             onReset={resetDesktop}
             onOpenSettings={() => {
               setQuickPanelOpen(false);

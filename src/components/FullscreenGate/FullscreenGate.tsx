@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getWallpaperStyle } from '@/features/desktop/config/shell';
 import { useClock } from '@/hooks/useClock';
 import { useFullscreen } from '@/hooks/useFullscreen';
-import { useVisitorCount } from '@/hooks/useVisitorCount';
 import {
   useDesktopPreferencesStore,
   useStartStore,
@@ -27,7 +26,6 @@ function formatLockDate(now: Date) {
 export default function FullscreenGate() {
   const { request } = useFullscreen();
   const now = useClock();
-  const visitorCount = useVisitorCount();
   const wallpaperId = useDesktopPreferencesStore((s) => s.wallpaperId);
 
   const started = useStartStore((s) => s.started);
@@ -111,11 +109,6 @@ export default function FullscreenGate() {
           <div className='rounded-full border border-white/16 bg-black/18 px-4 py-2 text-[11px] font-medium tracking-[0.16em] text-white/72 backdrop-blur-xl md:text-xs'>
             Press any key or click anywhere
           </div>
-          {visitorCount !== null ? (
-            <div className='rounded-full border border-white/16 bg-black/18 px-4 py-2 text-[11px] font-medium text-white/78 backdrop-blur-xl md:text-xs'>
-              Visitors {visitorCount.toLocaleString()}
-            </div>
-          ) : null}
         </div>
 
         <div className='max-w-[680px] pb-10 md:pb-16'>
