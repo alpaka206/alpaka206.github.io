@@ -9,9 +9,16 @@ type IdleSchedulerWindow = Window &
 
 const preloadedImages = new Set<string>();
 
+function hasImagePreloadLink(src: string) {
+  return Array.from(
+    document.head.querySelectorAll<HTMLLinkElement>(
+      'link[rel="preload"][as="image"]'
+    )
+  ).some((link) => link.href === new URL(src, window.location.href).href);
+}
+
 function ensurePreloadLink(src: string, priority: PreloadPriority) {
-  const selector = `link[rel="preload"][as="image"][href="${src}"]`;
-  if (document.head.querySelector(selector)) return;
+  if (hasImagePreloadLink(src)) return;
 
   const link = document.createElement('link');
   link.rel = 'preload';
@@ -71,7 +78,7 @@ export function useImagePreload(
   useEffect(() => {
     if (!enabled) return;
 
-    const orderedImages = images.filter(Boolean);
+    const orderedImages = imageKey.split('|').filter(Boolean);
     const [firstImage, ...remainingImages] = orderedImages;
 
     if (firstImage) {
@@ -83,5 +90,5 @@ export function useImagePreload(
     return () => {
       cleanupFns.forEach((cleanup) => cleanup());
     };
-  }, [enabled, imageKey, images]);
+  }, [enabled, imageKey]);
 }
