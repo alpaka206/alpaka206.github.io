@@ -1,66 +1,198 @@
 {
-  "wallpapers/glass-dark-portrait": {
-    "width": 941,
-    "height": 1672,
+  "apps/alarmtalk": {
+    "width": 512,
+    "height": 512,
     "widths": [
-      941
+      128,
+      256
     ],
     "formats": [
-      "avif",
       "webp"
     ],
-    "color": "#080818"
+    "color": "#0858e8"
   },
-  "wallpapers/glass-dark": {
-    "width": 1672,
-    "height": 941,
+  "apps/blog": {
+    "width": 70,
+    "height": 70,
     "widths": [
-      1280,
-      1672
+      70
     ],
     "formats": [
-      "avif",
       "webp"
     ],
-    "color": "#080818"
+    "color": "#d8d8c8"
   },
-  "wallpapers/glass-light-portrait": {
-    "width": 941,
-    "height": 1672,
+  "apps/comatching": {
+    "width": 512,
+    "height": 512,
     "widths": [
-      941
+      128,
+      256
     ],
     "formats": [
-      "avif",
       "webp"
     ],
-    "color": "#a8d8f8"
+    "color": "#f8f8f8"
   },
-  "wallpapers/glass-light": {
-    "width": 1672,
-    "height": 941,
+  "apps/harucut": {
+    "width": 180,
+    "height": 180,
     "widths": [
-      1280,
-      1672
+      128,
+      180
     ],
     "formats": [
-      "avif",
       "webp"
     ],
-    "color": "#e8e8e8"
+    "color": "#080808"
   },
-  "wallpapers/ridge-dawn": {
-    "width": 1672,
-    "height": 941,
+  "apps/mearri": {
+    "width": 180,
+    "height": 180,
     "widths": [
-      1280,
-      1672
+      128,
+      180
     ],
     "formats": [
-      "avif",
       "webp"
     ],
-    "color": "#6898c8"
+    "color": "#7858f8"
+  },
+  "apps/share-it": {
+    "width": 480,
+    "height": 480,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "awards/2019-acm-icpc-campus-preliminary-bronze-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2019-programming-competition-individual-bronze-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2022-academic-club-presentation-grand-prize": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2022-startup-competition-encouragement-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-hana-social-venture-university-outstanding-team-1": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-hana-social-venture-university-outstanding-team-2": {
+    "width": 1241,
+    "height": 1755,
+    "widths": [
+      64,
+      128,
+      640,
+      1241
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-major-design-career-exploration-excellence-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-startup-promising-team-300-final-selection": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "brand/alpaca": {
+    "width": 305,
+    "height": 512,
+    "widths": [
+      64,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
   },
   "icons/about": {
     "width": 1024,
@@ -301,767 +433,6 @@
       "webp"
     ],
     "color": "#28c8b8"
-  },
-  "apps/alarmtalk": {
-    "width": 512,
-    "height": 512,
-    "widths": [
-      128,
-      256
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#0858e8"
-  },
-  "apps/blog": {
-    "width": 70,
-    "height": 70,
-    "widths": [
-      70
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#d8d8c8"
-  },
-  "apps/comatching": {
-    "width": 512,
-    "height": 512,
-    "widths": [
-      128,
-      256
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "apps/harucut": {
-    "width": 180,
-    "height": 180,
-    "widths": [
-      128,
-      180
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#080808"
-  },
-  "apps/mearri": {
-    "width": 180,
-    "height": 180,
-    "widths": [
-      128,
-      180
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#7858f8"
-  },
-  "apps/share-it": {
-    "width": 480,
-    "height": 480,
-    "widths": [
-      128,
-      256
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#080808"
-  },
-  "brand/alpaca": {
-    "width": 305,
-    "height": 512,
-    "widths": [
-      64,
-      256
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#080808"
-  },
-  "system/document": {
-    "width": 639,
-    "height": 868,
-    "widths": [
-      128,
-      256,
-      512
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "system/folder": {
-    "width": 853,
-    "height": 667,
-    "widths": [
-      128,
-      256,
-      512
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#68b8f8"
-  },
-  "system/trash-empty": {
-    "width": 689,
-    "height": 864,
-    "widths": [
-      128,
-      256,
-      512
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#888888"
-  },
-  "system/trash-full": {
-    "width": 691,
-    "height": 852,
-    "widths": [
-      128,
-      256,
-      512
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#080808"
-  },
-  "profile/portrait": {
-    "width": 645,
-    "height": 860,
-    "widths": [
-      240,
-      480,
-      645
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "screens/alarmtalk": {
-    "width": 2880,
-    "height": 1800,
-    "widths": [
-      720,
-      1440,
-      2160
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "screens/blog": {
-    "width": 2880,
-    "height": 1800,
-    "widths": [
-      720,
-      1440,
-      2160
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "screens/comatching": {
-    "width": 2880,
-    "height": 1800,
-    "widths": [
-      720,
-      1440,
-      2160
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "screens/harucut": {
-    "width": 2880,
-    "height": 1800,
-    "widths": [
-      720,
-      1440,
-      2160
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#080808"
-  },
-  "screens/mearri": {
-    "width": 2880,
-    "height": 1800,
-    "widths": [
-      720,
-      1440,
-      2160
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#081838"
-  },
-  "projects/alarmtalk-app": {
-    "width": 600,
-    "height": 1152,
-    "widths": [
-      480,
-      600
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#081828"
-  },
-  "projects/bucheon-phone": {
-    "width": 540,
-    "height": 1107,
-    "widths": [
-      480,
-      540
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#e8f8f8"
-  },
-  "projects/comatching-phone": {
-    "width": 585,
-    "height": 1113,
-    "widths": [
-      480,
-      585
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/saecha-phone": {
-    "width": 567,
-    "height": 1125,
-    "widths": [
-      480,
-      567
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it-desktop": {
-    "width": 1206,
-    "height": 756,
-    "widths": [
-      480,
-      960,
-      1206
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/registration": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/review": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/search": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/sidebar": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/register/login_email": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/register/login_kakao": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/need/detail": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/need/list": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/main/main": {
-    "width": 1133,
-    "height": 1558,
-    "widths": [
-      480,
-      960,
-      1133
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/main/unlogin": {
-    "width": 4304,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/chat/chat": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/chat/widget": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/borrow/detail": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/share-it/borrow/list": {
-    "width": 5760,
-    "height": 4096,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/charge": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/main": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/result-overview": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/register/chat": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/register/hobby": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/register/login": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/register/user-info": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/matching/loading": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/matching/matching": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/matching/result": {
-    "width": 1572,
-    "height": 3408,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/admin/admin-login": {
-    "width": 5120,
-    "height": 2880,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "projects/comatching/admin/request": {
-    "width": 5120,
-    "height": 2880,
-    "widths": [
-      480,
-      960,
-      1440
-    ],
-    "formats": [
-      "avif",
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2019-acm-icpc-campus-preliminary-bronze-award": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2019-programming-competition-individual-bronze-award": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2022-academic-club-presentation-grand-prize": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2022-startup-competition-encouragement-award": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2023-hana-social-venture-university-outstanding-team-1": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2023-hana-social-venture-university-outstanding-team-2": {
-    "width": 1241,
-    "height": 1755,
-    "widths": [
-      64,
-      128,
-      640,
-      1241
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2023-major-design-career-exploration-excellence-award": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
-  },
-  "awards/2023-startup-promising-team-300-final-selection": {
-    "width": 2481,
-    "height": 3509,
-    "widths": [
-      64,
-      128,
-      640,
-      1280
-    ],
-    "formats": [
-      "webp"
-    ],
-    "color": "#f8f8f8"
   },
   "pdf/portfolio-01": {
     "width": 2880,
@@ -1362,5 +733,634 @@
       "webp"
     ],
     "color": "#f8f8f8"
+  },
+  "profile/portrait": {
+    "width": 645,
+    "height": 860,
+    "widths": [
+      240,
+      480,
+      645
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/alarmtalk-app": {
+    "width": 600,
+    "height": 1152,
+    "widths": [
+      480,
+      600
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#081828"
+  },
+  "projects/bucheon-phone": {
+    "width": 540,
+    "height": 1107,
+    "widths": [
+      480,
+      540
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#e8f8f8"
+  },
+  "projects/comatching-phone": {
+    "width": 585,
+    "height": 1113,
+    "widths": [
+      480,
+      585
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/admin/admin-login": {
+    "width": 5120,
+    "height": 2880,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/admin/request": {
+    "width": 5120,
+    "height": 2880,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/charge": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/main": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/loading": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/matching": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/result": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/chat": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/hobby": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/login": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/user-info": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/result-overview": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/saecha-phone": {
+    "width": 567,
+    "height": 1125,
+    "widths": [
+      480,
+      567
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it-desktop": {
+    "width": 1206,
+    "height": 756,
+    "widths": [
+      480,
+      960,
+      1206
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/borrow/detail": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/borrow/list": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/chat/chat": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/chat/widget": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/main/main": {
+    "width": 1133,
+    "height": 1558,
+    "widths": [
+      480,
+      960,
+      1133
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/main/unlogin": {
+    "width": 4304,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/need/detail": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/need/list": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/register/login_email": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/register/login_kakao": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/registration": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/review": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/search": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/sidebar": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/alarmtalk": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/blog": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/comatching": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/harucut": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "screens/mearri": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#081838"
+  },
+  "system/document": {
+    "width": 639,
+    "height": 868,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "system/folder": {
+    "width": 853,
+    "height": 667,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#68b8f8"
+  },
+  "system/trash-empty": {
+    "width": 689,
+    "height": 864,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#888888"
+  },
+  "system/trash-full": {
+    "width": 691,
+    "height": 852,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "wallpapers/glass-dark": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080818"
+  },
+  "wallpapers/glass-dark-portrait": {
+    "width": 941,
+    "height": 1672,
+    "widths": [
+      941
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080818"
+  },
+  "wallpapers/glass-light": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#e8e8e8"
+  },
+  "wallpapers/glass-light-portrait": {
+    "width": 941,
+    "height": 1672,
+    "widths": [
+      941
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#a8d8f8"
+  },
+  "wallpapers/ridge-dawn": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#6898c8"
   }
 }

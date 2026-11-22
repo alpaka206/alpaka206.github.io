@@ -85,5 +85,7 @@ for (const [dir, widths, formats] of GROUPS) {
 }
 
 await mkdir(path.dirname(MANIFEST), { recursive: true });
-await writeFile(MANIFEST, `${JSON.stringify(manifest, null, 2)}\n`);
+// Sorted keys: recursive readdir order differs between Node versions, and the file must not churn.
+const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+await writeFile(MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);
 console.log(`images: ${Object.keys(manifest).length} sources, ${written} files written`);
