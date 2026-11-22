@@ -1,0 +1,61 @@
+/*
+ * Liquid Glass, approximated with CSS: the material tints and blurs the backdrop
+ * (--glass-*), a 0.5px rim catches light, and a soft highlight sits on the top
+ * edge. In Chromium, --lens adds an SVG displacement filter that bends the
+ * backdrop along the rim. Every number comes from tokens.css.
+ */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-tint);
+  /* var(--lens,) falls back to nothing, so the blur survives without refraction. */
+  -webkit-backdrop-filter: var(--lens,) blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: var(--lens,) blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow:
+    inset 0 0 0 0.5px var(--glass-rim),
+    inset 0 1px 0 0 var(--glass-highlight),
+    var(--glass-shadow);
+}
+
+/* Specular sheen: brighter toward the top-left, the way light falls in macOS. */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--glass-sheen);
+  pointer-events: none;
+}
+
+
+.clear {
+  --glass-tint: var(--glass-clear-tint);
+  --glass-blur: var(--glass-clear-blur);
+}
+
+.menu {
+  --glass-tint: var(--menu-tint);
+  --glass-blur: var(--menu-blur);
+  --glass-shadow: var(--menu-shadow);
+}
+
+.panel {
+  --glass-tint: var(--panel-tint);
+  --glass-shadow: var(--panel-shadow);
+}
+
+.control {
+  --glass-tint: var(--control-glass-tint);
+  --glass-shadow: var(--control-glass-shadow);
+}
+
+:root[data-transparency='reduced'] .glass {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+:root[data-transparency='reduced'] .glass::before {
+  display: none;
+}

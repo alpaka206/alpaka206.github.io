@@ -1,0 +1,65 @@
+.frame {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  background: var(--bg);
+  transform-origin: 0 0;
+  outline: none;
+  will-change: transform;
+}
+
+/* Apps are text again: selectable, and links and images get the long-press menu the shell turns off. */
+.content {
+  position: absolute;
+  inset: 0;
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}
+
+/* The launch screen while the app's code arrives. */
+.launch {
+  position: absolute;
+  inset: 0;
+  background: var(--grouped-bg);
+}
+
+/* The icon the app grows out of; frameFor() keeps it on the visible band. */
+.cover {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/*
+ * The home indicator: 144 × 5 (140 on 393 pt), 8 pt above the bottom of the
+ * 21 pt band under the floating bars, above any real safe area. Drag it up
+ * to go home; tapping (or Enter) does the same.
+ */
+.handle {
+  position: absolute;
+  left: 50%;
+  bottom: var(--phone-safe-bottom);
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 200px;
+  height: var(--phone-home-band);
+  margin-left: -100px;
+  padding-bottom: 8px;
+  touch-action: none;
+  /* Like the real indicator it adapts to what is under it: dark on light content, light on dark. */
+  mix-blend-mode: difference;
+}
+
+.indicator {
+  width: var(--phone-indicator-w);
+  height: var(--ios-home-indicator-h);
+  border-radius: 3px;
+  background: #fff;
+}

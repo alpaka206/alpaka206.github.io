@@ -1,0 +1,68 @@
+/* Liquid Glass buttons, "Regular – Small" material (ios.md §7, §10). */
+.button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: calc(var(--size, 44) * 1px);
+  color: var(--glass-label);
+  font: var(--ios-headline);
+  letter-spacing: var(--ios-tracking-body);
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button[data-size='28'] {
+  --size: 28;
+  font: 600 15px/20px var(--font-text);
+}
+
+/* A 28 pt button still takes a 44 pt touch (HIG minimum). */
+.button[data-size='28']::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.button[data-size='48'] {
+  --size: 48;
+}
+
+.round {
+  width: calc(var(--size, 44) * 1px);
+}
+
+/* Kit padding: 10 pt in 28 pt buttons, 20 pt in larger ones. */
+.text {
+  padding-inline: 20px;
+}
+
+.button[data-size='28'].text {
+  padding-inline: 10px;
+}
+
+/* Liquid Glass swells under the finger instead of dimming. */
+.button:active {
+  transform: scale(1.06);
+}
+
+.button[data-prominent] {
+  --glass-tint: var(--accent);
+  --glass-rim: rgb(255 255 255 / 0.35);
+  color: #fff;
+}
+
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.4;
+}
+
+:root[data-transparency='reduced'] .button[data-prominent] {
+  background: var(--accent);
+}

@@ -1,0 +1,73 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: var(--mac-sidebar-width);
+  height: 100%;
+  flex: none;
+  padding: var(--mac-toolbar) 10px 16px;
+  overflow-y: auto;
+  background: var(--mac-sidebar-bg);
+  -webkit-backdrop-filter: blur(var(--mac-sidebar-blur)) saturate(1.6);
+  backdrop-filter: blur(var(--mac-sidebar-blur)) saturate(1.6);
+  box-shadow: inset -0.5px 0 0 var(--separator);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin: 0;
+  padding: 2px 14px;
+  font: var(--mac-sidebar-header);
+  color: var(--vibrant-label-3);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: var(--mac-sidebar-row);
+  padding: 0 2px 0 10px;
+  border-radius: 8px;
+  font: var(--mac-body);
+  letter-spacing: var(--mac-tracking-13);
+  color: var(--vibrant-label);
+  text-align: left;
+}
+
+.item[aria-current='page'] {
+  font-weight: 600;
+  background: var(--fill-2);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: var(--mac-sidebar-icon);
+  flex: none;
+  color: var(--accent);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

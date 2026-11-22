@@ -1,0 +1,228 @@
+/* ---------- sidebar ---------- */
+
+/* Always rendered, as a live region; it takes no room until it has something to say. */
+.empty {
+  margin: 0;
+  padding: 0 8px;
+  font: var(--mac-body);
+  color: var(--label-2);
+}
+
+/* ---------- 화면 모드 ---------- */
+
+.modes {
+  display: flex;
+  gap: 14px;
+  padding: 4px 0;
+}
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font: var(--mac-callout);
+  color: var(--label);
+}
+
+/* A little desktop: the default wallpaper (16:10, like the screens it is made for) with one window on it. */
+.modeArt {
+  position: relative;
+  width: 80px;
+  height: 50px;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--day) center / cover;
+  box-shadow: 0 0 0 0.5px var(--separator);
+}
+
+.modeArt[data-mode='dark'],
+.modeArt[data-mode='auto'] {
+  background-image: var(--night);
+}
+
+/* 자동: day in the top-left half, night in the bottom-right. */
+.modeArt[data-mode='auto']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--day) center / cover;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.modeArt::after {
+  content: '';
+  position: absolute;
+  left: 20%;
+  top: 28%;
+  width: 60%;
+  height: 50%;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+}
+
+.modeArt[data-mode='dark']::after {
+  background: #2a2a2c;
+}
+
+.modeArt[data-mode='auto']::after {
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.94) 50%, #2a2a2c 50%);
+}
+
+.mode[aria-checked='true'] .modeArt {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 강조 색상: 16 pt dots; the chosen one carries a white centre, its name underneath. */
+.accentPicker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.accents {
+  display: flex;
+  gap: 9px;
+}
+
+.accent {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: light-dark(var(--light), var(--dark));
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.15);
+}
+
+.accent[aria-checked='true']::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.caption {
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+/* ---------- 배경화면 ---------- */
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  width: 112px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--art) center / cover;
+  box-shadow: 0 0 0 0.5px var(--separator);
+}
+
+.preview .thumb {
+  width: 96px;
+  height: 60px;
+}
+
+/* A wallpaper that follows the appearance shows both of its images. */
+.thumb[data-dynamic] {
+  background-image: var(--art-night);
+}
+
+.thumb[data-dynamic]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--art) center / cover;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 14px;
+  padding: 14px 0;
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font: var(--mac-callout);
+  color: var(--label);
+}
+
+.choice[aria-checked='true'] .thumb {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- 데스크탑 및 Dock, 사운드 ---------- */
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.ends {
+  display: flex;
+  justify-content: space-between;
+  font: var(--mac-footnote);
+  color: var(--label-2);
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 220px;
+  color: var(--label-2);
+}
+
+/* ---------- 개인정보 보호 ---------- */
+
+.statement {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 10px 20px;
+}
+
+.statement p {
+  margin: 0;
+  font: var(--mac-body);
+}
+
+.status {
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+/* ---------- 이 사이트에 관하여 ---------- */
+
+/* The alpaca mark that stands in for the Apple logo, in the label colour (305 × 512 artwork). */
+.mark {
+  width: 50px;
+  height: 84px;
+  background: var(--label);
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}

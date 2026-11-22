@@ -1,0 +1,73 @@
+.view {
+  min-height: 100%;
+  padding: 10px 10px 24px;
+  outline: none;
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--pitch));
+  row-gap: 10px;
+}
+
+.group + .group {
+  margin-top: 18px;
+}
+
+/* "그룹 사용": the group name over a hairline, as Finder draws group headers. */
+.groupTitle {
+  margin: 4px 4px 8px;
+  padding: 4px 2px 6px;
+  border-bottom: 1px solid var(--separator);
+  font: 700 13px/16px var(--font-text);
+  letter-spacing: var(--mac-tracking-13);
+  color: var(--label);
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: var(--pitch);
+  padding-top: 2px;
+}
+
+/* The selected icon sits on a rounded grey plate 4 pt larger on each side. */
+.icon {
+  display: grid;
+  place-items: center;
+  width: calc(var(--icon) + 8px);
+  height: calc(var(--icon) + 8px);
+  border-radius: 6px;
+}
+
+.cell[aria-selected='true'] .icon {
+  background: var(--fill);
+}
+
+/* 12 pt labels, 15 pt lines (NSLayoutManager.defaultLineHeight for 12 pt). */
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font: 400 12px/15px var(--font-text);
+  color: var(--label);
+  text-align: center;
+}
+
+.line {
+  padding: 0 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Unfocused list: grey capsule; focused: accent capsule with white text (macos.md §13). */
+.cell[aria-selected='true'] .line {
+  background: var(--selection-unfocused);
+}
+
+.view:focus .cell[aria-selected='true'] .line {
+  background: var(--selection);
+  color: #fff;
+}

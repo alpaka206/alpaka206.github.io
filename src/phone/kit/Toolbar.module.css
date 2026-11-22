@@ -1,0 +1,20 @@
+/* Kit: 48 pt buttons, 36 pt above the screen bottom (402: y 790), 28 pt side inset, 12 pt spacing. */
+.toolbar {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: calc(var(--phone-inset-bottom) + 15px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toolbar > * {
+  pointer-events: auto;
+}
+
+.spacer {
+  flex: 1;
+}

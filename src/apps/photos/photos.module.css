@@ -1,0 +1,72 @@
+.window {
+  height: 100%;
+}
+
+/* Square thumbnails, 2 pt apart, filling the width at roughly the slider's size. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--cell), 1fr));
+  gap: 2px;
+  min-height: 100%;
+  align-content: start;
+  padding: 2px;
+  outline: none;
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--fill-4);
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Photos marks the selection with an accent border inside the thumbnail. */
+.cell[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px var(--selection-unfocused);
+  pointer-events: none;
+}
+
+.grid:focus .cell[aria-selected='true']::after {
+  box-shadow: inset 0 0 0 3px var(--selection);
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  width: 110px;
+}
+
+/* The viewer: the whole photo, centred in the window, at most its own size. */
+.viewer {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 16px;
+  outline: none;
+  container-type: size;
+  animation: open var(--duration) var(--ease-out);
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.full {
+  max-width: 100cqw;
+  max-height: 100cqh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}

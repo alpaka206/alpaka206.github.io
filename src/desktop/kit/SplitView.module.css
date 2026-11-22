@@ -1,0 +1,26 @@
+.split {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  background: var(--window-bg);
+  color: var(--label);
+  font: var(--mac-body);
+  letter-spacing: var(--mac-tracking-13);
+}
+
+.main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+

@@ -1,0 +1,13 @@
+/* Banners use the notification card (ios.md §5) and drop in below the top safe area. */
+.banner {
+  position: absolute;
+  top: calc(var(--phone-safe-top) + 8px);
+  left: var(--ios-margin);
+  right: var(--ios-margin);
+  z-index: 40;
+  touch-action: none;
+  /* An address the clipboard refused stays here to be copied by hand. */
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+}

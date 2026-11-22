@@ -1,0 +1,8 @@
+/* 디스플레이 밝기: a black veil over everything but the session screens, never in the pointer's way. */
+.brightness {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-session) - 1);
+  background: #000;
+  pointer-events: none;
+}

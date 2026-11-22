@@ -1,0 +1,113 @@
+/*
+ * A widget fills two grid rows and reaches 4 pt past the icon columns on
+ * each side (K27: widget x 26.17 against icons at x 30). Its height follows
+ * the kit's 349.67 × 164.33 frame (393 pt iPhones: 338 × 158 in the HIG,
+ * the same ratio within a point).
+ */
+.slot {
+  --jiggle-angle: 0.5deg;
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: span 2;
+  margin: 0 -4px;
+}
+
+.widget {
+  --glass-tint: light-dark(rgb(255 255 255 / 0.55), rgb(30 30 32 / 0.55));
+  --glass-blur: 24px;
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  aspect-ratio: 349.67 / 164.33;
+  padding: var(--ios-widget-pad);
+  color: var(--label);
+  text-align: left;
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+button.widget:active {
+  transform: scale(0.97);
+}
+
+/* The badge sits on the 28 pt corner itself, clear of the Edit button in the band above. */
+.slot > .minus {
+  top: 0;
+  left: 0;
+}
+
+/* Concentric corners: 28 pt widget − 16 pt padding = 12 pt. */
+.portrait {
+  flex: none;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.about {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font: 600 13px/18px var(--font-text);
+  color: var(--label-2);
+}
+
+.headline {
+  margin-top: 4px;
+  font: var(--ios-title3);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.company {
+  margin-top: auto;
+  font: var(--ios-footnote);
+  color: var(--label-2);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+  color: inherit;
+}
+
+/* Title 2 (Bold 22/28) for the figure, Caption 1 for what it counts. */
+.value {
+  font: var(--ios-title2);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.statLabel {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font: var(--ios-caption1);
+  color: var(--label-2);
+}
+
+/* Label under a widget: Medium 12, white, 6 pt below (iOS 27). */
+.caption {
+  margin-top: var(--ios-widget-label-gap);
+  font: var(--ios-icon-label);
+  text-align: center;
+  color: #fff;
+  text-shadow: var(--ios-label-shadow);
+}

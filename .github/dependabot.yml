@@ -1,0 +1,32 @@
+# Weekly update pull requests for npm packages and GitHub Actions. Security
+# fixes are not held back by the cooldown; regular releases wait three days,
+# since hijacked versions are usually caught and pulled within hours.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      npm:
+        patterns: ['*']
+        update-types: [minor, patch]
+    ignore:
+      # typescript-eslint 8 supports TypeScript up to 6.0; remove once it accepts 7.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Moves together with .node-version (the Node LTS the site builds on).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      actions:
+        patterns: ['*']

@@ -1,0 +1,126 @@
+/*
+ * iOS 26 search: the field is a 48 pt glass capsule at the bottom (K27
+ * "Search - Bottom", 28 pt side inset; with the close button: 286 pt field,
+ * 12 pt gap, 48 pt button), 36 pt above the screen bottom, or 10 pt above the
+ * keyboard. Results scroll above it over the blurred Home Screen.
+ */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  color: var(--label);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 35%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  backdrop-filter: blur(28px) saturate(1.5);
+}
+
+:root[data-transparency='reduced'] .backdrop {
+  background: var(--grouped-bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.results {
+  --field-clearance: calc(max(36px, var(--keyboard) + 10px) + 48px);
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(var(--phone-safe-top) + 12px) var(--ios-margin) calc(var(--field-clearance) + 16px);
+  /* A result reached with the keyboard scrolls clear of the floating field. */
+  scroll-padding: var(--phone-safe-top) 0 var(--field-clearance);
+}
+
+.section + .section {
+  margin-top: 16px;
+}
+
+/* Subheadline Semibold, secondary, in the card's text column. */
+.heading {
+  margin: 0 0 6px;
+  padding: 0 16px;
+  font: 600 15px/20px var(--font-text);
+  color: var(--label-2);
+}
+
+.card {
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  border-radius: var(--ios-list-radius);
+  background: color-mix(in srgb, var(--grouped-cell) 72%, transparent);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 16px;
+  text-align: left;
+  color: inherit;
+}
+
+.row:active {
+  background: var(--fill-3);
+}
+
+.icon {
+  display: flex;
+  flex: none;
+}
+
+.texts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  overflow: hidden;
+  font: var(--ios-headline);
+  letter-spacing: var(--ios-tracking-body);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.subtitle {
+  overflow: hidden;
+  font: var(--ios-subhead);
+  color: var(--label-2);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.chevron {
+  flex: none;
+  color: var(--label-3);
+}
+
+.empty {
+  margin: 24px 16px;
+  font: var(--ios-body);
+  color: var(--label-2);
+  text-align: center;
+}
+
+.bar {
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  bottom: max(36px, calc(var(--keyboard) + 10px));
+  display: flex;
+  gap: 12px;
+}
+
+.field {
+  flex: 1;
+  min-width: 0;
+}

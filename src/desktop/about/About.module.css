@@ -1,0 +1,145 @@
+/*
+ * About panels: macOS 27 title-bar-only windows (macos.md §2 radius 16, window
+ * background, kit shadows; §4 14 pt lights at x 9, y 9, 23 pt centre to centre).
+ * "이 개발자에 관하여" follows the approved D07 layout.
+ */
+.window {
+  position: fixed;
+  top: calc(var(--mac-menubar-height) + 10vh + var(--stagger));
+  left: calc(50% - var(--width) / 2);
+  /* A floating panel: over every window, under the Dock and the menu bar. */
+  z-index: calc(var(--z-dock) - 1);
+  width: var(--width);
+  border-radius: var(--mac-window-radius);
+  background: var(--window-bg);
+  box-shadow: var(--mac-window-shadow-inactive);
+  color: var(--label);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: open 0.2s var(--ease-out);
+}
+
+.window[data-active] {
+  box-shadow: var(--mac-window-shadow);
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+
+.lights {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  display: flex;
+  gap: var(--mac-tl-gap);
+}
+
+.light,
+.close {
+  width: var(--mac-tl-size);
+  height: var(--mac-tl-size);
+  border-radius: 50%;
+  background: var(--mac-tl-off);
+  box-shadow: inset 0 0 0 0.5px var(--mac-tl-off-rim);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  color: transparent;
+}
+
+.window[data-active] .close {
+  background: var(--mac-tl-close);
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.12);
+}
+
+/* The × shows while the pointer is over the lights. */
+.lights:hover .close,
+.close:focus-visible {
+  color: rgb(0 0 0 / 0.55);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 22px 16px;
+  text-align: center;
+}
+
+.portrait {
+  width: 128px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center 18%;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px rgb(10 30 60 / 0.2);
+}
+
+/* Large Title, emphasized: Bold 26 / 32 with +0.22 pt tracking (§12). */
+.name {
+  margin: 22px 0 0;
+  font: 700 26px/32px var(--font-text);
+  letter-spacing: 0.22px;
+}
+
+.caption {
+  margin: 3px 0 0;
+  font: var(--mac-body);
+  color: var(--label-2);
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 7px 10px;
+  width: 100%;
+  margin: 22px 0 0;
+  font: var(--mac-callout);
+  text-align: start;
+}
+
+.specs dt {
+  color: var(--label-2);
+  text-align: end;
+}
+
+.specs dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.more {
+  margin-top: 20px;
+}
+
+.copyright {
+  margin: 20px 0 0;
+  font: var(--mac-footnote);
+  color: var(--label-2);
+}
+
+.appContent {
+  padding-bottom: 20px;
+}
+
+.appName {
+  margin: 12px 0 0;
+  font: 700 14px/18px var(--font-text);
+}
+
+.version {
+  margin: 4px 0 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+.appContent .copyright {
+  margin-top: 12px;
+}

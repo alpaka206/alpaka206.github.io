@@ -1,0 +1,290 @@
+/*
+ * Spotlight. Apple publishes no Spotlight geometry (macos.md §17), so the
+ * layout is the approved D08 artboard: a 56 pt search capsule with two filter
+ * chips, and a results panel with a 330 pt list beside a preview.
+ * Glass blur 30 is the K27 recipe for medium and large panels (§14).
+ */
+.spotlight {
+  position: fixed;
+  left: 50%;
+  top: 16.5vh; /* D08: 150 of 900 */
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(760px, calc(100vw - 64px));
+  color: var(--label);
+  translate: -50% 0;
+  animation: appear 0.16s var(--ease-out);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field,
+.chip,
+.results {
+  --glass-blur: 30px;
+}
+
+.field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  height: 56px;
+  padding: 0 20px;
+}
+
+/* The input draws no ring of its own; the capsule takes the kit's search-field ring
+   (an outline, since Glass already uses box-shadow for its rim). */
+.field:focus-within {
+  outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  outline-offset: 0;
+}
+
+.fieldIcon {
+  flex: none;
+  color: var(--label-2);
+}
+
+/* Title 1 (22 / 26) with its −0.26 pt tracking. */
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: var(--mac-title1);
+  letter-spacing: -0.26px;
+  color: var(--label);
+  caret-color: var(--accent);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--label-3);
+}
+
+.hint {
+  flex: none;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--mac-body);
+  color: var(--label-2);
+}
+
+.chip {
+  flex: none;
+  height: 44px;
+  padding: 0 14px;
+  font: 600 12px/16px var(--font-text);
+  color: var(--label);
+}
+
+.chip:hover {
+  --glass-tint: color-mix(in srgb, var(--panel-tint), var(--label) 8%);
+}
+
+/* Through Glass's own colours, so the opaque material of Reduce Transparency turns accent too. */
+.chip[aria-pressed='true'] {
+  --glass-tint: var(--accent);
+  --glass-opaque: var(--accent);
+  color: #fff;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 330px minmax(0, 1fr);
+  height: min(430px, 64vh);
+  overflow: hidden;
+}
+
+.results[data-empty] {
+  display: block;
+  height: auto;
+}
+
+.list {
+  overflow-y: auto;
+  padding: 6px 8px;
+  border-right: 0.5px solid var(--separator);
+}
+
+.section {
+  margin: 0;
+  padding: 10px 12px 4px;
+  font: 600 11px/14px var(--font-text);
+  color: var(--label-2);
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+/* A row that is a web link reads like the others. */
+.result:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.result[aria-selected='true'] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.resultText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.resultTitle,
+.resultSubtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resultTitle {
+  font: 600 13px/16px var(--font-text);
+}
+
+.resultSubtitle {
+  font: 400 11.5px/14px var(--font-text);
+  color: var(--label-2);
+}
+
+.result[aria-selected='true'] .resultSubtitle {
+  color: rgb(255 255 255 / 0.8);
+}
+
+.empty {
+  margin: 0;
+  padding: 22px;
+  text-align: center;
+  font: var(--mac-body);
+  color: var(--label-2);
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 26px 30px;
+  overflow-y: auto;
+  /* D08's white-on-glass card; a faint white lift in dark mode. */
+  --callout: rgb(255 255 255 / 0.7);
+}
+
+:root[data-theme='dark'] .preview {
+  --callout: rgb(255 255 255 / 0.07);
+}
+
+.previewHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.previewHeadText {
+  min-width: 0;
+}
+
+.meta {
+  margin: 0;
+  font: 400 11.5px/14px var(--font-text);
+  color: var(--label-2);
+}
+
+.previewTitle {
+  margin: 2px 0 0;
+  font: 700 15px/20px var(--font-text);
+}
+
+.lead {
+  margin: 18px 0 0;
+  font: 700 22px/1.35 var(--font-text);
+  letter-spacing: -0.55px;
+  white-space: pre-line;
+}
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--callout);
+  font: 400 12.5px/1.45 var(--font-text);
+  color: var(--label-2);
+}
+
+.callout strong {
+  font: 600 13px/16px var(--font-text);
+  color: var(--label);
+}
+
+.bullets {
+  margin: 16px 0 0;
+  padding-left: 17px;
+  font: 400 12.5px/1.7 var(--font-text);
+  color: var(--label);
+}
+
+.summary {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.summaryTitle {
+  margin: 12px 0 0;
+  font: 700 17px/22px var(--font-text);
+}
+
+.kind {
+  margin: 6px 0 0;
+  font: var(--mac-subhead);
+  color: var(--label-3);
+}
+
+.keys {
+  display: flex;
+  gap: 14px;
+  margin: auto 0 0;
+  padding-top: 16px;
+  font: 400 11.5px/14px var(--font-text);
+  color: var(--label-2);
+}
+
+.keys kbd {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--fill-3);
+  font: inherit;
+}

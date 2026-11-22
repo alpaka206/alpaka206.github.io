@@ -1,0 +1,161 @@
+/*
+ * Notes. The app tints its folders, list selection and controls gold; the
+ * list is 280 pt, the editor sets Title 1 / Title 2 (emphasized) over 13 pt
+ * body text with loose leading (13/20).
+ */
+.window {
+  --accent: light-dark(#dfa000, #ffd60a);
+  height: 100%;
+}
+
+.count {
+  padding-right: 8px;
+  color: var(--label-2);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  height: 100%;
+}
+
+/* ---------- list ---------- */
+
+.list {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px 10px 16px;
+  box-shadow: inset -1px 0 0 var(--separator);
+}
+
+.group {
+  margin: 14px 10px 6px;
+  font: var(--mac-headline);
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: var(--label);
+  text-align: left;
+}
+
+/* Hairlines between rows, hidden around the selection. */
+.rows li + li .row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 1px;
+  background: var(--separator);
+}
+
+.rows li + li .row[aria-current]::before,
+.rows li:has(> .row[aria-current]) + li .row::before {
+  display: none;
+}
+
+.row[aria-current] {
+  background: var(--selection-unfocused);
+}
+
+.list[data-key] .row[aria-current] {
+  background: color-mix(in srgb, var(--accent) 38%, var(--window-bg));
+}
+
+.rowTitle {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: var(--mac-headline);
+}
+
+.rowMeta {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  font: var(--mac-callout);
+}
+
+.rowPreview {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--label-2);
+}
+
+/* Always rendered, as a live region; it takes no room until it has something to say. */
+.empty {
+  margin: 0;
+  font: var(--mac-body);
+  color: var(--label-2);
+  text-align: center;
+}
+
+.empty:not(:empty) {
+  margin-top: 24px;
+}
+
+/* ---------- editor ---------- */
+
+.editor {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.note {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 14px 32px 40px;
+}
+
+.noteDate {
+  margin: 0 0 18px;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+  text-align: center;
+}
+
+/* Title 1, emphasized (Bold 22/26, tracking −0.26 pt). */
+.noteTitle {
+  margin: 0 0 10px;
+  font: 700 22px/26px var(--font-text);
+  letter-spacing: -0.26px;
+}
+
+/* Title 2, emphasized (Bold 17/22, tracking −0.43 pt). */
+.noteHeading {
+  margin: 22px 0 6px;
+  font: 700 17px/22px var(--font-text);
+  letter-spacing: -0.43px;
+}
+
+.noteLines {
+  margin: 0;
+  padding-left: 20px;
+  font: 400 13px/20px var(--font-text);
+}
+
+.noteLines li + li {
+  margin-top: 3px;
+}
+
+.noteLines a {
+  text-decoration: underline;
+}

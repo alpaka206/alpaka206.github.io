@@ -1,0 +1,52 @@
+.section + .section {
+  margin-top: 22px;
+}
+
+.title {
+  margin: 0 0 8px 10px;
+  font: var(--mac-headline);
+  color: var(--label);
+}
+
+.group {
+  padding: 0 10px;
+  border-radius: var(--mac-form-radius);
+  background: var(--mac-form-fill);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--mac-form-row);
+  padding: 8px 0;
+}
+
+.row + .row {
+  border-top: 1px solid var(--separator);
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  font: var(--mac-body);
+}
+
+.description {
+  margin: 2px 0 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+.footer {
+  margin: 6px 10px 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}

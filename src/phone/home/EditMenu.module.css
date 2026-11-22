@@ -1,0 +1,43 @@
+/* Jiggle-mode Edit menu: 250 pt wide, 32 pt corners, 42 pt items, under the Edit button. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+
+.anchor {
+  position: absolute;
+  top: calc(var(--phone-safe-top) + var(--ios-grid-top) + 8px);
+  left: var(--ios-grid-side);
+  z-index: 5;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  padding: 10px 0;
+  color: var(--label);
+}
+
+/* Text 20 pt in; the press highlight and the focus ring are rounded and inset 8 pt, inside the glass. */
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 42px;
+  margin: 0 8px;
+  padding: 0 12px;
+  border-radius: 12px;
+  font: 400 17px/20px var(--font-text);
+  text-align: left;
+}
+
+.item:active {
+  background: var(--fill-3);
+}
+
+.item:focus-visible {
+  outline-offset: -3px;
+}

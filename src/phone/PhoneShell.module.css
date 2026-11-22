@@ -1,0 +1,52 @@
+/*
+ * The phone screen. Sizes come from Apple's iOS 27 UI kit (research/ios.md,
+ * 402 × 874 pt frames, 1 pt = 1 CSS px). Shared values live in tokens.css as
+ * --ios-*; the few phone-only ones below are derived from the same tables.
+ * There is no fake status bar or Dynamic Island: the real ones are on screen.
+ */
+.shell {
+  /* ios.md §1: display corners are 62 pt on 402-wide iPhones, 55 pt on 393 and 430. */
+  --phone-display-radius: var(--ios-display-radius);
+  /* ios.md §1: home indicator 144 × 5 on 402 (140 on 393, tokens.css). */
+  --phone-indicator-w: 144px;
+  --phone-safe-top: env(safe-area-inset-top, 0px);
+  --phone-safe-bottom: env(safe-area-inset-bottom, 0px);
+  /*
+   * In iOS 26/27 bars float 21 pt above the screen bottom (tab bar inset,
+   * ios.md §7); the home indicator lives in that band. Apps keep their
+   * content above it, and above the real safe area when there is one.
+   */
+  --phone-home-band: 21px;
+  --phone-inset-bottom: calc(var(--phone-safe-bottom) + var(--phone-home-band));
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  color: var(--label);
+  /* The Home Screen and Lock Screen are not text; apps opt back in (AppLayer). */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+@media (min-width: 401px) and (max-width: 420px) {
+  .shell {
+    --phone-display-radius: 62px;
+  }
+}
+
+@media (max-width: 400px) {
+  .shell {
+    --phone-indicator-w: var(--ios-home-indicator-w);
+  }
+}
+
+/* Settings > brightness: the web cannot dim the panel, so a black veil does. */
+.dim {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #000;
+  pointer-events: none;
+}

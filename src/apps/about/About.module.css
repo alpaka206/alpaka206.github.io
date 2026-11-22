@@ -1,0 +1,46 @@
+.portrait {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  box-shadow: 0 0 0 0.5px var(--separator);
+}
+
+/* The › of a row that navigates somewhere. */
+.disclosure {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-right: -4px;
+  border-radius: 5px;
+  color: var(--label-3);
+}
+
+.disclosure:hover {
+  color: var(--label-2);
+  background: var(--fill-3);
+}
+
+/* A4 scan thumbnail (1 : 1.414). */
+.certificate {
+  flex: none;
+  width: 30px;
+  height: 42px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px var(--separator), 0 1px 3px rgb(0 0 0 / 0.12);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.certificate:hover {
+  transform: scale(1.06);
+}
+
+.scan {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

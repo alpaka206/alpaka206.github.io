@@ -1,0 +1,223 @@
+/*
+ * Control Center, iOS 27 kit "System/Control Center/iPhone" (ios.md §6):
+ * backdrop black 50% with blur and 1.4 saturation; a 4-column grid of 70 pt
+ * units, 15 pt across and 16 pt down (325 pt wide, x 38 on 402), first row
+ * 70 pt under the safe area (y 132); modules round to 34 pt, so 1 × 1
+ * modules are 68 pt circles. Module glass is "Clear".
+ */
+.layer {
+  --drag: 0px;
+  --shown: 1;
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  color: #fff;
+  touch-action: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  /* Kit: black 50%; a little more over light wallpapers keeps the white glyphs legible. */
+  background: rgb(0 0 0 / 0.5);
+  -webkit-backdrop-filter: blur(13.5px) saturate(1.4);
+  backdrop-filter: blur(13.5px) saturate(1.4);
+  opacity: var(--shown);
+}
+
+:root[data-transparency='reduced'] .backdrop {
+  background: rgb(0 0 0 / 0.88);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* The status row (y 97.67 in the kit) shows what the last toggle did. */
+.hint {
+  position: absolute;
+  top: calc(var(--phone-safe-top) + 36px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  font: 600 15px/20px var(--font-text);
+  text-align: center;
+  opacity: var(--shown);
+  transform: translate3d(0, var(--drag), 0);
+}
+
+.grid {
+  position: absolute;
+  top: calc(var(--phone-safe-top) + 70px);
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(4, var(--ios-cc-unit));
+  grid-auto-rows: var(--ios-cc-unit);
+  gap: var(--ios-cc-gap-y) var(--ios-cc-gap-x);
+  justify-content: center;
+  transform: translate3d(0, var(--drag), 0);
+  opacity: var(--shown);
+}
+
+.module {
+  /* Clear glass over the dimmed backdrop, the same in light and dark appearance. */
+  --glass-tint: rgb(255 255 255 / 0.12);
+  --glass-blur: 10px;
+  --glass-rim: rgb(255 255 255 / 0.22);
+  --glass-highlight: rgb(255 255 255 / 0.16);
+  --glass-sheen: radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.08), transparent 55%);
+  --glass-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+  color: #fff;
+}
+
+:root[data-transparency='reduced'] .module {
+  background: rgb(44 44 46);
+}
+
+.module:focus-visible {
+  outline-offset: 3px;
+}
+
+.round {
+  display: grid;
+  place-self: center;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+.round:active,
+.wide:active {
+  transform: scale(1.06);
+}
+
+.round[data-on] {
+  --glass-tint: #fff;
+  color: #000;
+}
+
+:root[data-transparency='reduced'] .round[data-on] {
+  background: #fff;
+}
+
+/* 1 × 2 slider: 70 × 155, the fill rises from the bottom (white 70% in the kit). */
+.slider {
+  grid-row: span 2;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: rgb(255 255 255 / 0.82);
+  transform: scaleY(var(--level));
+  transform-origin: bottom;
+}
+
+.sliderGlyph {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  translate: -50% 0;
+  color: rgb(0 0 0 / 0.6);
+  mix-blend-mode: normal;
+}
+
+/* 2 × 1: 155 × 69, 41 pt icon circle, title Semibold 14, detail Medium 14 at 40% (kit). */
+.wide {
+  display: flex;
+  grid-column: span 2;
+  align-items: center;
+  gap: 10px;
+  height: 69px;
+  padding: 0 14px;
+  text-align: left;
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+.wideIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 41px;
+  height: 41px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.wide[data-on] .wideIcon {
+  background: #fff;
+  color: #000;
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wideText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wideTitle {
+  font: 600 14px/18px var(--font-text);
+}
+
+.wideDetail {
+  overflow: hidden;
+  font: 500 14px/18px var(--font-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0.6;
+}
+
+/* 2 × 2: 155 × 155 with a title and two actions. */
+.actions {
+  display: flex;
+  grid-column: span 2;
+  grid-row: span 2;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+}
+
+.actionsTitle {
+  padding: 0 4px 2px;
+  font: 600 14px/18px var(--font-text);
+}
+
+.action {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  border-radius: 22px;
+  background: rgb(255 255 255 / 0.14);
+  font: 600 13px/16px var(--font-text);
+  text-align: left;
+  color: #fff;
+}
+
+.action:active {
+  background: rgb(255 255 255 / 0.3);
+}
+
+.actionIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.actionLabel {
+  min-width: 0;
+}

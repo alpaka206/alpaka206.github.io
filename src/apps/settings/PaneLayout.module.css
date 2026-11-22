@@ -1,0 +1,50 @@
+.body {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* macOS 27 kit, Forms example: groups sit 20 pt from the window's edges. The cap keeps a zoomed window readable. */
+.column {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 20px 28px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0 22px;
+  text-align: center;
+}
+
+/* Title 1, emphasized: Bold 22/26, tracking −0.26 pt (HIG). */
+.title {
+  margin: 12px 0 0;
+  font: 700 22px/26px var(--font-text);
+  letter-spacing: -0.26px;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font: var(--mac-body);
+  color: var(--label-2);
+}
+
+.line {
+  margin: 10px 0 0;
+  font: var(--mac-body);
+}
+
+.value {
+  max-width: 340px;
+  color: var(--label-2);
+  text-align: right;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

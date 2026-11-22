@@ -1,0 +1,77 @@
+/* The empty desktop itself: presses here activate Finder and start a rubber band. */
+.layer {
+  position: absolute;
+  inset: 0;
+  outline: none;
+}
+
+/* One grid cell (118 pt, as in Finder's icon view): the icon on its selection plate, then the label. */
+.icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 118px;
+  padding-top: 2px;
+  touch-action: none;
+  transition: translate var(--snap-duration) var(--snap);
+}
+
+.icon[data-dragging] {
+  opacity: 0.8;
+  transition: none;
+  z-index: 1;
+}
+
+/* Finder's selection plate: 4 pt larger than the icon on each side, radius 6. */
+.image {
+  display: grid;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.icon[data-selected] .image {
+  background: light-dark(rgb(0 0 0 / 0.22), rgb(255 255 255 / 0.16));
+}
+
+/* 12 pt labels on 15 pt lines; on the desktop they are white over any wallpaper, held up by a soft halo. */
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font: 400 12px/15px var(--font-text);
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.7), 0 0 4px rgb(0 0 0 / 0.35);
+}
+
+/* Each line gets its own capsule when selected, as Finder draws multi-line names. */
+.line {
+  padding: 0 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Another app in front: grey capsules; the desktop active: accent capsules with white text. */
+.icon[data-selected] .line {
+  color: var(--label);
+  background: var(--selection-unfocused);
+  text-shadow: none;
+}
+
+.layer[data-focused] .icon[data-selected] .line {
+  color: #fff;
+  background: var(--selection);
+}
+
+.marquee {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid rgb(255 255 255 / 0.6);
+  background: rgb(160 160 160 / 0.28);
+  pointer-events: none;
+}

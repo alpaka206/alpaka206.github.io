@@ -1,0 +1,92 @@
+/*
+ * K27 "Sheets/iPhone": dimming black 20%. Large detent: full width from the
+ * top of the safe area, 38 pt top corners, opaque, shadow 0 15 50 / 18%.
+ * Header 70 pt: grabber 60 × 4 at y 5, 44 pt buttons 16 pt in at y 16,
+ * title Semibold 17 at y 27.
+ */
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.2);
+}
+
+.sheet {
+  position: absolute;
+  top: var(--phone-safe-top);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--ios-sheet-large-radius) var(--ios-sheet-large-radius) 0 0;
+  /* White, or the elevated #1C1C1E in dark mode, so the sheet stands off the black page. */
+  background: var(--grouped-cell);
+  box-shadow: 0 15px 50px rgb(0 0 0 / 0.18);
+  color: var(--label);
+}
+
+.header {
+  position: relative;
+  flex: none;
+  height: 70px;
+  touch-action: none;
+}
+
+.grabber {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  width: 60px;
+  height: 4px;
+  margin-left: -30px;
+  border-radius: 2px;
+  background: var(--label-4);
+}
+
+.leading,
+.trailing {
+  position: absolute;
+  top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.leading {
+  left: 16px;
+}
+
+.trailing {
+  right: 16px;
+}
+
+.title {
+  position: absolute;
+  top: 27px;
+  left: 72px;
+  right: 72px;
+  margin: 0;
+  overflow: hidden;
+  font: var(--ios-headline);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* It takes the focus when the sheet opens so a screen reader starts here; it is not a control. */
+.title:focus {
+  outline: none;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

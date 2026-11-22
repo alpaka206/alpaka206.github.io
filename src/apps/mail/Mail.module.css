@@ -1,0 +1,80 @@
+/* Mail's compose window: header fields as hairline-separated rows, then a borderless body. */
+.mail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font: var(--mac-body);
+  letter-spacing: var(--mac-tracking-13);
+  color: var(--label);
+  background: var(--window-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  min-height: 32px;
+  margin: 0 20px;
+  border-bottom: 1px solid var(--separator);
+}
+
+/* The field is borderless, so its row carries the focus ring. */
+.header:focus-within {
+  border-radius: 4px;
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.label {
+  flex: none;
+  color: var(--label-2);
+}
+
+/* A recipient token: accent text on a tint of the accent, like Mail's address bubbles. */
+.token {
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.subject {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 20px 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+.notice[data-tone='empty'] {
+  color: var(--red);
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: 14px 20px 20px;
+  border: 0;
+  /* Inside the window's rounded clip. */
+  outline-offset: -4px;
+  resize: none;
+  background: none;
+  font: 400 13px/1.55 var(--font-text);
+}
+
+.body::placeholder {
+  color: var(--label-3);
+}

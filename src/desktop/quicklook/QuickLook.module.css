@@ -1,0 +1,316 @@
+/* A modal layer: presses outside the panel close it. */
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+}
+
+/*
+ * The panel: Liquid Glass "Large UI" (macos.md §14: white 70 %, blur 30,
+ * saturation 1.4, 0 18 48 shadow) with the 16 pt corners every macOS 27 window has.
+ */
+.panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--mac-window-radius);
+  background: var(--panel-tint);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+  backdrop-filter: blur(30px) saturate(1.4);
+  box-shadow:
+    var(--panel-shadow),
+    0 0 0 0.5px light-dark(rgb(0 0 0 / 0.18), rgb(0 0 0 / 0.6)),
+    inset 0 1px 0 light-dark(rgb(255 255 255 / 0.5), transparent),
+    inset 0 0 0 0.5px light-dark(transparent, rgb(255 255 255 / 0.14));
+  color: var(--label);
+  font: var(--mac-body);
+  outline: none;
+}
+
+:root[data-transparency='reduced'] .panel {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Title bar: the unified toolbar height, controls in 28 pt glass circles and capsules. */
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--mac-toolbar);
+  flex: none;
+  padding: 0 12px;
+  box-shadow: 0 0.5px 0 var(--separator);
+}
+
+.round,
+.open {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  border-radius: 14px;
+  color: var(--label);
+  background: var(--fill-3);
+  flex: none;
+}
+
+.round {
+  width: 28px;
+}
+
+.round:hover,
+.open:hover {
+  background: var(--fill);
+}
+
+.round:disabled {
+  color: var(--label-3);
+  background: var(--fill-4);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.count {
+  min-width: 44px;
+  font: var(--mac-callout);
+  color: var(--label-2);
+  text-align: center;
+}
+
+.title {
+  flex: 1;
+  margin: 0;
+  font: var(--mac-headline);
+  text-align: center;
+}
+
+.open {
+  padding: 0 14px;
+  font: 600 12px/16px var(--font-text);
+}
+
+.content {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: color-mix(in srgb, var(--window-bg) 94%, transparent);
+  animation: content-in 0.16s ease-out;
+}
+
+/* Images float on the glass itself. */
+.content:has(> .award) {
+  background: none;
+}
+
+@keyframes content-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Project ---------- */
+.project {
+  display: grid;
+  gap: 28px;
+  padding: 28px 34px 30px;
+}
+
+.project[data-layout='side'] {
+  grid-template-columns: 230px minmax(0, 1fr);
+  align-items: start;
+  gap: 34px;
+}
+
+.phone {
+  overflow: hidden;
+  aspect-ratio: 9 / 18.5;
+  border-radius: 36px;
+  background: #000;
+  box-shadow: 0 0 0 7px #1c1c1e, 0 0 0 8px #3a3a3c, 0 24px 50px rgb(0 0 0 / 0.3);
+  margin: 8px;
+}
+
+.phone img,
+.screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.iconTile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 28px;
+  background: var(--fill-4);
+}
+
+.iconTile > span {
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.18));
+}
+
+.screen {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  max-height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 0.5px var(--separator), 0 10px 30px rgb(0 0 0 / 0.12);
+}
+
+.projectText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.meta {
+  margin: 0;
+  font: var(--mac-callout);
+  color: var(--label-2);
+}
+
+.lead {
+  margin: 10px 0 0;
+  font: 700 22px/30px var(--font-text);
+  letter-spacing: -0.26px;
+  white-space: pre-line;
+  text-wrap: balance;
+}
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--separator);
+}
+
+.metrics dt {
+  font: 700 28px/32px var(--font-text);
+  letter-spacing: -0.6px;
+}
+
+.metrics dd {
+  margin: 4px 0 0;
+  font: var(--mac-callout);
+  color: var(--label-2);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font: var(--mac-callout);
+  background: var(--fill-3);
+}
+
+/* ---------- Award certificate ---------- */
+.award {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 20px 24px 18px;
+  gap: 14px;
+}
+
+.certificates {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: 16px;
+  justify-content: center;
+}
+
+.certificates img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.12), 0 8px 24px rgb(0 0 0 / 0.18);
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.caption span {
+  font: var(--mac-callout);
+  color: var(--label-2);
+}
+
+/* ---------- PDF ---------- */
+.pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 24px;
+  list-style: none;
+  background: var(--bg-2);
+  min-height: 100%;
+}
+
+.pages li {
+  width: min(100%, 880px);
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.12), 0 4px 16px rgb(0 0 0 / 0.14);
+}
+
+.pages img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Note ---------- */
+.note {
+  padding: 22px 40px 32px;
+  font: 400 14px/22px var(--font-text);
+}
+
+.noteDate {
+  margin: 0;
+  font: var(--mac-callout);
+  color: var(--label-2);
+  text-align: center;
+}
+
+.noteTitle {
+  margin: 16px 0 0;
+  font: 700 22px/28px var(--font-text);
+}
+
+.note h4 {
+  margin: 18px 0 0;
+  font: 600 15px/20px var(--font-text);
+}
+
+.note ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}

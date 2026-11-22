@@ -1,0 +1,221 @@
+/*
+ * The macOS 27 Dock. Geometry comes from geometry.ts through custom
+ * properties (64 pt tiles: 82.5 pt shelf, 5.5 pt above the screen edge).
+ * Icons are drawn at the magnified size and scaled down at rest (--rest), so
+ * they stay sharp while magnifying; useMagnifier writes the per-frame transforms.
+ */
+/* The safe area: a landscape phone (768 pt and wider gets the desktop) keeps its corners and home indicator clear. */
+.layer {
+  position: fixed;
+  inset: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  z-index: var(--z-dock);
+  pointer-events: none;
+}
+
+.dock {
+  /* K27 kit "Dock/Light Dock": running dot and divider, measured near black on the light glass. */
+  --dock-dot: light-dark(rgb(0 0 0 / 0.82), rgb(255 255 255 / 0.8));
+  --dock-divider: light-dark(rgb(0 0 0 / 0.42), rgb(255 255 255 / 0.3));
+
+  position: absolute;
+  left: calc(50% - var(--width) / 2);
+  bottom: var(--bottom);
+  width: var(--width);
+  height: var(--height);
+  pointer-events: auto;
+  transition: translate var(--hide-duration) var(--hide-easing);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Auto-hide: the whole Dock slides below the screen edge. */
+.dock[data-hidden] {
+  translate: 0 calc(var(--height) + var(--bottom) + env(safe-area-inset-bottom, 0px) + 4px);
+}
+
+/*
+ * The shelf, macOS 27 Dock glass (K27 "Dock/Light Dock"): #4D4D4D 30% luminosity,
+ * #1A1A1A 10% plus-darker and #FFF 8% lighten. Composited in order they map a
+ * backdrop value b to 0.58 b + 0.155, which is a 42% veil of #5E5E5E; the
+ * saturate() gives back the colour a luminosity blend keeps. Kit "glass blur 1"
+ * is next to nothing: the wallpaper stays sharp, only the rim bends it (--lens).
+ * Dark: #454545 50% luminosity over the same layers = a 59% veil of #545454.
+ */
+.shelf {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--radius);
+  background: light-dark(rgb(94 94 94 / 0.42), rgb(84 84 84 / 0.59));
+  -webkit-backdrop-filter: var(--lens,) blur(0.5px) saturate(1.5);
+  backdrop-filter: var(--lens,) blur(0.5px) saturate(1.5);
+  box-shadow:
+    0 0 0 0.5px light-dark(rgb(0 0 0 / 0.25), rgb(0 0 0 / 0.6)),
+    inset 0 1px 0 light-dark(rgb(255 255 255 / 0.42), rgb(255 255 255 / 0.22)),
+    inset 0 -1px 0 light-dark(rgb(255 255 255 / 0.2), rgb(255 255 255 / 0.1)),
+    inset 0 0 0 1px light-dark(rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.06)),
+    inset 0 0 14px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.14));
+  contain: layout style;
+  will-change: transform;
+}
+
+:root[data-transparency='reduced'] .shelf {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* While magnifying, the band above the shelf the icons grow into still counts as the Dock. */
+.zone {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  width: var(--width);
+  height: 0;
+}
+
+.item,
+.divider {
+  position: absolute;
+  top: 0;
+  height: var(--height);
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 0.5px);
+  top: calc((var(--height) - var(--divider-line)) / 2);
+  width: 1px;
+  height: var(--divider-line);
+  background: var(--dock-divider);
+}
+
+/* The whole column under an icon is its hit area, dot included. */
+.tile {
+  position: absolute;
+  inset: 0;
+  outline: none;
+}
+
+.lift {
+  position: absolute;
+  inset: 0;
+}
+
+/* Drawn at the magnified size, anchored at the tile's bottom edge, scaled to the tile at rest. */
+.art {
+  position: absolute;
+  left: calc(50% - var(--magnified) / 2);
+  top: calc(var(--pad-top) + var(--tile) - var(--magnified));
+  width: var(--magnified);
+  height: var(--magnified);
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 100%;
+  transform: scale(var(--rest));
+  will-change: transform;
+}
+
+/* App icons: the system shadow (§9: y ≈ 0.97 %, blur ≈ 3.6 % of the squircle, black 25 %). */
+.glyph {
+  display: grid;
+  filter: drop-shadow(0 calc(var(--magnified) * 0.0078) calc(var(--magnified) * 0.029) rgb(0 0 0 / 0.25));
+}
+
+/* Trash and stacks fill the tile box; their artwork brings its own shape. */
+.object {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* The wastebasket: ≈ 82 % of the tile tall, standing on the squircles' baseline (capture). */
+.trash {
+  position: absolute;
+  left: 50%;
+  bottom: 9.8%;
+  height: 82%;
+  width: auto;
+  translate: -50% 0;
+  filter: drop-shadow(0 calc(var(--magnified) * 0.01) calc(var(--magnified) * 0.025) rgb(0 0 0 / 0.3));
+}
+
+.pile,
+.pileItem {
+  position: absolute;
+  inset: 0;
+}
+
+/* Each item in Finder's icon for it, tilted around its foot. */
+.pileItem {
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 85%;
+}
+
+/* Keyboard focus: a ring around the squircle (the hit area is the whole column). */
+.tile:focus-visible::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - var(--icon) / 2 - 3px);
+  top: calc(var(--squircle-top) - 3px);
+  width: calc(var(--icon) + 6px);
+  height: calc(var(--icon) + 6px);
+  border-radius: 30%;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+.dot {
+  position: absolute;
+  left: calc(50% - var(--dot) / 2);
+  top: calc(var(--dot-top) - var(--dot) / 2);
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--dock-dot);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.item[data-running] .dot {
+  opacity: 1;
+}
+
+/*
+ * The name label, a glass "cartouche" (the Dock's ECCartoucheGlassLayerController,
+ * macos.md §20) 8 pt above the squircle. useMagnifier moves it with the icon.
+ */
+.label {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--height) - var(--squircle-top) + 8px);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font: 500 13px/16px var(--font-text);
+  letter-spacing: -0.08px;
+  color: light-dark(rgb(0 0 0 / 0.85), rgb(255 255 255 / 0.92));
+  background: light-dark(rgb(246 246 246 / 0.78), rgb(50 50 50 / 0.72));
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  backdrop-filter: blur(20px) saturate(1.8);
+  box-shadow:
+    0 0 0 0.5px light-dark(rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.5)),
+    inset 0 1px 0 light-dark(rgb(255 255 255 / 0.6), rgb(255 255 255 / 0.12)),
+    0 4px 14px light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.3));
+  opacity: 0;
+  transition: opacity 0.12s;
+  pointer-events: none;
+}
+
+.label[data-shown] {
+  opacity: 1;
+}
+
+:root[data-transparency='reduced'] .label {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}

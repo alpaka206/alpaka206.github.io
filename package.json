@@ -1,54 +1,47 @@
 {
-  "name": "portfolio",
+  "name": "alpaka206-portfolio",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build && node scripts/prepare-spa-routes.mjs",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.12",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^7.3.0",
-    "react-scroll": "1.9.0",
-    "zustand": "^5.0.7"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.12",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "18.2.22",
-    "@types/react-scroll": "^1.8.10",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.12",
-    "typescript": "^5.7.3",
-    "vite": "^6.2.1",
-    "vite-tsconfig-paths": "^5.1.4"
-  },
+  "version": "2.0.0",
+  "description": "김규원 포트폴리오. macOS와 iOS 감성의 웹 데스크톱.",
   "homepage": "https://alpaka206.github.io",
-  "description": "Frontend developer portfolio for 김규원.",
-  "main": "tailwind.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alpaka206/alpaka206.github.io.git"
   },
-  "keywords": [
-    "portfolio",
-    "frontend",
-    "react",
-    "typescript",
-    "vite"
-  ],
   "author": "김규원",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/alpaka206/alpaka206.github.io/issues"
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "dev": "npm run images && vite",
+    "images": "node scripts/build-images.ts",
+    "build": "npm run images && tsc -b && vite build && vite build --ssr src/reader/prerender.tsx --outDir .ssr --emptyOutDir && node scripts/prerender.ts",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "pretendard": "^1.3.9",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zustand": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "eslint": "^10.15.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "sharp": "^0.35.5",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.73.0",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
   }
 }

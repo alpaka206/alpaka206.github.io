@@ -2,104 +2,66 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="canonical" href="https://alpaka206.github.io/" />
-    <link
-      rel="preload"
-      as="image"
-      href="/assets/common/desktop/windows-cloud-wallpaper.webp"
-      fetchpriority="high"
-      media="(min-width: 768px)"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>김규원 | 프론트엔드 개발자 포트폴리오</title>
     <meta
       name="description"
-      content="사용자 흐름, 실시간성, 유지보수성을 고려해 제품 경험을 설계하는 프론트엔드 개발자 김규원의 포트폴리오입니다."
+      content="AI 기능을 실제 업무와 서비스로 연결하는 프론트엔드 개발자 김규원의 포트폴리오. React, TypeScript, Next.js로 만든 AI 더빙 플러그인, 세일즈 자동화, 자막 서비스와 알람 앱."
     />
-    <meta
-      name="keywords"
-      content="김규원, Kim GyuWon, Frontend Developer, 프론트엔드 개발자, React, TypeScript, Zustand, React Query, Vite, Portfolio"
-    />
-    <meta name="author" content="김규원" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0f172a" />
+    <link rel="canonical" href="https://alpaka206.github.io/" />
+    <meta name="theme-color" content="#f2f2f7" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="김규원" />
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:site_name" content="김규원 포트폴리오" />
-    <meta property="og:title" content="김규원 | Frontend Developer Portfolio" />
-    <meta
-      property="og:description"
-      content="React와 TypeScript를 기반으로 실시간 서비스, QA 자동화 대시보드, 사용자 중심 웹 경험을 구현해 온 프론트엔드 개발자 김규원의 포트폴리오입니다."
-    />
+    <meta property="og:title" content="김규원 | 프론트엔드 개발자 포트폴리오" />
+    <meta property="og:description" content="AI 기능을 실제 업무와 서비스로 연결하는 개발자. Premiere AI 더빙 플러그인 840명, AlarmTalk 300명+, Mearri 26개 언어 자막." />
     <meta property="og:url" content="https://alpaka206.github.io/" />
-    <meta
-      property="og:image"
-      content="https://alpaka206.github.io/assets/common/desktop/windows-cloud-wallpaper.webp"
-    />
-    <meta
-      property="og:image:alt"
-      content="김규원 프론트엔드 개발자 포트폴리오"
-    />
+    <meta property="og:image" content="https://alpaka206.github.io/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="김규원 | Frontend Developer Portfolio" />
-    <meta
-      name="twitter:description"
-      content="React와 TypeScript를 기반으로 제품 경험을 설계하고 구현하는 프론트엔드 개발자 김규원의 포트폴리오입니다."
-    />
-    <meta
-      name="twitter:image"
-      content="https://alpaka206.github.io/assets/common/desktop/windows-cloud-wallpaper.webp"
-    />
+
+    <!-- Only the wallpaper matching this device and colour scheme is fetched. -->
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="100vw"
+      imagesrcset="/media/wallpapers/glass-light-1280.avif 1280w, /media/wallpapers/glass-light-1672.avif 1672w"
+      media="(min-width: 768px) and (prefers-color-scheme: light)" />
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="100vw"
+      imagesrcset="/media/wallpapers/glass-dark-1280.avif 1280w, /media/wallpapers/glass-dark-1672.avif 1672w"
+      media="(min-width: 768px) and (prefers-color-scheme: dark)" />
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+      href="/media/wallpapers/glass-light-portrait-941.avif"
+      media="(max-width: 767px) and (prefers-color-scheme: light)" />
+    <link rel="preload" as="image" type="image/avif" fetchpriority="high"
+      href="/media/wallpapers/glass-dark-portrait-941.avif"
+      media="(max-width: 767px) and (prefers-color-scheme: dark)" />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Person",
-            "@id": "https://alpaka206.github.io/#person",
-            "name": "김규원",
-            "alternateName": "Kim GyuWon",
-            "jobTitle": "Frontend Developer",
-            "url": "https://alpaka206.github.io/",
-            "image": "https://alpaka206.github.io/assets/common/profile/profile-portrait.webp",
-            "email": "mailto:gyuwon05@gmail.com",
-            "birthDate": "2000-05-17",
-            "alumniOf": {
-              "@type": "CollegeOrUniversity",
-              "name": "가톨릭대학교"
-            },
-            "knowsAbout": [
-              "React",
-              "TypeScript",
-              "Zustand",
-              "React Query",
-              "Vite",
-              "Frontend Development",
-              "Web Performance",
-              "QA Automation"
-            ],
-            "sameAs": [
-              "https://github.com/alpaka206",
-              "https://alpaka206.vercel.app/"
-            ]
-          },
-          {
-            "@type": "WebSite",
-            "@id": "https://alpaka206.github.io/#website",
-            "name": "김규원 포트폴리오",
-            "url": "https://alpaka206.github.io/",
-            "inLanguage": "ko-KR",
-            "publisher": {
-              "@id": "https://alpaka206.github.io/#person"
-            }
-          }
-        ]
+        "@type": "Person",
+        "name": "김규원",
+        "alternateName": "Gyuwon Kim",
+        "jobTitle": "프론트엔드 개발자",
+        "url": "https://alpaka206.github.io/",
+        "email": "mailto:gyuwon05@gmail.com",
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "가톨릭대학교" },
+        "knowsAbout": ["React", "TypeScript", "Next.js", "React Query", "Zustand", "AI 서비스 개발"],
+        "sameAs": ["https://github.com/alpaka206", "https://alpaka206.vercel.app/"]
       }
     </script>
-    <title>김규원 | Frontend Developer Portfolio</title>
   </head>
   <body>
+    <a class="skip-link" href="/text">텍스트 버전으로 보기</a>
     <div id="root"></div>
+    <main id="reader"><!--reader--></main>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

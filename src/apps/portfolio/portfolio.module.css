@@ -1,0 +1,77 @@
+.window {
+  height: 100%;
+}
+
+/* A narrower source list for a table of contents (the kit's default is 220 pt). */
+.slim {
+  display: contents;
+  --mac-sidebar-width: 200px;
+}
+
+.scroller {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  outline: none;
+}
+
+/* The case study reads like a page: about 860 pt of text, centred, generous margins. */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 36px 56px 72px;
+}
+
+.page article > * {
+  scroll-margin-top: 20px;
+}
+
+.missing {
+  margin: 30vh 0 0;
+  font: var(--mac-title3);
+  color: var(--label-3);
+  text-align: center;
+}
+
+/* Only mounted while the print dialog is open. */
+.print {
+  display: none;
+}
+
+@media print {
+  :global(body:has(> [data-print-root]) > :not([data-print-root])) {
+    display: none !important;
+  }
+
+  :global(html:has([data-print-root])),
+  :global(body:has(> [data-print-root])) {
+    height: auto;
+    overflow: visible;
+    background: #fff;
+  }
+
+  /* Paper is white whatever the appearance: the light colour names, as AppKit defines them. */
+  .print {
+    display: block;
+    padding: 0 8mm;
+    background: #fff;
+    color: #000;
+    --label: rgb(0 0 0 / 0.847);
+    --label-2: rgb(0 0 0 / 0.498);
+    --label-3: rgb(0 0 0 / 0.259);
+    --label-4: rgb(0 0 0 / 0.098);
+    --separator: rgb(0 0 0 / 0.1);
+    --fill-3: rgb(0 0 0 / 0.047);
+    --fill-4: rgb(0 0 0 / 0.027);
+    --bg: #fff;
+    --bg-2: #f6f6f6;
+    --blue: #0088ff;
+    --red: rgb(255 56 60);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print article > * {
+    break-inside: avoid;
+  }
+}

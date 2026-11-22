@@ -1,0 +1,113 @@
+/*
+ * Window controls (macos.md §4): 14 pt buttons, 9 pt apart, the first at
+ * (19, 19) under a 52 pt unified toolbar. macOS 27 draws them as glassy pastel
+ * drops: a top-to-bottom gradient (K27 render, tokens), a darker rim in the
+ * button's own hue and a light lower edge.
+ */
+.lights {
+  position: absolute;
+  left: 19px;
+  top: 19px;
+  z-index: 3;
+  display: flex;
+  gap: var(--mac-tl-gap);
+}
+
+/* Title-bar-only windows (32 pt): the first button at (9, 9). */
+.lights[data-chrome='titlebar'] {
+  left: 9px;
+  top: 9px;
+}
+
+.lights button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--mac-tl-size);
+  height: var(--mac-tl-size);
+  border-radius: 50%;
+  background: var(--mac-tl-off);
+  box-shadow: inset 0 0 0 0.5px var(--mac-tl-off-rim);
+  transition: scale 0.12s;
+}
+
+/* Key window, or any window while the pointer is over its controls. */
+.lights[data-active] button,
+.lights:hover button {
+  box-shadow:
+    inset 0 0 0 0.5px var(--rim),
+    inset 0 1px 1px rgb(0 0 0 / 0.08),
+    inset 0 -1.5px 1.5px rgb(255 255 255 / 0.32);
+}
+
+.lights[data-active] .close,
+.lights:hover .close {
+  --rim: rgb(204 40 30 / 0.55);
+  background: var(--mac-tl-close);
+}
+
+.lights[data-active] .minimize,
+.lights:hover .minimize {
+  --rim: rgb(205 130 0 / 0.55);
+  background: var(--mac-tl-minimize);
+}
+
+.lights[data-active] .zoom,
+.lights:hover .zoom {
+  --rim: rgb(40 145 25 / 0.55);
+  background: var(--mac-tl-zoom);
+}
+
+/* Dark appearance: deeper middles (K27 dark render: #F05F56, #FFBE1C, #43BE2B). */
+:root[data-theme='dark'] .lights[data-active] .close,
+:root[data-theme='dark'] .lights:hover .close {
+  background: linear-gradient(#e9524a, #f05f56 50%, #f3766e);
+}
+
+:root[data-theme='dark'] .lights[data-active] .minimize,
+:root[data-theme='dark'] .lights:hover .minimize {
+  background: linear-gradient(#f7b00e, #ffbe1c 50%, #ffcb4a);
+}
+
+:root[data-theme='dark'] .lights[data-active] .zoom,
+:root[data-theme='dark'] .lights:hover .zoom {
+  background: linear-gradient(#36ae20, #43be2b 50%, #63cb4d);
+}
+
+.lights svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  fill: none;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+}
+
+.close svg {
+  stroke: #6b0f0a;
+}
+
+.minimize svg {
+  stroke: #7d4a00;
+}
+
+/* The zoom glyph is two filled arrowheads. */
+.zoom svg {
+  fill: #0c5a00;
+  stroke: none;
+}
+
+.lights:hover svg,
+.lights:focus-within svg {
+  opacity: 0.85;
+}
+
+/* macOS 27: a control grows a little and darkens while pressed. */
+.lights button:active {
+  scale: 1.08;
+  filter: brightness(0.86);
+}
+
+.lights button:focus-visible {
+  outline-offset: 1px;
+}

@@ -1,0 +1,65 @@
+/*
+ * The ⌘⇥ switcher. Neither Apple kit draws it and macos.md has no numbers for
+ * it, so the sizes are estimates: 96 pt icons in 116 pt cells, the selection a
+ * rounded square behind the chosen icon, its name centred underneath.
+ */
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-banner);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.panel {
+  --glass-blur: 30px;
+  max-width: calc(100vw - 48px);
+  padding: 14px 14px 8px;
+  pointer-events: auto;
+}
+
+.apps {
+  display: flex;
+  margin: 0;
+  /* Room for the name under the selected icon inside the scroll box. */
+  padding: 0 0 22px;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+  /* It holds focus only to point at the selected icon (aria-activedescendant), which is highlighted. */
+  outline: none;
+}
+
+.app {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 116px;
+  height: 116px;
+  border-radius: 18px;
+}
+
+.app[aria-selected='true'] {
+  background: rgb(0 0 0 / 0.1);
+}
+
+:root[data-theme='dark'] .app[aria-selected='true'] {
+  background: rgb(255 255 255 / 0.15);
+}
+
+.name {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  font: 500 13px/16px var(--font-text);
+  white-space: nowrap;
+  color: var(--label);
+  translate: -50% 0;
+  opacity: 0;
+}
+
+.app[aria-selected='true'] .name {
+  opacity: 1;
+}

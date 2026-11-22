@@ -1,0 +1,178 @@
+/*
+ * Home Screen, iOS 27 kit "System/Home Screen/iPhone" on 402 × 874 (ios.md §2):
+ * icons on a 4-column grid 30 pt from the sides, first row at y 90 (28 pt
+ * under the 62 pt safe area), rows 100.33 pt apart; the 78 × 30 search pill
+ * 20 pt above the Dock; the Dock 17 pt from the sides and bottom.
+ */
+.home {
+  /* Dock height = 20 pt top + icon + 19 pt bottom padding (103 pt with 64 pt icons). */
+  --dock-height: calc(20px + var(--ios-icon) + 19px);
+  --dock-top: calc(var(--ios-dock-inset) + var(--dock-height));
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: #fff;
+}
+
+.home[data-covered] {
+  visibility: hidden;
+}
+
+.surface {
+  position: absolute;
+  inset: 0;
+}
+
+/* Top edge controls: Control Center, or Edit / Done in jiggle mode, in the 28 pt above the first row. */
+.top {
+  position: absolute;
+  top: var(--phone-safe-top);
+  left: var(--ios-grid-side);
+  right: var(--ios-grid-side);
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  height: var(--ios-grid-top);
+  pointer-events: none;
+}
+
+.top > * {
+  pointer-events: auto;
+}
+
+/* The Dock's glass, which the search pill and the Control Center button share: part of the Home Screen. */
+.dock,
+.searchPill,
+.top .controlButton {
+  --glass-tint: light-dark(rgb(153 153 153 / 0.33), rgb(51 51 51 / 0.33));
+  --glass-blur: 16px;
+}
+
+/* A white glyph, like the search pill. */
+.top .controlButton {
+  margin-left: auto;
+  color: #fff;
+}
+
+.pager {
+  --pull: 0;
+  position: absolute;
+  top: calc(var(--phone-safe-top) + var(--ios-grid-top));
+  left: 0;
+  right: 0;
+  bottom: calc(var(--dock-top) + var(--ios-search-gap) + var(--ios-search-pill-h));
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Horizontal swipes page natively; vertical drags are ours (pull down for Search); pinching zooms. */
+  touch-action: pan-x pinch-zoom;
+}
+
+.pager::-webkit-scrollbar {
+  display: none;
+}
+
+.page {
+  position: relative;
+  display: grid;
+  flex: none;
+  grid-template-columns: repeat(4, var(--ios-icon));
+  grid-auto-rows: var(--ios-row-pitch);
+  align-content: start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 var(--ios-grid-side);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* Pulling down drags the icons along a little, like iOS before Search takes over. */
+  transform: translate3d(0, min(calc(var(--pull) * 0.35px), 40px), 0);
+}
+
+.slot {
+  position: relative;
+}
+
+.slot[data-dragging] {
+  z-index: 10;
+}
+
+.searchArea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--dock-top) + var(--ios-search-gap));
+  display: flex;
+  justify-content: center;
+  height: var(--ios-search-pill-h);
+}
+
+/*
+ * Search pill: 78 × 30 capsule in the Dock's glass, "􀊫 Search" Semibold 12/16,
+ * tracking −0.1, white.
+ */
+.searchPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: var(--ios-search-pill-w);
+  height: var(--ios-search-pill-h);
+  font: 600 12px/16px var(--font-text);
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+/* Page control (K27): 8 pt dots in 10 pt cells, 20 pt apart. */
+.dots {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 44px;
+  padding: 0 8px;
+  border-radius: 15px;
+  background: rgb(0 0 0 / 0.12);
+}
+
+/* Both 30 pt tall: the touch reaches 44 (HIG minimum). */
+.searchPill::after,
+.dots::after {
+  content: '';
+  position: absolute;
+  inset: -7px 0;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 30px;
+}
+
+.dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.45);
+  transition: background-color var(--duration-fast);
+}
+
+.dot[data-current]::before {
+  background: #fff;
+}
+
+.dock {
+  position: absolute;
+  left: var(--ios-dock-inset);
+  right: var(--ios-dock-inset);
+  bottom: var(--ios-dock-inset);
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px var(--ios-dock-pad-x) 19px;
+}

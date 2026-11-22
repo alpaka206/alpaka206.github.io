@@ -1,0 +1,75 @@
+/*
+ * K27 "Tab Bars/iPhone": a 62 pt capsule inset 21 pt from the sides and the
+ * bottom, items 54 pt tall with 4 pt top/bottom and 8 pt side padding; icon
+ * 18 pt Semibold in a 28 pt box at y 7, label Semibold 10/12 at y 36. The
+ * search circle is 62 pt, 8 pt after the capsule.
+ */
+.bar {
+  position: absolute;
+  left: var(--ios-tabbar-inset);
+  right: var(--ios-tabbar-inset);
+  bottom: var(--phone-inset-bottom);
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.tabs {
+  flex: 1;
+  min-width: 0;
+  height: var(--ios-tabbar-height);
+  padding: 4px 8px;
+}
+
+.list {
+  display: flex;
+  height: 100%;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding-top: 7px;
+  color: var(--glass-label);
+}
+
+/* Selected: a capsule of secondary fill behind the item, icon and label in the accent colour. */
+.tab[aria-selected='true'] {
+  color: var(--accent);
+}
+
+.tab[aria-selected='true']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 27px;
+  background: var(--fill-2);
+}
+
+.icon {
+  height: 28px;
+}
+
+.label {
+  max-width: 100%;
+  margin-top: 1px;
+  overflow: hidden;
+  font: 600 10px/12px var(--font-text);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.search {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--ios-tabbar-height);
+  height: var(--ios-tabbar-height);
+  color: var(--glass-label);
+}

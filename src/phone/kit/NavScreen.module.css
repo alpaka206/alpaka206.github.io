@@ -1,0 +1,135 @@
+/*
+ * In-app navigation (ios.md §7, iOS 27 kit "Toolbars/iPhone/Top - Standard"):
+ * the bar is 54 pt under the status bar with 44 pt glass buttons 16 pt from
+ * the edges; a large title adds 51 pt (105 in all): Bold 34/41 at x 16.
+ */
+.screen {
+  --nav-bar: calc(var(--phone-safe-top) + var(--ios-nav-height));
+  --screen-bg: var(--grouped-bg);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--screen-bg);
+  color: var(--label);
+}
+
+.screen[data-background='plain'] {
+  --screen-bg: var(--bg);
+}
+
+/* scroll-padding keeps whatever focus or a deep link scrolls to clear of the floating bars. */
+.scroll {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: var(--nav-bar);
+  padding-bottom: calc(var(--phone-inset-bottom) + 24px);
+  scroll-padding-top: var(--nav-bar);
+}
+
+.screen[data-hero] .scroll {
+  padding-top: 0;
+}
+
+/* An iframe or a viewer that scrolls by itself fills the space under the bar. */
+.screen[data-fill] .scroll {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: var(--phone-inset-bottom);
+}
+
+.screen[data-fill] .content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Room for a floating tab bar or toolbar (62 pt, ios.md §7). */
+.screen[data-bottom] .scroll {
+  padding-bottom: calc(var(--phone-inset-bottom) + var(--ios-tabbar-height) + 24px);
+  scroll-padding-bottom: calc(var(--phone-inset-bottom) + var(--ios-tabbar-height));
+}
+
+.largeTitle {
+  margin: 0 0 10px;
+  padding: 0 var(--ios-margin);
+  font: var(--ios-large-title);
+  letter-spacing: var(--ios-large-title-tracking);
+}
+
+/* The title takes the focus when the screen is pushed so a screen reader starts there; it is not a control. */
+.largeTitle:focus,
+.inlineTitle:focus {
+  outline: none;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: var(--nav-bar);
+  /* Content under the empty parts of the bar stays scrollable and tappable. */
+  pointer-events: none;
+}
+
+/* Scroll edge effect (K27 "Scroll Edge Effect/Top - Soft"): a blur that fades out below the bar. */
+.bar::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -24px;
+  background: linear-gradient(color-mix(in srgb, var(--screen-bg) 80%, transparent) 40%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  mask-image: linear-gradient(#000 55%, transparent);
+  opacity: 0;
+  transition: opacity var(--spring-smooth-ms) var(--spring-smooth);
+}
+
+.bar[data-scrolled]::before {
+  opacity: 1;
+}
+
+.leading,
+.trailing {
+  position: absolute;
+  top: var(--phone-safe-top);
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.leading {
+  left: var(--ios-margin);
+}
+
+.trailing {
+  right: var(--ios-margin);
+}
+
+/* Semibold 17/22, 13 pt below the top of the bar, clear of one button on each side (16 + 44 + 12). */
+.inlineTitle {
+  position: absolute;
+  top: calc(var(--phone-safe-top) + 13px);
+  left: 72px;
+  right: 72px;
+  margin: 0;
+  overflow: hidden;
+  font: var(--ios-headline);
+  letter-spacing: var(--ios-tracking-body);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity var(--spring-smooth-ms) var(--spring-smooth);
+}
+
+.bar[data-collapsed] .inlineTitle {
+  opacity: 1;
+}

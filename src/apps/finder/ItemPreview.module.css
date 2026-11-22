@@ -1,0 +1,124 @@
+/*
+ * Previews sit in a size container (the gallery stage, a filmstrip cell, the
+ * preview pane) and fit inside it whatever their proportions: cq units resolve
+ * against that box even where a percentage height would not.
+ */
+.image {
+  display: block;
+  max-width: 100cqw;
+  max-height: 100cqh;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 0.12),
+    0 6px 18px rgb(0 0 0 / 0.12);
+}
+
+/* Paper (certificates, PDF pages) keeps square corners. */
+.paper {
+  border-radius: 1px;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+}
+
+/* A sheet of paper that scales its text with its own width (container units). */
+.sheet {
+  container-type: inline-size;
+  width: min(100cqw, 160cqh);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fff;
+  color: #1d1d1f;
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 0.12),
+    0 6px 18px rgb(0 0 0 / 0.12);
+}
+
+.portrait {
+  width: min(100cqw, 70.7cqh);
+  aspect-ratio: 1 / 1.414;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqi;
+  height: 100%;
+  padding: 6cqi 6.5cqi;
+}
+
+.meta {
+  margin: 0;
+  font-size: 2.4cqi;
+  color: rgb(0 0 0 / 0.5);
+}
+
+.lead {
+  margin: 0;
+  font-size: 4.6cqi;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.025em;
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqi;
+  margin-top: auto;
+}
+
+.node {
+  composes: truncate from global;
+  flex: 1;
+  padding: 2cqi 1.6cqi;
+  border: 1px solid rgb(0 0 0 / 0.14);
+  border-radius: 1.6cqi;
+  font-size: 2.1cqi;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.node[data-key] {
+  border-color: #0088ff;
+  background: #0088ff;
+  color: #fff;
+}
+
+.arrow {
+  flex: none;
+  font-size: 2.4cqi;
+  color: #0088ff;
+}
+
+.highlight {
+  margin: 0;
+  font-size: 2.6cqi;
+  font-weight: 700;
+  color: #0088ff;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqi;
+  padding: 9cqi 8cqi;
+  font-size: 3.6cqi;
+  line-height: 1.45;
+}
+
+.text p {
+  margin: 0;
+}
+
+.text p:first-child {
+  font-weight: 700;
+}

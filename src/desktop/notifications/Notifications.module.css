@@ -1,0 +1,281 @@
+/*
+ * Notifications (macos.md §10, K27 "Notifications"): 344 pt cards, radius 20,
+ * padding 12 / 14 / 12 / 10 with an 8 pt gap, a 32 pt icon centred in a 40 pt
+ * column, Bold 13 / 16 title, Regular 13 / 16 body, Regular 11 / 14 time.
+ * Banners sit 16 pt from the right edge and 4 pt under the menu bar.
+ */
+.banner,
+.center {
+  position: fixed;
+  top: calc(var(--mac-menubar-height) + 4px);
+}
+
+.banner {
+  right: 16px;
+  z-index: var(--z-banner);
+}
+
+.card {
+  /* K27 notification glass: a light, lightly blurred tint (blur 15) with a 0.3 pt rim. */
+  --glass-tint: rgb(255 255 255 / 0.5);
+  --glass-blur: 15px;
+  --glass-shadow: 0 4px 16px rgb(0 0 0 / 0.1), 0 0 0 0.3px #ababab;
+  --close: rgb(246 246 246 / 0.92);
+
+  width: var(--mac-notification-width);
+  color: var(--label);
+}
+
+:root[data-theme='dark'] .card {
+  --glass-tint: rgb(40 40 40 / 0.5);
+  --glass-shadow: 0 4px 16px rgb(0 0 0 / 0.1), 0 0 0 0.3px rgb(255 255 255 / 0.18);
+  --close: rgb(70 70 70 / 0.92);
+}
+
+.cardBody {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  column-gap: 8px;
+  width: 100%;
+  padding: 12px 14px 12px 10px;
+  border-radius: inherit;
+  text-align: start;
+}
+
+/* Pointer feedback on what opens something: the glass lightens, as on the desktop widgets' rows. */
+button.cardBody:hover,
+.stat:enabled:hover {
+  background: rgb(255 255 255 / 0.22);
+}
+
+:root[data-theme='dark'] button.cardBody:hover,
+:root[data-theme='dark'] .stat:enabled:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  align-self: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font: var(--mac-headline);
+}
+
+.body {
+  display: -webkit-box;
+  overflow: hidden;
+  font: var(--mac-body);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+
+.time {
+  font: var(--mac-subhead);
+  color: var(--label-2);
+  white-space: nowrap;
+}
+
+/* The close button macOS shows on the top-left corner while the pointer is on a banner. */
+.close {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--close);
+  box-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.15);
+  color: var(--label-2);
+  opacity: 0;
+}
+
+.card:hover .close,
+.card:focus-within .close {
+  opacity: 1;
+}
+
+/* Notification Center: a column of glass cards over the wallpaper, no panel behind them. */
+.center {
+  right: 8px;
+  z-index: var(--z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: calc(var(--mac-notification-width) + 16px);
+  max-height: calc(100vh - var(--mac-menubar-height) - 4px);
+  /* Room for the cards' shadows inside the scroll box. */
+  padding: 0 8px 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  outline: none;
+}
+
+/* The menu bar's ink and selection pill for the wallpaper behind (MenuBar.module.css). */
+.center[data-ink='dark'] {
+  --ink: rgb(0 0 0 / 0.85);
+  --pill: rgb(0 0 0 / 0.08);
+}
+
+.center[data-ink='light'] {
+  --ink: #fff;
+  --pill: rgb(255 255 255 / 0.2);
+}
+
+.widgets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Small and medium widgets: 164 pt tall, two small ones per 344 pt row. Apple publishes no
+   macOS widget radius (§17); 22 is the stacked notification card's. */
+.widget {
+  --glass-tint: rgb(255 255 255 / 0.5);
+  --glass-blur: 30px;
+  height: 164px;
+  padding: 12px 14px;
+  color: var(--label);
+}
+
+:root[data-theme='dark'] .widget {
+  --glass-tint: rgb(40 40 40 / 0.5);
+}
+
+.stats {
+  grid-column: 1 / -1;
+}
+
+.month {
+  margin: 0;
+  font: 700 12px/14px var(--font-text);
+  color: var(--red);
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: 1px;
+  margin-top: 6px;
+  font: 600 9.5px/16px var(--font-text);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.weekday {
+  color: var(--label-2);
+}
+
+.day {
+  justify-self: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.day[data-today] {
+  background: var(--red);
+  color: #fff;
+}
+
+.widgetTitle {
+  margin: 0;
+  font: var(--mac-headline);
+}
+
+.statList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The hover fill reaches 6 × 4 pt past the text, which stays where it was. */
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: calc(100% + 12px);
+  margin: -4px -6px;
+  padding: 4px 6px;
+  border-radius: 10px;
+  text-align: start;
+}
+
+.statValue {
+  font: 700 20px/24px var(--font-text);
+  letter-spacing: -0.45px; /* HIG tracking at 20 pt */
+}
+
+.statLabel {
+  display: -webkit-box;
+  overflow: hidden;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.history,
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.historyHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.historyTitle {
+  margin: 0;
+  font: var(--mac-headline);
+  color: var(--ink);
+}
+
+.clear {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--glass-clear-tint);
+  box-shadow: inset 0 0 0 0.5px var(--glass-rim);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  font: 600 11px/14px var(--font-text);
+  color: var(--ink);
+}
+
+.clear:hover {
+  background-image: linear-gradient(var(--pill), var(--pill));
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Reduce Transparency: an opaque capsule, so its text and hover pill follow the appearance, as in the
+   menu bar. background-color only, so the hover pill above still shows. */
+:root[data-transparency='reduced'] .clear {
+  --ink: var(--label);
+  --pill: var(--fill-2);
+  background-color: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}

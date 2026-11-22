@@ -1,0 +1,78 @@
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ios-icon-label-gap);
+  width: var(--ios-icon);
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon {
+  position: relative;
+  display: block;
+  width: var(--ios-icon);
+  height: var(--ios-icon);
+}
+
+/* White plate behind artwork with transparent corners (Share-It); masked with the icon. */
+.image {
+  position: relative;
+  background: #fff;
+}
+
+/* Pressed: the icon darkens under the finger. The overlay sits inside the squircle mask. */
+.image::after,
+.folder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: 0;
+  transition: opacity var(--spring-smooth-ms) var(--spring-smooth);
+}
+
+.tile:active .image::after,
+.tile:active .folder::after {
+  opacity: 0.25;
+}
+
+/*
+ * Label: Medium 12/14, white with a soft shadow (K27 0 2 25 black, tuned
+ * for CSS). It may overhang the icon by 12 pt a side before truncating, which
+ * keeps at least 4 pt between neighbours in the 28.67 pt column gap.
+ */
+.label {
+  width: calc(var(--ios-icon) + 24px);
+  overflow: hidden;
+  font: var(--ios-icon-label);
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-shadow: var(--ios-label-shadow);
+  /* An opening folder fades its labels in after the icons. */
+  opacity: var(--label-opacity, 1);
+}
+
+.folder {
+  --glass-tint: light-dark(rgb(255 255 255 / 0.28), rgb(60 60 67 / 0.4));
+  --glass-blur: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-content: start;
+  gap: var(--folder-gap);
+  width: 100%;
+  height: 100%;
+  padding: var(--folder-pad);
+}
+
+.mini {
+  display: block;
+  background: #fff;
+}
+
+.tile[data-editing] {
+  touch-action: none;
+}

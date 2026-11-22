@@ -1,0 +1,58 @@
+/*
+ * Material: the kit uses Liquid Glass "Clear" with vibrant labels. Clear glass
+ * over a bright wallpaper needs a dimming layer to stay legible (HIG,
+ * ios.md §10), so the tint here is heavier than the bare Clear value.
+ */
+.card {
+  --glass-tint: light-dark(rgb(255 255 255 / 0.5), rgb(28 28 30 / 0.55));
+  --glass-blur: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: var(--ios-notification-pad);
+  color: var(--label);
+  text-align: left;
+}
+
+.icon {
+  flex: none;
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font: 600 15px/17px var(--font-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.time {
+  flex: none;
+  font: 400 15px/17px var(--font-text);
+  color: var(--label-2);
+}
+
+.body {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  font: 400 15px/18px var(--font-text);
+  text-wrap: pretty;
+}

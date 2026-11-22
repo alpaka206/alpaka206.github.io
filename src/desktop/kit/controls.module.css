@@ -1,0 +1,114 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--mac-control);
+  padding: 0 16px;
+  border-radius: var(--mac-control-radius);
+  font: 500 13px/16px var(--font-text);
+  white-space: nowrap;
+  color: var(--label);
+  background: var(--mac-control-fill);
+  transition: filter var(--duration-fast);
+}
+
+.button[data-size='large'] {
+  height: 28px;
+  border-radius: 14px;
+}
+
+.button[data-variant='prominent'] {
+  background: var(--blue);
+  color: #fff;
+}
+
+.button:active:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.button:disabled {
+  opacity: 0.45;
+}
+
+.switch {
+  position: relative;
+  width: var(--mac-switch-w);
+  height: var(--mac-switch-h);
+  flex: none;
+  border-radius: calc(var(--mac-switch-h) / 2);
+  background: var(--fill);
+  transition: background-color var(--duration);
+}
+
+.switch[aria-checked='true'] {
+  background: var(--blue);
+}
+
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 32px;
+  height: 20px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.12), 0 0 0 0.5px rgb(0 0 0 / 0.06);
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.switch[aria-checked='true'] .knob {
+  transform: translateX(18px);
+}
+
+.searchField {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--mac-control);
+  padding: 0 4px 0 8px;
+  border-radius: calc(var(--mac-control) / 2);
+  background: var(--bg);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.05);
+  color: var(--vibrant-label-2);
+}
+
+.searchField input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font: 500 13px/16px var(--font-text);
+  color: var(--label);
+}
+
+.searchField:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.slider {
+  width: 100%;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.popup {
+  appearance: none;
+  height: var(--mac-control);
+  padding: 0 26px 0 10px;
+  border: 0;
+  border-radius: var(--mac-control-radius);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' viewBox='0 0 8 12'%3E%3Cpath d='M1 4.5 4 1.5l3 3M1 7.5l3 3 3-3' fill='none' stroke='%23737373' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      right 9px center / 8px 12px no-repeat,
+    var(--mac-control-fill);
+  font: 500 13px/16px var(--font-text);
+  color: var(--label);
+}
+
+/* Windows draws the option list from these, and a translucent fill would leave it unreadable. */
+.popup option {
+  background-color: var(--bg);
+  color: var(--label);
+}

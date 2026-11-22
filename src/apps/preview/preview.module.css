@@ -1,0 +1,104 @@
+.window {
+  height: 100%;
+}
+
+/* PDFView's background is underPageBackgroundColor: #F6F6F6, dark #282828 (--bg-2 on the Mac). */
+.document {
+  height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--bg-2);
+}
+
+/* Keyboard focus: the system ring, drawn inside so the window edge does not cut it. */
+.document:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Page break margins 4.75 / 4 pt (PDFView on macOS 27.2.1). */
+.pages {
+  display: flex;
+  flex-direction: column;
+  align-items: safe center;
+  gap: 9.5px;
+  width: max-content;
+  min-width: 100%;
+  padding: 4.75px 4px;
+}
+
+.pages[data-fit] {
+  width: auto;
+}
+
+.page {
+  flex: none;
+  width: var(--page-width);
+  background: #fff;
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 0.12),
+    0 1px 4px rgb(0 0 0 / 0.16);
+}
+
+.pages[data-fit] .page {
+  width: 100%;
+}
+
+.page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Thumbnails: page images over their numbers; the current page is outlined, in the accent colour while the sidebar has focus. */
+.thumbs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0 8px;
+  outline: none;
+}
+
+.thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 150px;
+}
+
+.thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow:
+    0 0 0 0.5px rgb(0 0 0 / 0.15),
+    0 1px 3px rgb(0 0 0 / 0.12);
+}
+
+.number {
+  padding: 0 6px;
+  border-radius: 4px;
+  font: 400 11px/14px var(--font-text);
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.thumb[aria-selected='true'] img {
+  box-shadow: 0 0 0 3px var(--selection-unfocused);
+}
+
+.thumb[aria-selected='true'] .number {
+  background: var(--selection-unfocused);
+  color: var(--label);
+}
+
+.thumbs:focus .thumb[aria-selected='true'] img {
+  box-shadow: 0 0 0 3px var(--selection);
+}
+
+.thumbs:focus .thumb[aria-selected='true'] .number {
+  background: var(--selection);
+  color: #fff;
+}

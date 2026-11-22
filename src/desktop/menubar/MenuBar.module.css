@@ -1,0 +1,121 @@
+/*
+ * macOS 27 menu bar (macos.md §6): no background, 24 pt items centred in the
+ * bar, the logo ink 21 pt from the left edge, ≈ 21 pt between title ink,
+ * status glyphs 37.25 pt apart and the clock ink ending 21 pt from the right.
+ */
+.bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-menubar);
+  display: flex;
+  align-items: center;
+  height: var(--mac-menubar-height);
+  /* Kit: 10 pt before the 33 pt logo item. Right: 11 pt + the clock's 9.5 pt padding puts its ink 21 pt in.
+     On a landscape phone (viewport-fit=cover) the safe area keeps the ends clear of the notch and corners. */
+  padding: 0 calc(11px + env(safe-area-inset-right)) 0 calc(10px + env(safe-area-inset-left));
+  font: var(--mac-menubar-font);
+  letter-spacing: -0.08px; /* HIG tracking at 13 pt */
+  color: var(--ink);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* K27 "On Lighter Background": #000 85%, pill #000 8%. "On Darker Background": white, pill white 20%. */
+.bar[data-ink='dark'] {
+  --ink: rgb(0 0 0 / 0.85);
+  --pill: rgb(0 0 0 / 0.08);
+}
+
+.bar[data-ink='light'] {
+  --ink: #fff;
+  --pill: rgb(255 255 255 / 0.2);
+}
+
+/* Reduce Transparency: macOS gives the menu bar a solid background, and its ink follows the appearance. */
+:root[data-transparency='reduced'] .bar {
+  --ink: var(--label);
+  --pill: var(--fill-2);
+  background: var(--glass-opaque);
+}
+
+.titles,
+.status {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.status {
+  flex: none;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* On a narrow screen the last titles slip under the status items rather than over them;
+   the inline padding keeps room for the selection pill. */
+.titles {
+  min-width: 0;
+  margin: 0 -4px;
+  padding: 0 4px;
+  overflow: hidden;
+}
+
+.item {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  height: 24px; /* K27: 24 pt menu bar items */
+  /* The kit's 9 pt leaves ≈ 19 pt between title ink in browser text; 10 pt gives the 21 pt measured on this Mac. */
+  padding: 0 calc(var(--mac-menubar-pad) + 1px);
+}
+
+/* The selected item: a 25 pt pill 4 pt wider than the item on each side, radius 13 (K27 "Item/Selected"). */
+.item::before {
+  content: '';
+  position: absolute;
+  inset: -0.5px -4px;
+  z-index: -1;
+  border-radius: var(--mac-menubar-pill-radius);
+}
+
+.item[data-selected]::before {
+  background: var(--pill);
+}
+
+/* Keyboard focus: a ring in the pill's shape, drawn inside it so the bar's edges never clip it. */
+.item:focus-visible {
+  outline: none;
+}
+
+.item:focus-visible::before {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* A 33 pt item with the glyph centred: its ink starts 21 pt from the screen edge. */
+.logo {
+  justify-content: center;
+  width: 33px;
+  padding: 0;
+}
+
+/* SF Pro Heavy 13, kern −0.2, 11 pt before (K27 "App Name"); 21 pt of ink gap after it, as measured. */
+.appName {
+  padding: 0 10px 0 11px;
+  font: var(--mac-menubar-appname);
+  letter-spacing: -0.2px;
+}
+
+/* 31.25 pt items 6 pt apart: the 37.25 pt glyph pitch measured on this Mac. */
+.statusItem {
+  justify-content: center;
+  width: 31.25px;
+  padding: 0;
+}
+
+/* The clock text starts 24.5 pt after the Control Center glyph's ink. */
+.clock {
+  padding: 0 9.5px;
+}

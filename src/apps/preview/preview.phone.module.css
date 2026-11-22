@@ -1,0 +1,40 @@
+/* Footnote under the nav bar, inside the 16 pt margins. */
+.textVersion {
+  margin: 8px var(--ios-margin) 0;
+  font: var(--ios-footnote);
+}
+
+/* PDF pages as cards inside the 16 pt margins, the page number under each (Caption 1). */
+.pages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 8px var(--ios-margin) 0;
+  list-style: none;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  /* A little air under the nav bar, which NavScreen's scroll-padding already clears. */
+  scroll-margin-top: 8px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow:
+    0 0 0 0.5px var(--separator),
+    0 6px 20px rgb(0 0 0 / 0.1);
+}
+
+.number {
+  font: var(--ios-caption1);
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}

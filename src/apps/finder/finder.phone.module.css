@@ -1,0 +1,59 @@
+.layer,
+.pushed {
+  position: absolute;
+  inset: 0;
+}
+
+/* Its own stacking context, so the list's floating tab bar stays under a pushed screen. */
+.layer {
+  z-index: 0;
+}
+
+/* A pushed screen slides in from the right edge, as in a navigation stack. */
+.pushed {
+  z-index: 1;
+  box-shadow: -8px 0 24px rgb(0 0 0 / 0.08);
+  animation: push var(--spring-smooth-ms, 350ms) var(--spring-smooth, ease-out) both;
+}
+
+@keyframes push {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* The search field sits under the large title with the 16 pt layout margin. */
+.search {
+  margin: 0 var(--ios-margin) 12px;
+}
+
+.period {
+  font: var(--ios-footnote);
+  color: var(--label-2);
+  white-space: nowrap;
+}
+
+/* A white plate behind icons with transparent corners (Share-It). */
+.icon {
+  background: #fff;
+}
+
+/* Certificate thumbnails keep the A4 portrait shape: 40 × 56 pt. */
+.thumb {
+  width: 40px;
+  height: 56px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 0 0 0.5px var(--separator);
+}
+
+.duty {
+  display: block;
+  margin-top: 4px;
+}
+
+.empty {
+  margin: 12px var(--ios-margin);
+  font: var(--ios-body);
+  color: var(--label-2);
+}

@@ -1,0 +1,395 @@
+/*
+ * iMessage on iOS 26: bubbles in Body 17/22, 18 pt corners with a 6 pt
+ * corner on the tail side of a run's last bubble, 2 pt between bubbles from
+ * the same sender and 8 pt between senders; the thread scrolls under a
+ * blurred header (avatar and name) and composer.
+ */
+.screen {
+  --them: light-dark(#e9e9eb, #262628);
+  --them-label: light-dark(#000, #fff);
+  --edge: var(--bg);
+  /* Bottom of the composer: above the home indicator band, or 8 pt above the keyboard. */
+  --composer-bottom: max(var(--phone-inset-bottom), calc(var(--keyboard, 0px) + 8px));
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  color: var(--label);
+}
+
+.thread {
+  /* Header: avatar 50 + 4 + name tag 22 + 16 under the status bar. Composer: chips 34 + 8 + field 44 + 12. */
+  --header-clearance: calc(var(--phone-safe-top) + 92px);
+  --composer-clearance: calc(var(--composer-bottom) + 110px);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--header-clearance) var(--ios-margin) var(--composer-clearance);
+  /* A card reached with the keyboard scrolls clear of the floating header and composer. */
+  scroll-padding: var(--header-clearance) 0 var(--composer-clearance);
+}
+
+.stamp {
+  align-self: center;
+  margin: 8px 0 4px;
+  font: 500 12px/16px var(--font-text);
+  color: var(--label-2);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.item[data-run-start] {
+  margin-top: 8px;
+}
+
+.item[data-from='me'] {
+  align-items: flex-end;
+}
+
+.bubble {
+  max-width: 75%;
+  margin: 0;
+  padding: 7px 12px;
+  border-radius: 18px;
+  background: var(--them);
+  color: var(--them-label);
+  font: var(--ios-body);
+  letter-spacing: var(--ios-tracking-body);
+  text-wrap: pretty;
+}
+
+.item[data-from='me'] .bubble {
+  background: var(--blue);
+  color: #fff;
+}
+
+.item[data-from='them'] .bubble[data-tail] {
+  border-bottom-left-radius: 6px;
+}
+
+.item[data-from='me'] .bubble[data-tail] {
+  border-bottom-right-radius: 6px;
+}
+
+/* Three dots that pulse in turn while a reply is being "typed". */
+.typing {
+  display: flex;
+  gap: 4px;
+  padding: 13px 14px;
+  border-radius: 18px 18px 18px 6px;
+  background: var(--them);
+}
+
+.typing i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--label-3);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.typing i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+
+  30% {
+    opacity: 1;
+  }
+}
+
+:root[data-motion='reduced'] .typing i {
+  animation: none;
+  opacity: 0.6;
+}
+
+/* Link cards: 260 pt wide, the "them" bubble colour, same 18 pt corners. */
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  max-width: 75%;
+  overflow: hidden;
+  border-radius: 18px;
+  background: var(--them);
+  color: var(--them-label);
+  text-align: left;
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.cardRow {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+}
+
+.cardCover {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.cardBanner {
+  display: grid;
+  place-items: center;
+  height: 96px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg));
+}
+
+.cardPortrait {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card:not(.cardRow) .cardText {
+  padding: 9px 14px 11px;
+}
+
+.cardTitle {
+  overflow: hidden;
+  font: var(--ios-headline);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardDetail {
+  font: var(--ios-subhead);
+  color: var(--label-2);
+}
+
+.end {
+  height: 1px;
+  flex: none;
+}
+
+/* Header: back button, then the contact's avatar and name, over a scroll edge blur. */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: var(--phone-safe-top) var(--ios-margin) 10px;
+  pointer-events: none;
+}
+
+.header::before,
+.composer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+.header::before {
+  background: linear-gradient(
+    color-mix(in srgb, var(--edge) 85%, transparent) 50%,
+    transparent
+  );
+  mask-image: linear-gradient(#000 60%, transparent);
+}
+
+.back {
+  position: absolute;
+  left: var(--ios-margin);
+  top: var(--phone-safe-top);
+  pointer-events: auto;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 0.5px var(--separator);
+}
+
+/* The name in a small glass capsule (Semibold 12). */
+.nameTag {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 9px 0 11px;
+  border-radius: 11px;
+  background: var(--control-glass-tint);
+  -webkit-backdrop-filter: blur(var(--glass-blur))
+    saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: var(--control-glass-shadow);
+  font: 600 12px/16px var(--font-text);
+  color: var(--glass-label);
+}
+
+/* Composer: suggestion chips, then the field; it floats over the end of the thread. */
+.composer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0 var(--composer-bottom);
+}
+
+.composer::before {
+  background: linear-gradient(
+    transparent,
+    color-mix(in srgb, var(--edge) 85%, transparent) 40%
+  );
+  mask-image: linear-gradient(transparent, #000 30%);
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 var(--ios-margin);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+/* Bordered capsules, 34 pt (kit "medium" button height). */
+.chip {
+  flex: none;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 17px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent);
+  font: 500 15px/20px var(--font-text);
+  white-space: nowrap;
+}
+
+.chip:active {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+
+.chip:disabled {
+  opacity: 0.4;
+}
+
+/* A 44 pt glass capsule; the send button sits inside it, like iMessage. */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  margin: 0 var(--ios-margin);
+  padding: 0 7px 0 16px;
+  border-radius: 22px;
+  background: var(--control-glass-tint);
+  -webkit-backdrop-filter: blur(var(--glass-blur))
+    saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow:
+    var(--control-glass-shadow),
+    inset 0 1px 0 var(--glass-highlight);
+}
+
+:root[data-transparency='reduced'] .field,
+:root[data-transparency='reduced'] .nameTag {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font: var(--ios-body);
+  letter-spacing: var(--ios-tracking-body);
+  color: var(--label);
+}
+
+.input::placeholder {
+  color: var(--glass-label-2);
+}
+
+/* The ring goes around the capsule; the send button inside rings itself. */
+.field:has(> .input:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.send {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  transition: opacity var(--spring-smooth-ms) var(--spring-smooth);
+}
+
+/* A 30 pt circle in a 44 pt touch target. */
+.send::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+}
+
+.send:disabled {
+  opacity: 0.35;
+}

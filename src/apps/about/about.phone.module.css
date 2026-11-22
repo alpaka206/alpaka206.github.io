@@ -1,0 +1,73 @@
+/*
+ * Contact card (approved design P06): a poster tinted with the accent colour
+ * that fades into the grouped background, a 124 pt portrait, the name in
+ * Title 1 and four quick actions, then the inset grouped sections.
+ */
+.poster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* The portrait starts 12 pt under the status bar; the back button floats beside it. */
+  padding: calc(var(--phone-safe-top) + 12px) var(--ios-margin) 28px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 30%, var(--grouped-bg)) 0%,
+    color-mix(in srgb, var(--accent) 12%, var(--grouped-bg)) 58%,
+    var(--grouped-bg) 100%
+  );
+  text-align: center;
+}
+
+.portrait {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
+}
+
+.name {
+  margin: 14px 0 0;
+  font: var(--ios-title1);
+  letter-spacing: -0.01em;
+}
+
+.headline {
+  max-width: 300px;
+  margin: 4px 0 0;
+  font: var(--ios-subhead);
+  color: var(--label-2);
+  text-wrap: balance;
+}
+
+/* Four 80 × 62 tiles, 8 pt apart, 16 pt corners (P06). */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 80px;
+  height: 62px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--grouped-cell) 72%, transparent);
+  color: var(--accent);
+  font: 600 12px/16px var(--font-text);
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+.action:active {
+  transform: scale(0.96);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+}

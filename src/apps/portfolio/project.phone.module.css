@@ -1,0 +1,75 @@
+/*
+ * A case study on the phone. The hero sits under the floating nav bar, so
+ * it starts below the bar (status bar + 54 pt, ios.md §7) on a band tinted
+ * with the accent colour; the large title follows it.
+ */
+.hero {
+  display: flex;
+  justify-content: center;
+  padding: calc(var(--phone-safe-top) + var(--ios-nav-height) + 8px) var(--ios-margin) 24px;
+  background: linear-gradient(color-mix(in srgb, var(--accent) 16%, var(--bg)), var(--bg));
+}
+
+/* A phone screenshot in a dark bezel, 150 pt wide (P05 design). */
+.phone {
+  width: 150px;
+  overflow: hidden;
+  border: 5px solid #1c1c1e;
+  border-radius: 28px;
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.22);
+}
+
+/* A web screenshot as a rounded card, cropped from the top to 16:10. */
+.card {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 0 0.5px var(--separator), 0 14px 36px rgb(0 0 0 / 0.16);
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.body {
+  padding: 0 var(--ios-margin);
+}
+
+.meta {
+  margin: 0;
+  font: var(--ios-footnote);
+  color: var(--label-2);
+}
+
+.lead {
+  margin: 8px 0 28px;
+  font: var(--ios-title3);
+  letter-spacing: -0.02em;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+
+.missing {
+  margin: 24px var(--ios-margin);
+  font: var(--ios-body);
+  color: var(--label-2);
+}
+
+/* The first link takes the room left by the 48 pt share button. */
+.primary {
+  flex: 1;
+  min-width: 0;
+}
+
+.primaryText {
+  composes: truncate from global;
+}
+
+.trailing {
+  margin-left: auto;
+}

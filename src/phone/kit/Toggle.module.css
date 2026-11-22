@@ -1,0 +1,31 @@
+/* K27 "Toggles, 1 - Idle": 64 × 28 capsule, 2 pt padding, 38 × 24 knob; on = systemGreen. */
+.toggle {
+  position: relative;
+  flex: none;
+  width: var(--ios-toggle-w);
+  height: var(--ios-toggle-h);
+  padding: 2px;
+  border-radius: calc(var(--ios-toggle-h) / 2);
+  /* Off track: rgba(60, 60, 67, .3) in the kit, the same value as tertiary label. */
+  background: var(--label-3);
+  transition: background-color var(--duration) var(--ease-out);
+}
+
+.toggle[aria-checked='true'] {
+  background: var(--green);
+}
+
+.knob {
+  display: block;
+  width: 38px;
+  height: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.15), 0 0.5px 1px rgb(0 0 0 / 0.12);
+  transition: transform var(--spring-snappy-ms) var(--spring-snappy);
+}
+
+/* 64 − 2 × 2 padding − 38 knob = 22 pt of travel. */
+.toggle[aria-checked='true'] .knob {
+  transform: translateX(22px);
+}

@@ -1,0 +1,84 @@
+/*
+ * An open folder. Apple publishes no folder metrics (ios.md, Conflicts 13):
+ * the panel reuses the Home Screen grid pitch and the Dock's corner.
+ */
+.layer {
+  --open: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  touch-action: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.12);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+  opacity: var(--open);
+}
+
+:root[data-transparency='reduced'] .backdrop {
+  background: rgb(0 0 0 / 0.55);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.stage {
+  --folder-size: min(325px, 100vw - 2 * var(--ios-margin));
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 8vh;
+  pointer-events: none;
+}
+
+/* The name sits above the panel, left-aligned with it, Large Title Bold 34/41. */
+.title {
+  width: var(--folder-size);
+  margin: 0 0 20px;
+  padding: 0 8px;
+  font: var(--ios-large-title);
+  letter-spacing: var(--ios-large-title-tracking);
+  color: #fff;
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.2);
+  opacity: var(--open);
+}
+
+/*
+ * 325 pt square (no Apple measurement exists): three icon columns at the Home
+ * Screen's own pitch fill it with about 38 pt of glass on each side, the
+ * same width as the Control Center grid.
+ */
+.panel {
+  width: var(--folder-size);
+  aspect-ratio: 1;
+  transform-origin: 0 0;
+  pointer-events: auto;
+}
+
+.glass {
+  --glass-tint: light-dark(rgb(255 255 255 / 0.22), rgb(40 40 44 / 0.35));
+  --glass-blur: 30px;
+  width: 100%;
+  height: 100%;
+}
+
+.grid {
+  /* Labels arrive after the icons have grown. */
+  --label-opacity: clamp(0, (var(--open) - 0.6) * 2.5, 1);
+  display: grid;
+  grid-template-columns: repeat(3, var(--ios-icon));
+  grid-template-rows: repeat(3, calc(var(--ios-icon) + 19px));
+  column-gap: calc((100vw - 2 * var(--ios-grid-side) - 4 * var(--ios-icon)) / 3);
+  row-gap: calc(var(--ios-row-pitch) - var(--ios-icon) - 19px);
+  place-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

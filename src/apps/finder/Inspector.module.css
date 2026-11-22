@@ -1,0 +1,95 @@
+.position {
+  position: absolute;
+  z-index: 20;
+  outline: none;
+}
+
+.inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  font: var(--mac-body);
+  color: var(--label);
+  animation: appear var(--duration) var(--ease-out);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titles {
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font: var(--mac-headline);
+  overflow-wrap: anywhere;
+}
+
+.kind {
+  margin: 2px 0 0;
+  font: var(--mac-subhead);
+  color: var(--label-2);
+}
+
+/* Get Info's "일반" rows: right-aligned 11 pt labels, values beside them. */
+.rows {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--separator);
+}
+
+.rows div {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+  font: 400 11px/14px var(--font-text);
+}
+
+.rows dt {
+  text-align: right;
+  color: var(--label-2);
+}
+
+.rows dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.tags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tags i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

@@ -1,0 +1,296 @@
+/*
+ * WidgetKit's Mac sizes (macOS publishes none, macos.md §17): small 170,
+ * medium 364 × 170, large 364 × 382. Two small widgets side by side make a
+ * medium one, which puts 24 pt between widgets. HIG: 16 pt content margins.
+ */
+.widgets {
+  --small: 170px;
+  --wide: 364px;
+  --tall: 382px;
+  --gap: 24px;
+  --radius: 22px;
+  --margin: 16px;
+  /* Secondary text on the glass: --label-2 falls under 4.5:1 where a bright part of the wallpaper shows through. */
+  --caption: light-dark(rgb(0 0 0 / 0.62), rgb(255 255 255 / 0.76));
+
+  position: absolute;
+  left: 20px;
+  top: calc(var(--mac-menubar-height) + 14px);
+  display: grid;
+  grid-template-columns: var(--wide) var(--wide);
+  gap: var(--gap);
+  align-items: start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: var(--small) var(--small);
+  gap: var(--gap);
+}
+
+/* Liquid Glass panel material (tokens), so text reads over any wallpaper in either appearance. */
+.widget {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  color: var(--label);
+  background: var(--panel-tint);
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 2)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(calc(var(--glass-blur) * 2)) saturate(var(--glass-saturate));
+  box-shadow:
+    inset 0 0 0 0.5px var(--glass-rim),
+    inset 0 1px 0 var(--glass-highlight),
+    var(--glass-shadow);
+  font: var(--mac-body);
+}
+
+:root[data-transparency='reduced'] .widget {
+  background: var(--glass-opaque);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.small {
+  width: var(--small);
+  height: var(--small);
+}
+
+.medium {
+  width: var(--wide);
+  height: var(--small);
+}
+
+.large {
+  display: flex;
+  flex-direction: column;
+  width: var(--wide);
+  height: var(--tall);
+  padding: var(--margin) 10px 10px;
+}
+
+/* Vibrant rendering while an app is in front: pictures lose their colour into the glass. */
+.widgets[data-vibrant] img {
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+
+/* Every widget row is a button that opens its app or project. */
+.widget button {
+  text-align: start;
+  border-radius: 12px;
+  outline-offset: -2px;
+}
+
+.widget button:hover {
+  background: light-dark(rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.08));
+}
+
+.eyebrow,
+.eyebrowAccent {
+  margin: 0;
+  font: 600 12px/15px var(--font-text);
+  color: var(--caption);
+}
+
+.eyebrowAccent {
+  color: var(--accent);
+}
+
+.caption {
+  font: var(--mac-callout);
+  color: var(--caption);
+}
+
+/* ---------- Profile (medium) ---------- */
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.profileMain {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  padding: 6px;
+}
+
+.portrait {
+  flex: none;
+  /* The full inner height (170 − 2 × 16), at the portrait's 3:4. */
+  width: 104px;
+  height: 138px;
+  object-fit: cover;
+  object-position: 50% 18%;
+  border-radius: 12px;
+}
+
+.profileText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.headline {
+  font: 700 17px/22px var(--font-text);
+  letter-spacing: -0.43px;
+  text-wrap: balance;
+}
+
+.contacts {
+  position: absolute;
+  /* Under the text column: 10 + 6 + 104 + 14 − 6. */
+  left: 128px;
+  right: 10px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 2px 6px;
+  font: var(--mac-callout);
+  color: var(--caption);
+}
+
+.contact svg {
+  flex: none;
+}
+
+/* ---------- Numbers (small) ---------- */
+.stat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: var(--margin);
+  border-radius: inherit !important;
+}
+
+.statIcon {
+  filter: drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.2));
+}
+
+.value {
+  margin-top: auto;
+  font: 700 32px/36px var(--font-text);
+  letter-spacing: -0.8px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat .caption {
+  margin-top: 6px;
+  text-wrap: balance;
+}
+
+/* ---------- 지금 (medium) ---------- */
+.nowHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 10px 10px 0;
+  padding: 6px;
+}
+
+.company {
+  font: 700 20px/25px var(--font-text);
+  letter-spacing: -0.45px;
+}
+
+.duties {
+  margin: 4px 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.duty {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 2px 6px;
+  font: var(--mac-callout);
+  color: var(--caption);
+}
+
+.duty b {
+  flex: none;
+  min-width: 52px;
+  font-weight: 600;
+  color: var(--label);
+}
+
+/* ---------- 대표 프로젝트 (large) ---------- */
+.large .eyebrow {
+  padding: 0 8px 6px;
+}
+
+.featured {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+}
+
+.row > span:first-child {
+  filter: drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.2));
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rowText b {
+  font: 600 13px/17px var(--font-text);
+}
+
+.rowText span {
+  font: var(--mac-callout);
+  color: var(--caption);
+}
+
+/* Short screens keep the profile and 지금; narrow ones a single column. */
+@media (max-height: 700px) {
+  .stats,
+  .large {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .widgets {
+    grid-template-columns: var(--wide);
+  }
+
+  .column + .column {
+    display: none;
+  }
+}

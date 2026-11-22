@@ -1,0 +1,19 @@
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--desktop-bg);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wallpaper[data-dimmed]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ios-home-dim);
+}

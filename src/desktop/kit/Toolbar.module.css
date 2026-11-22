@@ -1,0 +1,147 @@
+.toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--mac-toolbar-gap);
+  height: var(--mac-toolbar);
+  padding: 0 8px 0 var(--mac-toolbar-pad-left);
+  flex: none;
+  /* macOS 27 "hard" scroll edge under a toolbar with a title. */
+  background: color-mix(in srgb, var(--window-bg) 85%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0.5px 0 var(--titlebar-separator);
+}
+
+/* Traffic lights end at x 79; the title starts about 27 pt later (≈106 pt). */
+.toolbar[data-inset] {
+  padding-left: 106px;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-right: 8px;
+}
+
+.title,
+.titleSmall {
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--label-3);
+}
+
+.title {
+  font: var(--mac-title-font);
+  letter-spacing: var(--mac-title-tracking);
+}
+
+.titleSmall {
+  font: 700 13px/16px var(--font-text);
+}
+
+.subtitle {
+  margin: 0;
+  font: 400 11px/14px var(--font-text);
+  color: var(--label-3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.toolbar[data-active] .title,
+.toolbar[data-active] .titleSmall {
+  color: var(--label);
+}
+
+.toolbar[data-active] .subtitle {
+  color: var(--label-2);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Glass capsule (the "platter"), macOS 27 small-UI recipe. */
+.group,
+.search {
+  display: flex;
+  align-items: center;
+  height: var(--mac-platter);
+  border-radius: calc(var(--mac-platter) / 2);
+  background: color-mix(in srgb, var(--window-bg) 62%, transparent);
+  -webkit-backdrop-filter: blur(6px) saturate(2);
+  backdrop-filter: blur(6px) saturate(2);
+  box-shadow:
+    0 8px 15px rgb(0 0 0 / 0.02),
+    0 0 0 0.5px var(--titlebar-separator),
+    inset 0 1px 0 rgb(255 255 255 / 0.55);
+}
+
+:root[data-theme='dark'] .group,
+:root[data-theme='dark'] .search {
+  background: rgb(255 255 255 / 0.08);
+  box-shadow: 0 8px 15px rgb(0 0 0 / 0.04), 0 0 0 0.5px rgb(255 255 255 / 0.14);
+}
+
+.group {
+  gap: 9px;
+  padding: 0 var(--mac-platter-pad);
+}
+
+.button {
+  display: grid;
+  place-items: center;
+  width: var(--mac-toolbar-button);
+  height: var(--mac-toolbar-button);
+  border-radius: 50%;
+  color: var(--label-2);
+}
+
+.toolbar[data-active] .button {
+  color: var(--label);
+}
+
+.button:hover {
+  background: var(--fill-3);
+}
+
+.button:active,
+.button[aria-pressed='true'] {
+  background: var(--fill);
+}
+
+.button:disabled,
+.toolbar[data-active] .button:disabled {
+  color: var(--label-4);
+  background: none;
+}
+
+.search {
+  gap: 6px;
+  min-width: 159px;
+  padding: 0 14px 0 10px;
+  color: var(--vibrant-label-2);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font: 500 13px/16px var(--font-text);
+  color: var(--label);
+}
+
+.search input::placeholder {
+  color: var(--vibrant-label-2);
+}
+
+.search:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent);
+}

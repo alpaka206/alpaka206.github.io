@@ -1,0 +1,132 @@
+/* ---------- Fan: items rise in an arc from the stack, names on capsules to their left ---------- */
+.fan {
+  position: fixed;
+  /* Centre the 56 pt icon column on the stack. */
+  translate: -28px 0;
+}
+
+.fanList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fanItem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  outline: none;
+}
+
+.fanLabel {
+  composes: truncate from global;
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  translate: 0 -50%;
+  max-width: 260px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font: 500 13px/16px var(--font-text);
+  color: #fff;
+  background: rgb(36 36 36 / 0.62);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: 0 0 0 0.5px rgb(255 255 255 / 0.12), 0 4px 14px rgb(0 0 0 / 0.2);
+}
+
+.fanItem:hover .fanLabel,
+.fanItem:focus-visible .fanLabel {
+  background: var(--accent);
+}
+
+.fanFinder {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--label);
+  background: var(--glass-opaque);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+}
+
+/* ---------- Grid: a glass panel of thumbnails above the stack ---------- */
+.gridAnchor {
+  position: fixed;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 12px;
+}
+
+.title {
+  margin: 0;
+  font: var(--mac-headline);
+  color: var(--label);
+  text-align: center;
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: 4px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 6px 6px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.cell:hover,
+.cell:focus-visible {
+  background: var(--fill-3);
+}
+
+.cell:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.cellLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font: 500 11px/13px var(--font-text);
+  color: var(--label);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.finder {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font: 500 12px/16px var(--font-text);
+  color: var(--label-2);
+}
+
+.finder:hover,
+.finder:focus-visible {
+  color: var(--label);
+  background: var(--fill-3);
+}

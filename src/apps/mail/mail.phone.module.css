@@ -1,0 +1,80 @@
+/*
+ * Compose sheet, after iOS Mail: header rows 44 pt tall with the label in
+ * secondary colour, 1 pt separators inset 16 pt; the body fills the rest.
+ * Text is 17 pt (Body), which also keeps iOS Safari from zooming on focus.
+ */
+.compose {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Half of the 16 pt margin sits inside the row, so its focus ring has room around the text. */
+.field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: 0 8px;
+  padding: 0 8px;
+  border-radius: 12px;
+  font: var(--ios-body);
+  letter-spacing: var(--ios-tracking-body);
+}
+
+/* The separator still starts at the text and runs to the edge. */
+.field::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: -8px;
+  bottom: 0;
+  height: 1px;
+  background: var(--separator);
+}
+
+.field:focus-within {
+  outline: var(--focus-ring);
+  outline-offset: -3px;
+}
+
+.label {
+  flex: none;
+  color: var(--label-2);
+}
+
+.recipient {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font: inherit;
+  color: var(--label);
+}
+
+.body {
+  flex: 1;
+  min-height: 240px;
+  padding: 12px var(--ios-margin);
+  border: 0;
+  outline-offset: -3px;
+  resize: none;
+  background: none;
+  font: var(--ios-body);
+  letter-spacing: var(--ios-tracking-body);
+  color: var(--label);
+}
+
+.body::placeholder {
+  color: var(--label-3);
+}

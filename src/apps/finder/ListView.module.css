@@ -1,0 +1,154 @@
+/*
+ * Column widths are Finder's own defaults on this Mac (ListViewSettings):
+ * name 300 (min 200), date 181, kind 115, owner 200. They shrink in a narrow
+ * window instead of scrolling sideways.
+ */
+/* alternatingContentBackgroundColors: #FFFFFF / #F4F5F5, dark #1E1E1E / white 4.7 % (macos.md §13). */
+.view {
+  --columns: minmax(200px, 1fr) minmax(110px, 181px) minmax(90px, 115px) minmax(110px, 200px);
+  --row: 24px;
+  --stripe: light-dark(#f4f5f5, rgb(255 255 255 / 0.047));
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  outline: none;
+  font: 400 13px/16px var(--font-text);
+  letter-spacing: var(--mac-tracking-13);
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--window-bg);
+}
+
+/* 28 pt header, 11 pt Regular (NSTableHeaderView), hairline under it. */
+.headRow {
+  display: grid;
+  grid-template-columns: var(--columns);
+  column-gap: 17px;
+  height: 28px;
+  padding: 0 16px;
+  box-shadow: inset 0 -1px 0 var(--separator);
+}
+
+.header {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+/* Column dividers sit in the 17 pt intercell gap. */
+.header + .header::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--separator);
+}
+
+.header button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  min-width: 0;
+  font: 400 11px/14px var(--font-text);
+  color: var(--label);
+  text-align: left;
+}
+
+.body {
+  flex: none;
+  padding-top: 5px;
+}
+
+.filler {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.filler i {
+  display: block;
+  height: var(--row);
+  margin: 0 10px;
+  border-radius: 6px;
+}
+
+.row,
+.groupRow {
+  display: grid;
+  grid-template-columns: var(--columns);
+  column-gap: 17px;
+  align-items: center;
+  height: var(--row);
+  margin: 0 10px;
+  padding: 0 6px;
+  border-radius: 6px;
+}
+
+/* A row scrolled to with the keyboard stops below the sticky header, not under it. */
+.row {
+  scroll-margin-top: 28px;
+}
+
+/* Stripes come before the selection rules, which share their specificity and win by order. */
+.row[data-stripe],
+.filler i[data-stripe] {
+  background: var(--stripe);
+}
+
+.groupRow {
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--label);
+}
+
+.groupRow > span {
+  grid-column: 1 / -1;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--label);
+}
+
+.text {
+  composes: truncate from global;
+}
+
+.secondary {
+  composes: truncate from global;
+  color: var(--label-2);
+}
+
+.row[aria-selected='true'] {
+  background: var(--selection-unfocused);
+}
+
+.view:focus .row[aria-selected='true'] {
+  background: var(--selection);
+}
+
+.view:focus .row[aria-selected='true'] :is(.name, .secondary) {
+  color: #fff;
+}
+
+/* Neighbouring selected rows merge into one rounded block. */
+.row[aria-selected='true']:has(+ .row[aria-selected='true']) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.row[aria-selected='true'] + .row[aria-selected='true'] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

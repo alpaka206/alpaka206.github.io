@@ -1,0 +1,5 @@
+/* Context menus float over every desktop surface, banners included. */
+.layer {
+  position: relative;
+  z-index: calc(var(--z-banner) + 10);
+}

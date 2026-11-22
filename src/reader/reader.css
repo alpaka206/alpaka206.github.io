@@ -1,0 +1,165 @@
+/* The text version. Global (not a module) because the prerendered HTML must be
+   styled before any JavaScript runs. Every selector is scoped under .reader. */
+.reader {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: max(2.5rem, env(safe-area-inset-top)) 1.25rem 4rem;
+  font: 400 1rem/1.7 var(--font-text);
+  color: var(--label);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.reader h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.reader h2 {
+  margin: 3rem 0 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--label-2);
+}
+
+.reader h3 {
+  margin: 1.75rem 0 0.25rem;
+  font-size: 1.1875rem;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* A case study's sections: h4 in the full text, h2 on the project's own page. */
+.reader h4,
+.reader-project h2 {
+  margin: 1.25rem 0 0.25rem;
+  font-size: 1rem;
+  color: inherit;
+}
+
+.reader p,
+.reader ul,
+.reader ol {
+  margin: 0.5rem 0;
+}
+
+.reader ul,
+.reader ol {
+  padding-left: 1.25rem;
+}
+
+.reader a {
+  color: var(--link);
+}
+
+.reader-switch {
+  text-align: right;
+  font-size: 0.875rem;
+}
+
+.reader-headline {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.reader-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.reader-metrics dt {
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.reader-metrics dd {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--label-2);
+}
+
+.reader-meta,
+.reader-tags,
+.reader-group,
+.reader-label {
+  font-size: 0.875rem;
+  color: var(--label-2);
+}
+
+.reader-group {
+  margin-top: 2.5rem;
+  font-weight: 700;
+}
+
+.reader-lead {
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+/* A body with designed line breaks ("\n" in the content) keeps them. */
+.reader-lines {
+  white-space: pre-line;
+}
+
+.reader-callout {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--fill);
+}
+
+.reader-edge {
+  color: var(--label-2);
+}
+
+/* Portrait phone screenshots stop at a screenful instead of filling the text's width. */
+.reader-media {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 36rem;
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+}
+
+.reader-toc span {
+  color: var(--label-2);
+  font-size: 0.875rem;
+}
+
+/* With JavaScript the desktop or phone takes over; the prerendered copy is for crawlers and no-JS. */
+html.js #reader {
+  display: none;
+}
+
+/* Shown on its own (no JavaScript, /text, or a shell that failed to load), the text
+   version sits on the system background, not on the black behind the OS. */
+html:not(.js),
+html:has(.reader-page) {
+  background: var(--bg);
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 10000;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  font: 600 0.875rem/1.2 var(--font-text);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}

@@ -1,0 +1,12 @@
+.icon {
+  display: inline-block;
+  flex: none;
+  mask: url('./squircle.svg') center / 100% 100% no-repeat;
+}
+
+.icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

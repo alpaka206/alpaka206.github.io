@@ -1,0 +1,380 @@
+.safari {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font: var(--mac-body);
+  letter-spacing: var(--mac-tracking-13);
+  color: var(--label);
+  background: var(--window-bg);
+}
+
+/*
+ * Unified toolbar (52 pt) like the kit's, laid out by Safari: items start
+ * 13 pt after the zoom button (x 92), the tab strip takes the middle.
+ */
+.toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--mac-toolbar-gap);
+  flex: none;
+  height: var(--mac-toolbar);
+  padding: 0 8px 0 92px;
+  background: color-mix(in srgb, var(--window-bg) 85%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0.5px 0 var(--titlebar-separator);
+}
+
+/* The kit darkens toolbar glyphs in the key window; this toolbar is Safari's own, so it says so here. */
+.toolbar[data-active] button:not(:disabled) {
+  color: var(--label);
+}
+
+.toolbar[data-active] .tabButton {
+  color: var(--label-2);
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- active tab: the address field ---------- */
+
+/* The kit's small-UI glass capsule (K27 Materials › Light - Small UI), 36 pt tall. */
+.address {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 1 560px;
+  min-width: 220px;
+  height: var(--mac-platter);
+  border-radius: calc(var(--mac-platter) / 2);
+  overflow: hidden;
+  background: light-dark(color-mix(in srgb, var(--window-bg) 62%, transparent), rgb(255 255 255 / 0.08));
+  -webkit-backdrop-filter: blur(6px) saturate(2);
+  backdrop-filter: blur(6px) saturate(2);
+  box-shadow:
+    0 8px 15px light-dark(rgb(0 0 0 / 0.02), rgb(0 0 0 / 0.04)),
+    0 0 0 0.5px light-dark(var(--titlebar-separator), rgb(255 255 255 / 0.14)),
+    inset 0 1px 0 light-dark(rgb(255 255 255 / 0.55), transparent);
+}
+
+.address[data-editing] {
+  box-shadow:
+    0 0 0 0.5px var(--titlebar-separator),
+    0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.addressInput {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 36px;
+  border: 0;
+  outline: none;
+  background: none;
+  font: 500 13px/16px var(--font-text);
+  text-align: center;
+  color: transparent;
+}
+
+.addressInput::placeholder {
+  color: var(--vibrant-label-2);
+}
+
+.address[data-editing] .addressInput {
+  padding: 0 16px;
+  text-align: left;
+  color: var(--label);
+}
+
+/* The host, centred with its lock; the input underneath keeps focus and the full URL. */
+.addressLabel {
+  position: absolute;
+  inset: 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  font: 500 13px/16px var(--font-text);
+  color: var(--label);
+  pointer-events: none;
+}
+
+.reload,
+.close {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--label-2);
+  transform: translateY(-50%);
+}
+
+.reload {
+  right: 6px;
+  width: 26px;
+  height: 26px;
+}
+
+.close {
+  left: 6px;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+
+.reload:hover,
+.close:hover {
+  background: var(--fill-3);
+}
+
+.address:hover .close,
+.tab:hover .close,
+.close:focus-visible {
+  opacity: 1;
+}
+
+/* Safari fills the field from the left while a page loads. */
+.progress {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.address[data-loading] .progress {
+  opacity: 1;
+  animation: load 2.4s var(--ease-out) forwards;
+}
+
+@keyframes load {
+  from {
+    transform: scaleX(0.08);
+  }
+  to {
+    transform: scaleX(0.85);
+  }
+}
+
+/* ---------- other tabs ---------- */
+
+.tab {
+  position: relative;
+  flex: 0 1 170px;
+  min-width: 44px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.tab:hover {
+  background: var(--fill-3);
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px 0 26px;
+  border-radius: inherit;
+  font: 500 12px/16px var(--font-text);
+  color: var(--label-2);
+}
+
+.tabTitle {
+  composes: truncate from global;
+}
+
+/* ---------- pages ---------- */
+
+.page {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.page[hidden] {
+  display: none;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.page > .hint {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 5px 5px 14px;
+  font: var(--mac-subhead);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* Start page. */
+.start {
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg-2);
+}
+
+.startSection {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+/* Title 2, emphasized. */
+.startHeading {
+  margin: 0 0 16px;
+  font: 700 17px/22px var(--font-text);
+  letter-spacing: -0.43px;
+}
+
+/* 64 pt icons, the size macOS uses for icons on the desktop (macos.md §9). */
+.favorites {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 84px);
+  gap: 18px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.favorite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 84px;
+  color: var(--label);
+}
+
+/* macOS draws icons with a soft shadow; for a 64 pt icon ≈ 0 0.5 1.9 at 25% (measured on 27.2.1). */
+.favoriteIcon {
+  filter: drop-shadow(0 0.5px 1.9px rgb(0 0 0 / 0.25));
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.favorite:hover .favoriteIcon {
+  transform: scale(1.04);
+}
+
+.favoriteTitle {
+  font: var(--mac-subhead);
+  text-align: center;
+}
+
+/* A site that will not be framed. */
+.blocked {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-2);
+}
+
+.screenshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 320px;
+  height: fit-content;
+  margin: auto;
+  padding: 28px 24px 24px;
+  border-radius: 20px;
+  text-align: center;
+  background: var(--window-bg);
+  box-shadow: 0 0 0 0.5px var(--separator), 0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+.card strong {
+  margin-top: 6px;
+  font: var(--mac-headline);
+}
+
+.card p {
+  margin: 0 0 8px;
+  color: var(--label-2);
+}
+
+/* The glass notice: a medium Liquid Glass panel, radius 20 (K27 Materials › Medium UI). */
+.blocked > .notice {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(640px, calc(100% - 40px));
+  padding: 14px 14px 14px 16px;
+  transform: translateX(-50%);
+}
+
+.noticeText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  color: var(--label-2);
+  font: var(--mac-subhead);
+}
+
+.noticeText strong {
+  font: 600 13px/17px var(--font-text);
+  color: var(--label);
+}
+
+/* Large push button: 28 pt pill, prominent #0088FF (K27 Buttons). */
+.newTab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: 14px;
+  font: 500 13px/16px var(--font-text);
+  color: #fff;
+  background: var(--blue);
+}
+
+.newTab:hover {
+  text-decoration: none;
+  filter: brightness(1.06);
+}

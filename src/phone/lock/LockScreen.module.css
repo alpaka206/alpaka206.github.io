@@ -1,0 +1,117 @@
+/*
+ * iOS 27 Lock Screen (ios.md §5, K27 "Lock Screen Widgets/Examples" on a
+ * 402 × 874 frame whose safe area starts at y 62).
+ */
+.lock {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  color: #fff;
+  /* The screen follows the finger; the browser must not scroll it (pinching still zooms). */
+  touch-action: pinch-zoom;
+  will-change: transform;
+}
+
+.time {
+  position: absolute;
+  /* Date box top at y 79: 17 pt under the safe area. */
+  top: calc(var(--phone-safe-top) + 17px);
+  left: 0;
+  right: 0;
+  text-align: center;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 0.08);
+}
+
+/* SF Pro Semibold 22 in a 26 pt box. */
+.date {
+  margin: 0;
+  font: 600 22px/26px var(--font-text);
+}
+
+/*
+ * The kit draws "9:41" as outlines 205 pt wide with an 84.6 pt cap height,
+ * 10 pt under the date. Heavy SF Pro at 100 px is that wide; iOS 26's tall
+ * clock is matched by stretching it 1.2× vertically (70.5 × 1.2 = 84.6).
+ * text-box trims the line to the cap height so the 10 pt gap is exact.
+ * Glass style "Lock Screen Time": translucent white that lightens the
+ * wallpaper behind it (plus-lighter), brighter at the top like lit glass.
+ */
+.clock {
+  margin: 10px 0 0;
+  font: 800 100px/1 var(--font-text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  text-box: trim-both cap alphabetic;
+  background: linear-gradient(rgb(255 255 255 / 0.96), rgb(255 255 255 / 0.78));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  mix-blend-mode: plus-lighter;
+  transform: scaleY(1.2);
+  transform-origin: top;
+}
+
+/* Notification stack: 16 pt side margins, bottom 130 pt above the screen bottom. */
+.notification {
+  position: absolute;
+  left: var(--ios-margin);
+  right: var(--ios-margin);
+  bottom: 130px;
+  width: auto;
+}
+
+/* Flashlight / camera: 58 pt Clear glass circles, 46 pt from the sides, 50 pt from the bottom. */
+.quick {
+  position: absolute;
+  bottom: 50px;
+  display: grid;
+  place-items: center;
+  width: var(--ios-lock-button);
+  height: var(--ios-lock-button);
+  color: #fff;
+  --glass-tint: rgb(0 0 0 / 0.16);
+  --glass-blur: 12px;
+}
+
+.quick[data-side='left'] {
+  left: 46px;
+}
+
+.quick[data-side='right'] {
+  right: 46px;
+}
+
+.quick:active {
+  transform: scale(1.12);
+}
+
+/*
+ * The swipe-up hint over the home indicator, which sits where the kit puts
+ * it (144 × 5, 8 pt above the screen bottom): in a Home Screen web app it
+ * covers the system's own indicator exactly.
+ */
+.unlock {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 220px;
+  margin-left: -110px;
+  padding: 8px 0;
+  color: #fff;
+}
+
+.hint {
+  font: 500 15px/20px var(--font-text);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.18);
+}
+
+.indicator {
+  width: var(--phone-indicator-w);
+  height: var(--ios-home-indicator-h);
+  border-radius: 3px;
+  background: #fff;
+}

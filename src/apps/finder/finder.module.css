@@ -1,0 +1,53 @@
+.window {
+  height: 100%;
+}
+
+.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.viewport {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Columns and the gallery scroll inside themselves (sideways and in the filmstrip). */
+.viewport[data-view='columns'],
+.viewport[data-view='gallery'] {
+  overflow: hidden;
+}
+
+.empty {
+  position: absolute;
+  inset: 40% 0 auto;
+  margin: 0;
+  font: var(--mac-title3);
+  color: var(--label-3);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 상태 막대 (⌘/): Subheadline 11 pt, secondary, centred, a hairline above. */
+.status {
+  flex: none;
+  height: 24px;
+  padding: 0 12px;
+  border-top: 1px solid var(--separator);
+  font: var(--mac-subhead);
+  line-height: 23px;
+  color: var(--label-2);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}

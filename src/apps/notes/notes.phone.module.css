@@ -1,0 +1,87 @@
+/* The list stays mounted (and scrolled) under a note; each is its own stacking context, so the list's bar stays below. */
+.layer,
+.top {
+  position: absolute;
+  inset: 0;
+}
+
+.layer {
+  z-index: 0;
+}
+
+.top {
+  z-index: 1;
+}
+
+/* A pushed note slides in from the right edge, as in a navigation stack. */
+.top[data-pushed] {
+  box-shadow: -8px 0 24px rgb(0 0 0 / 0.08);
+  animation: push var(--spring-smooth-ms) var(--spring-smooth) both;
+}
+
+@keyframes push {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* A note, after iOS Notes: centred date (Footnote, secondary), title in Title 1, Body text, 16 pt margins. */
+.head {
+  /* The hero starts at the top of the screen, so it clears the 54 pt bar itself. */
+  padding: calc(var(--phone-safe-top) + var(--ios-nav-height) + 4px)
+    var(--ios-margin) 0;
+}
+
+.note {
+  padding: 0 var(--ios-margin);
+}
+
+.date {
+  margin: 0 0 12px;
+  font: var(--ios-footnote);
+  color: var(--label-2);
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 12px;
+  font: var(--ios-title1);
+  letter-spacing: -0.01em;
+}
+
+.section + .section {
+  margin-top: 20px;
+}
+
+.heading {
+  margin: 0 0 6px;
+  font: var(--ios-headline);
+  letter-spacing: var(--ios-tracking-body);
+}
+
+.line {
+  margin: 0;
+  font: var(--ios-body);
+  letter-spacing: var(--ios-tracking-body);
+}
+
+.line + .line {
+  margin-top: 6px;
+}
+
+/* List rows as in iOS Notes: Semibold title, then the date and the first line on one line. */
+.listTitle {
+  font-weight: 600;
+}
+
+.listPreview {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.listFirstLine {
+  margin-left: 6px;
+  color: var(--label-3);
+}

@@ -1,0 +1,294 @@
+/*
+ * A web app window: macOS toolbar, GitHub's own page underneath. Colours are
+ * GitHub's Primer tokens (light and dark), scoped to this window.
+ */
+.app {
+  --gh-fg: light-dark(#1f2328, #f0f6fc);
+  --gh-muted: light-dark(#59636e, #9198a1);
+  --gh-border: light-dark(#d1d9e0, #3d444d);
+  --gh-link: light-dark(#0969da, #4493f8);
+  --gh-canvas: light-dark(#ffffff, #0d1117);
+  --gh-subtle: light-dark(#f6f8fa, #151b23);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--gh-fg);
+  background: var(--gh-canvas);
+}
+
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  container-type: inline-size;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 32px 40px;
+}
+
+@container (max-width: 680px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- profile ---------- */
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.avatar {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--gh-border);
+}
+
+.name {
+  margin: 14px 0 0;
+  font: 600 24px/30px var(--font-text);
+}
+
+.login {
+  margin: 0;
+  font: 300 18px/24px var(--font-text);
+  color: var(--gh-muted);
+}
+
+.bio {
+  margin: 12px 0 0;
+  font: 400 14px/21px var(--font-text);
+}
+
+.follow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 12px 0 0;
+  font: 400 14px/21px var(--font-text);
+  color: var(--gh-muted);
+}
+
+.follow strong {
+  font-weight: 600;
+  color: var(--gh-fg);
+}
+
+.visit {
+  display: grid;
+  place-items: center;
+  height: 32px;
+  margin-top: 16px;
+  border-radius: 6px;
+  font: 500 14px/20px var(--font-text);
+  color: var(--gh-fg);
+  background: var(--gh-subtle);
+  box-shadow: inset 0 0 0 1px var(--gh-border);
+}
+
+.visit:hover {
+  text-decoration: none;
+  filter: brightness(0.97);
+}
+
+/* ---------- repositories ---------- */
+
+.reposSection {
+  min-width: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 4px 0 16px;
+  font: 400 16px/24px var(--font-text);
+}
+
+.counter {
+  font: 400 13px/20px var(--font-text);
+  color: var(--gh-muted);
+}
+
+.repos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Primer's bordered box, radius 6; the name's link covers the whole card. */
+.repo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 118px;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--gh-border);
+}
+
+.repo:hover {
+  background: var(--gh-subtle);
+}
+
+.repoName {
+  composes: truncate from global;
+  font: 600 14px/20px var(--font-text);
+  color: var(--gh-link);
+}
+
+.repoName::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 0 7px;
+  border-radius: 10px;
+  font: 500 12px/18px var(--font-text);
+  color: var(--gh-muted);
+  box-shadow: inset 0 0 0 1px var(--gh-border);
+}
+
+.description {
+  flex: 1;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font: 400 12px/18px var(--font-text);
+  color: var(--gh-muted);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  font: 400 12px/18px var(--font-text);
+  color: var(--gh-muted);
+}
+
+.language {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.language i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+}
+
+/* ---------- loading and errors ---------- */
+
+.bone {
+  display: block;
+  height: 14px;
+  border-radius: 6px;
+  background: var(--gh-subtle);
+  box-shadow: inset 0 0 0 1px var(--gh-border);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.boneAvatar {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.boneTitle {
+  width: 55%;
+  height: 18px;
+  margin-top: 8px;
+}
+
+.boneLine {
+  width: 85%;
+}
+
+.boneShort {
+  width: 40%;
+}
+
+/* Ends at full strength, so with reduced motion the placeholders simply stay. */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.error h2 {
+  margin: 16px 0 6px;
+  font: var(--mac-headline);
+}
+
+.error p {
+  margin: 0;
+  font: var(--mac-body);
+  color: var(--gh-muted);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+/* A link that looks like the regular push button beside it (24 pt, radius 6, 8% fill). */
+.linkOut {
+  display: inline-flex;
+  align-items: center;
+  height: var(--mac-control);
+  padding: 0 16px;
+  border-radius: var(--mac-control-radius);
+  font: 500 13px/16px var(--font-text);
+  color: var(--label);
+  background: var(--mac-control-fill);
+}
+
+.linkOut:hover {
+  text-decoration: none;
+}

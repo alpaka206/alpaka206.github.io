@@ -1,0 +1,1366 @@
+{
+  "wallpapers/glass-dark-portrait": {
+    "width": 941,
+    "height": 1672,
+    "widths": [
+      941
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080818"
+  },
+  "wallpapers/glass-dark": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080818"
+  },
+  "wallpapers/glass-light-portrait": {
+    "width": 941,
+    "height": 1672,
+    "widths": [
+      941
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#a8d8f8"
+  },
+  "wallpapers/glass-light": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#e8e8e8"
+  },
+  "wallpapers/ridge-dawn": {
+    "width": 1672,
+    "height": 941,
+    "widths": [
+      1280,
+      1672
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#6898c8"
+  },
+  "icons/about": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#d8d8e8"
+  },
+  "icons/awards": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8a818"
+  },
+  "icons/blog": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#e86838"
+  },
+  "icons/bucheon": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#e84858"
+  },
+  "icons/github": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080818"
+  },
+  "icons/imageqa": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#2878e8"
+  },
+  "icons/mail": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#1878f8"
+  },
+  "icons/messages": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#18b848"
+  },
+  "icons/notes": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8e8a8"
+  },
+  "icons/photos": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f89868"
+  },
+  "icons/plugin": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#4888f8"
+  },
+  "icons/portfolio": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#082888"
+  },
+  "icons/projects": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#1878f8"
+  },
+  "icons/resume": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#c8d8f8"
+  },
+  "icons/saecha": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#2898e8"
+  },
+  "icons/sales": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f89848"
+  },
+  "icons/settings": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#687888"
+  },
+  "icons/terminal": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#282838"
+  },
+  "icons/web": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#18a8d8"
+  },
+  "icons/webqa": {
+    "width": 1024,
+    "height": 1024,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#28c8b8"
+  },
+  "apps/alarmtalk": {
+    "width": 512,
+    "height": 512,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#0858e8"
+  },
+  "apps/blog": {
+    "width": 70,
+    "height": 70,
+    "widths": [
+      70
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#d8d8c8"
+  },
+  "apps/comatching": {
+    "width": 512,
+    "height": 512,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "apps/harucut": {
+    "width": 180,
+    "height": 180,
+    "widths": [
+      128,
+      180
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "apps/mearri": {
+    "width": 180,
+    "height": 180,
+    "widths": [
+      128,
+      180
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#7858f8"
+  },
+  "apps/share-it": {
+    "width": 480,
+    "height": 480,
+    "widths": [
+      128,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "brand/alpaca": {
+    "width": 305,
+    "height": 512,
+    "widths": [
+      64,
+      256
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "system/document": {
+    "width": 639,
+    "height": 868,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "system/folder": {
+    "width": 853,
+    "height": 667,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#68b8f8"
+  },
+  "system/trash-empty": {
+    "width": 689,
+    "height": 864,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#888888"
+  },
+  "system/trash-full": {
+    "width": 691,
+    "height": 852,
+    "widths": [
+      128,
+      256,
+      512
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "profile/portrait": {
+    "width": 645,
+    "height": 860,
+    "widths": [
+      240,
+      480,
+      645
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/alarmtalk": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/blog": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/comatching": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "screens/harucut": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#080808"
+  },
+  "screens/mearri": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      720,
+      1440,
+      2160
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#081838"
+  },
+  "projects/alarmtalk-app": {
+    "width": 600,
+    "height": 1152,
+    "widths": [
+      480,
+      600
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#081828"
+  },
+  "projects/bucheon-phone": {
+    "width": 540,
+    "height": 1107,
+    "widths": [
+      480,
+      540
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#e8f8f8"
+  },
+  "projects/comatching-phone": {
+    "width": 585,
+    "height": 1113,
+    "widths": [
+      480,
+      585
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/saecha-phone": {
+    "width": 567,
+    "height": 1125,
+    "widths": [
+      480,
+      567
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it-desktop": {
+    "width": 1206,
+    "height": 756,
+    "widths": [
+      480,
+      960,
+      1206
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/registration": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/review": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/search": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/sidebar": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/register/login_email": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/register/login_kakao": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/need/detail": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/need/list": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/main/main": {
+    "width": 1133,
+    "height": 1558,
+    "widths": [
+      480,
+      960,
+      1133
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/main/unlogin": {
+    "width": 4304,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/chat/chat": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/chat/widget": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/borrow/detail": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/share-it/borrow/list": {
+    "width": 5760,
+    "height": 4096,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/charge": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/main": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/result-overview": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/chat": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/hobby": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/login": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/register/user-info": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/loading": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/matching": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/matching/result": {
+    "width": 1572,
+    "height": 3408,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/admin/admin-login": {
+    "width": 5120,
+    "height": 2880,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "projects/comatching/admin/request": {
+    "width": 5120,
+    "height": 2880,
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "formats": [
+      "avif",
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2019-acm-icpc-campus-preliminary-bronze-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2019-programming-competition-individual-bronze-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2022-academic-club-presentation-grand-prize": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2022-startup-competition-encouragement-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-hana-social-venture-university-outstanding-team-1": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-hana-social-venture-university-outstanding-team-2": {
+    "width": 1241,
+    "height": 1755,
+    "widths": [
+      64,
+      128,
+      640,
+      1241
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-major-design-career-exploration-excellence-award": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "awards/2023-startup-promising-team-300-final-selection": {
+    "width": 2481,
+    "height": 3509,
+    "widths": [
+      64,
+      128,
+      640,
+      1280
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-01": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-02": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-03": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-04": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-05": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-06": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-07": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-08": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-09": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-10": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-11": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-12": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-13": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-14": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-15": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-16": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-17": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-18": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-19": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  },
+  "pdf/portfolio-20": {
+    "width": 2880,
+    "height": 1620,
+    "widths": [
+      64,
+      128,
+      360,
+      1440,
+      2400
+    ],
+    "formats": [
+      "webp"
+    ],
+    "color": "#f8f8f8"
+  }
+}

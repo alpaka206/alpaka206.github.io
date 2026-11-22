@@ -1,29 +1,14 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 node_modules
 dist
-dist-ssr
+.ssr
 *.local
+*.log
+.DS_Store
 
-# Editor directories and files
+# Generated from /assets by `npm run images` (runs before dev and build).
+public/media/
+
+.idea
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-*storybook.log
-
-
 .env
