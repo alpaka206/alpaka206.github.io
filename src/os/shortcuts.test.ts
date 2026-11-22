@@ -30,3 +30,14 @@ describe('shortcuts', () => {
     expect(shortcutParts('⌘,')).toEqual(['⌘', ',']);
   });
 });
+
+describe('app menus', () => {
+  it('give every app window a way to close with ⌘W', async () => {
+    const { menusFor } = await import('./menus');
+    const { APPS } = await import('./apps');
+    for (const app of Object.keys(APPS) as (keyof typeof APPS)[]) {
+      const shortcuts = menusFor(app).flatMap((menu) => menu.items.flatMap((item) => (item === 'separator' ? [] : [item.shortcut])));
+      expect(shortcuts, app).toContain('⌘W');
+    }
+  });
+});

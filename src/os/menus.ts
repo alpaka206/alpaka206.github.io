@@ -295,7 +295,14 @@ const MENUS: Record<AppId, () => Menu[]> = {
     windowMenu,
     help('preview'),
   ],
-  settings: () => [appMenu('settings', [], true), edit, { title: '보기', items: [{ label: '검색', command: 'edit.find', shortcut: '⌘F' }] }, windowMenu, help('settings')],
+  // System Settings has no 파일 menu; its 윈도우 menu starts with 닫기 (⌘W).
+  settings: () => [
+    appMenu('settings', [], true),
+    edit,
+    { title: '보기', items: [{ label: '검색', command: 'edit.find', shortcut: '⌘F' }] },
+    { ...windowMenu, items: [{ label: '닫기', command: 'window.close', shortcut: '⌘W' }, ...windowMenu.items] },
+    help('settings'),
+  ],
 };
 
 export const menusFor = (app: AppId): Menu[] => MENUS[app]();
