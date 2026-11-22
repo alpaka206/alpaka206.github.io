@@ -6,7 +6,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { PROFILE } from '@/content/profile';
 import { NOTES } from '@/content/notes';
 import { SEQUENCE } from '@/apps/portfolio/toc';
-import { pathFor, PROFILE_SECTIONS } from '@/os/routes';
+import { APPS } from '@/os/apps';
+import { pathFor, PROFILE_SECTIONS, SETTINGS_PANES } from '@/os/routes';
 import type { PageMeta } from './pageMeta';
 import { Reader, ReaderProject } from './Reader';
 
@@ -28,6 +29,12 @@ export function pages(): PageMeta[] {
     page('/about', '소개'),
     ...PROFILE_SECTIONS.map((section) => page(pathFor('about', { view: 'profile', section }), '소개')),
     ...NOTES.map((note) => page(pathFor('notes', { note: note.id }), note.title)),
+    // App windows answer with a real page too (GitHub Pages would send its 404), pointing search engines home.
+    ...(['messages', 'mail', 'photos', 'notes', 'terminal', 'github', 'blog', 'settings'] as const).map((app) => ({
+      ...page(pathFor(app), APPS[app].name),
+      canonical: '/',
+    })),
+    ...SETTINGS_PANES.map((pane) => ({ ...page(pathFor('settings', { pane }), APPS.settings.name), canonical: '/' })),
   ];
   for (const project of SEQUENCE) {
     list.push({

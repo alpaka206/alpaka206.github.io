@@ -18,8 +18,8 @@ const template = await readFile(path.join(DIST, 'index.html'), 'utf8');
 const escape = (text: string) => text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const urlOf = (route: string) => `${SITE}${route === '/' ? '/' : `${route}/`}`;
 
-function render({ path: route, title, description, html }: PageMeta) {
-  const url = urlOf(route);
+function render({ path: route, title, description, html, canonical }: PageMeta) {
+  const url = urlOf(canonical ?? route);
   return template
     .replace(/<title>.*?<\/title>/, `<title>${escape(title)}</title>`)
     .replace(/(<meta\s+name="description"\s+content=")[^"]*(")/, `$1${escape(description)}$2`)
@@ -41,7 +41,10 @@ for (const page of list) {
 await writeFile(path.join(DIST, '404.html'), render(list[0]!));
 
 const today = new Date().toISOString().slice(0, 10);
-const urls = list.map((page) => `  <url><loc>${urlOf(page.path)}</loc><lastmod>${today}</lastmod></url>`).join('\n');
+const urls = list
+  .filter((page) => !page.canonical)
+  .map((page) => `  <url><loc>${urlOf(page.path)}</loc><lastmod>${today}</lastmod></url>`)
+  .join('\n');
 await writeFile(
   path.join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,

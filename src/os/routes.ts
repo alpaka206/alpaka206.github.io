@@ -14,7 +14,7 @@ const FINDER_LINKS: readonly FinderLocation[] = ['projects', 'awards', 'document
 /** Apps whose link is just their name. */
 const APP_LINKS: readonly AppId[] = ['messages', 'mail', 'notes', 'photos', 'terminal', 'github', 'blog'];
 export const PROFILE_SECTIONS: readonly ProfileSection[] = ['overview', 'career', 'skills', 'education', 'awards', 'contact'];
-const PANES: SettingsPane[] = ['appearance', 'wallpaper', 'desktop-dock', 'accessibility', 'sound', 'privacy', 'about-site'];
+export const SETTINGS_PANES: readonly SettingsPane[] = ['appearance', 'wallpaper', 'desktop-dock', 'accessibility', 'sound', 'privacy', 'about-site'];
 
 export function parseRoute(pathname: string): Route | null {
   const [head, tail] = pathname.split('/').filter(Boolean);
@@ -28,7 +28,7 @@ export function parseRoute(pathname: string): Route | null {
     return { kind: 'app', app: 'about', props: section ? { view: 'profile', section } : {} };
   }
   if (head === 'notes' && tail && getNote(tail as NoteId)) return { kind: 'app', app: 'notes', props: { note: tail as NoteId } };
-  if (head === 'settings') return { kind: 'app', app: 'settings', props: { pane: PANES.find((p) => p === tail) } };
+  if (head === 'settings') return { kind: 'app', app: 'settings', props: { pane: SETTINGS_PANES.find((p) => p === tail) } };
   if (head === 'portfolio-pdf') return { kind: 'app', app: 'preview', props: {} };
   const app = APP_LINKS.find((id) => id === head);
   return app ? { kind: 'app', app, props: {} } : null;
