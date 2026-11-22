@@ -44,12 +44,6 @@
   color: var(--label-2);
 }
 
-.recipient {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .input {
   flex: 1;
   min-width: 0;
@@ -58,7 +52,6 @@
   border: 0;
   outline: none;
   background: none;
-  font: inherit;
   color: var(--label);
 }
 

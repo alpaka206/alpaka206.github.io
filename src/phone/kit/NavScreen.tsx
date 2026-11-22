@@ -10,8 +10,6 @@ interface NavScreenProps {
   /** Replaces the back button; `null` leaves the leading edge empty. */
   leading?: ReactNode;
   trailing?: ReactNode;
-  /** Scrolls with the content right under the large title (a search field). */
-  accessory?: ReactNode;
   /** Something above the title that scrolls with the page (a cover image). */
   hero?: ReactNode;
   /** A floating bar at the bottom (tab bar, toolbar); content keeps clear of it. */
@@ -35,7 +33,7 @@ export function NavScreen(props: NavScreenProps) {
   return <Screen key={`${props.large ?? true}:${Boolean(props.hero)}`} {...props} />;
 }
 
-function Screen({ title, large = true, leading, trailing, accessory, hero, bottom, background = 'grouped', fill = false, children }: NavScreenProps) {
+function Screen({ title, large = true, leading, trailing, hero, bottom, background = 'grouped', fill = false, children }: NavScreenProps) {
   const [scroll, setScroll] = useState({ scrolled: false, collapsed: !large && !hero });
   const titleRef = useRef<HTMLHeadingElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -79,7 +77,6 @@ function Screen({ title, large = true, leading, trailing, accessory, hero, botto
             {title}
           </h1>
         )}
-        {accessory}
         <div className={styles.content}>{children}</div>
       </div>
       {bottom}

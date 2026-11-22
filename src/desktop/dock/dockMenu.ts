@@ -3,7 +3,7 @@ import { openMissionControl } from '@/desktop/windows/overview';
 import { APPS, DOCK_APPS, type AppId } from '@/os/apps';
 import type { MenuEntry } from '@/os/menus';
 import { useWindows } from '@/os/windows';
-import type { DockItem } from './items';
+import type { TileItem } from './DockTile';
 import { STACKS, type StackView } from './stacks';
 
 /**
@@ -97,7 +97,7 @@ const trashMenu: DockMenu = {
   run: () => useWindows.getState().open('finder', { location: 'trash' }),
 };
 
-export function dockMenu(item: DockItem, actions: Actions): DockMenu | null {
+export function dockMenu(item: TileItem, actions: Actions): DockMenu {
   switch (item.kind) {
     case 'app':
       return appMenu(item.app, actions);
@@ -105,7 +105,5 @@ export function dockMenu(item: DockItem, actions: Actions): DockMenu | null {
       return stackMenu(item.stack, actions);
     case 'trash':
       return trashMenu;
-    default:
-      return null;
   }
 }

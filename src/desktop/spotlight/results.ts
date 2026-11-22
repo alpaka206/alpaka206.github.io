@@ -19,8 +19,6 @@ export function groupedResults(query: string, filter: SearchKind | null): Result
     : search(query);
   const [top, ...rest] = query.trim() ? ranked : [];
   const groups: ResultGroup[] = top ? [{ label: TOP_HIT, items: [top] }] : [];
-  const byKind = new Map<SearchKind, SearchItem[]>();
-  for (const item of top ? rest : ranked) byKind.set(item.kind, [...(byKind.get(item.kind) ?? []), item]);
-  for (const [kind, items] of byKind) groups.push({ label: KIND_LABEL[kind], items });
+  for (const [kind, items] of Map.groupBy(top ? rest : ranked, (item) => item.kind)) groups.push({ label: KIND_LABEL[kind], items });
   return groups;
 }

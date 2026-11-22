@@ -1,7 +1,7 @@
 import type { CSSProperties, PointerEvent } from 'react';
+import { useMediaQuery } from '@/lib/device';
 import { AppIcon } from '@/ui/AppIcon';
 import { Glass } from '@/ui/Glass';
-import { useIconSize } from '../hooks';
 import type { FolderItem, HomeItem } from './items';
 import { useLongPress } from './useLongPress';
 import jiggle from './jiggle.module.css';
@@ -29,7 +29,8 @@ const STEPS: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -
 
 /** A Home Screen icon: 64 pt squircle, label Medium 12/14 five points below (ios.md §2). */
 export function Tile({ item, editing, onOpen, onLongPress, onDragStart, onKeyMove, labelled = true, offset = false }: TileProps) {
-  const size = useIconSize();
+  // --ios-icon: 64 pt, 60 pt on 393-wide and narrower iPhones.
+  const size = useMediaQuery('(max-width: 400px)') ? 60 : 64;
   const press = useLongPress(onLongPress);
   return (
     <button

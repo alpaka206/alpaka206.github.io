@@ -52,8 +52,6 @@
   padding-left: 16px;
   color: var(--label);
   text-align: left;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .cell:hover {

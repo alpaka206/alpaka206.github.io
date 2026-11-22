@@ -16,12 +16,13 @@ export interface ContextMenuRequest {
 
 export const useContextMenu = create<{ request: ContextMenuRequest | null }>(() => ({ request: null }));
 
+/** `event` is the contextmenu event (its default menu is cancelled), or just the point a menu drops from. */
 export function openContextMenu(
-  event: Pick<MouseEvent, 'clientX' | 'clientY' | 'preventDefault'>,
+  event: Pick<MouseEvent, 'clientX' | 'clientY'> & { preventDefault?: () => void },
   entries: MenuEntry[],
   onCommand?: (command: string) => void,
 ) {
-  event.preventDefault();
+  event.preventDefault?.();
   useContextMenu.setState({ request: { x: event.clientX, y: event.clientY, entries, onCommand } });
 }
 

@@ -179,10 +179,8 @@
 }
 
 .cardTitle {
-  overflow: hidden;
+  composes: truncate from global;
   font: var(--ios-headline);
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .cardDetail {
@@ -198,9 +196,7 @@
 /* Header: back button, then the contact's avatar and name, over a scroll edge blur. */
 .header {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto;
   z-index: 2;
   display: flex;
   justify-content: center;

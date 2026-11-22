@@ -28,7 +28,7 @@ function TabButton({ tab, onSelect, onClose }: { tab: Tab; onSelect: () => void;
     <div className={styles.tab}>
       <button type="button" className={styles.tabButton} title={title} onClick={onSelect}>
         {site ? <AppIcon icon={site.icon} size={16} /> : page.kind === 'web' && <Symbol name="globe" size={14} />}
-        <span className={styles.tabTitle}>{title}</span>
+        <span className="truncate">{title}</span>
       </button>
       <button type="button" className={styles.close} aria-label={`${title} 탭 닫기`} onClick={onClose}>
         <Symbol name="xmark" size={9} weight="semibold" />

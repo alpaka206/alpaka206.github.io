@@ -6,10 +6,10 @@ const HOP_MS = 620;
 /**
  * The launch bounce: the icon hops and falls back under "gravity" (an ease-out
  * rise and an ease-in fall, which is ballistic motion rather than a spring),
- * again and again until `done()` says the app is up, at most `max` times.
+ * again and again until `done()` says the app is up, at most three times.
  * Returns a function that lets the current hop finish and stops there.
  */
-export function bounce(element: HTMLElement, height: number, done: () => boolean, max = 3): () => void {
+export function bounce(element: HTMLElement, height: number, done: () => boolean): () => void {
   if (motionReduced()) return () => undefined;
   let hops = 0;
   let stopped = false;
@@ -24,7 +24,7 @@ export function bounce(element: HTMLElement, height: number, done: () => boolean
       { duration: HOP_MS },
     );
     animation.onfinish = () => {
-      if (!stopped && hops < max && !done()) hop();
+      if (!stopped && hops < 3 && !done()) hop();
     };
   };
   hop();

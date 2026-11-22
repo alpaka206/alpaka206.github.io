@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
-import type { ProjectSlug } from '@/content/types';
-import { useSettings, WALLPAPERS, type WallpaperId } from '@/os/settings';
+import { nextWallpaper } from '@/os/actions';
 import { ControlCenter } from '../control/ControlCenter';
 import { iconRadius, rectOf, type Rect } from '../geometry';
 import { useEscape } from '../hooks';
@@ -15,8 +14,6 @@ import { HomePager } from './HomePager';
 import type { AppItem, FolderItem, HomeItem } from './items';
 import { useHomeOrder } from './useHomeOrder';
 import styles from './HomeScreen.module.css';
-
-const WALLPAPER_IDS = Object.keys(WALLPAPERS) as WallpaperId[];
 
 interface HomeScreenProps {
   /** An app covers the whole screen: stop drawing the Home Screen. */
@@ -42,17 +39,9 @@ export function HomeScreen({ covered, inert }: HomeScreenProps) {
     else launch(item, icon);
   };
 
-  const fromWidget = (app: 'about' | 'portfolio', from: HTMLElement, key: string, props = {}) =>
-    usePhoneNav.getState().open(app, props, { rect: rectOf(from, 28), key });
-
   // One press closes the Edit menu; the next one leaves jiggle mode.
   const onEscape = useCallback(() => (menu ? setMenu(false) : setEditing(false)), [menu]);
   useEscape(onEscape);
-
-  const cycleWallpaper = () => {
-    const { wallpaper, set } = useSettings.getState();
-    set('wallpaper', WALLPAPER_IDS[(WALLPAPER_IDS.indexOf(wallpaper) + 1) % WALLPAPER_IDS.length]!);
-  };
 
   return (
     <div className={styles.home} data-covered={covered || undefined} inert={inert || covered}>
@@ -87,8 +76,6 @@ export function HomeScreen({ covered, inert }: HomeScreenProps) {
           editing={editing}
           onEditingChange={setEditing}
           onOpen={onOpen}
-          onOpenAbout={(from) => fromWidget('about', from, 'widget:about')}
-          onOpenProject={(slug: ProjectSlug, from) => fromWidget('portfolio', from, `stat:${slug}`, { slug })}
           onSearch={() => setOverlay('search')}
         />
         <Dock editing={editing} onOpen={onOpen} onLongPress={() => setEditing(true)} />
@@ -101,7 +88,7 @@ export function HomeScreen({ covered, inert }: HomeScreenProps) {
             if (window.confirm('홈 화면을 기본 배열로 되돌릴까요? 옮긴 아이콘이 처음 자리로 돌아가요.')) reset();
             setMenu(false);
           }}
-          onWallpaper={cycleWallpaper}
+          onWallpaper={nextWallpaper}
         />
       )}
       {folder && <FolderPanel folder={folder.item} from={folder.from} onLaunch={launch} onClosed={() => setFolder(null)} />}

@@ -199,20 +199,12 @@
   color: var(--label-2);
 }
 
-.tabTitle {
-  composes: truncate from global;
-}
-
 /* ---------- pages ---------- */
 
 .page {
   position: relative;
   flex: 1;
   min-height: 0;
-}
-
-.page[hidden] {
-  display: none;
 }
 
 .frame {

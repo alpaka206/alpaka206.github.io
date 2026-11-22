@@ -1,7 +1,7 @@
-import { useId, useLayoutEffect, useMemo, useRef } from 'react';
+import { useId, useMemo, useRef } from 'react';
 import { InfoPane } from './InfoPane';
 import { ItemPreview } from './ItemPreview';
-import { itemElement, navigate, optionId, pointerHandlers, type ViewProps } from './viewShared';
+import { navigate, optionId, pointerHandlers, useRevealFocus, type ViewProps } from './viewShared';
 import styles from './GalleryView.module.css';
 
 /**
@@ -17,10 +17,7 @@ export function GalleryView(props: ViewProps) {
   const strip = useRef<HTMLDivElement>(null);
   const order = useMemo(() => list.items.map((item) => item.id), [list.items]);
   const current = list.items.find((item) => item.id === selection.focus) ?? null;
-
-  useLayoutEffect(() => {
-    if (selection.focus) itemElement(strip.current, selection.focus)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-  }, [selection.focus]);
+  useRevealFocus(strip, selection.focus);
 
   return (
     <div className={styles.gallery}>

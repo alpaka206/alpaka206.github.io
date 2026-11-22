@@ -166,13 +166,15 @@
   color: var(--label);
 }
 
-.node[data-key] {
+.node[data-key],
+.split div:first-child {
   background: var(--key);
   border-color: var(--key);
   color: rgb(255 255 255 / 0.85);
 }
 
-.node[data-key] b {
+.node[data-key] b,
+.split div:first-child b {
   color: #fff;
 }
 
@@ -434,16 +436,6 @@
   border: 1px solid var(--separator);
   font-size: 13px;
   color: var(--label-2);
-}
-
-.split div:first-child {
-  background: var(--key);
-  border-color: var(--key);
-  color: rgb(255 255 255 / 0.85);
-}
-
-.split div:first-child b {
-  color: #fff;
 }
 
 .split b {

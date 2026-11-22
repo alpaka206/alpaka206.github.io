@@ -28,7 +28,6 @@
   pointer-events: none;
 }
 
-
 .clear {
   --glass-tint: var(--glass-clear-tint);
   --glass-blur: var(--glass-clear-blur);

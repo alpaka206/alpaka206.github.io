@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Note } from '@/content/notes';
 import { formatNoteDate } from '@/lib/format';
 import { NavScreen } from '@/phone/kit';
-import { linkOf } from './noteList';
+import { NoteLine } from './NoteLine';
 import styles from './notes.phone.module.css';
 
 /**
@@ -29,20 +29,11 @@ export function NoteDetail({ note, leading }: { note: Note; leading?: ReactNode 
         {note.sections.map((section, index) => (
           <section key={section.heading ?? index} className={styles.section}>
             {section.heading && <h2 className={styles.heading}>{section.heading}</h2>}
-            {section.lines.map((line) => {
-              const href = linkOf(line);
-              return (
-                <p key={line} className={styles.line}>
-                  {href ? (
-                    <a href={href} target="_blank" rel="noreferrer">
-                      {line}
-                    </a>
-                  ) : (
-                    line
-                  )}
-                </p>
-              );
-            })}
+            {section.lines.map((line) => (
+              <p key={line} className={styles.line}>
+                <NoteLine text={line} />
+              </p>
+            ))}
           </section>
         ))}
       </article>

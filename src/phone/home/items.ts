@@ -41,11 +41,11 @@ const app = <A extends AppId>(id: A, props: Partial<AppProps[A]> = {}, label?: s
   icon: icon ?? APPS[id].icon,
 });
 
-/** A case study as an app of its own; labels are shortened to fit under the icon. */
-const project = (slug: ProjectSlug, label: string): AppItem => {
+/** A case study as an app of its own, under its short label. */
+const project = (slug: ProjectSlug): AppItem => {
   const found = getProject(slug);
   if (!found) throw new Error(`Unknown project "${slug}"`);
-  return app('portfolio', { slug }, label, found.icon);
+  return app('portfolio', { slug }, found.short, found.icon);
 };
 
 const folder = (id: string, label: string, apps: AppItem[]): FolderItem => ({ kind: 'folder', id: `folder:${id}`, label, apps });
@@ -56,20 +56,10 @@ export const HOME_ITEMS: readonly HomeItem[] = [
   app('preview'),
   app('photos'),
   app('notes'),
-  folder('estsoft', '이스트소프트', [
-    project('premiere-plugin', 'Premiere'),
-    project('sales-automation', 'Sales 자동화'),
-    project('mearri', 'Mearri'),
-    project('alarmtalk', 'AlarmTalk'),
-  ]),
-  folder('samsung', '삼성 QA', [project('global-web-qa', '웹 QA'), project('image-qa', '이미지 QA')]),
-  project('harucut', '하루컷'),
-  folder('team', '팀 프로젝트', [
-    project('comatching', 'COMATCHING'),
-    project('bucheon', '부천 FC'),
-    project('share-it', 'Share-It'),
-    project('saecha', '새차처럼'),
-  ]),
+  folder('estsoft', '이스트소프트', [project('premiere-plugin'), project('sales-automation'), project('mearri'), project('alarmtalk')]),
+  folder('samsung', '삼성 QA', [project('global-web-qa'), project('image-qa')]),
+  project('harucut'),
+  folder('team', '팀 프로젝트', [project('comatching'), project('bucheon'), project('share-it'), project('saecha')]),
   app('github'),
   app('blog'),
   app('finder', { location: 'awards' }, '수상', 'icons/awards'),

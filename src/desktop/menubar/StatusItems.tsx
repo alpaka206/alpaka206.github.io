@@ -52,6 +52,7 @@ export function StatusItems({ open, bind, onHide, onDismiss }: StatusItemsProps)
       ]
     : [];
   const wifiMenu: MenuRow[] = [{ heading: WIFI }, { label: online ? '연결됨' : '연결 안 됨' }];
+  const menu = open?.key === 'wifi' ? { label: WIFI, entries: wifiMenu } : open?.key === 'battery' && battery ? { label: '배터리', entries: batteryMenu } : null;
 
   return (
     <div className={styles.status}>
@@ -78,21 +79,11 @@ export function StatusItems({ open, bind, onHide, onDismiss }: StatusItemsProps)
         <span>{clock}</span>
       </button>
 
-      {open?.key === 'wifi' && (
+      {open && menu && (
         <MenuList
-          entries={wifiMenu}
-          label={WIFI}
-          placement={open.placement}
-          isEnabled={informational}
-          onChoose={ignore}
-          onDismiss={onDismiss}
-          highlightFirst={open.keyboard}
-        />
-      )}
-      {open?.key === 'battery' && battery && (
-        <MenuList
-          entries={batteryMenu}
-          label="배터리"
+          key={open.key}
+          entries={menu.entries}
+          label={menu.label}
           placement={open.placement}
           isEnabled={informational}
           onChoose={ignore}

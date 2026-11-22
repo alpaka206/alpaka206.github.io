@@ -17,9 +17,7 @@ export function SplitView({ sidebar, sidebarHidden = false, toolbar, children }:
       {sidebar && !sidebarHidden && sidebar}
       <div className={styles.main}>
         {toolbar}
-        <div className={styles.content}>
-          {children}
-        </div>
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   );

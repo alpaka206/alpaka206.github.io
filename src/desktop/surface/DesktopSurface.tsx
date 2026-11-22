@@ -1,6 +1,5 @@
 import { useWallpaperKey } from '@/desktop/menubar/wallpaper';
 import { Picture } from '@/media/Picture';
-import { useWindows } from '@/os/windows';
 import { DesktopIcons } from './icons/DesktopIcons';
 import { Widgets } from './widgets/Widgets';
 import styles from './DesktopSurface.module.css';
@@ -11,12 +10,11 @@ import styles from './DesktopSurface.module.css';
  */
 export default function DesktopSurface() {
   const wallpaper = useWallpaperKey();
-  const desktopFocused = useWindows((s) => s.desktopFocused);
   return (
     <div className={styles.surface}>
       <Picture key={wallpaper} src={wallpaper} alt="" sizes="100vw" priority className={styles.wallpaper} />
       <DesktopIcons />
-      <Widgets vibrant={!desktopFocused} />
+      <Widgets />
     </div>
   );
 }

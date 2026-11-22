@@ -34,15 +34,17 @@ export default function PhotosWindow({ props }: DesktopAppProps<'photos'>) {
   const viewer = useRef<HTMLDivElement>(null);
   const prefix = useId();
 
+  const choose = (next: Source) => {
+    setSource(next);
+    setSelected(0);
+    setViewing(false);
+  };
+
   // Opened again on an album (e.g. from a case study): show it.
   const [requested, setRequested] = useState(props.album);
   if (props.album !== requested) {
     setRequested(props.album);
-    if (props.album) {
-      setSource(sourceOf(props.album));
-      setSelected(0);
-      setViewing(false);
-    }
+    if (props.album) choose(sourceOf(props.album));
   }
 
   const album = source === 'library' ? null : albumById(source);
@@ -57,12 +59,6 @@ export default function PhotosWindow({ props }: DesktopAppProps<'photos'>) {
 
   // The grid has the keyboard, or the viewer while it is open.
   useFirstResponder(() => (viewing ? viewer.current : grid.current), root, viewing ? 'viewer' : 'grid');
-
-  const choose = (next: Source) => {
-    setSource(next);
-    setSelected(0);
-    setViewing(false);
-  };
 
   const step = (delta: number) => setSelected((i) => Math.min(Math.max(i + delta, 0), photos.length - 1));
   const zoom = (delta: number) => setSize((s) => Math.min(Math.max(s + delta, 0), SIZES.length - 1));

@@ -1,5 +1,4 @@
 import { useLayoutEffect, useMemo, useRef, useState, type PointerEvent, type UIEvent } from 'react';
-import type { ProjectSlug } from '@/content/types';
 import { animateSpring, project, SPRINGS } from '@/lib/spring';
 import { useDrag } from '@/lib/useDrag';
 import { motionReduced } from '@/os/theme';
@@ -23,8 +22,6 @@ interface HomePagerProps {
   editing: boolean;
   onEditingChange: (editing: boolean) => void;
   onOpen: (item: HomeItem, icon: HTMLElement) => void;
-  onOpenAbout: (from: HTMLElement) => void;
-  onOpenProject: (slug: ProjectSlug, from: HTMLElement) => void;
   onSearch: () => void;
 }
 
@@ -34,7 +31,7 @@ interface HomePagerProps {
  * turns into the page control while the pages move); pulling down from the
  * middle of the screen also opens Search.
  */
-export function HomePager({ items, order, onReorder, editing, onEditingChange, onOpen, onOpenAbout, onOpenProject, onSearch }: HomePagerProps) {
+export function HomePager({ items, order, onReorder, editing, onEditingChange, onOpen, onSearch }: HomePagerProps) {
   const pager = useRef<HTMLDivElement>(null);
   const [rows, setRows] = useState(6);
   const [page, setPage] = useState(0);
@@ -124,9 +121,9 @@ export function HomePager({ items, order, onReorder, editing, onEditingChange, o
               {slots.map((slot, cell) =>
                 slot.kind === 'widget' ? (
                   slot.id === 'about' ? (
-                    <AboutWidget key="about" editing={editing} onOpenAbout={onOpenAbout} />
+                    <AboutWidget key="about" editing={editing} />
                   ) : (
-                    <StatsWidget key="stats" editing={editing} onOpenProject={onOpenProject} />
+                    <StatsWidget key="stats" editing={editing} />
                   )
                 ) : (
                   <div key={slot.item.id} className={styles.slot} data-flip={slot.item.id} data-dragging={reorder.dragging === slot.item.id || undefined}>

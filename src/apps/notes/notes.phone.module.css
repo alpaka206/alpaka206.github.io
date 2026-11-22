@@ -75,10 +75,8 @@
 }
 
 .listPreview {
+  composes: truncate from global;
   display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .listFirstLine {

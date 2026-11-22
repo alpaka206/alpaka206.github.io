@@ -79,11 +79,9 @@
 }
 
 .hint {
+  composes: truncate from global;
   flex: none;
   max-width: 40%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font: var(--mac-body);
   color: var(--label-2);
 }
@@ -158,18 +156,13 @@
   min-width: 0;
 }
 
-.resultTitle,
-.resultSubtitle {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .resultTitle {
+  composes: truncate from global;
   font: 600 13px/16px var(--font-text);
 }
 
 .resultSubtitle {
+  composes: truncate from global;
   font: 400 11.5px/14px var(--font-text);
   color: var(--label-2);
 }
@@ -192,12 +185,6 @@
   min-width: 0;
   padding: 26px 30px;
   overflow-y: auto;
-  /* D08's white-on-glass card; a faint white lift in dark mode. */
-  --callout: rgb(255 255 255 / 0.7);
-}
-
-:root[data-theme='dark'] .preview {
-  --callout: rgb(255 255 255 / 0.07);
 }
 
 .previewHead {
@@ -235,7 +222,8 @@
   margin-top: 18px;
   padding: 14px 16px;
   border-radius: 12px;
-  background: var(--callout);
+  /* D08's white-on-glass card; a faint white lift in dark mode. */
+  background: light-dark(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.07));
   font: 400 12.5px/1.45 var(--font-text);
   color: var(--label-2);
 }

@@ -71,26 +71,18 @@ export function SliderModule({ label, icon, value, onChange, onCommit, valueText
   );
 }
 
-interface ToggleModuleProps {
+interface RoundProps {
   label: string;
   icon: SymbolName;
-  on: boolean;
-  onToggle: () => void;
+  /** Set for a toggle (white when on); omit for an action. */
+  on?: boolean;
+  onClick: (from: HTMLElement) => void;
 }
 
-/** A 1 × 1 round toggle (68 pt circle, symbol 21 pt Bold); white when on. */
-export function RoundToggle({ label, icon, on, onToggle }: ToggleModuleProps) {
+/** A 1 × 1 round module (68 pt circle, symbol 21 pt Bold): a toggle or an action. */
+export function RoundButton({ label, icon, on, onClick }: RoundProps) {
   return (
-    <Glass as="button" type="button" variant="clear" radius={RADIUS} className={`${styles.module} ${styles.round}`} aria-label={label} aria-pressed={on} data-on={on || undefined} onClick={onToggle}>
-      <Glyph name={icon} pt={21} weight="semibold" />
-    </Glass>
-  );
-}
-
-/** A 1 × 1 round button that runs an action. */
-export function RoundButton({ label, icon, onClick }: { label: string; icon: SymbolName; onClick: (from: HTMLElement) => void }) {
-  return (
-    <Glass as="button" type="button" variant="clear" radius={RADIUS} className={`${styles.module} ${styles.round}`} aria-label={label} onClick={(event) => onClick(event.currentTarget)}>
+    <Glass as="button" type="button" variant="clear" radius={RADIUS} className={`${styles.module} ${styles.round}`} aria-label={label} aria-pressed={on} data-on={on || undefined} onClick={(event) => onClick(event.currentTarget)}>
       <Glyph name={icon} pt={21} weight="semibold" />
     </Glass>
   );
@@ -101,16 +93,15 @@ interface WideProps {
   detail: string;
   /** The 41 pt circle on the left: a symbol, or any picture. */
   icon: ReactNode;
+  /** Set for a toggle (white icon when on); omit for an action. */
   on?: boolean;
   onClick: () => void;
-  /** Pressed-state semantics for toggles; omit for actions. */
-  pressed?: boolean;
 }
 
 /** A 2 × 1 module (155 × 69): 41 pt icon circle, title Semibold 14 and detail Medium 14 at 40%. */
-export function WideModule({ title, detail, icon, on = false, onClick, pressed }: WideProps) {
+export function WideModule({ title, detail, icon, on, onClick }: WideProps) {
   return (
-    <Glass as="button" type="button" variant="clear" radius={RADIUS} className={`${styles.module} ${styles.wide}`} aria-pressed={pressed} data-on={on || undefined} onClick={onClick}>
+    <Glass as="button" type="button" variant="clear" radius={RADIUS} className={`${styles.module} ${styles.wide}`} aria-pressed={on} data-on={on || undefined} onClick={onClick}>
       <span className={styles.wideIcon}>{icon}</span>
       <span className={styles.wideText}>
         <span className={styles.wideTitle}>{title}</span>

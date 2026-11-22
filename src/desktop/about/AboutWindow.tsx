@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { useRestoreFocus } from '@/lib/focus';
 import { useDrag } from '@/lib/useDrag';
-import { focusedWindowId } from '@/os/windows';
+import { focusedWindowId, useWindows } from '@/os/windows';
 import { Symbol } from '@/ui/Symbol';
 import styles from './About.module.css';
 
@@ -41,9 +41,8 @@ export function AboutWindow({ label, width, onClose, stagger = 0, children }: Ab
   const drag = useDrag({
     onStart: () => {
       const top = (ref.current?.getBoundingClientRect().top ?? 0) - offset.y;
-      const menuBar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mac-menubar-height')) || 0;
-      // The title bar never goes under the menu bar.
-      origin.current = { ...offset, minY: menuBar - top };
+      // The title bar never goes under the menu bar, where the desktop area starts.
+      origin.current = { ...offset, minY: useWindows.getState().area.y - top };
     },
     onMove: ({ dx, dy }) => setOffset({ x: origin.current.x + dx, y: Math.max(origin.current.minY, origin.current.y + dy) }),
   });

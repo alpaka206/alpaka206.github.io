@@ -16,7 +16,6 @@ export const SPRINGS = {
   smooth: { duration: 0.35, bounce: 0 },
   /** Windows, sheets, panels: a hint of life. */
   snappy: { duration: 0.32, bounce: 0.12 },
-  /** App launch from an icon, Dock bounce. */
 } as const satisfies Record<string, Spring>;
 
 interface Physics {
@@ -49,13 +48,13 @@ const REST = 0.0005;
 const STEP = 1 / 120;
 
 /** Samples of progress (0 → 1) at 120 Hz until the spring rests. */
-export function sampleSpring(spring: Spring, initialVelocity = 0): number[] {
+export function sampleSpring(spring: Spring): number[] {
   const p = physics(spring);
   const samples = [0];
-  // Normalised: start one unit away from the target, velocity in units per second.
+  // Normalised: start one unit away from the target, at rest.
   for (let t = STEP; t < 10; t += STEP) {
-    const x = displacement(p, -1, initialVelocity, t);
-    const v = (displacement(p, -1, initialVelocity, t + 1e-4) - x) / 1e-4;
+    const x = displacement(p, -1, 0, t);
+    const v = (displacement(p, -1, 0, t + 1e-4) - x) / 1e-4;
     samples.push(1 + x);
     if (Math.abs(x) < REST && Math.abs(v) < REST * 20) break;
   }
@@ -64,8 +63,10 @@ export function sampleSpring(spring: Spring, initialVelocity = 0): number[] {
 }
 
 const cache = new Map<string, { easing: string; duration: number }>();
+/** Safari before 17.2 has no linear() and throws on it in Element.animate(). Node (tests, prerender) has no CSS. */
+const noLinear = typeof CSS !== 'undefined' && !CSS.supports('transition-timing-function', 'linear(0, 1)');
 
-/** CSS easing that traces the spring, plus the time (ms) it takes to settle. */
+/** CSS easing that traces the spring, plus the time (ms) it takes to settle; a cubic-bezier of the same length without linear(). */
 export function springEasing(spring: Spring): { easing: string; duration: number } {
   const id = `${spring.duration}:${spring.bounce}`;
   const hit = cache.get(id);
@@ -74,14 +75,18 @@ export function springEasing(spring: Spring): { easing: string; duration: number
   // Every other sample is plenty for linear() and keeps the string short.
   const points = samples.filter((_, i) => i % 2 === 0 || i === samples.length - 1);
   const result = {
-    easing: `linear(${points.map((v) => +v.toFixed(4)).join(', ')})`,
+    easing: noLinear
+      ? spring.bounce > 0
+        ? 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+        : 'cubic-bezier(0.22, 1, 0.36, 1)'
+      : `linear(${points.map((v) => +v.toFixed(4)).join(', ')})`,
     duration: Math.round((samples.length - 1) * STEP * 1000),
   };
   cache.set(id, result);
   return result;
 }
 
-export interface SpringAnimation {
+interface SpringAnimation {
   from: number;
   to: number;
   /** Units per second, e.g. the finger's velocity when it lifted. */

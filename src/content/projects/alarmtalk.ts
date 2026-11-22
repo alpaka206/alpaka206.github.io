@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const alarmtalk: Project = {
   slug: 'alarmtalk',
   title: 'AlarmTalk / 알람톡',
+  short: 'AlarmTalk',
   name: 'AI 음성 알람 앱 AlarmTalk',
   group: 'estsoft',
   meta: '이스트소프트에서 Perso API 사업 모델로 개발 / alarm-talk.com',

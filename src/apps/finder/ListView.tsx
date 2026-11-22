@@ -1,9 +1,9 @@
-import { Fragment, useId, useLayoutEffect, useMemo, useRef } from 'react';
+import { Fragment, useId, useMemo, useRef } from 'react';
 import { Symbol } from '@/ui/Symbol';
 import { ItemIcon } from './ItemIcon';
 import type { FinderItem, Sort, SortKey } from './items';
 import { NONE } from './selection';
-import { itemElement, navigate, optionId, pointerHandlers, selectFirstOnFocus, type ViewProps } from './viewShared';
+import { navigate, optionId, pointerHandlers, selectFirstOnFocus, useRevealFocus, type ViewProps } from './viewShared';
 import styles from './ListView.module.css';
 
 const COLUMNS: { key: SortKey; label: string }[] = [
@@ -31,10 +31,7 @@ export function ListView(props: ListViewProps) {
   const prefix = useId();
   const root = useRef<HTMLDivElement>(null);
   const order = useMemo(() => list.items.map((item) => item.id), [list.items]);
-
-  useLayoutEffect(() => {
-    if (selection.focus) itemElement(root.current, selection.focus)?.scrollIntoView({ block: 'nearest' });
-  }, [selection.focus]);
+  useRevealFocus(root, selection.focus);
 
   // Rows alternate through the whole list, and empty stripes carry on below the last one, as in Finder.
   const row = (item: FinderItem) => (
@@ -50,7 +47,7 @@ export function ListView(props: ListViewProps) {
     >
       <span role="gridcell" className={styles.name}>
         <ItemIcon item={item} size={16} />
-        <span className={styles.text}>{item.name}</span>
+        <span className="truncate">{item.name}</span>
       </span>
       <span role="gridcell" className={styles.secondary}>
         {item.period ?? '--'}

@@ -1,7 +1,7 @@
 import { PROFILE } from '@/content/profile';
 import { play } from '@/lib/sound';
 import { useNotifications } from './notifications';
-import { useSettings } from './settings';
+import { useSettings, WALLPAPER_IDS } from './settings';
 
 /**
  * Copies the email address and confirms it with a banner from `app`. Where the
@@ -23,6 +23,12 @@ export async function copyEmail(app: string) {
 export function toggleDarkMode() {
   const dark = document.documentElement.dataset.theme === 'dark';
   useSettings.getState().set('appearance', dark ? 'light' : 'dark');
+}
+
+/** The next wallpaper in the list, the first again after the last. */
+export function nextWallpaper() {
+  const { wallpaper, set } = useSettings.getState();
+  set('wallpaper', WALLPAPER_IDS[(WALLPAPER_IDS.indexOf(wallpaper) + 1) % WALLPAPER_IDS.length]!);
 }
 
 export const openTextVersion = () => window.location.assign('/text');

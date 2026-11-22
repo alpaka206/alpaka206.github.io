@@ -10,7 +10,6 @@
   font: var(--ios-headline);
   letter-spacing: var(--ios-tracking-body);
   white-space: nowrap;
-  text-decoration: none;
   transition: transform var(--spring-snappy-ms) var(--spring-snappy);
 }
 
@@ -58,8 +57,7 @@
   color: #fff;
 }
 
-.button:disabled,
-.button[aria-disabled='true'] {
+.button:disabled {
   opacity: 0.4;
 }
 

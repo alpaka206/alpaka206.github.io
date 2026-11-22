@@ -42,10 +42,7 @@ export const reduce = {
   open<A extends AppId>(state: WindowsState, app: A, props: Partial<AppProps[A]> = {}, origin?: Rect): WindowsState {
     const id = windowIdFor(app, props);
     const existing = state.windows.find((w) => w.id === id);
-    if (existing) {
-      const updated = { ...existing, props: { ...existing.props, ...props }, minimized: false, hidden: false };
-      return { ...state, windows: [...state.windows.filter((w) => w.id !== id), updated] };
-    }
+    if (existing) return reduce.focus(reduce.update(state, id, { props: { ...existing.props, ...props } }), id);
     const { defaultSize } = APPS[app];
     const w = Math.min(defaultSize.w, state.area.w - 40);
     const h = Math.min(defaultSize.h, state.area.h - 20);

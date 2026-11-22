@@ -1,24 +1,20 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { useMediaQuery } from '@/lib/device';
+import { PROFILE } from '@/content/profile';
 import { useRestoreFocus } from '@/lib/focus';
 import { play } from '@/lib/sound';
 import { springEasing, SPRINGS } from '@/lib/spring';
 import { Picture } from '@/media/Picture';
-import { copyEmail } from '@/os/actions';
-import { useSettings, WALLPAPERS, type WallpaperId } from '@/os/settings';
-import { motionReduced, useDark } from '@/os/theme';
-import { openPdf } from '../commands';
+import { copyEmail, nextWallpaper } from '@/os/actions';
+import { MIN_BRIGHTNESS, useSettings, WALLPAPERS } from '@/os/settings';
+import { motionReduced, useDark, useReduced } from '@/os/theme';
 import { rectOf } from '../geometry';
 import { useEscape } from '../hooks';
 import { Glyph } from '../kit';
 import { usePhoneNav } from '../nav';
 import { useSwipeAway } from '../useSwipeAway';
-import { ActionsModule, RoundButton, RoundToggle, SliderModule, WideModule } from './modules';
+import { ActionsModule, RoundButton, SliderModule, WideModule } from './modules';
 import styles from './ControlCenter.module.css';
 
-const WALLPAPER_IDS = Object.keys(WALLPAPERS) as WallpaperId[];
-/** settings.brightness runs 0.3..1 (the veil never goes fully black). */
-const MIN_BRIGHTNESS = 0.3;
 /** Flicked up this far (projected), Control Center closes. */
 const DISMISS = 100;
 
@@ -33,10 +29,7 @@ const percent = (value: number) => `${Math.round(value * 100)}%`;
 export function ControlCenter({ onClose }: { onClose: () => void }) {
   const settings = useSettings();
   const dark = useDark();
-  const systemMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
-  const systemTransparency = useMediaQuery('(prefers-reduced-transparency: reduce)');
-  const reduceMotion = settings.reduceMotion ?? systemMotion;
-  const reduceTransparency = settings.reduceTransparency ?? systemTransparency;
+  const { motion: reduceMotion, transparency: reduceTransparency } = useReduced();
   const [hint, setHint] = useState('');
   const layer = useRef<HTMLDivElement>(null);
   const grid = useRef<HTMLDivElement>(null);
@@ -57,9 +50,8 @@ export function ControlCenter({ onClose }: { onClose: () => void }) {
   useLayoutEffect(() => {
     grid.current?.querySelector('button')?.focus({ preventScroll: true });
     if (motionReduced()) return;
-    const { easing, duration } = springEasing(SPRINGS.snappy);
     layer.current?.animate([{ opacity: 0 }, { opacity: 1 }], springEasing(SPRINGS.smooth));
-    grid.current?.animate([{ transform: 'translateY(-24px) scale(0.96)' }, { transform: 'none' }], { duration, easing });
+    grid.current?.animate([{ transform: 'translateY(-24px) scale(0.96)' }, { transform: 'none' }], springEasing(SPRINGS.snappy));
   }, []);
 
   const say = (text: string) => {
@@ -83,7 +75,7 @@ export function ControlCenter({ onClose }: { onClose: () => void }) {
           title="바로 하기"
           actions={[
             { label: '이메일 주소 복사', icon: 'doc.on.doc', run: () => void copyEmail('메일') },
-            { label: '포트폴리오 PDF', icon: 'arrow.down.circle', run: openPdf },
+            { label: '포트폴리오 PDF', icon: 'arrow.down.circle', run: () => window.open(PROFILE.portfolioPdf, '_blank', 'noopener') },
           ]}
         />
         <SliderModule
@@ -108,24 +100,23 @@ export function ControlCenter({ onClose }: { onClose: () => void }) {
           title="다크 모드"
           detail={dark ? '켬' : '끔'}
           on={dark}
-          pressed={dark}
           icon={<Glyph name="circle.lefthalf.filled" pt={17} weight="semibold" />}
           onClick={() => settings.set('appearance', dark ? 'light' : 'dark')}
         />
-        <RoundToggle
+        <RoundButton
           label="동작 줄이기"
           icon="sparkles"
           on={reduceMotion}
-          onToggle={() => {
+          onClick={() => {
             settings.set('reduceMotion', !reduceMotion);
             say(`동작 줄이기 ${reduceMotion ? '끔' : '켬'}`);
           }}
         />
-        <RoundToggle
+        <RoundButton
           label="투명도 줄이기"
           icon="square.stack"
           on={reduceTransparency}
-          onToggle={() => {
+          onClick={() => {
             settings.set('reduceTransparency', !reduceTransparency);
             say(`투명도 줄이기 ${reduceTransparency ? '끔' : '켬'}`);
           }}
@@ -134,13 +125,13 @@ export function ControlCenter({ onClose }: { onClose: () => void }) {
           title="배경화면"
           detail={wallpaper.label}
           icon={<Picture src={dark ? wallpaper.portraitDark : wallpaper.portraitLight} alt="" sizes="41px" className={styles.thumb} />}
-          onClick={() => settings.set('wallpaper', WALLPAPER_IDS[(WALLPAPER_IDS.indexOf(settings.wallpaper) + 1) % WALLPAPER_IDS.length]!)}
+          onClick={nextWallpaper}
         />
-        <RoundToggle
+        <RoundButton
           label="효과음"
           icon={settings.sound ? 'speaker.wave.2' : 'speaker.slash'}
           on={settings.sound}
-          onToggle={() => {
+          onClick={() => {
             const on = !settings.sound;
             settings.set('sound', on);
             if (on && settings.volume === 0) settings.set('volume', 0.5);

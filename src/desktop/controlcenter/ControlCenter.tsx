@@ -5,11 +5,11 @@ import { play } from '@/lib/sound';
 import { Picture } from '@/media/Picture';
 import { runCommand } from '@/os/commands';
 import { APPEARANCES, useSettings, WALLPAPERS, type Appearance, type WallpaperId } from '@/os/settings';
+import { useDark } from '@/os/theme';
 import { useWindows } from '@/os/windows';
 import { Glass } from '@/ui/Glass';
 import { Symbol, type SymbolName } from '@/ui/Symbol';
 import { closePanel, toggleSelector, usePanel } from '../menubar/panels';
-import { useDarkAppearance } from '../menubar/wallpaper';
 import { useDismiss } from '../menus/useDismiss';
 import { ActionTile, Choice, Module, Slider, ToggleRow } from './modules';
 import styles from './ControlCenter.module.css';
@@ -28,7 +28,7 @@ function ControlCenterPanel() {
   const { appearance, wallpaper, brightness, volume, sound, reduceMotion, reduceTransparency, dockAutohide, set } = useSettings();
   const systemMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const systemTransparency = useMediaQuery('(prefers-reduced-transparency: reduce)');
-  const dark = useDarkAppearance();
+  const dark = useDark();
   // "null" follows the system, so the switches show what is actually in effect.
   const motionReduced = reduceMotion ?? systemMotion;
   const transparencyReduced = reduceTransparency ?? systemTransparency;
@@ -109,7 +109,7 @@ function ControlCenterPanel() {
                 onClick={() => chooseWallpaper(id)}
               >
                 <Picture src={WALLPAPERS[id][dark ? 'dark' : 'light']} alt="" sizes="64px" className={styles.thumb} />
-                <span className={styles.wallpaperName}>{WALLPAPERS[id].label}</span>
+                <span className="truncate">{WALLPAPERS[id].label}</span>
               </button>
             ))}
           </div>

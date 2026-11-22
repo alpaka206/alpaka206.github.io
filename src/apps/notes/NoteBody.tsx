@@ -1,20 +1,8 @@
 import { useId } from 'react';
 import type { Note } from '@/content/notes';
 import { formatNoteDate } from '@/lib/format';
-import { linkOf } from './noteList';
+import { NoteLine } from './NoteLine';
 import styles from './Notes.module.css';
-
-/** A line, or a link when it is nothing but a web address. */
-function Line({ text }: { text: string }) {
-  const href = linkOf(text);
-  return href ? (
-    <a href={href} target="_blank" rel="noreferrer">
-      {text}
-    </a>
-  ) : (
-    text
-  );
-}
 
 /** The editor column, read-only: date, title, then headings over bulleted lines. */
 export function NoteBody({ note }: { note: Note }) {
@@ -31,7 +19,7 @@ export function NoteBody({ note }: { note: Note }) {
           <ul className={styles.noteLines}>
             {section.lines.map((line) => (
               <li key={line}>
-                <Line text={line} />
+                <NoteLine text={line} />
               </li>
             ))}
           </ul>

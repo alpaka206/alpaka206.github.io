@@ -49,7 +49,13 @@ export const WALLPAPERS: Record<WallpaperId, { label: string; light: string; dar
   },
 };
 
-export interface Settings {
+/** Wallpapers in picker order (Settings, Control Center, the Edit menu's "next wallpaper"). */
+export const WALLPAPER_IDS = Object.keys(WALLPAPERS) as WallpaperId[];
+
+/** Where `brightness` bottoms out: the veil never goes fully black. */
+export const MIN_BRIGHTNESS = 0.3;
+
+interface Settings {
   appearance: Appearance;
   accent: Accent;
   wallpaper: WallpaperId;
@@ -69,7 +75,7 @@ export interface Settings {
   fullscreenOnLogin: boolean;
 }
 
-export const DEFAULT_SETTINGS: Settings = {
+const DEFAULT_SETTINGS: Settings = {
   appearance: 'auto',
   accent: 'blue',
   wallpaper: 'glass',
@@ -78,7 +84,8 @@ export const DEFAULT_SETTINGS: Settings = {
   sound: true,
   volume: 0.5,
   brightness: 1,
-  dockMagnification: true,
+  // Off, as macOS ships it: hovering the Dock only shows the name label.
+  dockMagnification: false,
   // The measured macOS 27 Dock runs 64 pt tiles (research/macos.md §8).
   dockSize: 64,
   dockAutohide: false,
@@ -97,6 +104,11 @@ export const useSettings = create<Settings & SettingsActions>()(
       set: (key, value) => set({ [key]: value } as Pick<Settings, typeof key>),
       reset: () => set(DEFAULT_SETTINGS),
     }),
-    { name: 'settings', version: 1 },
+    {
+      name: 'settings',
+      version: 2,
+      // Version 1 stored magnification on by default: everyone gets the macOS default once.
+      migrate: (state, version) => (version < 2 ? { ...(state as Settings), dockMagnification: false } : state) as Settings & SettingsActions,
+    },
   ),
 );

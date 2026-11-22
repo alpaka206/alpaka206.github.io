@@ -38,11 +38,8 @@
 }
 
 .label {
+  composes: truncate from global;
   flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 /* The kit's icon background: a vertical gradient, lighter at the top (#BFBFBF → #919191 for gray). */

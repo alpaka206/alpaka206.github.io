@@ -7,7 +7,7 @@ import { useEffect, useId, useState, type RefObject } from 'react';
  * so the check is for User-Agent Client Hints, which only Chromium ships.
  * Everywhere else the plain blur from CSS is the (good) fallback.
  */
-export const canRefract = typeof navigator !== 'undefined' && 'userAgentData' in navigator;
+const canRefract = typeof navigator !== 'undefined' && 'userAgentData' in navigator;
 
 const NEUTRAL = 128;
 
@@ -24,7 +24,7 @@ function sdf(x: number, y: number, w: number, h: number, r: number) {
  * edge normal with a convex falloff, like light through the curved rim of a lens.
  * Rendered at half resolution; feImage stretches it back up.
  */
-export function displacementMap(width: number, height: number, radius: number, bezel: number): string {
+function displacementMap(width: number, height: number, radius: number, bezel: number): string {
   const s = 0.5;
   const w = Math.max(2, Math.round(width * s));
   const h = Math.max(2, Math.round(height * s));
@@ -62,19 +62,21 @@ export function displacementMap(width: number, height: number, radius: number, b
   return canvas.toDataURL();
 }
 
+function svg<K extends keyof SVGElementTagNameMap>(tag: K, attributes: Record<string, string> = {}): SVGElementTagNameMap[K] {
+  const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [name, value] of Object.entries(attributes)) element.setAttribute(name, value);
+  return element;
+}
+
 let defs: SVGDefsElement | undefined;
-const SVG_NS = 'http://www.w3.org/2000/svg';
 
 function filterHost() {
   if (!defs) {
-    const svg = document.createElementNS(SVG_NS, 'svg');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('width', '0');
-    svg.setAttribute('height', '0');
-    svg.style.position = 'absolute';
-    defs = document.createElementNS(SVG_NS, 'defs');
-    svg.append(defs);
-    document.body.append(svg);
+    const host = svg('svg', { 'aria-hidden': 'true', width: '0', height: '0' });
+    host.style.position = 'absolute';
+    defs = svg('defs');
+    host.append(defs);
+    document.body.append(host);
   }
   return defs;
 }
@@ -102,22 +104,9 @@ export function useRefraction(ref: RefObject<HTMLElement | null>, { radius, beze
   useEffect(() => {
     const element = ref.current;
     if (!on || !element) return;
-    const filter = document.createElementNS(SVG_NS, 'filter');
-    filter.id = id;
-    filter.setAttribute('x', '0');
-    filter.setAttribute('y', '0');
-    filter.setAttribute('width', '100%');
-    filter.setAttribute('height', '100%');
-    filter.setAttribute('color-interpolation-filters', 'sRGB');
-    const map = document.createElementNS(SVG_NS, 'feImage');
-    map.setAttribute('result', 'map');
-    map.setAttribute('preserveAspectRatio', 'none');
-    const displace = document.createElementNS(SVG_NS, 'feDisplacementMap');
-    displace.setAttribute('in', 'SourceGraphic');
-    displace.setAttribute('in2', 'map');
-    displace.setAttribute('scale', String(strength));
-    displace.setAttribute('xChannelSelector', 'R');
-    displace.setAttribute('yChannelSelector', 'G');
+    const filter = svg('filter', { id, x: '0', y: '0', width: '100%', height: '100%', 'color-interpolation-filters': 'sRGB' });
+    const map = svg('feImage', { result: 'map', preserveAspectRatio: 'none' });
+    const displace = svg('feDisplacementMap', { in: 'SourceGraphic', in2: 'map', scale: String(strength), xChannelSelector: 'R', yChannelSelector: 'G' });
     filter.append(map, displace);
     filterHost().append(filter);
 

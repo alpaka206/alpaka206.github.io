@@ -27,7 +27,7 @@ export function AddressBar({ site, onBack, backLabel }: AddressBarProps) {
         <>
           <Glass variant="control" radius={24} className={styles.address} aria-label={`주소 ${host}`} role="note">
             {site.href.startsWith('https:') && <Glyph name="lock" pt={13} weight="semibold" className={styles.lock} />}
-            <span className={styles.addressText}>{host}</span>
+            <span className="truncate">{host}</span>
           </Glass>
           <GlassButton icon="arrow.up.right.square" size={48} label="새 탭에서 열기" href={site.href} target="_blank" rel="noreferrer" />
         </>

@@ -157,9 +157,8 @@ export default function Dock() {
       activate: () => item.kind === 'app' && activateApp(item.app, dockRect(item.app)),
       setStackView: (view) => item.kind === 'stack' && setViews((v) => ({ ...v, [item.stack]: view })),
     });
-    if (!menu) return;
     showLabel(-1);
-    openContextMenu({ clientX: point.clientX, clientY: point.clientY, preventDefault: () => undefined }, menu.entries, menu.run);
+    openContextMenu({ clientX: point.clientX, clientY: point.clientY }, menu.entries, menu.run);
   };
 
   const closeStack = (refocus: boolean) => {

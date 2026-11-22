@@ -1,8 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from '@/lib/device';
-
-/** Home Screen icon edge, matching --ios-icon: 64 pt, 60 pt on 393-wide and narrower iPhones. */
-export const useIconSize = () => (useMediaQuery('(max-width: 400px)') ? 60 : 64);
 
 /**
  * Height of the on-screen keyboard. iOS does not resize the layout viewport

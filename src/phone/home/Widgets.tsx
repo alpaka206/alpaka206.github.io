@@ -1,18 +1,20 @@
 import { PROFILE, STATS } from '@/content/profile';
 import type { ReactNode } from 'react';
-import type { ProjectSlug } from '@/content/types';
 import { Picture } from '@/media/Picture';
 import { Glass } from '@/ui/Glass';
+import { rectOf } from '../geometry';
+import { usePhoneNav } from '../nav';
 import jiggle from './jiggle.module.css';
 import styles from './Widgets.module.css';
 
 interface WidgetProps {
   /** Jiggle mode: the widget wobbles, wears the minus badge and opens nothing. */
   editing: boolean;
-  /** Opens the about app, zooming out of the widget. */
-  onOpenAbout: (from: HTMLElement) => void;
-  onOpenProject: (slug: ProjectSlug, from: HTMLElement) => void;
 }
+
+/** Opens `app` zooming out of `from` (28 pt widget corners); `key` is the tile it zooms back into. */
+const launch = (from: HTMLElement, key: string, app: 'about' | 'portfolio', props = {}) =>
+  usePhoneNav.getState().open(app, props, { rect: rectOf(from, 28), key });
 
 /** The widget's slot: two grid rows, the label under it, the jiggle-mode wobble. */
 function Slot({ editing, label, children }: { editing: boolean; label: string; children: ReactNode }) {
@@ -29,10 +31,10 @@ function Slot({ editing, label, children }: { editing: boolean; label: string; c
  * Medium widgets (ios.md §4): 349.67 × 164.33 pt on a 402 pt iPhone,
  * 28 pt corners, 16 pt content padding, label Medium 12 six points below.
  */
-export function AboutWidget({ editing, onOpenAbout }: Pick<WidgetProps, 'editing' | 'onOpenAbout'>) {
+export function AboutWidget({ editing }: WidgetProps) {
   return (
     <Slot editing={editing} label="소개">
-      <Glass as="button" type="button" radius={28} className={styles.widget} data-launch="widget:about" onClick={(event) => !editing && onOpenAbout(event.currentTarget)}>
+      <Glass as="button" type="button" radius={28} className={styles.widget} data-launch="widget:about" onClick={(event) => !editing && launch(event.currentTarget, 'widget:about', 'about')}>
         <Picture src={PROFILE.portrait} alt="" sizes="100px" className={styles.portrait} />
         <span className={styles.about}>
           <span className={styles.name}>{PROFILE.name}</span>
@@ -47,7 +49,7 @@ export function AboutWidget({ editing, onOpenAbout }: Pick<WidgetProps, 'editing
 }
 
 /** The four confirmed numbers; each opens the project it comes from. */
-export function StatsWidget({ editing, onOpenProject }: Pick<WidgetProps, 'editing' | 'onOpenProject'>) {
+export function StatsWidget({ editing }: WidgetProps) {
   return (
     <Slot editing={editing} label="숫자로 보기">
       <Glass radius={28} className={`${styles.widget} ${styles.stats}`}>
@@ -57,7 +59,7 @@ export function StatsWidget({ editing, onOpenProject }: Pick<WidgetProps, 'editi
             type="button"
             className={styles.stat}
             data-launch={stat.project ? `stat:${stat.project}` : undefined}
-            onClick={(event) => !editing && stat.project && onOpenProject(stat.project, event.currentTarget)}
+            onClick={(event) => !editing && stat.project && launch(event.currentTarget, `stat:${stat.project}`, 'portfolio', { slug: stat.project })}
           >
             <span className={styles.value}>{stat.value}</span>
             <span className={styles.statLabel}>{stat.label}</span>

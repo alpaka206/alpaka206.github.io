@@ -82,7 +82,6 @@ button.widget:active {
   flex-direction: column;
   min-width: 0;
   text-align: left;
-  color: inherit;
 }
 
 /* Title 2 (Bold 22/28) for the figure, Caption 1 for what it counts. */
@@ -108,6 +107,5 @@ button.widget:active {
   margin-top: var(--ios-widget-label-gap);
   font: var(--ios-icon-label);
   text-align: center;
-  color: #fff;
   text-shadow: var(--ios-label-shadow);
 }

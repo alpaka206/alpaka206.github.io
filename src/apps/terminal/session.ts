@@ -1,7 +1,7 @@
 import { banner, prompt, type Line } from './shell';
 
 /** The scrollback and shell state of one Terminal window. Pure, driven by `reduce`. */
-export interface Row {
+interface Row {
   id: number;
   line: Line;
 }
@@ -13,7 +13,7 @@ interface Session {
   nextId: number;
 }
 
-export type Action =
+type Action =
   | { type: 'ran'; entered: string; output: Line[]; cwd: readonly string[] }
   /** ⌃C: the line stays on screen, unrun and unrecorded. */
   | { type: 'interrupt'; entered: string }

@@ -1,7 +1,7 @@
 import { Picture } from '@/media/Picture';
 import { GlassButton, Glyph } from '@/phone/kit';
 import { usePhoneApp } from '@/phone/nav';
-import { SiteIcon } from './phone-sites';
+import { SiteIcon } from './phone-start';
 import { hostOf, type Site } from './sites';
 import styles from './safari.phone.module.css';
 

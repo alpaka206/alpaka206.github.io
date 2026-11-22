@@ -1,16 +1,16 @@
 import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { springEasing, SPRINGS } from '@/lib/spring';
 import { APPS } from '@/os/apps';
+import { runCommand } from '@/os/commands';
 import { INDEX, KIND_LABEL, search, type SearchItem, type SearchKind } from '@/os/search';
 import { motionReduced } from '@/os/theme';
 import { AppIcon } from '@/ui/AppIcon';
 import { useRestoreFocus } from '@/lib/focus';
-import { runTarget } from '../commands';
 import { iconRadius, rectOf } from '../geometry';
 import { launchKey } from '../home/items';
 import { useEscape, useKeyboardInset } from '../hooks';
 import { GlassButton, Glyph, SearchField } from '../kit';
-import type { LaunchOrigin } from '../nav';
+import { usePhoneNav } from '../nav';
 import styles from './Spotlight.module.css';
 
 /** Shown before anything is typed, like Siri Suggestions. */
@@ -50,28 +50,31 @@ export function Spotlight({ onClose }: { onClose: () => void }) {
 
   useLayoutEffect(() => {
     if (motionReduced()) return;
-    const { easing, duration } = springEasing(SPRINGS.smooth);
     layer.current?.animate([{ opacity: 0 }, { opacity: 1 }], springEasing(SPRINGS.smooth));
-    bar.current?.animate([{ transform: 'translateY(24px)' }, { transform: 'none' }], { duration, easing });
+    bar.current?.animate([{ transform: 'translateY(24px)' }, { transform: 'none' }], springEasing(SPRINGS.smooth));
   }, []);
 
-  const run = (item: SearchItem, icon: Element | null | undefined) => {
-    const origin: LaunchOrigin | null =
-      icon && item.target.type === 'open' ? { rect: rectOf(icon, iconRadius(icon)), key: launchKey(item.target.app, item.target.props) } : null;
+  /** Opens an app (zooming out of the row's icon), runs a command or follows a link. */
+  const run = ({ target }: SearchItem, icon: Element | null | undefined) => {
+    const from = icon && target.type === 'open' ? { rect: rectOf(icon, iconRadius(icon)), key: launchKey(target.app, target.props) } : null;
     onClose();
-    runTarget(item.target, origin);
+    if (target.type === 'open') usePhoneNav.getState().open(target.app, target.props ?? {}, from);
+    else if (target.type === 'command') runCommand(target.command);
+    else window.open(target.href, '_blank', 'noopener');
   };
 
-  const row = (item: SearchItem) => (
+  /** A result row; `ask` is the "ask in Messages" row under the results. */
+  const row = (item: SearchItem, ask = false) => (
     <li key={item.id}>
       <button type="button" className={styles.row} onClick={(event) => run(item, event.currentTarget.querySelector('[data-icon]'))}>
         <span data-icon="" className={styles.icon}>
           <AppIcon icon={item.icon} size={40} />
         </span>
         <span className={styles.texts}>
-          <span className={styles.title}>{titleOf(item)}</span>
-          <span className={styles.subtitle}>{subtitleOf(item)}</span>
+          <span className={styles.title}>{ask ? '김규원에게 직접 물어보기' : titleOf(item)}</span>
+          <span className={styles.subtitle}>{ask ? '메시지에서 질문을 고르거나 입력해요' : subtitleOf(item)}</span>
         </span>
+        {ask && <Glyph name="chevron.right" pt={13} weight="semibold" className={styles.chevron} />}
       </button>
     </li>
   );
@@ -87,13 +90,13 @@ export function Spotlight({ onClose }: { onClose: () => void }) {
         {!searching ? (
           <section className={styles.section}>
             <h2 className={styles.heading}>제안</h2>
-            <ul className={styles.card}>{suggestions.map(row)}</ul>
+            <ul className={styles.card}>{suggestions.map((item) => row(item))}</ul>
           </section>
         ) : sections.length ? (
           sections.map((section) => (
             <section key={section.title} className={styles.section}>
               <h2 className={styles.heading}>{section.title}</h2>
-              <ul className={styles.card}>{section.items.map(row)}</ul>
+              <ul className={styles.card}>{section.items.map((item) => row(item))}</ul>
             </section>
           ))
         ) : (
@@ -102,20 +105,7 @@ export function Spotlight({ onClose }: { onClose: () => void }) {
         {searching && ASK && (
           <section className={styles.section}>
             <h2 className={styles.heading}>메시지로 묻기</h2>
-            <ul className={styles.card}>
-              <li>
-                <button type="button" className={styles.row} onClick={(event) => run(ASK, event.currentTarget.querySelector('[data-icon]'))}>
-                  <span data-icon="" className={styles.icon}>
-                    <AppIcon icon={ASK.icon} size={40} />
-                  </span>
-                  <span className={styles.texts}>
-                    <span className={styles.title}>김규원에게 직접 물어보기</span>
-                    <span className={styles.subtitle}>메시지에서 질문을 고르거나 입력해요</span>
-                  </span>
-                  <Glyph name="chevron.right" pt={13} weight="semibold" className={styles.chevron} />
-                </button>
-              </li>
-            </ul>
+            <ul className={styles.card}>{row(ASK, true)}</ul>
           </section>
         )}
       </div>

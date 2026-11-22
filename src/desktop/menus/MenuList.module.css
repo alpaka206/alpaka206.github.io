@@ -13,12 +13,13 @@
 }
 
 .surface {
-  /* #363636, #737373, #B2B2B2 plus-darker over the light menu material. */
-  --menu-label: #171717;
-  --menu-secondary: #545454;
-  --menu-tertiary: #939393;
-  --menu-separator: rgb(0 0 0 / 0.07);
-  --menu-unfocused: rgb(0 0 0 / 0.1);
+  /* #363636, #737373, #B2B2B2 plus-darker over the light menu material;
+     white 96%, #8A8A8A and #4C4C4C plus-lighter over the dark one. */
+  --menu-label: light-dark(#171717, rgb(255 255 255 / 0.96));
+  --menu-secondary: light-dark(#545454, #a6a6a6);
+  --menu-tertiary: light-dark(#939393, #868686);
+  --menu-separator: light-dark(rgb(0 0 0 / 0.07), rgb(255 255 255 / 0.08));
+  --menu-unfocused: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.12));
 
   display: grid;
   /* Labels, then key equivalents: every row shares both widths, so the menu is as wide as its widest item. */
@@ -30,15 +31,6 @@
   white-space: nowrap;
   user-select: none;
   -webkit-user-select: none;
-}
-
-:root[data-theme='dark'] .surface {
-  /* White 96%, #8A8A8A and #4C4C4C plus-lighter over the dark menu material. */
-  --menu-label: rgb(255 255 255 / 0.96);
-  --menu-secondary: #a6a6a6;
-  --menu-tertiary: #868686;
-  --menu-separator: rgb(255 255 255 / 0.08);
-  --menu-unfocused: rgb(255 255 255 / 0.12);
 }
 
 .item,
@@ -82,10 +74,8 @@
 }
 
 .label {
+  composes: truncate from global;
   grid-column: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* "⌘C" widens a menu by 46 pt: 20.5 pt of space, then two 12 pt boxes 1.5 pt apart. */

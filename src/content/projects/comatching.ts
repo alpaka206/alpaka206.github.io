@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const comatching: Project = {
   slug: 'comatching',
   title: 'COMATCHING',
+  short: 'COMATCHING',
   name: 'COMATCHING 축제용 실시간 매칭 서비스',
   group: 'team',
   meta: '팀 프로젝트 / 2023.09 - 2024.10',

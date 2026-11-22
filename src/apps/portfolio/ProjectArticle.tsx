@@ -141,7 +141,7 @@ function BlockView({ block }: { block: Block }) {
     case 'flow':
       return <Flow lanes={block.lanes} title={block.title} note={block.note} />;
     case 'chart': {
-      const max = block.ticks[block.ticks.length - 1]!;
+      const max = block.ticks.at(-1)!;
       return (
         <figure className={styles.chart}>
           <figcaption className={styles.blockTitle}>{block.title}</figcaption>

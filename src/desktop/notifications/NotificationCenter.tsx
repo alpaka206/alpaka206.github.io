@@ -1,14 +1,13 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMinute } from '@/lib/device';
 import { formatTime } from '@/lib/format';
-import { springEasing, SPRINGS } from '@/lib/spring';
 import { useNotifications, type Notice } from '@/os/notifications';
-import { motionReduced } from '@/os/theme';
 import { useWindows } from '@/os/windows';
 import { closePanel, toggleSelector, usePanel } from '../menubar/panels';
 import { inkFor } from '../menubar/ink';
 import { useWallpaperKey } from '../menubar/wallpaper';
 import { useDismiss } from '../menus/useDismiss';
+import { useSlideIn } from './Banners';
 import { NoticeCard } from './NoticeCard';
 import { CalendarWidget, StatsWidget } from './widgets';
 import styles from './Notifications.module.css';
@@ -34,12 +33,7 @@ function NotificationCenterPanel() {
   const history = useNotifications((s) => s.history);
   const now = useMinute();
   const ink = inkFor(useWallpaperKey());
-
-  useLayoutEffect(() => {
-    if (motionReduced()) return;
-    const { easing, duration } = springEasing(SPRINGS.snappy);
-    ref.current?.animate([{ transform: 'translateX(calc(100% + 16px))' }, { transform: 'none' }], { duration, easing });
-  }, []);
+  useSlideIn(ref);
   useEffect(() => ref.current?.focus({ preventScroll: true }), []);
 
   return (

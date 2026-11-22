@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import { springEasing, SPRINGS } from '@/lib/spring';
 import { useNotifications, type Notice } from '@/os/notifications';
 import { motionReduced } from '@/os/theme';
@@ -10,6 +10,15 @@ import styles from './Notifications.module.css';
 /** How long a banner stays, unless the pointer or keyboard focus rests on it. */
 const DWELL_MS = 5000;
 const OFFSTAGE = 'translateX(calc(100% + 16px))';
+
+/** Banners and Notification Center slide in from the right edge on a spring. */
+export function useSlideIn(ref: RefObject<HTMLElement | null>) {
+  useLayoutEffect(() => {
+    if (motionReduced()) return;
+    const { easing, duration } = springEasing(SPRINGS.snappy);
+    ref.current?.animate([{ transform: OFFSTAGE }, { transform: 'none' }], { duration, easing });
+  }, [ref]);
+}
 
 function Banner({ notice }: { notice: Notice }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,13 +35,7 @@ function Banner({ notice }: { notice: Notice }) {
     const { easing, duration } = springEasing(SPRINGS.smooth);
     element.animate([{ transform: 'none', opacity: 1 }, { transform: OFFSTAGE, opacity: 0 }], { duration, easing, fill: 'forwards' }).finished.then(dismiss, dismiss);
   }, [notice.id]);
-
-  // Slides in from the right edge on a spring.
-  useLayoutEffect(() => {
-    if (motionReduced()) return;
-    const { easing, duration } = springEasing(SPRINGS.snappy);
-    ref.current?.animate([{ transform: OFFSTAGE }, { transform: 'none' }], { duration, easing });
-  }, []);
+  useSlideIn(ref);
 
   // Pointer or focus on the banner: it stays; once both are gone, the full dwell starts again.
   useEffect(() => {

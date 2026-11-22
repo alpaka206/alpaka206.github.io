@@ -77,9 +77,7 @@
 }
 
 .rowTitle {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  composes: truncate from global;
   font: var(--mac-headline);
 }
 
@@ -91,11 +89,8 @@
 }
 
 .rowPreview {
+  composes: truncate from global;
   flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   color: var(--label-2);
 }
 

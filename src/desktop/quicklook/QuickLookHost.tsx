@@ -54,6 +54,8 @@ function QuickLookPanel({ preview, index, count, origin, itemKey }: PanelProps) 
   const rect = placement(preview.size, area);
   const panel = useRef<HTMLDivElement>(null);
   const leaving = useRef(false);
+  const away = origin ? fromOrigin(origin, rect) : 'scale(0.96)';
+  const corner = origin ? '0 0' : '50% 50%';
 
   // Grow out of the item, take focus, and give it back on the way out.
   const appear = useEffectEvent(() => {
@@ -62,8 +64,7 @@ function QuickLookPanel({ preview, index, count, origin, itemKey }: PanelProps) 
     element.focus({ preventScroll: true });
     if (!motionReduced()) {
       const { easing, duration } = springEasing(SPRINGS.snappy);
-      const corner = origin ? '0 0' : '50% 50%';
-      element.animate({ transform: [origin ? fromOrigin(origin, rect) : 'scale(0.96)', 'none'], transformOrigin: [corner, corner] }, { duration, easing });
+      element.animate({ transform: [away, 'none'], transformOrigin: [corner, corner] }, { duration, easing });
       element.animate({ opacity: [0, 1] }, { duration: 160, easing: 'ease-out' });
     }
     return () => {
@@ -78,12 +79,10 @@ function QuickLookPanel({ preview, index, count, origin, itemKey }: PanelProps) 
     if (!element || leaving.current) return;
     leaving.current = true;
     if (motionReduced()) return closeQuickLook();
-    const end = origin ? fromOrigin(origin, rect) : 'scale(0.96)';
-    const animation = element.animate(
-      { transform: ['none', end], transformOrigin: [origin ? '0 0' : '50% 50%', origin ? '0 0' : '50% 50%'], opacity: [1, 0] },
+    element.animate(
+      { transform: ['none', away], transformOrigin: [corner, corner], opacity: [1, 0] },
       { duration: 200, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' },
-    );
-    animation.onfinish = closeQuickLook;
+    ).onfinish = closeQuickLook;
   };
 
   const openFull = () => {

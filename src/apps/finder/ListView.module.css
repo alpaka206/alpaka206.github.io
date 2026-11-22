@@ -121,10 +121,6 @@
   color: var(--label);
 }
 
-.text {
-  composes: truncate from global;
-}
-
 .secondary {
   composes: truncate from global;
   color: var(--label-2);

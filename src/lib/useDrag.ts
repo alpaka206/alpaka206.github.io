@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react';
 
-export interface DragState {
+interface DragState {
   dx: number;
   dy: number;
   /** Pixels per second, smoothed over the last ~80 ms. */
@@ -9,7 +9,7 @@ export interface DragState {
   event: PointerEvent;
 }
 
-export interface DragHandlers {
+interface DragHandlers {
   onStart?: (state: DragState) => void;
   onMove?: (state: DragState) => void;
   onEnd?: (state: DragState) => void;
@@ -101,15 +101,13 @@ export function useDrag(handlers: DragHandlers, { threshold = 6, axis = null }: 
       else if (completed && event.type === 'pointerup') onTap?.(event);
     };
 
-    const up = (event: PointerEvent) => finish(event);
-
     window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', up);
-    window.addEventListener('pointercancel', up);
+    window.addEventListener('pointerup', finish);
+    window.addEventListener('pointercancel', finish);
     release.current = () => {
       window.removeEventListener('pointermove', move);
-      window.removeEventListener('pointerup', up);
-      window.removeEventListener('pointercancel', up);
+      window.removeEventListener('pointerup', finish);
+      window.removeEventListener('pointercancel', finish);
       delete document.documentElement.dataset.dragging;
       release.current = null;
     };

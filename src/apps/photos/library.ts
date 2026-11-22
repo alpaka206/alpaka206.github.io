@@ -14,8 +14,6 @@ export type AlbumId = 'screens' | 'comatching' | 'share-it' | 'apps' | 'awards';
 export interface Photo {
   key: MediaKey;
   alt: string;
-  width: number;
-  height: number;
 }
 
 interface Album {
@@ -25,7 +23,6 @@ interface Album {
 }
 
 const KEYS = Object.keys(manifest);
-const size = (key: MediaKey) => manifest[key as keyof typeof manifest] as { width: number; height: number };
 
 /** Alt text the case studies already give their images. */
 const CONTENT_ALT = new Map<MediaKey, string>();
@@ -93,7 +90,7 @@ function altFor(key: MediaKey): string {
   return `${project?.title ?? path} 앱 화면`;
 }
 
-const photo = (key: MediaKey): Photo => ({ key, alt: altFor(key), ...size(key) });
+const photo = (key: MediaKey): Photo => ({ key, alt: altFor(key) });
 const under = (prefix: string) => KEYS.filter((key) => key.startsWith(prefix));
 
 export const ALBUMS: readonly Album[] = [

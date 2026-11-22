@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const bucheon: Project = {
   slug: 'bucheon',
   title: 'Bucheon Friend Community',
+  short: '부천 FC',
   name: '부천 Friend Community',
   group: 'team',
   meta: '외주 프로젝트 / 2024.08 - 2024.10',

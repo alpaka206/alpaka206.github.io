@@ -44,7 +44,6 @@
   padding: 0 8px;
   font: var(--ios-large-title);
   letter-spacing: var(--ios-large-title-tracking);
-  color: #fff;
   text-shadow: 0 1px 12px rgb(0 0 0 / 0.2);
   opacity: var(--open);
 }

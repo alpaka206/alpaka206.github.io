@@ -2,7 +2,7 @@ import { useRef, type ComponentPropsWithoutRef, type CSSProperties, type Element
 import { useRefraction } from '@/lib/liquidGlass';
 import styles from './Glass.module.css';
 
-export type GlassVariant = 'regular' | 'clear' | 'menu' | 'panel' | 'control';
+type GlassVariant = 'regular' | 'clear' | 'menu' | 'panel' | 'control';
 
 type GlassProps<T extends ElementType> = {
   as?: T;

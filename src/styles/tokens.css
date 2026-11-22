@@ -2,6 +2,8 @@
  * Design tokens. Every number traces back to research/ (Apple's iOS 26/27 and
  * macOS 26 UI kits, the HIG, and measurements of a real Mac). 1 pt = 1 CSS px.
  * Platform-specific sizes are prefixed --ios- / --mac-; colours are shared.
+ * Colours are light-dark() pairs, resolved by the color-scheme base.css sets
+ * from data-theme; the dark blocks only hold shadows and gradients.
  */
 :root {
   --font-text: -apple-system, BlinkMacSystemFont, 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
@@ -9,64 +11,61 @@
   /* Keyboard focus everywhere (base.css), and on fields that ring their whole capsule. */
   --focus-ring: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
 
-  /* System colours, light (iOS 27 / macOS 26 kits). */
-  --blue: #0088ff;
-  --red: rgb(255 56 60);
-  --green: rgb(52 199 89);
-  --orange: rgb(255 141 40);
-  --yellow: rgb(255 204 0);
-  --pink: rgb(255 45 85);
-  --teal: rgb(0 195 208);
-  --mint: rgb(0 200 179);
+  /* System colours, light then dark (iOS 27 / macOS 26 kits). */
+  --blue: light-dark(#0088ff, #0091ff);
+  --red: light-dark(rgb(255 56 60), rgb(255 66 69));
+  --green: light-dark(rgb(52 199 89), rgb(48 209 88));
+  --orange: light-dark(rgb(255 141 40), rgb(255 146 48));
+  --yellow: light-dark(rgb(255 204 0), rgb(255 214 0));
+  --teal: light-dark(rgb(0 195 208), rgb(0 210 224));
   --gray: rgb(142 142 147);
   --accent: var(--blue);
   --link: var(--accent);
 
-  --label: #000;
-  --label-2: rgb(60 60 67 / 0.6);
-  --label-3: rgb(60 60 67 / 0.3);
-  --label-4: rgb(60 60 67 / 0.18);
-  --glass-label: rgb(26 26 26);
-  --glass-label-2: rgb(114 114 114);
-  --separator: rgb(0 0 0 / 0.12);
-  --separator-opaque: rgb(198 198 200);
+  --label: light-dark(#000, #fff);
+  --label-2: light-dark(rgb(60 60 67 / 0.6), rgb(235 235 245 / 0.6));
+  --label-3: light-dark(rgb(60 60 67 / 0.3), rgb(235 235 245 / 0.3));
+  --label-4: light-dark(rgb(60 60 67 / 0.18), rgb(235 235 245 / 0.16));
+  --glass-label: light-dark(rgb(26 26 26), rgb(237 237 237));
+  --glass-label-2: light-dark(rgb(114 114 114), rgb(138 138 138));
+  --separator: light-dark(rgb(0 0 0 / 0.12), rgb(255 255 255 / 0.12));
 
-  --fill: rgb(120 120 120 / 0.2);
-  --fill-2: rgb(120 120 128 / 0.16);
-  --fill-3: rgb(118 118 128 / 0.12);
-  --fill-4: rgb(116 116 128 / 0.08);
+  --fill: light-dark(rgb(120 120 120 / 0.2), rgb(120 120 128 / 0.36));
+  --fill-2: light-dark(rgb(120 120 128 / 0.16), rgb(120 120 128 / 0.32));
+  --fill-3: light-dark(rgb(118 118 128 / 0.12), rgb(118 118 128 / 0.24));
+  --fill-4: light-dark(rgb(116 116 128 / 0.08), rgb(118 118 128 / 0.18));
 
-  --bg: #fff;
-  --bg-2: #f2f2f7;
-  --grouped-bg: #f2f2f7;
-  --grouped-cell: #fff;
+  --bg: light-dark(#fff, #000);
+  --bg-2: light-dark(#f2f2f7, #1c1c1e);
+  --grouped-bg: light-dark(#f2f2f7, #000);
+  --grouped-cell: light-dark(#fff, #1c1c1e);
   --desktop-bg: #000;
-  --scrollbar-thumb: rgb(0 0 0 / 0.28);
+  --scrollbar-thumb: light-dark(rgb(0 0 0 / 0.28), rgb(255 255 255 / 0.3));
 
   /* Liquid Glass, "Regular" (system bars, Dock, panels). */
-  --glass-tint: rgb(255 255 255 / 0.22);
+  --glass-tint: light-dark(rgb(255 255 255 / 0.22), rgb(40 40 40 / 0.3));
   --glass-blur: 14px;
   --glass-saturate: 1.6;
-  --glass-rim: rgb(255 255 255 / 0.55);
-  --glass-highlight: rgb(255 255 255 / 0.6);
+  --glass-rim: light-dark(rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.18));
+  --glass-highlight: light-dark(rgb(255 255 255 / 0.6), rgb(255 255 255 / 0.2));
   --glass-shadow: 0 8px 28px rgb(0 0 0 / 0.12);
   --glass-sheen: radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.28), transparent 55%);
-  --glass-opaque: rgb(246 246 248);
+  --glass-opaque: light-dark(rgb(246 246 248), rgb(36 36 38));
   /* "Clear": notifications, lock screen buttons, Control Center modules. */
-  --glass-clear-tint: rgb(248 248 248 / 0.12);
+  --glass-clear-tint: light-dark(rgb(248 248 248 / 0.12), rgb(30 30 30 / 0.2));
   --glass-clear-blur: 6px;
   /* "Regular – Large": menus, alerts, popovers. */
-  --menu-tint: rgb(255 255 255 / 0.7);
+  --menu-tint: light-dark(rgb(255 255 255 / 0.7), rgb(36 36 36 / 0.72));
   --menu-blur: 30px;
   --menu-shadow: 0 18px 46px rgb(0 0 0 / 0.25);
-  --panel-tint: rgb(255 255 255 / 0.6);
+  --panel-tint: light-dark(rgb(255 255 255 / 0.6), rgb(30 30 30 / 0.55));
   --panel-shadow: 0 18px 46px rgb(0 0 0 / 0.25);
-  --control-glass-tint: rgb(255 255 255 / 0.25);
+  --control-glass-tint: light-dark(rgb(255 255 255 / 0.25), rgb(60 60 60 / 0.35));
   --control-glass-shadow: 0 8px 15px rgb(0 0 0 / 0.02), 0 0 0 0.5px rgb(219 219 219);
 
   /* ---------- iOS (iOS 27 UI kit, 402×874 unless noted) ---------- */
   --ios-display-radius: 55px;
-  --ios-home-dim: rgb(0 0 0 / 0.1);
+  --ios-home-dim: light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.08));
   --ios-icon: 64px;
   --ios-icon-label: 500 12px/14px var(--font-text);
   --ios-icon-label-gap: 5px;
@@ -75,37 +74,25 @@
   --ios-grid-top: 28px;
   --ios-row-pitch: 100.33px;
   --ios-dock-inset: 17px;
-  --ios-dock-height: 103px;
-  --ios-dock-radius: 38px;
   --ios-dock-pad-x: 19px;
   --ios-search-pill-w: 78px;
   --ios-search-pill-h: 30px;
   --ios-search-gap: 20px;
-  --ios-widget-radius: 28px;
   --ios-widget-pad: 16px;
   --ios-widget-label-gap: 6px;
-  --ios-badge: 24px;
-  --ios-notification-radius: 22px;
   --ios-notification-pad: 12px 14px;
-  --ios-notification-icon: 38.33px;
   --ios-lock-button: 58px;
   --ios-cc-unit: 70px;
   --ios-cc-gap-x: 15px;
   --ios-cc-gap-y: 16px;
-  --ios-cc-radius: 34px;
   --ios-nav-height: 54px;
-  --ios-nav-large-height: 105px;
-  --ios-glass-button: 44px;
   --ios-margin: 16px;
   --ios-tabbar-height: 62px;
   --ios-tabbar-inset: 21px;
   --ios-list-radius: 26px;
   --ios-row-height: 52px;
   --ios-section-gap: 20px;
-  --ios-sheet-radius: 34px;
   --ios-sheet-large-radius: 38px;
-  --ios-alert-width: 300px;
-  --ios-menu-radius: 32px;
   --ios-toggle-w: 64px;
   --ios-toggle-h: 28px;
   --ios-home-indicator-w: 140px;
@@ -119,11 +106,9 @@
   --ios-title3: 600 20px/25px var(--font-text);
   --ios-headline: 600 17px/22px var(--font-text);
   --ios-body: 400 17px/22px var(--font-text);
-  --ios-callout: 400 16px/21px var(--font-text);
   --ios-subhead: 400 15px/20px var(--font-text);
   --ios-footnote: 400 13px/18px var(--font-text);
   --ios-caption1: 400 12px/16px var(--font-text);
-  --ios-caption2: 400 11px/13px var(--font-text);
   --ios-tracking-body: -0.0253em;
 
   /* Motion. Spring curves themselves come from lib/spring.ts. */
@@ -142,50 +127,11 @@
 }
 
 :root[data-theme='dark'] {
-  --blue: #0091ff;
-  --red: rgb(255 66 69);
-  --green: rgb(48 209 88);
-  --orange: rgb(255 146 48);
-  --yellow: rgb(255 214 0);
-  --pink: rgb(255 55 95);
-  --teal: rgb(0 210 224);
-  --mint: rgb(0 218 195);
-
-  --label: #fff;
-  --label-2: rgb(235 235 245 / 0.6);
-  --label-3: rgb(235 235 245 / 0.3);
-  --label-4: rgb(235 235 245 / 0.16);
-  --glass-label: rgb(237 237 237);
-  --glass-label-2: rgb(138 138 138);
-  --separator: rgb(255 255 255 / 0.12);
-  --separator-opaque: rgb(56 56 58);
-
-  --fill: rgb(120 120 128 / 0.36);
-  --fill-2: rgb(120 120 128 / 0.32);
-  --fill-3: rgb(118 118 128 / 0.24);
-  --fill-4: rgb(118 118 128 / 0.18);
-
-  --bg: #000;
-  --bg-2: #1c1c1e;
-  --grouped-bg: #000;
-  --grouped-cell: #1c1c1e;
-  --scrollbar-thumb: rgb(255 255 255 / 0.3);
-
-  --glass-tint: rgb(40 40 40 / 0.3);
-  --glass-rim: rgb(255 255 255 / 0.18);
-  --glass-highlight: rgb(255 255 255 / 0.2);
   --glass-shadow: 0 8px 28px rgb(0 0 0 / 0.35);
   --glass-sheen: radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.1), transparent 55%);
-  --glass-opaque: rgb(36 36 38);
-  --glass-clear-tint: rgb(30 30 30 / 0.2);
-  --menu-tint: rgb(36 36 36 / 0.72);
   --menu-shadow: 0 18px 48px rgb(0 0 0 / 0.45);
-  --panel-tint: rgb(30 30 30 / 0.55);
   --panel-shadow: 0 18px 48px rgb(0 0 0 / 0.45);
-  --control-glass-tint: rgb(60 60 60 / 0.35);
   --control-glass-shadow: 0 8px 15px rgb(0 0 0 / 0.1), 0 0 0 0.5px rgb(255 255 255 / 0.12);
-
-  --ios-home-dim: rgb(0 0 0 / 0.08);
 }
 
 /* ---------- macOS 27 (AppKit probes and captures on macOS 27.2.1, macOS 27 UI kit) ---------- */
@@ -195,9 +141,7 @@
   --mac-menubar-font: 600 13px/16px var(--font-text);
   --mac-menubar-appname: 800 13px/16px var(--font-text);
   --mac-menubar-pad: 9px; /* per title, ≈21 pt between glyph ink */
-  --mac-menubar-edge: 12px;
   --mac-menubar-pill-radius: 13px;
-  --mac-menu-radius: 12px;
   --mac-menu-pad: 5px;
   --mac-menu-row: 24px;
   --mac-menu-inset: 16px;
@@ -211,7 +155,6 @@
   --mac-window-shadow-inactive: 0 16px 32px rgb(0 0 0 / 0.2), 0 0 1px rgb(0 0 0 / 0.8);
   --mac-titlebar: 32px;
   --mac-toolbar: 52px;
-  --mac-toolbar-compact: 40px;
   --mac-toolbar-pad-left: 18px;
   --mac-platter: 36px; /* glass capsule behind toolbar items */
   --mac-platter-pad: 4px;
@@ -227,42 +170,29 @@
   --mac-tl-minimize: linear-gradient(#ffbc12, #ffc837 50%, #ffd65b);
   --mac-tl-zoom: linear-gradient(#6dce3d, #89d662 50%, #a4e086);
   --mac-tl-off: radial-gradient(circle at 50% 40%, #f2f2f6, #e4e4e8);
-  --mac-tl-off-rim: #d7d7da;
+  --mac-tl-off-rim: light-dark(#d7d7da, #3a3a3a);
 
   --mac-sidebar-width: 220px;
-  --mac-sidebar-pad: 14px;
   --mac-sidebar-row: 32px;
   --mac-sidebar-icon: 20px;
   --mac-sidebar-header: 700 11px/14px var(--font-text);
-  --mac-sidebar-bg: rgb(250 250 250 / 0.8);
+  --mac-sidebar-bg: light-dark(rgb(250 250 250 / 0.8), rgb(12 12 12 / 0.85));
   --mac-sidebar-blur: 50px;
 
   --mac-control: 24px;
   --mac-control-radius: 6px;
-  --mac-control-fill: rgb(0 0 0 / 0.08);
+  --mac-control-fill: light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.1));
   --mac-switch-w: 54px;
   --mac-switch-h: 24px;
   --mac-form-radius: 12px;
-  --mac-form-fill: rgb(0 0 0 / 0.03);
+  --mac-form-fill: light-dark(rgb(0 0 0 / 0.03), rgb(255 255 255 / 0.04));
   --mac-form-row: 40px;
 
-  --mac-dock-tile: 64px; /* the visible squircle is 80.47% of the tile */
-  --mac-dock-pad-top: 10px; /* 16 pt to the squircle minus the tile margin */
-  --mac-dock-gap: 4px;
-  --mac-dock-bottom: 5px;
-  --mac-dock-dot: 4px;
-
   --mac-notification-width: 344px;
-  --mac-notification-radius: 20px;
   --mac-alert-width: 260px;
-  --mac-alert-radius: 26px;
-  --mac-popover-radius: 20px;
-  --mac-desktop-icon: 64px;
 
   /* macOS text styles (size/line height) and tracking. */
-  --mac-large-title: 400 26px/32px var(--font-text);
   --mac-title1: 400 22px/26px var(--font-text);
-  --mac-title2: 400 17px/22px var(--font-text);
   --mac-title3: 400 15px/20px var(--font-text);
   --mac-headline: 700 13px/16px var(--font-text);
   --mac-body: 400 13px/16px var(--font-text);
@@ -275,61 +205,33 @@
 /* Inside the desktop shell, the shared colour names take AppKit's values. */
 :root[data-platform='mac'] {
   --accent: var(--mac-accent);
-  --label: rgb(0 0 0 / 0.847);
-  --label-2: rgb(0 0 0 / 0.498);
-  --label-3: rgb(0 0 0 / 0.259);
-  --label-4: rgb(0 0 0 / 0.098);
-  --separator: rgb(0 0 0 / 0.1);
-  --fill: rgb(0 0 0 / 0.098);
-  --fill-2: rgb(0 0 0 / 0.078);
-  --fill-3: rgb(0 0 0 / 0.047);
-  --fill-4: rgb(0 0 0 / 0.027);
-  --bg: #fff;
-  --bg-2: #f6f6f6;
-  --link: #0068da;
+  --label: light-dark(rgb(0 0 0 / 0.847), rgb(255 255 255 / 0.847));
+  --label-2: light-dark(rgb(0 0 0 / 0.498), rgb(255 255 255 / 0.549));
+  --label-3: light-dark(rgb(0 0 0 / 0.259), rgb(255 255 255 / 0.247));
+  --label-4: light-dark(rgb(0 0 0 / 0.098), rgb(255 255 255 / 0.098));
+  --separator: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.12));
+  --fill: light-dark(rgb(0 0 0 / 0.098), rgb(255 255 255 / 0.098));
+  --fill-2: light-dark(rgb(0 0 0 / 0.078), rgb(255 255 255 / 0.078));
+  --fill-3: light-dark(rgb(0 0 0 / 0.047), rgb(255 255 255 / 0.047));
+  --fill-4: light-dark(rgb(0 0 0 / 0.027), rgb(255 255 255 / 0.027));
+  --bg: light-dark(#fff, #1e1e1e);
+  --bg-2: light-dark(#f6f6f6, #282828);
+  --link: light-dark(#0068da, #419cff);
   --text-body: 13px;
-  --vibrant-label: #363636;
-  --vibrant-label-2: #737373;
-  --vibrant-label-3: #b2b2b2;
-  --selection: #0064e1;
-  --selection-unfocused: #dcdcdc;
-  --window-bg: #fff;
-  --titlebar-separator: #e5e5e5;
-  --menu-bar-text: rgb(0 0 0 / 0.85);
-  --menu-bar-pill: rgb(0 0 0 / 0.08);
-  --menu-tint: rgb(230 230 230 / 0.72);
+  --vibrant-label: light-dark(#363636, rgb(255 255 255 / 0.96));
+  --vibrant-label-2: light-dark(#737373, #8a8a8a);
+  --vibrant-label-3: light-dark(#b2b2b2, #4c4c4c);
+  --selection: light-dark(#0064e1, #0059d1);
+  --selection-unfocused: light-dark(#dcdcdc, #464646);
+  --window-bg: light-dark(#fff, #1e1e1e);
+  --titlebar-separator: light-dark(#e5e5e5, #2e2e2e);
+  --menu-tint: light-dark(rgb(230 230 230 / 0.72), rgb(70 70 70 / 0.6));
   --menu-blur: 20px;
   --menu-shadow: 0 4px 24px rgb(0 0 0 / 0.3), 0 0 0 0.5px rgb(0 0 0 / 0.2);
 }
 
 :root[data-platform='mac'][data-theme='dark'] {
-  --label: rgb(255 255 255 / 0.847);
-  --label-2: rgb(255 255 255 / 0.549);
-  --label-3: rgb(255 255 255 / 0.247);
-  --label-4: rgb(255 255 255 / 0.098);
-  --separator: rgb(255 255 255 / 0.12);
-  --fill: rgb(255 255 255 / 0.098);
-  --fill-2: rgb(255 255 255 / 0.078);
-  --fill-3: rgb(255 255 255 / 0.047);
-  --fill-4: rgb(255 255 255 / 0.027);
-  --bg: #1e1e1e;
-  --bg-2: #282828;
-  --link: #419cff;
-  --vibrant-label: rgb(255 255 255 / 0.96);
-  --vibrant-label-2: #8a8a8a;
-  --vibrant-label-3: #4c4c4c;
-  --selection: #0059d1;
-  --selection-unfocused: #464646;
-  --window-bg: #1e1e1e;
-  --titlebar-separator: #2e2e2e;
-  --mac-sidebar-bg: rgb(12 12 12 / 0.85);
-  --mac-control-fill: rgb(255 255 255 / 0.1);
-  --mac-form-fill: rgb(255 255 255 / 0.04);
   --mac-tl-off: radial-gradient(circle at 50% 40%, #555, #474747);
-  --mac-tl-off-rim: #3a3a3a;
-  --menu-bar-text: #fff;
-  --menu-bar-pill: rgb(255 255 255 / 0.2);
-  --menu-tint: rgb(70 70 70 / 0.6);
   --menu-shadow: 0 4px 24px rgb(0 0 0 / 0.3), 0 0 0 0.5px rgb(0 0 0 / 0.8);
 }
 

@@ -3,6 +3,7 @@ import type { Project } from '../types';
 export const shareIt: Project = {
   slug: 'share-it',
   title: 'Share-It',
+  short: 'Share-It',
   name: 'Share-It 교내 물품 대여 플랫폼',
   group: 'team',
   meta: '팀 프로젝트 / 2024.01 - 2024.06',

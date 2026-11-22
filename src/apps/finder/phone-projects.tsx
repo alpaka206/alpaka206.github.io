@@ -1,10 +1,11 @@
 import { useLayoutEffect, useMemo, useState } from 'react';
-import { PROJECT_GROUPS, projectsInGroup } from '@/content/projects';
+import { PROJECTS } from '@/content/projects';
 import type { ProjectSlug } from '@/content/types';
 import { search } from '@/os/search';
 import { motionReduced } from '@/os/theme';
 import { AppIcon } from '@/ui/AppIcon';
 import { Row, SearchField, Section } from '@/phone/kit';
+import { byCompany } from '../portfolio/toc';
 import styles from './finder.phone.module.css';
 
 const SEARCH_ID = 'finder-search';
@@ -36,10 +37,7 @@ interface ProjectsTabProps {
 export function ProjectsTab({ onOpen, focusRequest }: ProjectsTabProps) {
   const [query, setQuery] = useState('');
   const hits = useMemo(() => matching(query), [query]);
-  const groups = PROJECT_GROUPS.map((group) => ({
-    group,
-    projects: projectsInGroup(group.id).filter((p) => !hits || hits.has(p.slug)),
-  })).filter((entry) => entry.projects.length > 0);
+  const groups = byCompany(PROJECTS.filter((p) => !hits || hits.has(p.slug)));
   const count = groups.reduce((sum, entry) => sum + entry.projects.length, 0);
 
   useLayoutEffect(() => {

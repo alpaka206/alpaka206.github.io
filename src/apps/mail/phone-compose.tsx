@@ -2,8 +2,7 @@ import { useId } from 'react';
 import { PROFILE } from '@/content/profile';
 import { useKeyboardInset } from '@/phone/hooks';
 import { GlassButton, Sheet, useDismissSheet } from '@/phone/kit';
-import { useDraft } from './draft';
-import { mailtoHref } from './mailto';
+import { mailtoHref, useDraft } from './draft';
 import styles from './mail.phone.module.css';
 
 /**
@@ -20,7 +19,7 @@ export function Compose({ onClose }: { onClose: () => void }) {
       <div className={styles.compose} style={{ paddingBottom: keyboard }}>
         <div className={styles.field}>
           <span className={styles.label}>받는 사람:</span>
-          <span className={styles.recipient}>{PROFILE.email}</span>
+          <span className="truncate">{PROFILE.email}</span>
         </div>
         <div className={styles.field}>
           <label htmlFor={subjectId} className={styles.label}>

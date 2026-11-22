@@ -28,7 +28,6 @@ export function genieKeyframes(win: Rect, icon: Rect): Keyframe[] {
     const t = i / STEPS;
     const stretch = easeInOut(clamp01(t / STRETCH));
     const slide = easeInOut(clamp01((t - STRETCH) / (1 - STRETCH)));
-    const form = stretch;
 
     // Vertical: the bottom reaches the icon, then the top follows it in.
     const top = lerp(win.y, icon.y, slide);
@@ -47,7 +46,7 @@ export function genieKeyframes(win: Rect, icon: Rect): Keyframe[] {
     for (let r = 0; r <= ROWS; r++) {
       const ly = (win.h * r) / ROWS;
       const screenY = win.y + ty + ly * sy;
-      const pinch = smooth(clamp01((screenY - win.y) / funnelSpan)) * form;
+      const pinch = smooth(clamp01((screenY - win.y) / funnelSpan)) * stretch;
       const l = (lerp(win.x, icon.x, pinch) - win.x - tx) / sx;
       const rr = (lerp(win.x + win.w, icon.x + icon.w, pinch) - win.x - tx) / sx;
       left.push(`${round(l)}px ${round(ly)}px`);

@@ -3,7 +3,7 @@
  * and matched on the physical key (KeyboardEvent.code), so they keep working
  * while the Korean input source is active.
  */
-export interface Chord {
+interface Chord {
   ctrl: boolean;
   alt: boolean;
   shift: boolean;
@@ -14,27 +14,17 @@ export interface Chord {
 
 const MODIFIERS: Record<string, keyof Omit<Chord, 'code'>> = { '⌃': 'ctrl', '⌥': 'alt', '⇧': 'shift', '⌘': 'meta' };
 
+/** The non-letter keys the menus and os/keyboard.ts actually bind. */
 const KEY_CODES: Record<string, string> = {
   '[': 'BracketLeft',
   ']': 'BracketRight',
   ',': 'Comma',
-  '.': 'Period',
-  '/': 'Slash',
   '`': 'Backquote',
-  '=': 'Equal',
-  '+': 'Equal',
-  '-': 'Minus',
-  '0': 'Digit0',
   '↑': 'ArrowUp',
   '↓': 'ArrowDown',
-  '←': 'ArrowLeft',
-  '→': 'ArrowRight',
   '⌫': 'Backspace',
-  '⌦': 'Delete',
   '⎋': 'Escape',
   '⇥': 'Tab',
-  '↩': 'Enter',
-  Space: 'Space',
 };
 
 /** "⌥⌘H" → modifiers ["⌥", "⌘"] and key "H". */
@@ -50,7 +40,6 @@ export function parseShortcut(shortcut: string): Chord {
   if (KEY_CODES[rest]) chord.code = KEY_CODES[rest]!;
   else if (/^[A-Z]$/i.test(rest)) chord.code = `Key${rest.toUpperCase()}`;
   else if (/^[1-9]$/.test(rest)) chord.code = `Digit${rest}`;
-  else if (/^F\d{1,2}$/.test(rest)) chord.code = rest;
   return chord;
 }
 

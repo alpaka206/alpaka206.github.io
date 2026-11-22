@@ -1,7 +1,7 @@
 import type { NoteId } from '@/content/conversation';
 import { copyEmail, openTextVersion, toggleDarkMode } from './actions';
 import { registerCommands } from './commands';
-import { useSession } from './session';
+import { useSession, type Phase } from './session';
 import { useSettings } from './settings';
 import { lockSystemKeys } from './keyboard';
 import { focusedWindowId, useWindows, type WindowModel } from './windows';
@@ -43,33 +43,25 @@ export function registerSystemCommands() {
   });
   const openNote = (note: NoteId) => windows().open('notes', { note });
   const openFinder = (location: FinderLocation) => windows().open('finder', { location });
-  const closeAll = () => windows().windows.forEach((w) => windows().close(w.id));
+  /** Restart, shut down and log out close every window first. */
+  const leave = (phase: Phase) => () => {
+    windows().windows.forEach((w) => windows().close(w.id));
+    go(phase);
+  };
 
-  const commands: Record<string, () => void> = {
+  return registerCommands({
     'system.settings': () => windows().open('settings'),
     'app.settings': () => windows().open('settings'),
     'system.sleep': () => go('sleep'),
-    'system.restart': () => {
-      closeAll();
-      go('boot');
-    },
-    'system.shutdown': () => {
-      closeAll();
-      go('off');
-    },
+    'system.restart': leave('boot'),
+    'system.shutdown': leave('off'),
     'system.lock': () => go('locked'),
-    'system.logout': () => {
-      closeAll();
-      go('login');
-    },
+    'system.logout': leave('login'),
     'system.forceQuit': quitKeyApp,
     'system.readerMode': openTextVersion,
     'system.copyEmail': () => void copyEmail('Finder'),
     'system.toggleDarkMode': toggleDarkMode,
-    'dock.toggleAutohide': () => {
-      const { dockAutohide, set } = useSettings.getState();
-      set('dockAutohide', !dockAutohide);
-    },
+    'dock.toggleAutohide': () => useSettings.getState().set('dockAutohide', !useSettings.getState().dockAutohide),
 
     'window.close': onKeyWindow((w) => windows().close(w.id)),
     'window.minimize': onKeyWindow((w) => windows().minimize(w.id)),
@@ -88,10 +80,7 @@ export function registerSystemCommands() {
     'window.bringAll': () => windows().raiseApp(windows().focusedApp()),
 
     'app.quit': quitKeyApp,
-    'app.hide': () => {
-      const app = windows().focusedApp();
-      windows().hideApp(app);
-    },
+    'app.hide': () => windows().hideApp(windows().focusedApp()),
     'app.hideOthers': () => windows().hideApp(windows().focusedApp(), true),
     'app.showAll': () => windows().showAll(),
 
@@ -115,7 +104,5 @@ export function registerSystemCommands() {
     'go.projects': () => openFinder('projects'),
     'go.awards': () => openFinder('awards'),
     'finder.newWindow': () => openFinder('projects'),
-  };
-
-  return registerCommands(commands);
+  });
 }

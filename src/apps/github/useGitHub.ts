@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { storageArea } from '@/lib/storage';
-import { fetchSnapshot, readCache, writeCache, type Snapshot } from './api';
+import { readStorage, writeStorage } from '@/lib/storage';
+import { CACHE_KEY, fetchSnapshot, readCache, type Snapshot } from './api';
 
-/** Null where the browser blocks site data: then every visit asks GitHub. */
-const session = storageArea('sessionStorage');
+/** Nothing comes back where the browser blocks site data: then every visit asks GitHub. */
+const cached = () => readCache(readStorage('sessionStorage', CACHE_KEY), Date.now());
 
 type GitHubState = { status: 'loading' } | { status: 'ready'; snapshot: Snapshot } | { status: 'error'; error: unknown };
 
@@ -14,16 +14,16 @@ type GitHubState = { status: 'loading' } | { status: 'ready'; snapshot: Snapshot
 export function useGitHub() {
   const [attempt, setAttempt] = useState(0);
   const [state, setState] = useState<GitHubState>(() => {
-    const cached = session && readCache(session, Date.now());
-    return cached ? { status: 'ready', snapshot: cached } : { status: 'loading' };
+    const snapshot = cached();
+    return snapshot ? { status: 'ready', snapshot } : { status: 'loading' };
   });
 
   useEffect(() => {
-    if (attempt === 0 && session && readCache(session, Date.now())) return;
+    if (attempt === 0 && cached()) return;
     const controller = new AbortController();
     fetchSnapshot(controller.signal).then(
       (snapshot) => {
-        if (session) writeCache(session, snapshot);
+        writeStorage('sessionStorage', CACHE_KEY, JSON.stringify(snapshot));
         setState({ status: 'ready', snapshot });
       },
       (error: unknown) => {

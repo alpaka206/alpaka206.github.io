@@ -1,6 +1,12 @@
+import { useEffect, useId, useRef, type KeyboardEvent } from 'react';
+import { Button } from '@/desktop/kit/controls';
+import { useDismiss } from '@/desktop/menus/useDismiss';
+import { useRestoreFocus } from '@/lib/focus';
 import { APPS } from '@/os/apps';
-import { AlertSheet } from './AlertSheet';
+import { AppIcon } from '@/ui/AppIcon';
+import { Glass } from '@/ui/Glass';
 import { COMMITS_URL } from './items';
+import styles from './TrashSheet.module.css';
 
 /**
  * The trash holds the site's previous, Windows-themed version.
@@ -34,17 +40,70 @@ const SHEETS: Record<TrashSheetKind, { title: string; message: string; primary: 
   },
 };
 
+/**
+ * The sheet as an NSAlert of the window (macos.md §10, run-time values):
+ * 260 pt wide, radius 26, a 64 pt app icon, Bold 13 title over Regular 13
+ * text, and two 110 × 28 pill buttons 8 pt apart, the default on the right
+ * (it has focus, so Return presses it). The window behind is dimmed by the
+ * kit's window-modal overlay; Escape or a press outside the window closes it.
+ */
 export function TrashSheet({ kind, onChange }: { kind: TrashSheetKind; onChange: (next: TrashSheetKind | null) => void }) {
   const sheet = SHEETS[kind];
   const close = () => onChange(null);
+  const titleId = useId();
+  const messageId = useId();
+  const overlay = useRef<HTMLDivElement>(null);
+  useRestoreFocus();
+  useDismiss(true, overlay, close);
+  // An effect rather than autoFocus: it runs after useRestoreFocus's, so StrictMode's remount cannot undo it.
+  useEffect(() => overlay.current?.querySelector<HTMLElement>('[data-default]')?.focus({ preventScroll: true }), []);
+
+  // Window-modal: Tab stays inside the sheet.
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== 'Tab') return;
+    const controls = [...(overlay.current?.querySelectorAll<HTMLElement>('button, a') ?? [])];
+    const index = controls.indexOf(document.activeElement as HTMLElement);
+    const next = controls[(index + (event.shiftKey ? controls.length - 1 : 1)) % controls.length];
+    if (next) {
+      event.preventDefault();
+      next.focus();
+    }
+  };
+
   return (
-    <AlertSheet
-      icon={APPS.finder.icon}
-      title={sheet.title}
-      message={sheet.message}
-      secondary={sheet.commits ? { label: '커밋 기록 보기', href: COMMITS_URL, onPress: close } : { label: '취소', onPress: close }}
-      primary={{ label: sheet.primary, onPress: () => onChange(sheet.then ?? null) }}
-      onDismiss={close}
-    />
+    <div ref={overlay} className={styles.overlay} onKeyDown={onKeyDown}>
+      <Glass
+        variant="panel"
+        radius={26}
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={messageId}
+        className={styles.sheet}
+      >
+        <AppIcon icon={APPS.finder.icon} size={64} className={styles.icon} />
+        <h2 id={titleId} className={styles.title}>
+          {sheet.title}
+        </h2>
+        <p id={messageId} className={styles.message}>
+          {sheet.message}
+        </p>
+        <div className={styles.buttons}>
+          {/* A choice that opens a page is a real link, so ⌘-click and the browser's link menu work. */}
+          {sheet.commits ? (
+            <a className={styles.link} data-size="large" href={COMMITS_URL} target="_blank" rel="noopener" onClick={close}>
+              커밋 기록 보기
+            </a>
+          ) : (
+            <Button size="large" onClick={close}>
+              취소
+            </Button>
+          )}
+          <Button size="large" variant="prominent" data-default onClick={() => onChange(sheet.then ?? null)}>
+            {sheet.primary}
+          </Button>
+        </div>
+      </Glass>
+    </div>
   );
 }

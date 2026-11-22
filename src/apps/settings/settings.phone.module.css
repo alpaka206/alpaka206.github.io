@@ -136,12 +136,8 @@
 }
 
 .thumbLabel {
-  display: -webkit-box;
+  composes: clamp-2 from global;
   max-width: 100%;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
   font: var(--ios-caption1);
   text-align: center;
 }

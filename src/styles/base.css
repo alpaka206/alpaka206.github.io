@@ -51,6 +51,11 @@ body {
   display: none;
 }
 
+/* Not a box: inside a flex row (Picture's <picture> is display: contents) it would take a gap before the photo. */
+source {
+  display: none;
+}
+
 img,
 svg,
 video {

@@ -5,6 +5,7 @@ import { PROFILE } from '@/content/profile';
 import { getProject } from '@/content/projects';
 import type { MediaKey } from '@/content/types';
 import type { AppId, AppProps } from '@/os/apps';
+import { FILE_NAME } from '../preview/pdf';
 
 export interface ChatMessage {
   id: number;
@@ -77,12 +78,10 @@ const message = (from: ChatMessage['from'], body: Pick<ChatMessage, 'text' | 'at
 export const useConversation = create<ConversationState>((set, get) => {
   /** Bumped by restart(): replies still typing for an earlier conversation stop there. */
   let conversation = 0;
-  let inFlight = 0;
 
   /** Sends replies one bubble at a time with the typing indicator in between. */
   const reply = async (lines: string[], attachment: Attachment | undefined, reduced: boolean) => {
     const current = conversation;
-    inFlight++;
     set({ replying: true });
     try {
       for (const line of lines) {
@@ -93,7 +92,7 @@ export const useConversation = create<ConversationState>((set, get) => {
       }
       if (attachment) set((s) => ({ messages: [...s.messages, message('them', { attachment })] }));
     } finally {
-      if (current === conversation && --inFlight === 0) set({ replying: false });
+      if (current === conversation) set({ replying: false });
     }
   };
 
@@ -115,7 +114,6 @@ export const useConversation = create<ConversationState>((set, get) => {
     askText: (text, reduced) => get().ask(matchTopic(text), reduced, text),
     restart: () => {
       conversation++;
-      inFlight = 0;
       set({ messages: [], asked: [], started: false, typing: false, replying: false });
     },
   };
@@ -148,7 +146,7 @@ export function describeAttachment(attachment: Attachment): AttachmentPreview | 
       return note ? { title: note.title, action: '메모 열기', icon: 'icons/notes', open: { app: 'notes', props: { note: note.id } } } : null;
     }
     case 'pdf':
-      return { title: `${PROFILE.name}_포트폴리오.pdf`, action: 'PDF 열기', icon: 'icons/resume', open: { app: 'preview' } };
+      return { title: FILE_NAME, action: 'PDF 열기', icon: 'icons/resume', open: { app: 'preview' } };
     case 'profile':
       return { title: PROFILE.name, action: '프로필 보기', photo: PROFILE.portrait, open: { app: 'about', props: { view: 'profile', section: 'overview' } } };
     case 'mail':

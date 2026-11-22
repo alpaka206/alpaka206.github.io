@@ -69,6 +69,8 @@ export function DesktopIcons() {
   const [saved, setSaved] = useState<Saved>(readSaved);
   const cells = useMemo(() => arrange(ORDER, saved, grid) as Record<FileId, Cell>, [saved, grid]);
   const [selection, setSelection] = useState<ReadonlySet<FileId>>(new Set());
+  const selected = ORDER.filter((id) => selection.has(id));
+  const active = selected.at(-1);
   const [marquee, setMarquee] = useState<Rect | null>(null);
   // Finder windows' label rule (two lines, the second middle-truncated), measured in this font.
   const measure = useLabelMeasure(LABEL_FONT);
@@ -93,7 +95,7 @@ export function DesktopIcons() {
   // Finder's 파일 › 열기 (⌘O) and 훑어보기 (⌘Y) act on the desktop's selection while the desktop is active.
   const onDesktopCommand = useEffectEvent((command: 'open' | 'quickLook') => {
     if (!useWindows.getState().desktopFocused || !selection.size) return;
-    if (command === 'open') openFiles(ORDER.filter((id) => selection.has(id)));
+    if (command === 'open') openFiles(selected);
     else quickLook(selection);
   });
   useEffect(() => {
@@ -114,10 +116,9 @@ export function DesktopIcons() {
   const iconElement = (id: FileId) => layer.current?.querySelector<HTMLElement>(`[data-id="${id}"]`);
   const dragIcons = useDrag({
     onStart: () => {
-      const ids = ORDER.filter((id) => selection.has(id));
-      moving.current = { ids, from: Object.fromEntries(ids.map((id) => [id, cellOrigin(cells[id], grid)])) };
+      moving.current = { ids: selected, from: Object.fromEntries(selected.map((id) => [id, cellOrigin(cells[id], grid)])) };
       // The icons follow the pointer directly; the snap transition comes back on drop.
-      for (const id of ids) iconElement(id)?.setAttribute('data-dragging', '');
+      for (const id of selected) iconElement(id)?.setAttribute('data-dragging', '');
     },
     onMove: ({ dx, dy }) => {
       const drag = moving.current;
@@ -242,22 +243,21 @@ export function DesktopIcons() {
 
   // ---- Keyboard ----
   const step = (key: string): FileId | undefined => {
-    const current = ORDER.filter((id) => selection.has(id)).at(-1);
-    if (!current) return ORDER[0];
-    const from = cells[current];
+    if (!active) return ORDER[0];
+    const from = cells[active];
     const direction = { ArrowDown: [0, 1], ArrowUp: [0, -1], ArrowLeft: [1, 0], ArrowRight: [-1, 0] }[key];
-    if (!direction) return current;
+    if (!direction) return active;
     const [dc, dr] = direction as [number, number];
     // The nearest icon ahead in that direction, preferring the same row or column.
     const ahead = ORDER.filter((id) => {
       const c = cells[id];
-      return id !== current && (dc ? Math.sign(c.col - from.col) === dc : Math.sign(c.row - from.row) === dr);
+      return id !== active && (dc ? Math.sign(c.col - from.col) === dc : Math.sign(c.row - from.row) === dr);
     });
     const distance = (id: FileId) => {
       const c = cells[id];
       return dc ? Math.abs(c.col - from.col) * 10 + Math.abs(c.row - from.row) : Math.abs(c.row - from.row) * 10 + Math.abs(c.col - from.col);
     };
-    return ahead.sort((a, b) => distance(a) - distance(b))[0] ?? current;
+    return ahead.sort((a, b) => distance(a) - distance(b))[0] ?? active;
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -265,7 +265,7 @@ export function DesktopIcons() {
     const command = event.metaKey;
     if (event.key === 'Enter' || (command && (event.key === 'o' || event.key === 'ArrowDown'))) {
       event.preventDefault();
-      openFiles(ORDER.filter((id) => selection.has(id)));
+      openFiles(selected);
     } else if (event.key === ' ') {
       event.preventDefault();
       quickLook(selection);
@@ -280,8 +280,6 @@ export function DesktopIcons() {
       if (next) setSelection(new Set([next]));
     }
   };
-
-  const active = ORDER.filter((id) => selection.has(id)).at(-1);
 
   return (
     <div

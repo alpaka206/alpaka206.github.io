@@ -5,7 +5,7 @@
  */
 const GITHUB_USER = 'alpaka206';
 const API = 'https://api.github.com';
-const CACHE_KEY = `github:${GITHUB_USER}`;
+export const CACHE_KEY = `github:${GITHUB_USER}`;
 export const CACHE_TTL = 10 * 60 * 1000;
 
 export interface Profile {
@@ -90,20 +90,13 @@ export async function fetchSnapshot(signal: AbortSignal, now = Date.now()): Prom
   };
 }
 
-export function readCache(storage: Pick<Storage, 'getItem'>, now: number): Snapshot | null {
+/** The stored snapshot while it is fresh; null when there is none, it is stale or it is damaged. */
+export function readCache(json: string | null, now: number): Snapshot | null {
   try {
-    const snapshot = JSON.parse(storage.getItem(CACHE_KEY) ?? 'null') as Snapshot | null;
+    const snapshot = JSON.parse(json ?? 'null') as Snapshot | null;
     return snapshot && now - snapshot.savedAt < CACHE_TTL ? snapshot : null;
   } catch {
     return null;
-  }
-}
-
-export function writeCache(storage: Pick<Storage, 'setItem'>, snapshot: Snapshot) {
-  try {
-    storage.setItem(CACHE_KEY, JSON.stringify(snapshot));
-  } catch {
-    // Private mode or a full quota: the next visit simply asks GitHub again.
   }
 }
 

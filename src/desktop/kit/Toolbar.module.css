@@ -29,28 +29,25 @@
 .title,
 .titleSmall {
   margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   color: var(--label-3);
 }
 
 .title {
+  composes: truncate from global;
   font: var(--mac-title-font);
   letter-spacing: var(--mac-title-tracking);
 }
 
 .titleSmall {
+  composes: truncate from global;
   font: 700 13px/16px var(--font-text);
 }
 
 .subtitle {
+  composes: truncate from global;
   margin: 0;
   font: 400 11px/14px var(--font-text);
   color: var(--label-3);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .toolbar[data-active] .title,

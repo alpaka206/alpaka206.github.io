@@ -5,8 +5,7 @@ import { useWindowCommands, useWindowTitle } from '@/desktop/kit/window';
 import { runCommand } from '@/os/commands';
 import { Symbol } from '@/ui/Symbol';
 import type { DesktopAppProps } from '../registry';
-import { prefillSubject, useDraft } from './draft';
-import { mailtoHref } from './mailto';
+import { mailtoHref, prefillSubject, useDraft } from './draft';
 import styles from './Mail.module.css';
 
 /**

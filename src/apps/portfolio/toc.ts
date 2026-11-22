@@ -67,10 +67,10 @@ export function neighbours(slug: ProjectSlug): { previous?: Project; next?: Proj
   return { previous: SEQUENCE[i - 1], next: SEQUENCE[i + 1] };
 }
 
-/** The other case studies, grouped by company as in the PDF's table of contents. */
-export function otherProjects(slug: ProjectSlug): { group: ProjectGroup; projects: Project[] }[] {
-  return PROJECT_GROUPS.map((group) => ({
-    group,
-    projects: SEQUENCE.filter((p) => p.group === group.id && p.slug !== slug),
-  })).filter((entry) => entry.projects.length > 0);
+/** Projects under their company, in the order of the PDF's table of contents; a company with none is left out. */
+export function byCompany(projects: readonly Project[]): { group: ProjectGroup; projects: Project[] }[] {
+  return PROJECT_GROUPS.map((group) => ({ group, projects: projects.filter((p) => p.group === group.id) })).filter((entry) => entry.projects.length > 0);
 }
+
+/** The other case studies, grouped by company as in the PDF's table of contents. */
+export const otherProjects = (slug: ProjectSlug) => byCompany(SEQUENCE.filter((p) => p.slug !== slug));

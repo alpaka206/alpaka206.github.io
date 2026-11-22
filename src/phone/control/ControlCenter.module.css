@@ -66,7 +66,6 @@
   --glass-highlight: rgb(255 255 255 / 0.16);
   --glass-sheen: radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.08), transparent 55%);
   --glass-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
-  color: #fff;
 }
 
 :root[data-transparency='reduced'] .module {
@@ -121,7 +120,6 @@
   bottom: 18px;
   translate: -50% 0;
   color: rgb(0 0 0 / 0.6);
-  mix-blend-mode: normal;
 }
 
 /* 2 × 1: 155 × 69, 41 pt icon circle, title Semibold 14, detail Medium 14 at 40% (kit). */
@@ -201,7 +199,6 @@
   background: rgb(255 255 255 / 0.14);
   font: 600 13px/16px var(--font-text);
   text-align: left;
-  color: #fff;
 }
 
 .action:active {

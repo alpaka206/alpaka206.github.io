@@ -54,7 +54,6 @@ export function matchesAny(query: string, texts: readonly string[]) {
   const q = squash(query);
   return !q || texts.some((text) => squash(text).includes(q));
 }
-const isInitialsOnly = (query: string) => /^[ㄱ-ㅎ]+$/.test(query);
 
 function item(kind: SearchKind, id: string, title: string, subtitle: string, icon: MediaKey, target: SearchTarget, keywords: string[] = []): SearchItem {
   return { id: `${kind}:${id}`, kind, title, subtitle, icon, target, text: squash([title, subtitle, ...keywords].join(' ')), initials: [title, ...keywords].filter(Boolean).map(initialsOf) };
@@ -92,7 +91,7 @@ const KIND_BONUS: Partial<Record<SearchKind, number>> = { app: 20, project: 20 }
 export function search(query: string, limit = 12): SearchItem[] {
   const q = squash(query);
   if (!q) return [];
-  const initialsQuery = isInitialsOnly(q);
+  const initialsQuery = /^[ㄱ-ㅎ]+$/.test(q);
   const scored: { item: SearchItem; score: number }[] = [];
   for (const entry of INDEX) {
     const title = squash(entry.title);

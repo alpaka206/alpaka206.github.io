@@ -67,11 +67,11 @@ function widthPerTile(icons: number, dividers: number) {
 
 /**
  * The tile size the Dock actually uses: the preferred size, shrunk until the
- * shelf fits the screen with `margin` to spare on each side, as macOS does
+ * shelf fits the screen with 8 pt to spare on each side, as macOS does
  * (this Mac asks for 128 pt tiles and gets 64).
  */
-export function fitTile(preferred: number, icons: number, dividers: number, screenWidth: number, margin = 8) {
-  const fit = (screenWidth - margin * 2) / widthPerTile(icons, dividers);
+export function fitTile(preferred: number, icons: number, dividers: number, screenWidth: number) {
+  const fit = (screenWidth - 16) / widthPerTile(icons, dividers);
   return Math.max(16, Math.min(preferred, Math.floor(fit * 2) / 2));
 }
 

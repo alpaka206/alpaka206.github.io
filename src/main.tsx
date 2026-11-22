@@ -1,3 +1,4 @@
+import './polyfills';
 import './styles/tokens.css';
 import './styles/base.css';
 import './reader/reader.css';

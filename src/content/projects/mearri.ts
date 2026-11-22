@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const mearri: Project = {
   slug: 'mearri',
   title: 'Mearri',
+  short: 'Mearri',
   name: 'YouTube 다국어 자막 서비스 Mearri',
   group: 'estsoft',
   meta: '이스트소프트에서 Perso API 사업 모델로 개발 / mearri.com',

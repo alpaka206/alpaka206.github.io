@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import type { MediaKey } from '@/content/types';
 import manifest from './manifest.json';
 
@@ -22,10 +21,9 @@ export function media(key: MediaKey): Entry {
 const url = (key: MediaKey, width: number, format: string) => `${import.meta.env.BASE_URL}media/${key}-${width}.${format}`;
 
 /** URL of the smallest variant at least `width` px wide (for CSS backgrounds and preloads). */
-export function mediaUrl(key: MediaKey, width = Infinity, format = 'webp'): string {
+export function mediaUrl(key: MediaKey, width = Infinity): string {
   const { widths } = media(key);
-  const chosen = widths.find((w) => w >= width) ?? widths[widths.length - 1]!;
-  return url(key, chosen, format);
+  return url(key, widths.find((w) => w >= width) ?? widths.at(-1)!, 'webp');
 }
 
 export const srcSet = (key: MediaKey, format = 'webp') =>
@@ -41,14 +39,13 @@ interface PictureProps {
   /** Above the fold: load eagerly with high priority (the wallpaper). */
   priority?: boolean;
   className?: string;
-  style?: CSSProperties;
 }
 
 /**
  * <picture> with AVIF and WebP sources, intrinsic width and height (no layout
  * shift) and the image's dominant colour as a placeholder for photos.
  */
-export function Picture({ src, alt, sizes, priority = false, className, style }: PictureProps) {
+export function Picture({ src, alt, sizes, priority = false, className }: PictureProps) {
   const entry = media(src);
   const photographic = entry.formats.includes('avif');
   return (
@@ -66,7 +63,7 @@ export function Picture({ src, alt, sizes, priority = false, className, style }:
         fetchPriority={priority ? 'high' : 'auto'}
         draggable={false}
         className={className}
-        style={photographic ? { backgroundColor: entry.color, ...style } : style}
+        style={photographic ? { backgroundColor: entry.color } : undefined}
       />
     </picture>
   );

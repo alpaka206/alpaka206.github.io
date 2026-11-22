@@ -174,6 +174,9 @@ export const WindowFrame = memo(function WindowFrame({ model, area, z, active, c
   });
   useLayoutEffect(() => spread(), [overviewKey]);
 
+  // A press or tabbing into a window makes it key, so menus and shortcuts follow the keyboard too.
+  const makeKey = () => !closing && !overview && !active && store().focus(id);
+
   // The key window takes keyboard focus, unless something inside it already has it.
   useEffect(() => {
     const node = el.current;
@@ -296,7 +299,7 @@ export const WindowFrame = memo(function WindowFrame({ model, area, z, active, c
       } else s.place(id, command as TileZone);
     };
     openContextMenu(
-      { clientX: anchor.left, clientY: anchor.bottom + 6, preventDefault: () => undefined },
+      { clientX: anchor.left, clientY: anchor.bottom + 6 },
       [
         { label: '채우기', command: 'zoomed' },
         'separator',
@@ -319,13 +322,8 @@ export const WindowFrame = memo(function WindowFrame({ model, area, z, active, c
       data-active={active || undefined}
       data-chrome={APPS[app].chrome ?? 'unified'}
       data-overview={overview ? '' : undefined}
-      onPointerDownCapture={() => {
-        if (!closing && !overview && !active) store().focus(id);
-      }}
-      // Tabbing into a window makes it key, so menus and shortcuts follow the keyboard too.
-      onFocus={() => {
-        if (!closing && !overview && !active) store().focus(id);
-      }}
+      onPointerDownCapture={makeKey}
+      onFocus={makeKey}
       onPointerDown={onPointerDown}
       onDoubleClick={onDoubleClick}
     >

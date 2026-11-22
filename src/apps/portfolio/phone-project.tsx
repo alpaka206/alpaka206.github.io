@@ -33,7 +33,7 @@ function ProjectToolbar({ project }: { project: Project }) {
     <Toolbar label="프로젝트 동작">
       {primary && (
         <GlassButton label={linkTitle(primary)} size={48} prominent href={primary.href} target="_blank" rel="noreferrer" className={styles.primary}>
-          <span className={styles.primaryText}>{linkTitle(primary)}</span>
+          <span className="truncate">{linkTitle(primary)}</span>
         </GlassButton>
       )}
       <GlassButton

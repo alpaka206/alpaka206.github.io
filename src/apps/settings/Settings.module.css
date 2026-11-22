@@ -16,7 +16,8 @@
   padding: 4px 0;
 }
 
-.mode {
+.mode,
+.choice {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,15 +158,6 @@
   flex-wrap: wrap;
   gap: 16px 14px;
   padding: 14px 0;
-}
-
-.choice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font: var(--mac-callout);
-  color: var(--label);
 }
 
 .choice[aria-checked='true'] .thumb {

@@ -107,7 +107,3 @@
   scale: 1.08;
   filter: brightness(0.86);
 }
-
-.lights button:focus-visible {
-  outline-offset: 1px;
-}

@@ -96,6 +96,8 @@ export interface Project {
   slug: ProjectSlug;
   /** Display title, as in the PDF page header. */
   title: string;
+  /** Label under an icon (phone Home Screen, desktop 프로젝트 widget). */
+  short: string;
   /** Descriptive Korean name used in lists and search. */
   name: string;
   group: ProjectGroupId;

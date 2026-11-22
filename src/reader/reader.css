@@ -1,13 +1,11 @@
 /* The text version. Global (not a module) because the prerendered HTML must be
-   styled before any JavaScript runs. Every selector is scoped under .reader. */
+   styled before any JavaScript runs. Every selector is scoped under .reader;
+   colour, links and Korean line breaking come from base.css, bundled with it. */
 .reader {
   max-width: 44rem;
   margin: 0 auto;
   padding: max(2.5rem, env(safe-area-inset-top)) 1.25rem 4rem;
   font: 400 1rem/1.7 var(--font-text);
-  color: var(--label);
-  word-break: keep-all;
-  overflow-wrap: anywhere;
 }
 
 .reader h1 {
@@ -49,10 +47,6 @@
   padding-left: 1.25rem;
 }
 
-.reader a {
-  color: var(--link);
-}
-
 .reader-switch {
   text-align: right;
   font-size: 0.875rem;
@@ -88,7 +82,8 @@
 .reader-meta,
 .reader-tags,
 .reader-group,
-.reader-label {
+.reader-label,
+.reader-toc span {
   font-size: 0.875rem;
   color: var(--label-2);
 }
@@ -120,18 +115,11 @@
 
 /* Portrait phone screenshots stop at a screenful instead of filling the text's width. */
 .reader-media {
-  display: block;
   width: auto;
-  max-width: 100%;
   height: auto;
   max-height: 36rem;
   margin: 1rem 0;
   border-radius: 0.75rem;
-}
-
-.reader-toc span {
-  color: var(--label-2);
-  font-size: 0.875rem;
 }
 
 /* With JavaScript the desktop or phone takes over; the prerendered copy is for crawlers and no-JS. */

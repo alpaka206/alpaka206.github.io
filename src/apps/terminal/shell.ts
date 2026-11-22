@@ -18,7 +18,7 @@ type Tone = 'dim' | 'bold' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | '
 type Span = string | { text: string; tone: Tone };
 export type Line = Span[];
 
-export const USER = 'gyuwon';
+const USER = 'gyuwon';
 const HOST = 'alpaka';
 
 export interface ShellContext {
@@ -287,7 +287,7 @@ const COMMANDS = {
 
   ls: (args, ctx) => {
     const targets = args.filter((arg) => !arg.startsWith('-'));
-    const listing = (entry: Entry) => (entry.kind === 'dir' ? columns([...entry.children].sort(byName).map(entryLabel), ctx.cols) : [[entry.name]]);
+    const listing = (entry: Entry) => (entry.kind === 'dir' ? columns(entry.children.toSorted(byName).map(entryLabel), ctx.cols) : [[entry.name]]);
     const here = entryAt(ctx.cwd);
     if (!targets.length) return { lines: here ? listing(here) : [] };
     const lines: Line[] = [];
@@ -367,8 +367,7 @@ const COMMANDS = {
     const usage = '사용법: theme <auto|light|dark>';
     if (!value) return out(`지금 화면 모드: ${APPEARANCES[ctx.appearance]} (${ctx.appearance})`, usage);
     if (!has(APPEARANCES, value)) return out(`theme: 알 수 없는 모드예요: ${value}`, usage);
-    const appearance = value;
-    return { ...out(`화면 모드를 ${withRo(APPEARANCES[appearance])} 바꿨어요.`), effect: { type: 'appearance', value: appearance } };
+    return { ...out(`화면 모드를 ${withRo(APPEARANCES[value])} 바꿨어요.`), effect: { type: 'appearance', value } };
   },
 
   wallpaper: (args, ctx) => {
@@ -380,8 +379,7 @@ const COMMANDS = {
     ]);
     if (!value) return out(...list, '', '사용법: wallpaper <id>');
     if (!has(WALLPAPERS, value)) return out(`wallpaper: 없는 배경화면이에요: ${value}`, ...list);
-    const id = value;
-    return { ...out(`배경화면을 ${withRo(WALLPAPERS[id].label)} 바꿨어요.`), effect: { type: 'wallpaper', value: id } };
+    return { ...out(`배경화면을 ${withRo(WALLPAPERS[value].label)} 바꿨어요.`), effect: { type: 'wallpaper', value } };
   },
 
   sudo: (args) => {
@@ -425,8 +423,8 @@ function pathCandidates(word: string, cwd: readonly string[], dirsOnly: boolean)
   const path = resolvePath(cwd, folder || '.');
   const dir = path && entryAt(path);
   if (!dir || dir.kind !== 'dir') return [];
-  return [...dir.children]
-    .sort(byName)
+  return dir.children
+    .toSorted(byName)
     .filter((child) => child.name.startsWith(base) && (!dirsOnly || child.kind === 'dir'))
     .map((child) => folder + child.name + (child.kind === 'dir' ? '/' : ''));
 }
@@ -441,11 +439,10 @@ function candidatesFor(words: string[], word: string, cwd: readonly string[]): s
       return pathCandidates(word, cwd, true);
     case 'cat':
       return pathCandidates(word, cwd, false);
-    case 'open':
-      return [
-        ...pathCandidates(word, cwd, false),
-        ...(word.includes('/') ? [] : starting([...PROJECTS.map((p) => p.slug), ...OPENABLE.map((app) => app.id)])),
-      ].filter((item, i, all) => all.indexOf(item) === i);
+    case 'open': {
+      const names = word.includes('/') ? [] : starting([...PROJECTS.map((p) => p.slug), ...OPENABLE.map((app) => app.id)]);
+      return [...new Set([...pathCandidates(word, cwd, false), ...names])];
+    }
     case 'theme':
       return words.length === 1 ? starting(Object.keys(APPEARANCES)) : [];
     case 'wallpaper':

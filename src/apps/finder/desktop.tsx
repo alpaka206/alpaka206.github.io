@@ -84,7 +84,7 @@ export default function FinderWindow({ windowId, props }: DesktopAppProps<'finde
   // The gallery always shows something: with nothing chosen it previews the first item, as Finder does.
   const first = list.items[0];
   const effective = view === 'gallery' && first && !selection.ids.some((id) => byId.has(id)) ? only(first.id) : selection;
-  const selected = effective.ids.map((id) => byId.get(id)).filter((item): item is FinderItem => Boolean(item));
+  const selected = effective.ids.map((id) => byId.get(id)).filter((item) => item !== undefined);
   const order = view === 'columns' ? activeColumnIds(list, effective.focus) : list.items.map((item) => item.id);
 
   /* ---------- navigation ---------- */

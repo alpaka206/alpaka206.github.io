@@ -1,5 +1,4 @@
 import {
-  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -82,7 +81,7 @@ export function MenuBar() {
   /** What had focus before the menus came down. */
   const returnTo = useRef<HTMLElement | null>(null);
 
-  const hide = useCallback(() => setOpen(null), []);
+  const hide = () => setOpen(null);
   useDismiss(current !== null, bar, hide, { escape: false });
 
   // The menus belong to the active app: when another app comes forward, whatever was down closes.

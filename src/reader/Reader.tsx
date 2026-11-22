@@ -3,7 +3,7 @@ import { SEQUENCE } from '@/apps/portfolio/toc';
 import { media, mediaUrl } from '@/media/Picture';
 import { ACTIVITIES, AWARDS, CAREER, CERTIFICATES, EDUCATION, PROFILE, SKILLS, STATS } from '@/content/profile';
 import { PROJECT_GROUPS, projectsInGroup } from '@/content/projects';
-import type { Block, Bullet, Project } from '@/content/types';
+import type { Block, Project, Stat } from '@/content/types';
 
 /**
  * The text version of the portfolio: plain semantic HTML built from the same
@@ -18,11 +18,17 @@ const oneLine = (text: string) => text.replace(/\n/g, ' ');
 /** h1 … h6: a project's sections sit one level under its title, wherever the project is shown. */
 const Heading = ({ level, id, children }: { level: number; id?: string; children: ReactNode }) => createElement(`h${Math.min(level, 6)}`, { id }, children);
 
-function BulletText({ item }: { item: Bullet }) {
-  return typeof item === 'string' ? item : (
-    <>
-      <strong>{item.strong}</strong> {item.text}
-    </>
+/** Headline numbers: the summary's, and a case study's metrics block. */
+function Metrics({ items }: { items: readonly Stat[] }) {
+  return (
+    <dl className="reader-metrics">
+      {items.map((stat) => (
+        <div key={stat.value}>
+          <dt>{stat.value}</dt>
+          <dd>{stat.label}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
@@ -61,24 +67,13 @@ function ReaderBlock({ block, level }: { block: Block; level: number }) {
           {block.title && <Heading level={level}>{block.title}</Heading>}
           <ul>
             {block.items.map((item, i) => (
-              <li key={i}>
-                <BulletText item={item} />
-              </li>
+              <li key={i}>{typeof item === 'string' ? item : <><strong>{item.strong}</strong> {item.text}</>}</li>
             ))}
           </ul>
         </>
       );
     case 'metrics':
-      return (
-        <dl className="reader-metrics">
-          {block.items.map((stat) => (
-            <div key={stat.value}>
-              <dt>{stat.value}</dt>
-              <dd>{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
-      );
+      return <Metrics items={block.items} />;
     case 'callout':
       return (
         <p className="reader-callout">
@@ -230,11 +225,11 @@ export function ReaderProject({ project, level = 3 }: { project: Project; level?
   );
 }
 
-export function Reader({ desktopHref = '/' }: { desktopHref?: string }) {
+export function Reader() {
   return (
     <div className="reader">
       <p className="reader-switch">
-        <a href={desktopHref}>데스크톱 화면으로 보기</a>
+        <a href="/">데스크톱 화면으로 보기</a>
       </p>
       <header className="reader-header">
         <h1>{PROFILE.name}</h1>
@@ -247,14 +242,7 @@ export function Reader({ desktopHref = '/' }: { desktopHref?: string }) {
 
       <section aria-labelledby="summary">
         <h2 id="summary">요약</h2>
-        <dl className="reader-metrics">
-          {STATS.map((stat) => (
-            <div key={stat.value}>
-              <dt>{stat.value}</dt>
-              <dd>{stat.label}</dd>
-            </div>
-          ))}
-        </dl>
+        <Metrics items={STATS} />
       </section>
 
       <section aria-labelledby="career">

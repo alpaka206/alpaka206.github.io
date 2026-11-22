@@ -26,13 +26,13 @@
   --cell: 63px;
   --gutter: 13px;
   --glass-blur: 30px; /* K27 medium and large panels */
-  --module: rgb(255 255 255 / 0.55);
-  --module-rim: rgb(255 255 255 / 0.6);
-  --circle: rgb(0 0 0 / 0.08);
-  --circle-hover: rgb(0 0 0 / 0.14);
-  --track: rgb(0 0 0 / 0.08);
-  --slider-fill: #fff;
-  --slider-glyph: rgb(0 0 0 / 0.55);
+  --module: light-dark(rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.08));
+  --module-rim: light-dark(rgb(255 255 255 / 0.6), rgb(255 255 255 / 0.1));
+  --circle: light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.12));
+  --circle-hover: light-dark(rgb(0 0 0 / 0.14), rgb(255 255 255 / 0.2));
+  --track: light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.1));
+  --slider-fill: light-dark(#fff, rgb(255 255 255 / 0.9));
+  --slider-glyph: light-dark(rgb(0 0 0 / 0.55), rgb(0 0 0 / 0.6));
 
   display: grid;
   grid-template-columns: repeat(4, var(--cell));
@@ -43,16 +43,6 @@
   padding: var(--gutter);
   overflow-y: auto;
   color: var(--label);
-}
-
-:root[data-theme='dark'] .panel {
-  --module: rgb(255 255 255 / 0.08);
-  --module-rim: rgb(255 255 255 / 0.1);
-  --circle: rgb(255 255 255 / 0.12);
-  --circle-hover: rgb(255 255 255 / 0.2);
-  --track: rgb(255 255 255 / 0.1);
-  --slider-fill: rgb(255 255 255 / 0.9);
-  --slider-glyph: rgb(0 0 0 / 0.6);
 }
 
 .module {
@@ -246,10 +236,4 @@
 
 .wallpaper[aria-checked='true'] .thumb {
   box-shadow: 0 0 0 2.5px var(--accent);
-}
-
-.wallpaperName {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

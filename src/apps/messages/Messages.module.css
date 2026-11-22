@@ -74,11 +74,7 @@
 }
 
 .preview {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
+  composes: clamp-2 from global;
 }
 
 /* ---------- toolbar ---------- */
@@ -328,9 +324,7 @@
 }
 
 .cardTitle {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  composes: truncate from global;
   font: var(--mac-headline);
 }
 

@@ -31,10 +31,8 @@
 }
 
 .title {
+  composes: truncate from global;
   margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   font: 700 13px/16px var(--font-text);
   color: rgb(255 255 255 / 0.4);
 }
@@ -111,7 +109,6 @@
   border: 0;
   outline: none;
   background: none;
-  font: inherit;
   color: transparent;
   caret-color: transparent;
   opacity: 0;

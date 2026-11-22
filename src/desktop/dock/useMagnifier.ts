@@ -104,28 +104,22 @@ export function useMagnifier(slots: readonly Slot[], m: DockMetrics, enabled: bo
   );
 
   /** The item the name label points at (hover or keyboard focus); -1 hides it. */
-  const setLabelTarget = useCallback(
-    (index: number) => {
-      live.current.labelIndex = index;
-      schedule();
-    },
-    [schedule],
-  );
-  const onPointerMove = useCallback(
-    (event: ReactPointerEvent<HTMLElement>) => {
-      if (!enabled || event.pointerType === 'touch') return;
-      const s = live.current;
-      // The Dock's own box never moves sideways, so its left edge is a stable origin.
-      if (s.target === 0) s.origin = event.currentTarget.getBoundingClientRect().left;
-      s.pointer = event.clientX - s.origin;
-      if (s.target !== 1) springTo(1, GROW);
-      else schedule();
-    },
-    [enabled, springTo, schedule],
-  );
-  const onPointerLeave = useCallback(() => {
+  const setLabelTarget = (index: number) => {
+    live.current.labelIndex = index;
+    schedule();
+  };
+  const onPointerMove = (event: ReactPointerEvent<HTMLElement>) => {
+    if (!enabled || event.pointerType === 'touch') return;
+    const s = live.current;
+    // The Dock's own box never moves sideways, so its left edge is a stable origin.
+    if (s.target === 0) s.origin = event.currentTarget.getBoundingClientRect().left;
+    s.pointer = event.clientX - s.origin;
+    if (s.target !== 1) springTo(1, GROW);
+    else schedule();
+  };
+  const onPointerLeave = () => {
     if (enabled) springTo(0, SETTLE);
-  }, [enabled, springTo]);
+  };
 
   return { itemRefs, artRefs, shelfRef, zoneRef, labelRef, setLabelTarget, onPointerMove, onPointerLeave };
 }

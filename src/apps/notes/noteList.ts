@@ -1,4 +1,5 @@
 import type { Note } from '@/content/notes';
+import { formatTime } from '@/lib/format';
 import { matchesAny } from '@/os/search';
 
 /**
@@ -16,7 +17,7 @@ function daysBefore(date: Date, now: Date) {
 }
 
 export const newestFirst = (notes: readonly Note[]) =>
-  [...notes].sort((a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime());
+  notes.toSorted((a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime());
 
 export function groupLabel(iso: string, now: Date): string {
   const date = new Date(iso);
@@ -29,18 +30,10 @@ export function groupLabel(iso: string, now: Date): string {
   return `${date.getFullYear()}년`;
 }
 
-export function groupByDate(notes: readonly Note[], now: Date): { label: string; notes: Note[] }[] {
-  const groups: { label: string; notes: Note[] }[] = [];
-  for (const note of newestFirst(notes)) {
-    const label = groupLabel(note.updated, now);
-    const last = groups.at(-1);
-    if (last?.label === label) last.notes.push(note);
-    else groups.push({ label, notes: [note] });
-  }
-  return groups;
-}
+/** Newest first, the labels only ever get older, so each one is a single run. */
+export const groupByDate = (notes: readonly Note[], now: Date) =>
+  [...Map.groupBy(newestFirst(notes), (note) => groupLabel(note.updated, now))].map(([label, notes]) => ({ label, notes }));
 
-const time = new Intl.DateTimeFormat('ko-KR', { hour: 'numeric', minute: '2-digit' });
 const weekday = new Intl.DateTimeFormat('ko-KR', { weekday: 'long' });
 const short = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' });
 
@@ -48,7 +41,7 @@ const short = new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: 'numeri
 export function listDate(iso: string, now: Date): string {
   const date = new Date(iso);
   const days = daysBefore(date, now);
-  if (days <= 0) return time.format(date);
+  if (days <= 0) return formatTime(date);
   if (days === 1) return '어제';
   if (days < 7) return weekday.format(date);
   return short.format(date);
@@ -59,12 +52,3 @@ export const previewOf = (note: Note) => note.sections.flatMap((section) => sect
 
 export const matchesNote = (note: Note, query: string) =>
   matchesAny(query, [note.title, ...note.sections.flatMap((section) => [section.heading ?? '', ...section.lines])]);
-
-/** A line that is nothing but a web address ("github.com/alpaka206/…") is a link, as Notes detects them. */
-const WEB_ADDRESS = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i;
-
-/** Where such a line links to, or null for ordinary text. */
-export function linkOf(line: string): string | null {
-  if (!WEB_ADDRESS.test(line)) return null;
-  return /^https?:\/\//i.test(line) ? line : `https://${line}`;
-}

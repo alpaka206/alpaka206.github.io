@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
-import { CAREER, PROFILE, STATS } from '@/content/profile';
-import { FEATURED, getProject } from '@/content/projects';
-import type { ProjectSlug } from '@/content/types';
+import type { CSSProperties, ReactNode } from 'react';
+import { AWARDS, CAREER, PROFILE, STATS } from '@/content/profile';
+import { getProject } from '@/content/projects';
+import { SEQUENCE } from '@/apps/portfolio/toc';
+import type { MediaKey, ProjectSlug } from '@/content/types';
 import { Picture } from '@/media/Picture';
 import type { AppId, AppProps } from '@/os/apps';
 import { toRect, useWindows } from '@/os/windows';
@@ -13,12 +14,12 @@ import styles from './Widgets.module.css';
  * Desktop widgets, top-left like macOS places them. macOS publishes no widget
  * sizes (macos.md §17), so these use WidgetKit's Mac families: small 170 × 170,
  * medium 364 × 170, large 364 × 382, corner radius ≈22, 16 pt content margins.
- * While an app is in front they turn vibrant (desaturated into the wallpaper),
- * and full colour again once the desktop is clicked, as on macOS 14 and later.
+ * They stay in full colour (macOS's 위젯 스타일: 전체 색상). Wide screens get a
+ * third column with the work itself, so the room left of the desktop icons is not bare.
  */
-export function Widgets({ vibrant }: { vibrant: boolean }) {
+export function Widgets() {
   return (
-    <div className={styles.widgets} data-vibrant={vibrant || undefined}>
+    <div className={styles.widgets}>
       <div className={styles.column}>
         <ProfileWidget />
         <div className={styles.stats}>
@@ -29,7 +30,11 @@ export function Widgets({ vibrant }: { vibrant: boolean }) {
       </div>
       <div className={styles.column}>
         <NowWidget />
-        <FeaturedWidget />
+        <ProjectsWidget />
+      </div>
+      <div className={`${styles.column} ${styles.extra}`}>
+        <WorkWidget />
+        <AwardsWidget />
       </div>
     </div>
   );
@@ -111,27 +116,78 @@ function NowWidget() {
   );
 }
 
-function FeaturedWidget() {
+/** The case studies as a folder of apps: logos only, each opening its page in a window. */
+function ProjectsWidget() {
   return (
-    <Widget size="large" label="대표 프로젝트">
-      <h2 className={styles.eyebrow}>대표 프로젝트</h2>
-      <ul className={styles.featured}>
-        {FEATURED.map((slug) => {
-          const project = getProject(slug);
-          if (!project) return null;
-          return (
-            <li key={slug}>
-              <button type="button" className={styles.row} onClick={opens('portfolio', { slug })}>
-                <AppIcon icon={project.icon} size={34} />
-                <span className={styles.rowText}>
-                  <b className="truncate">{project.name}</b>
-                  <span className="truncate">{project.highlight}</span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
+    <Widget size="large" label="프로젝트">
+      <h2 className={styles.eyebrow}>프로젝트</h2>
+      <ul className={styles.apps}>
+        {SEQUENCE.map((project) => (
+          <li key={project.slug}>
+            <button type="button" className={styles.app} aria-label={project.name} onClick={opens('portfolio', { slug: project.slug })}>
+              <AppIcon icon={project.icon} size={52} className={styles.appIcon} />
+              <span className="truncate">{project.short}</span>
+            </button>
+          </li>
+        ))}
+        <li>
+          <button type="button" className={styles.app} onClick={opens('finder', { location: 'projects' })}>
+            <Picture src="system/folder" alt="" sizes="52px" className={styles.folder} />
+            <span className="truncate">모두 보기</span>
+          </button>
+        </li>
       </ul>
+    </Widget>
+  );
+}
+
+/** The services' own screens, as the Photos widget shows a few pictures: the desktop's colour. */
+const WORK: { src: MediaKey; slug: ProjectSlug }[] = [
+  { src: 'screens/mearri', slug: 'mearri' },
+  { src: 'screens/harucut', slug: 'harucut' },
+  { src: 'screens/comatching', slug: 'comatching' },
+  { src: 'screens/alarmtalk', slug: 'alarmtalk' },
+];
+
+function WorkWidget() {
+  return (
+    <Widget size="large" label="작업 화면" className={styles.work}>
+      {WORK.map(({ src, slug }) => {
+        const project = getProject(slug);
+        if (!project) return null;
+        return (
+          <button key={slug} type="button" className={styles.tile} onClick={opens('portfolio', { slug })}>
+            <Picture src={src} alt="" sizes="172px" className={styles.tileImage} />
+            <span className={styles.tileLabel}>{project.title}</span>
+          </button>
+        );
+      })}
+    </Widget>
+  );
+}
+
+function AwardsWidget() {
+  const latest = AWARDS[0]!;
+  return (
+    <Widget size="medium" label="수상">
+      <button type="button" className={styles.awards} onClick={opens('finder', { location: 'awards' })}>
+        <span className={styles.awardsText}>
+          <span className={styles.eyebrowAccent}>수상</span>
+          <span className={styles.company}>{AWARDS.length}건</span>
+          <span className={`${styles.caption} clamp-2`}>
+            {latest.date}, {latest.title}
+          </span>
+        </span>
+        <span className={styles.certificates} aria-hidden="true">
+          {AWARDS.slice(0, 3)
+            .toReversed()
+            .map((award, i) => (
+              <span key={award.title} className={styles.certificate} style={{ '--fan': i - 1 } as CSSProperties}>
+                <Picture src={award.images[0]!} alt="" sizes="78px" className={styles.certificateImage} />
+              </span>
+            ))}
+        </span>
+      </button>
     </Widget>
   );
 }

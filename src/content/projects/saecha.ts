@@ -3,6 +3,7 @@ import type { Project } from '../types';
 export const saecha: Project = {
   slug: 'saecha',
   title: '새차처럼',
+  short: '새차처럼',
   name: '새차처럼 손세차 예약',
   group: 'team',
   meta: '팀 프로젝트 / 2022.10 - 2023.08',

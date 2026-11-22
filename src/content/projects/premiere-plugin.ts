@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const premierePlugin: Project = {
   slug: 'premiere-plugin',
   title: 'Premiere Pro Plugin',
+  short: 'Premiere',
   name: 'Adobe Premiere Pro AI 더빙 플러그인',
   group: 'estsoft',
   meta: '이스트소프트 / 서비스 중',

@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const salesAutomation: Project = {
   slug: 'sales-automation',
   title: 'Sales Automation',
+  short: 'Sales 자동화',
   name: 'B2B 고객 문의와 세일즈 자동화',
   group: 'estsoft',
   meta: '이스트소프트 / Dubbing실',

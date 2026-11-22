@@ -48,7 +48,7 @@ export const SYSTEM_MENU: MenuEntry[] = [
   { label: `${PROFILE.name} 로그아웃…`, command: 'system.logout', shortcut: '⇧⌘Q' },
 ];
 
-function appMenu(app: AppId, extra: MenuEntry[] = [], quittable = true): Menu {
+function appMenu(app: AppId): Menu {
   const name = APPS[app].name;
   return {
     title: name,
@@ -56,14 +56,14 @@ function appMenu(app: AppId, extra: MenuEntry[] = [], quittable = true): Menu {
       { label: `${name}에 관하여`, command: 'app.about' },
       sep,
       { label: '설정…', command: 'app.settings', shortcut: '⌘,' },
-      ...extra,
       sep,
       { label: '서비스' },
       sep,
       { label: `${name} 가리기`, command: 'app.hide', shortcut: '⌘H' },
       { label: '기타 가리기', command: 'app.hideOthers', shortcut: '⌥⌘H' },
       { label: '모두 보기', command: 'app.showAll' },
-      ...(quittable ? [sep, { label: `${name} 종료`, command: 'app.quit', shortcut: '⌘Q' }] : []),
+      sep,
+      { label: `${name} 종료`, command: 'app.quit', shortcut: '⌘Q' },
     ],
   };
 }
@@ -113,10 +113,13 @@ const help = (app: AppId): Menu => ({
   ],
 });
 
+const closeWindow: MenuItem = { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' };
+const fileMenu: Menu = { title: '파일', items: [closeWindow] };
 const viewFullScreen: MenuEntry = { label: '전체 화면 시작', command: 'view.fullScreen', shortcut: '⌃⌘F' };
+const viewMenu: Menu = { title: '보기', items: [viewFullScreen] };
 
-const MENUS: Record<AppId, () => Menu[]> = {
-  finder: () => [
+const MENUS: Record<AppId, Menu[]> = {
+  finder: [
     {
       title: 'Finder',
       items: [
@@ -137,7 +140,7 @@ const MENUS: Record<AppId, () => Menu[]> = {
         { label: '새로운 Finder 윈도우', command: 'finder.newWindow', shortcut: '⌘N' },
         { label: '새로운 폴더', shortcut: '⇧⌘N' },
         { label: '열기', command: 'finder.open', shortcut: '⌘O' },
-        { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' },
+        closeWindow,
         sep,
         { label: '정보 가져오기', command: 'finder.getInfo', shortcut: '⌘I' },
         { label: '훑어보기', command: 'finder.quickLook', shortcut: '⌘Y' },
@@ -179,12 +182,12 @@ const MENUS: Record<AppId, () => Menu[]> = {
     windowMenu,
     help('finder'),
   ],
-  portfolio: () => [
+  portfolio: [
     appMenu('portfolio'),
     {
       title: '파일',
       items: [
-        { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' },
+        closeWindow,
         sep,
         { label: '링크 복사', command: 'portfolio.copyLink' },
         { label: 'PDF 쪽으로 보기', command: 'portfolio.openPdf' },
@@ -203,35 +206,14 @@ const MENUS: Record<AppId, () => Menu[]> = {
     windowMenu,
     help('portfolio'),
   ],
-  about: () => [appMenu('about'), { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] }, edit, windowMenu, help('about')],
-  messages: () => [
-    appMenu('messages'),
-    { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] },
-    edit,
-    { title: '보기', items: [viewFullScreen] },
-    { title: '대화', items: [{ label: '대화 처음부터', command: 'messages.restart' }] },
-    windowMenu,
-    help('messages'),
-  ],
-  mail: () => [
-    appMenu('mail'),
-    { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] },
-    edit,
-    { title: '메시지', items: [{ label: '보내기', command: 'mail.send', shortcut: '⇧⌘D' }] },
-    windowMenu,
-    help('mail'),
-  ],
-  photos: () => [appMenu('photos'), { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] }, edit, { title: '보기', items: [viewFullScreen] }, windowMenu, help('photos')],
-  notes: () => [appMenu('notes'), { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] }, edit, { title: '보기', items: [viewFullScreen] }, windowMenu, help('notes')],
-  safari: () => [
+  about: [appMenu('about'), fileMenu, edit, windowMenu, help('about')],
+  messages: [appMenu('messages'), fileMenu, edit, viewMenu, { title: '대화', items: [{ label: '대화 처음부터', command: 'messages.restart' }] }, windowMenu, help('messages')],
+  mail: [appMenu('mail'), fileMenu, edit, { title: '메시지', items: [{ label: '보내기', command: 'mail.send', shortcut: '⇧⌘D' }] }, windowMenu, help('mail')],
+  photos: [appMenu('photos'), fileMenu, edit, viewMenu, windowMenu, help('photos')],
+  notes: [appMenu('notes'), fileMenu, edit, viewMenu, windowMenu, help('notes')],
+  safari: [
     appMenu('safari'),
-    {
-      title: '파일',
-      items: [
-        { label: '위치 열기…', command: 'safari.openLocation', shortcut: '⌘L' },
-        { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' },
-      ],
-    },
+    { title: '파일', items: [{ label: '위치 열기…', command: 'safari.openLocation', shortcut: '⌘L' }, closeWindow] },
     edit,
     { title: '보기', items: [{ label: '페이지 다시 로드', command: 'safari.reload', shortcut: '⌘R' }, sep, viewFullScreen] },
     {
@@ -246,28 +228,22 @@ const MENUS: Record<AppId, () => Menu[]> = {
     windowMenu,
     help('safari'),
   ],
-  github: () => [appMenu('github'), { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] }, edit, windowMenu, help('github')],
-  blog: () => [appMenu('blog'), { title: '파일', items: [{ label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' }] }, edit, { title: '보기', items: [{ label: '페이지 다시 로드', command: 'safari.reload', shortcut: '⌘R' }] }, windowMenu, help('blog')],
-  terminal: () => [
+  github: [appMenu('github'), fileMenu, edit, windowMenu, help('github')],
+  blog: [appMenu('blog'), fileMenu, edit, { title: '보기', items: [{ label: '페이지 다시 로드', command: 'safari.reload', shortcut: '⌘R' }] }, windowMenu, help('blog')],
+  terminal: [
     appMenu('terminal'),
-    {
-      title: '셸',
-      items: [
-        { label: '새로운 윈도우', command: 'terminal.new', shortcut: '⌘N' },
-        { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' },
-      ],
-    },
+    { title: '셸', items: [{ label: '새로운 윈도우', command: 'terminal.new', shortcut: '⌘N' }, closeWindow] },
     { ...edit, items: [...edit.items, sep, { label: '버퍼 지우기', command: 'terminal.clear', shortcut: '⌘K' }] },
-    { title: '보기', items: [viewFullScreen] },
+    viewMenu,
     windowMenu,
     help('terminal'),
   ],
-  preview: () => [
+  preview: [
     appMenu('preview'),
     {
       title: '파일',
       items: [
-        { label: '윈도우 닫기', command: 'window.close', shortcut: '⌘W' },
+        closeWindow,
         sep,
         { label: 'PDF 내려받기', command: 'preview.download', shortcut: '⌘S' },
         { label: '프린트…', command: 'preview.print', shortcut: '⌘P' },
@@ -296,8 +272,8 @@ const MENUS: Record<AppId, () => Menu[]> = {
     help('preview'),
   ],
   // System Settings has no 파일 menu; its 윈도우 menu starts with 닫기 (⌘W).
-  settings: () => [
-    appMenu('settings', [], true),
+  settings: [
+    appMenu('settings'),
     edit,
     { title: '보기', items: [{ label: '검색', command: 'edit.find', shortcut: '⌘F' }] },
     { ...windowMenu, items: [{ label: '닫기', command: 'window.close', shortcut: '⌘W' }, ...windowMenu.items] },
@@ -305,7 +281,7 @@ const MENUS: Record<AppId, () => Menu[]> = {
   ],
 };
 
-export const menusFor = (app: AppId): Menu[] => MENUS[app]();
+export const menusFor = (app: AppId): Menu[] => MENUS[app];
 
 /** Every enabled item with a shortcut, for the keyboard handler. */
 export function keyEquivalents(menus: Menu[]): { shortcut: string; command: string; menuTitle: string }[] {

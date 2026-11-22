@@ -1,4 +1,4 @@
-import { useSyncExternalStore, type FocusEvent, type KeyboardEvent, type MouseEvent } from 'react';
+import { useLayoutEffect, useSyncExternalStore, type FocusEvent, type KeyboardEvent, type MouseEvent, type RefObject } from 'react';
 import type { FinderItem, Listing } from './items';
 import { click, moveTo, only, type Selection } from './selection';
 import { canvasMeasure, clearMeasureCache, type Measure } from './truncate';
@@ -20,6 +20,13 @@ export const itemElement = (root: ParentNode | null | undefined, id: string) =>
 
 /** DOM id for aria-activedescendant; prefixed per view so two windows never collide. */
 export const optionId = (prefix: string, itemId: string) => `${prefix}-${itemId.replace(/[^\w-]/g, '_')}`;
+
+/** Scrolls the item the keyboard is on into view as the selection moves. */
+export function useRevealFocus(root: RefObject<HTMLElement | null>, focus: string | null) {
+  useLayoutEffect(() => {
+    if (focus) itemElement(root.current, focus)?.scrollIntoView({ block: 'nearest' });
+  }, [root, focus]);
+}
 
 /**
  * Pointer selection as Finder does it: select on mouse down so a press

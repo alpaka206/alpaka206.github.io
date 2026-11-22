@@ -33,7 +33,7 @@ export const rectOf = (element: Element, r: number): Rect => ({ ...toRect(elemen
 export const isOnScreen = (rect: Rect, width: number, height: number) =>
   rect.w > 0 && rect.x + rect.w > 0 && rect.x < width && rect.y + rect.h > 0 && rect.y < height;
 
-export interface Frame {
+interface Frame {
   transform: string;
   clipPath: string;
   /** Top of the visible band in the layer's own (unscaled) pixels. */

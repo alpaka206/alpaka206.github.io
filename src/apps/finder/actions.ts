@@ -1,7 +1,7 @@
 import type { QuickLookItem } from '@/desktop/quicklook/quickLook';
 import { parseRoute, pathFor } from '@/os/routes';
 import { useWindows, type Rect } from '@/os/windows';
-import { COMMITS_URL, type FinderItem, type Place } from './items';
+import { COMMITS_URL, isTagPlace, type FinderItem, type Place } from './items';
 import { shareUrl } from './share';
 
 /** What Quick Look can show for an item; folders, apps and the trash have no preview there. */
@@ -42,8 +42,8 @@ export function linkFor(item: FinderItem): string | null {
 
 /** Only places with a route of their own (프로젝트, 수상, 문서) can be shared. */
 export function placeLink(place: Place): string | null {
-  if (place.startsWith('tag:')) return null;
-  const path = pathFor('finder', { location: place as Exclude<Place, `tag:${string}`> });
+  if (isTagPlace(place)) return null;
+  const path = pathFor('finder', { location: place });
   const route = parseRoute(path);
   return route?.kind === 'app' && (route.props as { location?: string }).location === place ? shareUrl(path) : null;
 }

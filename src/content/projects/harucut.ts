@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const harucut: Project = {
   slug: 'harucut',
   title: 'Harucut / 하루컷',
+  short: '하루컷',
   name: '온라인 네컷 사진 서비스 하루컷',
   group: 'live',
   meta: '운영 중인 서비스 / 2024.07 - 현재 / harucut.com',

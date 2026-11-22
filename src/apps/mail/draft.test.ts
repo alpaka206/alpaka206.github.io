@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mailtoHref } from './mailto';
+import { mailtoHref } from './draft';
 
 describe('mailtoHref', () => {
   it('encodes Korean, spaces, & and line breaks', () => {

@@ -43,12 +43,12 @@ export interface AppProps {
   settings: { pane?: SettingsPane };
 }
 
-export interface Size {
+interface Size {
   w: number;
   h: number;
 }
 
-export interface AppMeta {
+interface AppMeta {
   id: AppId;
   /** Name in the menu bar and under Dock tooltips, as Korean macOS shows it. */
   name: string;
@@ -66,22 +66,20 @@ export interface AppMeta {
   chrome?: 'unified' | 'titlebar';
 }
 
-const meta = (m: AppMeta) => m;
-
 export const APPS: Record<AppId, AppMeta> = {
-  finder: meta({ id: 'finder', name: 'Finder', icon: 'icons/projects', singleton: false, defaultSize: { w: 920, h: 560 }, minSize: { w: 560, h: 320 }, phoneName: '프로젝트' }),
-  portfolio: meta({ id: 'portfolio', name: '포트폴리오', icon: 'icons/portfolio', singleton: false, defaultSize: { w: 1040, h: 720 }, minSize: { w: 640, h: 420 } }),
-  about: meta({ id: 'about', name: '소개', icon: 'icons/about', singleton: true, defaultSize: { w: 820, h: 600 }, minSize: { w: 620, h: 420 } }),
-  messages: meta({ id: 'messages', name: '메시지', icon: 'icons/messages', singleton: true, defaultSize: { w: 900, h: 640 }, minSize: { w: 620, h: 420 } }),
-  mail: meta({ id: 'mail', name: 'Mail', icon: 'icons/mail', singleton: true, defaultSize: { w: 640, h: 560 }, minSize: { w: 480, h: 360 }, phoneName: '메일' }),
-  photos: meta({ id: 'photos', name: '사진', icon: 'icons/photos', singleton: true, defaultSize: { w: 1040, h: 700 }, minSize: { w: 640, h: 420 } }),
-  notes: meta({ id: 'notes', name: '메모', icon: 'icons/notes', singleton: true, defaultSize: { w: 900, h: 600 }, minSize: { w: 600, h: 380 } }),
-  safari: meta({ id: 'safari', name: 'Safari', icon: 'icons/web', singleton: true, defaultSize: { w: 1120, h: 740 }, minSize: { w: 600, h: 400 } }),
-  github: meta({ id: 'github', name: 'GitHub', icon: 'icons/github', singleton: true, defaultSize: { w: 1000, h: 700 }, minSize: { w: 600, h: 420 } }),
-  blog: meta({ id: 'blog', name: '블로그', icon: 'icons/blog', singleton: true, defaultSize: { w: 1100, h: 740 }, minSize: { w: 600, h: 420 } }),
-  terminal: meta({ id: 'terminal', name: '터미널', icon: 'icons/terminal', chrome: 'titlebar', singleton: true, defaultSize: { w: 760, h: 480 }, minSize: { w: 420, h: 260 } }),
-  preview: meta({ id: 'preview', name: '미리보기', icon: 'icons/resume', singleton: true, defaultSize: { w: 1120, h: 760 }, minSize: { w: 600, h: 420 }, phoneName: '포트폴리오 PDF' }),
-  settings: meta({ id: 'settings', name: '시스템 설정', icon: 'icons/settings', singleton: true, defaultSize: { w: 820, h: 620 }, minSize: { w: 680, h: 420 }, phoneName: '설정' }),
+  finder: { id: 'finder', name: 'Finder', icon: 'icons/projects', singleton: false, defaultSize: { w: 920, h: 560 }, minSize: { w: 560, h: 320 }, phoneName: '프로젝트' },
+  portfolio: { id: 'portfolio', name: '포트폴리오', icon: 'icons/portfolio', singleton: false, defaultSize: { w: 1040, h: 720 }, minSize: { w: 640, h: 420 } },
+  about: { id: 'about', name: '소개', icon: 'icons/about', singleton: true, defaultSize: { w: 820, h: 600 }, minSize: { w: 620, h: 420 } },
+  messages: { id: 'messages', name: '메시지', icon: 'icons/messages', singleton: true, defaultSize: { w: 900, h: 640 }, minSize: { w: 620, h: 420 } },
+  mail: { id: 'mail', name: 'Mail', icon: 'icons/mail', singleton: true, defaultSize: { w: 640, h: 560 }, minSize: { w: 480, h: 360 }, phoneName: '메일' },
+  photos: { id: 'photos', name: '사진', icon: 'icons/photos', singleton: true, defaultSize: { w: 1040, h: 700 }, minSize: { w: 640, h: 420 } },
+  notes: { id: 'notes', name: '메모', icon: 'icons/notes', singleton: true, defaultSize: { w: 900, h: 600 }, minSize: { w: 600, h: 380 } },
+  safari: { id: 'safari', name: 'Safari', icon: 'icons/web', singleton: true, defaultSize: { w: 1120, h: 740 }, minSize: { w: 600, h: 400 } },
+  github: { id: 'github', name: 'GitHub', icon: 'icons/github', singleton: true, defaultSize: { w: 1000, h: 700 }, minSize: { w: 600, h: 420 } },
+  blog: { id: 'blog', name: '블로그', icon: 'icons/blog', singleton: true, defaultSize: { w: 1100, h: 740 }, minSize: { w: 600, h: 420 } },
+  terminal: { id: 'terminal', name: '터미널', icon: 'icons/terminal', chrome: 'titlebar', singleton: true, defaultSize: { w: 760, h: 480 }, minSize: { w: 420, h: 260 } },
+  preview: { id: 'preview', name: '미리보기', icon: 'icons/resume', singleton: true, defaultSize: { w: 1120, h: 760 }, minSize: { w: 600, h: 420 }, phoneName: '포트폴리오 PDF' },
+  settings: { id: 'settings', name: '시스템 설정', icon: 'icons/settings', singleton: true, defaultSize: { w: 820, h: 620 }, minSize: { w: 680, h: 420 }, phoneName: '설정' },
 };
 
 /** Pinned to the Dock, left to right; `null` draws a divider. */

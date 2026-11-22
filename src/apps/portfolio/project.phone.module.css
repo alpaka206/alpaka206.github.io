@@ -66,10 +66,6 @@
   min-width: 0;
 }
 
-.primaryText {
-  composes: truncate from global;
-}
-
 .trailing {
   margin-left: auto;
 }

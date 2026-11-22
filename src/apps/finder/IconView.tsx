@@ -1,10 +1,10 @@
-import { useId, useLayoutEffect, useMemo, useRef, type CSSProperties, type KeyboardEvent } from 'react';
+import { useId, useMemo, useRef, type CSSProperties, type KeyboardEvent } from 'react';
 import { toRect } from '@/os/windows';
 import { ItemIcon } from './ItemIcon';
 import type { FinderItem } from './items';
 import { neighbor, NONE } from './selection';
 import { iconLabelLines } from './truncate';
-import { itemElement, navigate, optionId, pointerHandlers, selectFirstOnFocus, useLabelMeasure, type ViewProps } from './viewShared';
+import { itemElement, navigate, optionId, pointerHandlers, selectFirstOnFocus, useLabelMeasure, useRevealFocus, type ViewProps } from './viewShared';
 import styles from './IconView.module.css';
 
 /**
@@ -25,10 +25,7 @@ export function IconView(props: ViewProps) {
   const root = useRef<HTMLDivElement>(null);
   const order = useMemo(() => list.items.map((item) => item.id), [list.items]);
   const measure = useLabelMeasure(LABEL_FONT);
-
-  useLayoutEffect(() => {
-    if (selection.focus) itemElement(root.current, selection.focus)?.scrollIntoView({ block: 'nearest' });
-  }, [selection.focus]);
+  useRevealFocus(root, selection.focus);
 
   const onKeyDown = (event: KeyboardEvent) =>
     navigate(event, props, order, (from, key) => {

@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const imageQa: Project = {
   slug: 'image-qa',
   title: 'Image QA Console',
+  short: '이미지 QA',
   name: '삼성 샵앱 31개국 이미지 QA 운영 시스템',
   group: 'ptkorea',
   meta: '펑타이그레이터차이나 / 2024.12 - 2025.09',

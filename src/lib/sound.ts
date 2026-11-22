@@ -5,7 +5,7 @@ import { useSettings } from '@/os/settings';
  * borrowed from a real OS. Browsers only allow audio after a user gesture, and
  * every sound here follows one (signing in, clicking, dropping in the Trash).
  */
-export type Sound = 'startup' | 'pop' | 'tick';
+type Sound = 'startup' | 'pop' | 'tick';
 
 let context: AudioContext | undefined;
 

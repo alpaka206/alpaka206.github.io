@@ -17,19 +17,13 @@
 
 .card {
   /* K27 notification glass: a light, lightly blurred tint (blur 15) with a 0.3 pt rim. */
-  --glass-tint: rgb(255 255 255 / 0.5);
+  --glass-tint: light-dark(rgb(255 255 255 / 0.5), rgb(40 40 40 / 0.5));
   --glass-blur: 15px;
-  --glass-shadow: 0 4px 16px rgb(0 0 0 / 0.1), 0 0 0 0.3px #ababab;
-  --close: rgb(246 246 246 / 0.92);
+  --glass-shadow: 0 4px 16px rgb(0 0 0 / 0.1), 0 0 0 0.3px light-dark(#ababab, rgb(255 255 255 / 0.18));
+  --close: light-dark(rgb(246 246 246 / 0.92), rgb(70 70 70 / 0.92));
 
   width: var(--mac-notification-width);
   color: var(--label);
-}
-
-:root[data-theme='dark'] .card {
-  --glass-tint: rgb(40 40 40 / 0.5);
-  --glass-shadow: 0 4px 16px rgb(0 0 0 / 0.1), 0 0 0 0.3px rgb(255 255 255 / 0.18);
-  --close: rgb(70 70 70 / 0.92);
 }
 
 .cardBody {
@@ -45,12 +39,7 @@
 /* Pointer feedback on what opens something: the glass lightens, as on the desktop widgets' rows. */
 button.cardBody:hover,
 .stat:enabled:hover {
-  background: rgb(255 255 255 / 0.22);
-}
-
-:root[data-theme='dark'] button.cardBody:hover,
-:root[data-theme='dark'] .stat:enabled:hover {
-  background: rgb(255 255 255 / 0.08);
+  background: light-dark(rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.08));
 }
 
 .icon {
@@ -141,15 +130,11 @@ button.cardBody:hover,
 /* Small and medium widgets: 164 pt tall, two small ones per 344 pt row. Apple publishes no
    macOS widget radius (§17); 22 is the stacked notification card's. */
 .widget {
-  --glass-tint: rgb(255 255 255 / 0.5);
+  --glass-tint: light-dark(rgb(255 255 255 / 0.5), rgb(40 40 40 / 0.5));
   --glass-blur: 30px;
   height: 164px;
   padding: 12px 14px;
   color: var(--label);
-}
-
-:root[data-theme='dark'] .widget {
-  --glass-tint: rgb(40 40 40 / 0.5);
 }
 
 .stats {

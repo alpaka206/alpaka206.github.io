@@ -1,10 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CACHE_TTL, fetchSnapshot, GitHubError, languageColor, readCache, updatedLabel, writeCache, type Snapshot } from './api';
-
-const memory = () => {
-  const items = new Map<string, string>();
-  return { getItem: (key: string) => items.get(key) ?? null, setItem: (key: string, value: string) => void items.set(key, value) };
-};
+import { CACHE_TTL, fetchSnapshot, GitHubError, languageColor, readCache, updatedLabel, type Snapshot } from './api';
 
 const snapshot: Snapshot = {
   profile: { login: 'alpaka206', name: null, avatarUrl: '', url: '', bio: null, followers: 0, following: 0, publicRepos: 0 },
@@ -14,14 +9,14 @@ const snapshot: Snapshot = {
 
 describe('cache', () => {
   it('serves a snapshot for ten minutes, then asks again', () => {
-    const storage = memory();
-    writeCache(storage, snapshot);
-    expect(readCache(storage, 1_000 + CACHE_TTL - 1)).toEqual(snapshot);
-    expect(readCache(storage, 1_000 + CACHE_TTL)).toBeNull();
+    const stored = JSON.stringify(snapshot);
+    expect(readCache(stored, 1_000 + CACHE_TTL - 1)).toEqual(snapshot);
+    expect(readCache(stored, 1_000 + CACHE_TTL)).toBeNull();
   });
 
-  it('ignores a damaged entry', () => {
-    expect(readCache({ getItem: () => '{oops' }, 0)).toBeNull();
+  it('ignores a missing or damaged entry', () => {
+    expect(readCache(null, 0)).toBeNull();
+    expect(readCache('{oops', 0)).toBeNull();
   });
 });
 

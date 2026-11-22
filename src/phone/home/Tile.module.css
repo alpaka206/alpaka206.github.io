@@ -5,8 +5,6 @@
   align-items: center;
   gap: var(--ios-icon-label-gap);
   width: var(--ios-icon);
-  color: #fff;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .icon {

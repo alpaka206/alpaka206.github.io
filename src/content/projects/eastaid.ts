@@ -4,6 +4,7 @@ import type { Project } from '../types';
 export const eastaid: Project = {
   slug: 'eastaid',
   title: '이스트에이드',
+  short: '이스트에이드',
   name: '이스트에이드 AI 프로덕트 연구소',
   group: 'eastaid',
   meta: 'AI 프로덕트 연구소 / 계약직 / 팀원',

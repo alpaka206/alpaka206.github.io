@@ -191,10 +191,8 @@
 }
 
 .placeholder {
-  overflow: hidden;
+  composes: truncate from global;
   font: 500 13px/16px var(--font-text);
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: rgb(255 255 255 / 0.7);
 }
 

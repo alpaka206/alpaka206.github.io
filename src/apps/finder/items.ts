@@ -6,6 +6,7 @@ import { FEATURED, PROJECT_GROUPS } from '@/content/projects';
 import type { Award, Project, ProjectGroup, ProjectSlug } from '@/content/types';
 import { APPS, type AppId, type FinderLocation } from '@/os/apps';
 import { matchesAny } from '@/os/search';
+import { FILE_NAME } from '../preview/pdf';
 
 /**
  * What a Finder window lists. Pure data: no React, no stores, so the views,
@@ -126,7 +127,7 @@ const projectItemOf = (slug: ProjectSlug) => PROJECT_ITEMS.find((item) => item.i
 const PDF_ITEM: FinderItem = {
   type: 'pdf',
   id: 'pdf',
-  name: '김규원_포트폴리오.pdf',
+  name: FILE_NAME,
   kind: 'PDF 문서',
   owner: PROFILE.name,
   terms: ['포트폴리오 이력서 경력기술서 PDF resume'],
@@ -336,11 +337,10 @@ export function periodStart(period: string | undefined): number {
   return Number(match[1]) * 10_000 + Number(match[2]) * 100 + Number(match[3] ?? 0);
 }
 
-export function sortItems(items: readonly FinderItem[], sort: Sort | null): FinderItem[] {
-  if (!sort) return [...items];
+export function sortItems(items: readonly FinderItem[], sort: Sort): FinderItem[] {
   const direction = sort.ascending ? 1 : -1;
-  const value = (item: FinderItem) => (sort.key === 'name' ? item.name : (item[sort.key] ?? ''));
-  return [...items].sort((a, b) => {
+  const value = (item: FinderItem) => item[sort.key] ?? '';
+  return items.toSorted((a, b) => {
     if (sort.key === 'period') {
       const [x, y] = [periodStart(a.period), periodStart(b.period)];
       if (x !== y) return x === Number.POSITIVE_INFINITY ? 1 : y === Number.POSITIVE_INFINITY ? -1 : (x - y) * direction;

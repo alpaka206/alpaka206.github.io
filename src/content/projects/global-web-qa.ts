@@ -5,6 +5,7 @@ import type { Project } from '../types';
 export const globalWebQa: Project = {
   slug: 'global-web-qa',
   title: 'Global Web QA',
+  short: '웹 QA',
   name: '삼성 글로벌 91개국 웹 QA 자동화',
   group: 'ptkorea',
   meta: '펑타이그레이터차이나 / 2025.05 - 2025.09',
